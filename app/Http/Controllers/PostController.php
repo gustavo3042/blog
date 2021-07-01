@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -12,7 +13,7 @@ class PostController extends Controller
 
 public function index(){
 
-$posts = Post::where('status',2)->latest('id')->paginate(6);
+$posts = Post::where('status',2)->latest('id')->paginate(8);
 
 
 return view('post.index',compact('posts'));
@@ -33,10 +34,32 @@ return view('post.show', compact('post','similares'));
 
 }
 
+
+
 public function category(Category $category){
 
+$posts = Post::where('category_id',$category->id)
+->where('status',2)
 
-return $category;
+
+->latest('id')
+->paginate(4);
+
+return view('post.category',compact('posts','category'));
+
+//$categories = Category::all();
+  //return view('post.category',compact('categories','category'));
+
+}
+
+
+public function tag(Tag $tag){
+
+
+ $posts= $tag->posts()->where('status',2)->latest('id')->paginate(4);
+
+ return view('post.tag', compact('posts','tag'));
+
 }
 
 

@@ -1,65 +1,41 @@
-@extends('layouts.plantilla')
-@section('contenido')
+<x-app-layout>
+<div class="container py-8 ">
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
 
-<div class="container">
+  @foreach ($posts as $post)
+<article style="background-image: url( @if($post->image) {{asset('storage').'/'.$post->image->url}} @else https://cdn.pixabay.com/photo/2021/05/27/20/53/field-6289253_960_720.jpg @endif)" class="w-full h-80 bg-cover bg-center @if($loop->first) md:col-span-2  @endif">
 
-  <div  class="text-dark">
+<div class="w-full h-full px-8 flex flex-col justify-center">
 
-
-
-
-
-
-@foreach ( $posts as $post)
-
-
-<div class="card" style="display:inline-block">
-
-
-<article class="text-center m-2" style="padding:5px;">
-
-
-<div >
+  <div class="">
   @foreach ($post->tags as $tag)
 
-
-
-
-<a href="" class=" " style="display:inline-block; padding:1px; height:25px; color:black; "> {{$tag->name}}</a>
-
-
+  <a class="inline-block px-3 h-6 bg-{{$tag->color}}-600 text-white rounded-full" href="{{route('posts.tag',$tag)}}">{{$tag->name}}</a>
 
   @endforeach
+  </div>
 
+<h1 class="text-4xl text-white leading-8 foont-bold mt-2">
+<a href="{{route('posts.show',$post)}}">
+{{$post->name}}
+
+</a>
+
+
+</h1>
 </div>
 
-
-
-<img class="  col-xl  "  height="300" width="275" src="{{ asset('storage').'/'.$post->image->url}}" alt="">
-
-
-<p class="text-sm">
-
-<a class=""  href="{{route('post.show',$post)}}">
-{{$post->name}}
-</a>
-</p>
 
 
 </article>
-
-
-
-</div>
-@endforeach
-
-  </div>
-
-
-
-
+  @endforeach
 </div>
 
 
-@endsection
+<div class="mt-4">
+  {{$posts->links()}}
+</div>
+</div>
+</x-app-layout>

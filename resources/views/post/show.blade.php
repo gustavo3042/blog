@@ -1,60 +1,85 @@
-@extends('layouts.plantilla')
+<x-app-layout>
+
+  <div class="container py-8">
+
+<h1 class="text-4xl font-bold text-gray-600">{{$post->name}}</h1>
 
 
-@section('contenido')
+<div class="text-lg text-gray-500 mb-2">
 
-
-<div class="container">
-<h1 class="text-muted">{{$post->name}}</h1>
-
-<div style="color:gray" class="text-lg-text-gray">
-{{$post->extract}}
+{!! $post->extract !!}
 
 </div>
 
 
 
-<div class="row">
 
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-  <div class="col">
+<!--contenido principal -->
+  <div class="lg:col-span-2">
 
     <figure>
-      <img class="col-lg-12" height="300" width="200" src="{{asset('storage').'/'.$post->image->url}}">
+    @if ($post->image)
+
+  <img class="w-full h-80 object-cover object-center" src="{{asset('storage').'/'.$post->image->url}}" alt="">
+
+    @else
+
+  <img class="w-full h-80 object-cover object-center" src="https://cdn.pixabay.com/photo/2021/05/27/20/53/field-6289253_960_720.jpg" alt="">
+    @endif
+
+
     </figure>
 
-    <div style="color:gray" class="text-justify">
-      {{$post->body}}
+    <div class="text-base text-gray-500 mt-4">
+      {!! $post->body !!}
     </div>
 
   </div>
 
-<div style="color:gray" class="col-3">
+<!--contenido relacionado -->
+  <aside class="">
 
-
-  <aside >
-<h4>Mas en {{$post->category->name}}</h4>
+<h1 class="text-2xl font-bold text-gray-600 mb-4">Mas en {{$post->category->name}}</h1>
 
 <ul>
   @foreach ($similares as $similar)
 
+    <li class="mb-4">
+
+<a class="flex" href="{{route('posts.show', $similar)}}">
 
 
-<li style="margin:bottom: 2px">
-<a class="d-inline-flex p-2 bd-highlight" href="{{route('posts.show', $similar)}}">
-<img   class="col-sm-7"height="100" width="250" src="{{asset('storage').'/'.$post->image->url}}" alt="">
-<span style="margin-left: 2px;color:gray;">{{$similar->name}}</span>
+@if ($similar->image)
+
+<img class="w-30 h-20 object-cover object-center" src="{{asset('storage').'/'.$similar->image->url}}" alt="">
+
+@else
+
+  <img class="w-30 h-20 object-cover object-center" src="https://cdn.pixabay.com/photo/2021/05/27/20/53/field-6289253_960_720.jpg" alt="">
+
+
+
+
+@endif
+
+
+<span class="ml-2 text-gray-600">{{$similar->name}}</span>
 </a>
-</li>
+    </li>
 
   @endforeach
 </ul>
+
   </aside>
 
 </div>
 
-</div>
 
-</div>
+  </div>
 
-@endsection
+
+
+
+</x-app-layout>
