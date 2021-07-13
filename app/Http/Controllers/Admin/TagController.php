@@ -19,7 +19,7 @@ class TagController extends Controller
     //  $tag = Tag::select('id','name','slug')->get();
 
     $tags= Tag::all();
-        return view('tags.index',compact('tags'));
+        return view('Admin.tags.index',compact('tags'));
     }
 
     /**
@@ -41,7 +41,7 @@ class TagController extends Controller
 'pink'=>'Color rosado'
 
 ];
-        return view('tags.create',compact('colors'));
+        return view('Admin.tags.create',compact('colors'));
     }
 
     /**
@@ -79,7 +79,7 @@ $tag = Tag::create($request->all());
      */
     public function show(Tag $tag)
     {
-          return view('tags.show',compact('tag'));
+          return view('Admin.tags.show',compact('tag'));
     }
 
     /**
@@ -103,7 +103,7 @@ $tag = Tag::create($request->all());
 
     ];
 
-            return view('tags.edit',compact('tag','colors'));
+            return view('Admin.tags.edit',compact('tag','colors'));
     }
 
     /**

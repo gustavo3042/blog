@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
 
       $categories = Category::all();
-        return view('categorias.index',compact('categories'));
+        return view('admin.categorias.index',compact('categories'));
     }
 
     /**
@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categorias.create');
+        return view('admin.categorias.create');
     }
 
     /**
@@ -60,9 +60,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Category $categoria)
     {
-      return view('admin.categories.show', compact('category'));
+      return view('admin.categorias.show', compact('categoria'));
     }
 
     /**
@@ -74,7 +74,7 @@ class CategoryController extends Controller
     public function edit(Request $request,Category $categoria)
     {
 
-        return view('categorias.edit',compact('categoria'));
+        return view('admin.categorias.edit',compact('categoria'));
     }
 
     /**

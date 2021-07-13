@@ -126,13 +126,6 @@
 
 
 
-          <li class="nav-item">
-            <a href="{{route('posts.edit')}}" class="nav-link">
-              <i class="fas fa-fw fa-file"></i>
-              <p>Actualizar nuevo post</p>
-            </a>
-          </li>
-
 
 
 

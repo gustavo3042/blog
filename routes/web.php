@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\testController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\TagController;
+
+
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Livewire\Navigation2;
 
@@ -33,17 +33,17 @@ Route::get('/', function()
 //Route::get('app',[Navigation2::Class,'render'])->name('navigation2');
 
 //ruta de las categorias
-Route::resource('categorias','App\Http\Controllers\Admin\CategoryController');
-Route::get('index',[CategoryController::class,'index'])->name('categories.index');
+//Route::resource('categorias','App\Http\Controllers\Admin\CategoryController');
+//Route::get('index',[CategoryController::class,'index'])->name('categories.index');
 //ruta de los tags
 
-Route::resource('tags','App\Http\Controllers\Admin\TagController');
-Route::get('index',[TagController::class, 'index'])->name('tags.index');
+//Route::resource('tags','App\Http\Controllers\Admin\TagController');
+//Route::get('index',[TagController::class, 'index'])->name('tags.index');
 
 
 Route::resource('posts','App\Http\Controllers\Admin\PostsController');
 Route::get('posts.index',[PostsController::class,'index'])->name('posts.index');
-Route::get('posts.edit',[PostsController::class,'edit'])->name('posts.edit');
+Route::get('posts.edit/{post}',[PostsController::class,'edit'])->name('posts.edit');
 
 
 

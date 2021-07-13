@@ -24,6 +24,7 @@ class PostsIndex extends Component
     public function render()
     {
 
+//consulta que consiste en que me mustre todos los post que pertenescan al id del usuario logeado
 
     $posts = Post::where('user_id', auth()->user()->id)
     ->where('name','LIKE','%'.$this->search.'%')

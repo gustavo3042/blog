@@ -9,6 +9,7 @@
 <h1>Listado de Posts</h1>
 
 
+
 @livewire('admin.posts-index')
 
 
