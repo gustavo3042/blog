@@ -6,7 +6,19 @@
 
 <div class="card-header">
 
-<input wire:model="search" class="form-control" placeholder="Ingrese el nombre de un post" type="text" >
+  
+    <a class="btn btn-secondary   "href="{{route('posts.create')}}">Nuevo post</a>
+
+
+
+
+
+  <form class="form-inline my-2 my-lg-0 float-right ">
+
+  <input  type="search" name="buscar" class="form-control" value="" placeholder="Ingrese el nombre o correo de un usuario">
+  <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+
 
 </div>
 

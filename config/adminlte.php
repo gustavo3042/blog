@@ -246,77 +246,79 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+
+
+
+
         [
             'text'        => 'Dashboard',
             'route'         => 'admin.home',
             'icon'        => 'fas fa-tachometer-alt fa-fw',
+            'can'         => 'admin.home'
 
         ],
-        ['header' => 'Administrador'],
+
+
+        [
+            'text' => 'Usuarios',
+            'url'  => 'admin/users',
+            'icon' => 'fas fa-fw fa-users',
+            'can'  => 'admin.users.index'
+
+        ],
+
+        [
+            'text' => 'Lista de Roles',
+            'url'  => 'admin/roles',
+            'icon' => 'fas fa-fw fa-users-cog',
+            'can'  => 'admin.users.index'
+
+        ],
+
+
+
+
+        ['header' => 'ADMINISTRADOR'],
+
+
         [
             'text' => 'Categorias',
             'url'  => 'admin/categorias',
             'icon' => 'fas fa-fw fa-user',
+            'can'  => 'admin.categorias.index'  //el can permite q esta vista sea visible solo para los usuarios que tengan los permisos para verla
         ],
         [
             'text' => 'Etiquetas',
             'url'  => 'admin/tags',
             'icon' => 'fas fa-fw fa-lock',
+            'can'  => 'admin.tags.index'
         ],
+
+        ['header' => 'OPCIONES DE BLOG'],
+
+
         [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
+            'text' => 'Posts',
+            'url'  => 'admin/posts',
+            'icon' => 'fas fa-fw fa-lock',
+            'can'  => 'admin.posts.index'
+
+
         ],
-        ['header' => 'labels'],
+
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
+            'text' => 'Crear Post',
+            'url'  => 'admin/posts/create',
+            'icon' => 'fas fa-fw fa-lock',
+            'can'  => 'admin.posts.create'
         ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+
+
+
+
+
+
+
     ],
 
     /*

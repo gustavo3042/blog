@@ -22,9 +22,14 @@
 
     <div class="card">
 
-      <div class="card-header">
-    <a class="btn btn-secondary " href="{{route('categorias.create')}}">Agregar Categoria</a>
-      </div>
+<div class="card-header">
+  <!--Con este codigo can solo se mostrara el boton si tenemos el permiso de admin.categorias.create -->
+
+  @can ('admin.categorias.create')
+    <a class="btn btn-secondary  " href="{{route('categorias.create')}}">Agregar Categoria</a>
+  @endcan
+
+</div>
 
       <div class="card-body">
 
@@ -50,19 +55,27 @@
 
       <td width="10px">
 
-    <a class="btn btn-primary btn-sm" href="{{route('categorias.edit',$category->id)}}">Editar</a>
+    @can ('admin.categorias.edit')
+      <a class="btn btn-primary " href="{{route('categorias.edit',$category->id)}}">Editar</a>
+    @endcan
 
       </td>
 
       <td width="10px">
 
-    <form class="" action="{{route('categorias.destroy',$category)}}" method="post">
-      @csrf
-      @method('delete')
+@can ('admin.categorias.destroy')
 
-    <button type="submit" class="btn btn-danger btn-sm" name="button">Eliminar</button>
+  <form class="" action="{{route('categorias.destroy',$category)}}" method="post">
+    @csrf
+    @method('delete')
 
-    </form>
+  <button type="submit" class="btn btn-danger btn-sm" name="button">Eliminar</button>
+
+  </form>
+
+
+
+@endcan
 
       </td>
     </tr>

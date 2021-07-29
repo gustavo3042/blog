@@ -4,7 +4,7 @@
 
 
 @section('content_header')
-    <h1></h1>
+    <h1>Crear Nuevo Post</h1>
 @stop
 
 @section('content')
@@ -27,7 +27,7 @@ height: 100%;
 
   </style>
 
-<h1>Crear Nuevo Post</h1>
+<h1></h1>
 
 <div class="card">
 
@@ -41,7 +41,7 @@ ha crear con el usuario que lo esta creando -->
 
 
 
-@include('posts.partials.form')
+@include('admin.posts.partials.form')
 
 
 {!! Form::submit('Crear post',['class'=>'btn btn-primary']) !!}

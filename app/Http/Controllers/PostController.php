@@ -7,13 +7,37 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
 
+use Illuminate\Support\Facades\Cache;  //para trabajar con cache
+
 class PostController extends Controller
 {
 
 
 public function index(){
 
-$posts = Post::where('status',2)->latest('id')->paginate(8);
+
+if (request()->page) {
+
+$key = 'posts'. request()->page;
+
+}else{
+
+  $key = 'posts';
+}
+
+  if (Cache::has($key)) { //pregunta si a almacenado en cache la informacion de los posts
+
+    $posts = Cache::get('posts');
+
+  }else {
+
+$posts = Post::where('status',2)->latest('id')->paginate(8); //si no hay nada almacenado en cache quiero q haga la consulta a la db
+
+Cache::put($key,$posts);
+
+  }
+
+
 
 
 return view('post.index',compact('posts'));

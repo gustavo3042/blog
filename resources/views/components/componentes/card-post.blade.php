@@ -5,7 +5,7 @@
 
     <p >
 
-      <a style="font:bold; margin:bottom:2px;color: black;" href="{{route('post.show',$posts)}}">{{$posts->name}}</a>
+      <a style="font:bold; margin:bottom:2px;color: black;" href="{{route('posts.shows',$posts)}}">{{$posts->name}}</a>
     </p>
 
     <div class="text-gray" >

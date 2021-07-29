@@ -48,7 +48,7 @@
 
     <li class="mb-4">
 
-<a class="flex" href="{{route('posts.show', $similar)}}">
+<a class="flex" href="{{route('posts.shows', $similar)}}">
 
 
 @if ($similar->image)

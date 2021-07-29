@@ -18,7 +18,7 @@
   </div>
 
 <h1 class="text-4xl text-white leading-8 foont-bold mt-2">
-<a href="{{route('posts.show',$post)}}">
+<a href="{{route('posts.shows',$post)}}">
 {{$post->name}}
 
 </a>

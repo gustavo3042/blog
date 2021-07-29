@@ -22,8 +22,8 @@ class UserSeeder extends Seeder
 'email' =>'metal123z3042@gmail.com',
 'password' =>bcrypt('12345678')
 
-      ]);
+      ])->assignRole('Admin'); //se le asigna un rol a este usuario
 
-User::factory(9)->create();
+User::factory(1)->create();
     }
 }

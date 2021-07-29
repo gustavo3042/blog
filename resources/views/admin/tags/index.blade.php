@@ -19,10 +19,15 @@
 
 <div class="card">
 
+<div class="card-header">
 
-  <div class="card-header">
-<a class="btn btn-secondary " href="{{route('tags.create')}}">Agregar Categoria</a>
-  </div>
+  <!--Con este codigo can solo se mostrara el boton si tenemos el permiso de admin.tags.create -->
+
+  @can ('admin.tags.create')
+    <a class="btn btn-secondary " href="{{route('tags.create')}}">Agregar Etiqueta</a>
+  @endcan
+
+</div>
 
 
   <div class="card-body">
@@ -49,18 +54,24 @@
           <td>{{$tag->name}}</td>
           <td width="10px">
 
-<a class="btn btn-primary btn-sm" href="{{route('tags.edit',$tag)}}">Editar</a>
+            @can ('admin.tags.edit')
+              <a class="btn btn-primary btn-sm" href="{{route('tags.edit',$tag)}}">Editar</a>
+            @endcan
+
+
 
           </td>
 
           <td width="10px">
-<form  action="{{route('tags.destroy',$tag)}}" method="post">
-@csrf
-@method('delete')
+@can ('admin.tags.destroy')
+  <form  action="{{route('tags.destroy',$tag)}}" method="post">
+  @csrf
+  @method('delete')
 
 
-<button class="btn btn-danger btn-sm" type="submit" >Eliminar</button>
-</form>
+  <button class="btn btn-danger btn-sm" type="submit" >Eliminar</button>
+  </form>
+@endcan
 
           </td>
 

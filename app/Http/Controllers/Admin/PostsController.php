@@ -9,6 +9,8 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
 
+use Illuminate\Support\Facades\Cache;
+
 use Illuminate\Support\Facades\Storage;
 
 
@@ -16,6 +18,18 @@ use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
+
+
+  public function __construct(){
+
+    $this->middleware('can:admin.posts.index')->only('index');
+    $this->middleware('can:admin.posts.create')->only('create','store');
+    $this->middleware('can:admin.posts.edit')->only('edit','update');
+    $this->middleware('can:admin.posts.destroy')->only('destroy');
+  }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +37,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('posts.index');
+        return view('admin.posts.index');
     }
 
     /**
@@ -40,7 +54,7 @@ class PostsController extends Controller
       $tags = Tag::all();
 
 
-  return view('posts.create',compact('categories','tags'));
+  return view('admin.posts.create',compact('categories','tags'));
     }
 
     /**
@@ -73,6 +87,10 @@ class PostsController extends Controller
 //______________________________________________________________________________________
 
 
+Cache::flush(); //refrescar el cache
+
+
+
      //-------insersion del tag-------------------------------
 
     if ($request->tags) {
@@ -89,23 +107,7 @@ $post->tags()->attach($request->tags);
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Post $post)
-    {
-      return view('posts.show',compact('post'));
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Post $post){
 
 
@@ -116,7 +118,7 @@ $this->authorize('author',$post);
 
       $tags = Tag::all();
 
-        return view('posts.edit',compact('post','categories','tags'));
+        return view('admin.posts.edit',compact('post','categories','tags'));
     }
 
     /**
@@ -157,7 +159,7 @@ $post->image->update([
 
 }else{
 
-  $post->image->create([
+  $post->image()->create([
 
 'url'=>$url
 
@@ -180,6 +182,7 @@ $post->tags()->sync($request->tags);
 }
 
 
+Cache::flush(); //refrescar el cache
 
 return redirect()->route('posts.edit',$post)->with('Mensaje','El post se actualizó con éxito');
     }
@@ -194,8 +197,10 @@ return redirect()->route('posts.edit',$post)->with('Mensaje','El post se actuali
     {
 
       $this->authorize('author',$post);
-      
+
         $post->delete();
+        
+        Cache::flush(); //refrescar el cache
 
         return redirect()->route('posts.index')->with('Mensaje','El post fue eliminado con éxito');
     }

@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\testController;
 
-
 use App\Http\Controllers\Admin\PostsController;
+
 use App\Http\Controllers\Livewire\Navigation2;
 
 /*
@@ -18,7 +18,7 @@ use App\Http\Controllers\Livewire\Navigation2;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('post.most',[testController::class,'index'])->name('posts.most');
+//Route::get('post.most',[testController::class,'index'])->name('posts.most');
 
 
 //Route::resource('admin','App\Http\Controllers\AdminController');
@@ -41,9 +41,9 @@ Route::get('/', function()
 //Route::get('index',[TagController::class, 'index'])->name('tags.index');
 
 
-Route::resource('posts','App\Http\Controllers\Admin\PostsController');
-Route::get('posts.index',[PostsController::class,'index'])->name('posts.index');
-Route::get('posts.edit/{post}',[PostsController::class,'edit'])->name('posts.edit');
+//Route::resource('posts','App\Http\Controllers\Admin\PostsController');
+//Route::get('posts.index',[PostsController::class,'index'])->name('posts.index');
+//Route::get('posts.edit/{post}',[PostsController::class,'edit'])->name('posts.edit');
 
 
 
@@ -57,7 +57,7 @@ Route::get('/',[PostController::class,'index'])->name('post.index');
 
 //Route::get('category{category}',[PostController::class, 'category'])->name('category');
 
-Route::get('posts/{post}',[PostController::class, 'show'])->name('posts.show');
+Route::get('posts/{post}',[PostController::class, 'show'])->name('posts.shows');
 
 
 Route::get('category/{category}', [PostController::class, 'category'])->name('posts.category');
