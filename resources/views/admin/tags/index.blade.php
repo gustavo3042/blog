@@ -8,7 +8,17 @@
     <h1>Listado de Etiquetas</h1>
 @stop
 
+
+
+
+
+
+
+
 @section('content')
+
+
+
 
 
 @if (Session::has('Mensaje'))
@@ -34,7 +44,7 @@
 
 
 
-    <table class="table table-striped">
+    <table class="table table-striped" id="users">
 
       <thead>
         <tr>
@@ -84,4 +94,9 @@
   </div>
 
 </div>
+
+
+
+
+
 @stop

@@ -27,6 +27,7 @@ class PostsIndex extends Component
 
 //consulta que consiste en que me mustre todos los post que pertenescan al id del usuario logeado
 $buscar = $request->get('buscar');
+
     $posts = Post::where('user_id', auth()->user()->id)
     ->where('name','LIKE','%'.$buscar.'%')
     ->latest('id')

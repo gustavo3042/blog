@@ -111,7 +111,7 @@ $(document).ready( function() {
 </script>
 
 
-<script >
+<script>
 
 
 document.getElementById("file").addEventListener('change', cambiarImagen);

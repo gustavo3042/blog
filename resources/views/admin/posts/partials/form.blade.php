@@ -89,12 +89,13 @@ Publicado
     <br>
     <small class="text-danger">{{$message}}</small>
   @enderror
+
   </div>
 
 <!--Para hacer grid o dividir en partes -->
   <div class="row mb-3">
 
-    <div class="col">
+    <div class="col-sm">
 <div class="image-wrapper">
 
 @isset($post->image)
@@ -110,7 +111,7 @@ Publicado
 </div>
     </div>
 
-    <div class="col">
+    <div class="col-sm">
 
 <div class="form-group">
 {!! Form::label('file','Imagen que se mostrara en el post')  !!}

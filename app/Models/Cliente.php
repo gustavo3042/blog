@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Cliente extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['nombre','direccion','telefono','correo'];
+
+
+
+    public function check_lists(){
+
+
+return $this->hasMany(CheckList::class);
+
+
+    }
+
+
+
+
+    public function orden_servicio(){
+
+
+      return $this->hasMany(OrdenServicio::class);
+
+
+    }
+}

@@ -5,13 +5,13 @@
 
 
 @section('content_header')
-    <h1>Listado de Posts</h1>
+    <h1>Lista de CheckLists</h1>
 @stop
 
 @section('content')
 
 
-@livewire('admin.posts-index')
+@livewire('admin.checkindex')
 
 
 @stop

@@ -76,8 +76,8 @@ class PostsController extends Controller
      if ($request->file('file')) { //pregunta si existe una imagen
 
        //mover imagen a la carpeta storage si cumple la condicion if
-       $url = Storage::put('posts', $request->file('file'));
-
+       $url = Storage::put('posts', $request->file('file'));  //el 'posts'corresponde a la carpeta y el '$request->file('file')' es donde esta esta por el momento la imagen
+     // el Storage::put se encargara de mover la imagen a determinada carpeta
        $post->image()->create([
 
          'url'=> $url
@@ -150,7 +150,7 @@ if ($post->image) { //se pregunta si el post q estamos editando ya tiene una ima
 
   Storage::delete($post->image->url); //si el post tiene una imagen ya asociada se elimina
 
-$post->image->update([
+$post->image->update([  //y crea o pone la imagen nueva
 
 'url' => $url
 
@@ -159,7 +159,7 @@ $post->image->update([
 
 }else{
 
-  $post->image()->create([
+  $post->image()->create([ //si no tiene una imagen asociada entonces crea la q seleccionamos actualmente
 
 'url'=>$url
 
@@ -199,7 +199,7 @@ return redirect()->route('posts.edit',$post)->with('Mensaje','El post se actuali
       $this->authorize('author',$post);
 
         $post->delete();
-        
+
         Cache::flush(); //refrescar el cache
 
         return redirect()->route('posts.index')->with('Mensaje','El post fue eliminado con éxito');

@@ -294,6 +294,32 @@ return [
             'can'  => 'admin.tags.index'
         ],
 
+
+
+
+        [
+            'text' => 'Reparaciones',
+            'url'  => 'admin/reparaciones',
+            'icon' => 'fas fa-fw fa-lock',
+
+        ],
+
+        [
+            'text' => 'CeckList',
+            'url'  => 'admin/check',
+            'icon' => 'fas fa-fw fa-lock',
+
+        ],
+
+
+
+        [
+            'text' => 'Clientes',
+            'url'  => 'admin/clientes',
+            'icon' => 'fas fa-fw fa-lock',
+          
+        ],
+
         ['header' => 'OPCIONES DE BLOG'],
 
 
@@ -305,6 +331,9 @@ return [
 
 
         ],
+
+
+
 
         [
             'text' => 'Crear Post',

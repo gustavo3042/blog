@@ -7,6 +7,9 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\ReparacionesController;
+use App\Http\Controllers\Admin\CheckListController;
+use App\Http\Controllers\Admin\ClientesController;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -32,3 +35,18 @@ Route::resource('posts','App\Http\Controllers\Admin\PostsController')->except('s
 Route::get('admin/posts/index',[PostsController::class,'index'])->name('posts.index');
 Route::get('posts/edit/{post}',[PostsController::class,'edit'])->name('posts.edit');
 //Route::put('admin/posts/update/{post}',[PostsController::class,'update'])->name('posts.update');
+
+
+Route::resource('check','App\Http\Controllers\Admin\CheckListController');
+Route::get('admin/check/index',[CheckListController::class, 'index'])->name('check.index');
+Route::get('admin/check/{check}',[CheckListController::class, 'edit'])->name('check.edit');
+
+
+
+Route::resource('reparaciones','App\Http\Controllers\Admin\ReparacionesController');
+Route::get('reparaciones',[ReparacionesController::class, 'index'])->name('reparar.index');
+
+
+
+Route::resource('clientes','App\Http\Controllers\Admin\ClientesController');
+Route::get('clientes',[ClientesController::class, 'index'])->name('clientes.index');
