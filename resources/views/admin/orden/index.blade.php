@@ -5,13 +5,14 @@
 
 
 @section('content_header')
-    <h1>Lista de CheckLists</h1>
+    <h1>Orden de Servicio</h1>
 @stop
 
 @section('content')
 
 
-@livewire('admin.checkindex')
+@livewire('admin.orden-index')
+
 
 
 @stop

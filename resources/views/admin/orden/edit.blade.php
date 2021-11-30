@@ -3,7 +3,7 @@
 @section('title', 'Gustavo Rios App')
 
 @section('content_header')
-    <h1>Editar CheckList</h1>
+    <h1>Editar Orden de Servicio</h1>
 @stop
 
 @section('content')
@@ -32,15 +32,15 @@
 
 
 
-  {!! Form::model($check,['route'=> ['check.update',$check],'autocomplete'=> 'off','files'=>true,'method'=>'put']) !!}
+  {!! Form::model($orden,['route'=> ['orden.update',$orden],'autocomplete'=> 'off','files'=>true,'method'=>'put']) !!}
 
 
 
 
-@include('admin.check.partials.form')
+@include('admin.orden.partials.form')
 
 
-{!! Form::submit('Actualizar Checklist',['class'=>'btn btn-primary']) !!}
+{!! Form::submit('Actualizar Orden',['class'=>'btn btn-primary']) !!}
 
 
 {!! Form::close() !!}

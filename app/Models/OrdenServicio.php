@@ -24,14 +24,9 @@ class OrdenServicio extends Model
           return $this->belongsTo(Cliente::class);
         }
 
-/*
-        public function reparaciones(){
 
-          return $this->belongsToMany(Reparaciones::class);
+    
 
-        }
-
-*/
 
         public function image(){
 

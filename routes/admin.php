@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ReparacionesController;
 use App\Http\Controllers\Admin\CheckListController;
 use App\Http\Controllers\Admin\ClientesController;
+use App\Http\Controllers\Admin\OrdenController;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -50,3 +51,9 @@ Route::get('reparaciones',[ReparacionesController::class, 'index'])->name('repar
 
 Route::resource('clientes','App\Http\Controllers\Admin\ClientesController');
 Route::get('clientes',[ClientesController::class, 'index'])->name('clientes.index');
+
+
+
+Route::resource('orden','App\Http\Controllers\Admin\OrdenController');
+Route::get('admin/orden/index',[OrdenController::class,'index'])->name('orden.index');
+Route::get('admin/edit/{orden}',[OrdenController::class,'edit'])->name('orden.edit');

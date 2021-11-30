@@ -24,7 +24,7 @@ return $this->hasMany(CheckList::class);
 
 
 
-    public function orden_servicio(){
+    public function ordenservicio(){
 
 
       return $this->hasMany(OrdenServicio::class);

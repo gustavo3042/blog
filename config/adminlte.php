@@ -317,7 +317,7 @@ return [
             'text' => 'Clientes',
             'url'  => 'admin/clientes',
             'icon' => 'fas fa-fw fa-lock',
-          
+
         ],
 
         ['header' => 'OPCIONES DE BLOG'],
@@ -343,7 +343,12 @@ return [
         ],
 
 
+        [
+            'text' => 'Servicios',
+            'url'  => 'admin/orden',
+            'icon' => 'fas fa-fw fa-lock'
 
+        ],
 
 
 
@@ -468,5 +473,5 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];

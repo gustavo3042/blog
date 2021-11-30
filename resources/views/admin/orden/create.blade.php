@@ -3,7 +3,7 @@
 @section('title', 'Gustavo Rios App')
 
 @section('content_header')
-    <h1>Nuevo CheckList</h1>
+    <h1>Nueva orden de servicio</h1>
 @stop
 
 
@@ -32,12 +32,12 @@
 
       <div class="card-body">
 
-        {!! Form::open(['route'=>'check.store','autocomplete'=>'off','files'=> true]) !!}
-
-        
+        {!! Form::open(['route'=>'orden.store','autocomplete'=>'off','files'=> true]) !!}
 
 
-          @include('admin.check.partials.form')
+
+
+          @include('admin.orden.partials.form2')
 
 
         {!! Form::submit('Crear CheckList',['class'=>'btn btn-primary']) !!}

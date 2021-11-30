@@ -17,4 +17,6 @@ class Reparaciones extends Model
 
       return $this->belongsToMany(CheckList::class);
     }
+
+  
 }

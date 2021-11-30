@@ -17,11 +17,11 @@ class OrdenSeeder extends Seeder
     {
 
 
-      $orden = OrdenServicio::factory(5)->create();
+      $orden = OrdenServicio::factory(20)->create();
 
       foreach ($orden as $servicio) {
 
-        Image::factory(5)->create([
+        Image::factory(20)->create([
         'imageable_id' => $servicio->id,
         'imageable_type' => OrdenServicio::class
 

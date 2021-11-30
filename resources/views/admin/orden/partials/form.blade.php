@@ -42,9 +42,9 @@
 
 
         <div class="form-group">
-          {!! Form::label('nombre','Datos del Cliente') !!}
+          {!! Form::label('nombre','Nombre del Cliente') !!}
 
-          {!! Form::text('nombre',$cliente,['class'=>'form-control','placeholder'=>'Ingrese Nombre Cliente']) !!}
+          {!! Form::text('nombre',$clientes->nombre,['class'=>'form-control','placeholder'=>'Ingrese Nombre Cliente']) !!}
 
 
 
@@ -61,7 +61,7 @@
         <div class="form-group">
           {!! Form::label('direccion','Direccion') !!}
 
-          {!! Form::text('direccion',null,['class'=>'form-control','placeholder'=>'Ingrese Direccion']) !!}
+          {!! Form::text('direccion',$clientes->direccion,['class'=>'form-control','placeholder'=>'Ingrese Direccion']) !!}
 
 
 
@@ -78,7 +78,7 @@
         <div class="form-group">
           {!! Form::label('telefono','Telefono') !!}
 
-          {!! Form::text('telefono',null,['class'=>'form-control','placeholder'=>'Ingrese telefono']) !!}
+          {!! Form::text('telefono',$clientes->telefono,['class'=>'form-control','placeholder'=>'Ingrese telefono']) !!}
 
 
 
@@ -94,7 +94,7 @@
         <div class="form-group">
           {!! Form::label('correo','Correo') !!}
 
-          {!! Form::text('correo',null,['class'=>'form-control','placeholder'=>'Ingrese Correo']) !!}
+          {!! Form::text('correo',$clientes->correo,['class'=>'form-control','placeholder'=>'Ingrese Correo']) !!}
 
 
 
@@ -172,35 +172,6 @@
 
 
 
-        <div class="form-group">
-          <p class="font-weight-bold">Reparaciones</p>
-
-
-          @foreach ($reparaciones as $reparar )
-
-            <label class="mr-2">
-
-           {!!Form::checkbox('reparaciones[]',$reparar->id,null) !!} <!--dado q queremos q seleccione mas de un checkbox le ponemos reparaciones[] -->
-           {{$reparar->name}}
-
-            </label>
-
-          @endforeach
-
-          <br>
-
-
-          @error ('reparaciones')
-
-            <small class="text-danger">{{$message}}</small>
-
-          @enderror
-
-        </div>
-
-        <br>
-
-
 
         <div class="form-group">
 
@@ -243,9 +214,9 @@
   <div class="image-wrapper">
 
 
-    @isset($check->image)
+    @isset($orden->image)
 
-<img id="picture" src="{{asset('storage').'/'.$check->image->url}}" alt="">
+<img id="picture" src="{{asset('storage').'/'.$orden->image->url}}" alt="">
 
       @else
 

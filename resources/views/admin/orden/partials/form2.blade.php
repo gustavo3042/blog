@@ -42,7 +42,7 @@
 
 
         <div class="form-group">
-          {!! Form::label('nombre','Datos del Cliente') !!}
+          {!! Form::label('nombre','Nombre del Cliente') !!}
 
           {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Ingrese Nombre Cliente']) !!}
 
@@ -172,35 +172,6 @@
 
 
 
-        <div class="form-group">
-          <p class="font-weight-bold">Reparaciones</p>
-
-
-          @foreach ($reparaciones as $reparar )
-
-            <label class="mr-2">
-
-           {!!Form::checkbox('reparaciones[]',$reparar->id,null) !!} <!--dado q queremos q seleccione mas de un checkbox le ponemos reparaciones[] -->
-           {{$reparar->name}}
-
-            </label>
-
-          @endforeach
-
-          <br>
-
-
-          @error ('reparaciones')
-
-            <small class="text-danger">{{$message}}</small>
-
-          @enderror
-
-        </div>
-
-        <br>
-
-
 
         <div class="form-group">
 
@@ -243,15 +214,10 @@
   <div class="image-wrapper">
 
 
-    @isset($check->image)
-
-<img id="picture" src="{{asset('storage').'/'.$check->image->url}}" alt="">
-
-      @else
 
 <img id="picture" src="https://cdn.pixabay.com/photo/2018/06/30/09/29/monkey-3507317_960_720.jpg" alt="">
 
-    @endif
+  
 
   </div>
 
