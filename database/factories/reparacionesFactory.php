@@ -23,6 +23,9 @@ class reparacionesFactory extends Factory
     public function definition()
     {
 
+
+      /*
+
       $name = $this->faker->unique()->word(20);
         return [
 
@@ -31,5 +34,7 @@ class reparacionesFactory extends Factory
 
           //randomDigit
         ];
+
+        */
     }
 }

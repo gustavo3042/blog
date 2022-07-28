@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Image;
-use App\Models\CheckList;
+use App\Models\CheckList; 
 
 
 class CheckListseeder extends Seeder
@@ -17,7 +17,7 @@ class CheckListseeder extends Seeder
     public function run()
     {
 
-
+/*
       $check = CheckList::factory(1)->create();
 
       foreach ($check as $checklist) {
@@ -35,8 +35,15 @@ class CheckListseeder extends Seeder
 
         ]);
 
+      
+
       }
 
+      */
 
     }
+
+    
+
+    //
 }

@@ -19,6 +19,13 @@ class CreateAutosTable extends Migration
             $table->string('modelo');
             $table->string('ano');
             $table->string('color');
+            $table->unsignedBigInteger('check_lists_id');
+           
+            $table->foreign('check_lists_id')->references('id')->on('check_lists')->onDelete('cascade');
+            $table->string('tipoDireccion');
+            $table->string('tipoTraccion');
+            $table->string('tipoCombustion');
+            $table->string('cilindrada');
             $table->timestamps();
         });
     }

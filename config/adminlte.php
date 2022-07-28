@@ -281,18 +281,8 @@ return [
         ['header' => 'ADMINISTRADOR'],
 
 
-        [
-            'text' => 'Categorias',
-            'url'  => 'admin/categorias',
-            'icon' => 'fas fa-fw fa-user',
-            'can'  => 'admin.categorias.index'  //el can permite q esta vista sea visible solo para los usuarios que tengan los permisos para verla
-        ],
-        [
-            'text' => 'Etiquetas',
-            'url'  => 'admin/tags',
-            'icon' => 'fas fa-fw fa-lock',
-            'can'  => 'admin.tags.index'
-        ],
+     
+     
 
 
 
@@ -305,7 +295,7 @@ return [
         ],
 
         [
-            'text' => 'CeckList',
+            'text' => 'FichaTecnica',
             'url'  => 'admin/check',
             'icon' => 'fas fa-fw fa-lock',
 
@@ -333,8 +323,24 @@ return [
         ],
 
 
+        [
+            'text' => 'Categorias',
+            'url'  => 'admin/categorias',
+            'icon' => 'fas fa-fw fa-user',
+            'can'  => 'admin.categorias.index'  //el can permite q esta vista sea visible solo para los usuarios que tengan los permisos para verla
+        ],
 
 
+        [
+            'text' => 'Etiquetas',
+            'url'  => 'admin/tags',
+            'icon' => 'fas fa-fw fa-lock',
+            'can'  => 'admin.tags.index'
+        ],
+
+
+
+/*
         [
             'text' => 'Crear Post',
             'url'  => 'admin/posts/create',
@@ -349,6 +355,8 @@ return [
             'icon' => 'fas fa-fw fa-lock'
 
         ],
+
+        */
 
 
 

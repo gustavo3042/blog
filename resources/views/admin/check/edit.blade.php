@@ -3,7 +3,13 @@
 @section('title', 'Gustavo Rios App')
 
 @section('content_header')
-    <h1>Editar CheckList</h1>
+<div class="card-header">
+
+  <h1 style="font-weight: bold;" class="text-center">Editar Ficha Tecnica</h1>
+
+  <a class="btn btn-primary" href="{{route('check.index')}}">volver</a>
+
+</div>
 @stop
 
 @section('content')

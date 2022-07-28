@@ -5,7 +5,7 @@
 
 
 @section('content_header')
-    <h1>Listado de Posts</h1>
+    <h1 style="font-weight: bold;" class="text-center">Listado de Posts</h1>
 @stop
 
 @section('content')

@@ -41,7 +41,8 @@ Route::get('posts/edit/{post}',[PostsController::class,'edit'])->name('posts.edi
 Route::resource('check','App\Http\Controllers\Admin\CheckListController');
 Route::get('admin/check/index',[CheckListController::class, 'index'])->name('check.index');
 Route::get('admin/check/{check}',[CheckListController::class, 'edit'])->name('check.edit');
-
+Route::get('admin/check/{check}/show',[CheckListController::class, 'show'])->name('check.show');
+Route::get('admin/check/{check}/presupuesto',[CheckListController::class,'presupuesto'])->name('check.presupuesto');
 
 
 Route::resource('reparaciones','App\Http\Controllers\Admin\ReparacionesController');

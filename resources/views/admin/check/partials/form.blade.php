@@ -44,7 +44,7 @@
         <div class="form-group">
           {!! Form::label('nombre','Datos del Cliente') !!}
 
-          {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Ingrese Nombre Cliente']) !!}
+          {!! Form::text('nombre',$clientes->nombre,['class'=>'form-control','placeholder'=>'Ingrese Nombre Cliente']) !!}
 
 
 
@@ -61,7 +61,7 @@
         <div class="form-group">
           {!! Form::label('direccion','Direccion') !!}
 
-          {!! Form::text('direccion',null,['class'=>'form-control','placeholder'=>'Ingrese Direccion']) !!}
+          {!! Form::text('direccion',$clientes->direccion,['class'=>'form-control','placeholder'=>'Ingrese Direccion']) !!}
 
 
 
@@ -78,7 +78,7 @@
         <div class="form-group">
           {!! Form::label('telefono','Telefono') !!}
 
-          {!! Form::text('telefono',null,['class'=>'form-control','placeholder'=>'Ingrese telefono']) !!}
+          {!! Form::text('telefono',$clientes->telefono,['class'=>'form-control','placeholder'=>'Ingrese telefono']) !!}
 
 
 
@@ -94,7 +94,7 @@
         <div class="form-group">
           {!! Form::label('correo','Correo') !!}
 
-          {!! Form::text('correo',null,['class'=>'form-control','placeholder'=>'Ingrese Correo']) !!}
+          {!! Form::text('correo',$clientes->correo,['class'=>'form-control','placeholder'=>'Ingrese Correo']) !!}
 
 
 
@@ -131,6 +131,116 @@
 
         </div>
 
+
+        <div class="form-group">
+
+          {!! Form::label('tipoDireccion','Tipo Direccion') !!}
+
+          <select name="tipoDireccion" class="form-control" id="tipoDireccion">
+                            
+                            
+            @if (isset($tipoDireccion[0]->tipoDireccion))
+
+            <option value="{{$tipoDireccion[0]->tipoDireccion}}">{{$tipoDireccion[0]->tipoDireccion}}</option>
+
+            @endif
+
+
+
+            <option value="Mecanica">Mecanica</option>
+            <option value="Hidraulica">Hidraulica</option>
+            <option value="Electrica">Electrica</option>
+
+
+
+
+        </select>
+
+          @error ('tipoDireccion')
+            <small class="text-danger">{{$message}}</small>
+          @enderror
+      </div>
+
+
+
+      <div class="form-group">
+
+        {!! Form::label('tipoTraccion','Tipo Traccion') !!}
+
+        <select name="tipoTraccion" class="form-control" id="tipoTraccion">
+                            
+                            
+          @if (isset($tipoTraccion[0]->tipoTraccion))
+
+          <option value="{{$tipoTraccion[0]->tipoTraccion}}">{{$tipoTraccion[0]->tipoTraccion}}</option>
+
+          @endif
+
+
+
+          <option value="2x4">2x4</option>
+          <option value="4x4">4x4</option>
+          
+
+
+
+
+      </select>
+  
+        
+        @error ('tipoTraccion')
+          <small class="text-danger">{{$message}}</small>
+        @enderror
+    </div>
+
+
+    <div class="form-group">
+
+      
+      {!! Form::label('combustion','Tipo Combustion') !!}
+
+
+      <select name="tipoCombustion" class="form-control" id="tipoCombustion">
+                            
+                            
+        @if (isset($tipoCombustion[0]->tipoCombustion))
+
+        <option value="{{$tipoCombustion[0]->tipoCombustion}}">{{$tipoCombustion[0]->tipoCombustion}}</option>
+
+        @endif
+
+
+
+        <option value="Gasolina">Gasolina</option>
+        <option value="Diesel">Diesel</option>
+        <option value="Gas">Gas</option>
+        
+
+
+
+
+    </select>
+
+   
+      
+      @error ('combustion')
+        <small class="text-danger">{{$message}}</small>
+      @enderror
+  </div>
+
+  <div class="form-group">
+
+    {!! Form::label('cilindros','Cilindrada') !!}
+    {!! Form::text('cilindrada',$autos->cilindrada,['class'=>'form-control','placeholder'=>'Ingrese Cilindrada del motor']) !!}
+    
+    
+    @error ('cilindrada')
+      <small class="text-danger">{{$message}}</small>
+    @enderror
+</div>
+
+
+
         </div>
 
 
@@ -150,7 +260,85 @@
 
                 </div>
 
+
+
+
+                
+
+                <div class="form-group">
+                  {!! Form::label('marca','Datos del Vehículo') !!}
+          
+                  {!! Form::text('marca',$autos->marca,['class'=>'form-control','placeholder'=>'Ingrese Marca']) !!}
+          
+          
+          
+                  @error ('marca')
+          
+                    <small class="text-danger">{{$message}}</small>
+          
+                  @enderror
+          
                 </div>
+          
+          
+          
+          
+                <div class="form-group">
+                  {!! Form::label('modelo','Modelo') !!}
+          
+                  {!! Form::text('modelo',$autos->modelo,['class'=>'form-control','placeholder'=>'Ingrese Modelo']) !!}
+          
+          
+          
+                  @error ('modelo')
+          
+                    <small class="text-danger">{{$message}}</small>
+          
+                  @enderror
+          
+       </div>
+
+
+       <div class="form-group">
+        {!! Form::label('ano','Año') !!}
+
+        {!! Form::text('ano',$autos->ano,['class'=>'form-control','placeholder'=>'Ingrese Año']) !!}
+
+
+
+        @error ('ano')
+
+          <small class="text-danger">{{$message}}</small>
+
+        @enderror
+
+</div>
+
+
+
+
+  <div class="form-group">
+    {!! Form::label('color','Color') !!}
+
+    {!! Form::text('color',$autos->color,['class'=>'form-control','placeholder'=>'Ingrese Color']) !!}
+
+
+
+    @error ('color')
+
+      <small class="text-danger">{{$message}}</small>
+
+    @enderror
+
+  </div>
+
+
+
+
+
+
+
+      </div>
 
 
 
@@ -173,7 +361,7 @@
 
 
         <div class="form-group">
-          <p class="font-weight-bold">Reparaciones</p>
+          <p class="font-weight-bold">Reparaciones Realizada</p>
 
 
           @foreach ($reparaciones as $reparar )

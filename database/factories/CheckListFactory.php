@@ -25,6 +25,8 @@ class CheckListFactory extends Factory
     public function definition()
     {
 
+      /*
+
       $name= $this->faker->unique()->sentence();
 
         return [
@@ -40,5 +42,8 @@ class CheckListFactory extends Factory
 //'client_id'=> Cliente::all()->random()->id
 
         ];
+         */
     }
+
+   
 }

@@ -35,16 +35,16 @@ $this->call(UserSeeder::class);
 
 Category::factory(4)->create();
 Tag::factory(8)->create();
-Reparaciones::factory(8)->create();
-Autos::factory(5)->create();
+//Reparaciones::factory(8)->create();
+//Autos::factory(5)->create();
 
 
 
 $this->call(PostSeeder::class);
 
-Cliente::factory(5)->create();
+//Cliente::factory(5)->create();
 
-$this->call(CheckListseeder::class);
+//$this->call(CheckListseeder::class);
 
 $this->call(OrdenSeeder::class);
 

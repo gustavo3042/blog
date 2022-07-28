@@ -23,6 +23,7 @@ class AutosFactory extends Factory
     public function definition()
     {
 
+      /*
 
       $name = $this->faker->unique()->word(20);
 
@@ -36,5 +37,8 @@ class AutosFactory extends Factory
 
 
         ];
+
+
+        */
     }
 }

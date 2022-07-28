@@ -26,6 +26,8 @@ class OrdenServicioFactory extends Factory
     public function definition()
     {
 
+      /*
+
 
         $name= $this->faker->unique()->sentence();
 
@@ -44,5 +46,8 @@ class OrdenServicioFactory extends Factory
 
 
         ];
+
+
+        */
     }
 }

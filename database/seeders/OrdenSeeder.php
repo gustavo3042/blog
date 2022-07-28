@@ -16,6 +16,8 @@ class OrdenSeeder extends Seeder
     public function run()
     {
 
+      /*
+
 
       $orden = OrdenServicio::factory(20)->create();
 
@@ -27,5 +29,7 @@ class OrdenSeeder extends Seeder
 
         ]);
     }
+
+    */
 }
 }

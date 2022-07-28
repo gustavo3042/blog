@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\CheckList;
-use Illuminate\Http\Request;
+
 use Livewire\withPagination;
 
 
@@ -13,23 +13,29 @@ class Checkindex extends Component
 {
 
 
-  use withPagination;
+    use withPagination;
 
- protected $paginationTheme= "bootstrap";
+    protected $paginationTheme= "bootstrap";
+  
+    public $search;
+  
+    public function updatingSearch(){
+  
+  $this->resetPage();
+  
+    }
 
 
 
 
-    public function render(Request $request)
+    public function render()
     {
 
-$buscar = $request->get('buscar');
+        $checkl = CheckList::where('user_id','=', auth()->user()->id)
+        ->where('patente','LIKE','%'.$this->search.'%')
+        ->latest('id')
+        ->paginate(5);
 
-
-$checkl = CheckList::where('user_id', auth()->user()->id)
-->where('patente','LIKE', '%'.$buscar.'%')
-->latest('id')
-->paginate();
 
 
 

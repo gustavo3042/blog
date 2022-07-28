@@ -20,6 +20,11 @@ class CreateClientesTable extends Migration
             $table->string('telefono');
             $table->string('correo');
 
+            $table->unsignedBigInteger('check_lists_id');
+           
+            $table->foreign('check_lists_id')->references('id')->on('check_lists')->onDelete('cascade');
+          
+
 
 
             $table->timestamps();

@@ -3,7 +3,17 @@
 @section('title', 'Gustavo Rios App')
 
 @section('content_header')
-    <h1>Nuevo CheckList</h1>
+
+<div class="card-header">
+
+    <h1 style="font-weight: bold;" class="text-center">Nueva Ficha Tecnica</h1>
+
+    <a class="btn btn-primary" href="{{route('check.index')}}">volver</a>
+
+    
+
+  </div>
+
 @stop
 
 
@@ -27,7 +37,7 @@
   </style>
 
 
-    <p>Welcome to this beautiful admin panel.</p>
+    <p>Ingrese datos para guardar la reparación.</p>
     <div class="card">
 
       <div class="card-body">
@@ -37,7 +47,7 @@
         
 
 
-          @include('admin.check.partials.form')
+          @include('admin.check.partials.form2')
 
 
         {!! Form::submit('Crear CheckList',['class'=>'btn btn-primary']) !!}
@@ -57,7 +67,9 @@
 
 @section('js')
   <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"> </script>
 
 
   <script>
@@ -105,4 +117,17 @@
 
 
   </script>
+
+  <script>
+
+function most(){
+
+alert('Publicado');
+
+}
+
+
+  </script>
+
+
 @stop

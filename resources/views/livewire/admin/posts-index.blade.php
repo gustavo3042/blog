@@ -7,7 +7,7 @@
 <div class="card-header">
 
 
-    <a class="btn btn-secondary   "href="{{route('posts.create')}}">Nuevo post</a>
+    <a class="btn btn-primary   "href="{{route('posts.create')}}">Nuevo post</a>
 
 
 
