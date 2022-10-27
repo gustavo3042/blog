@@ -8,6 +8,7 @@ use App\Models\Reparaciones;
 use App\Models\CheckList;
 use App\Models\Cliente;
 use App\Models\Autos;
+use App\Models\User;
 
 use App\Http\Requests\Check\StoreRequest;
 
@@ -40,6 +41,8 @@ class CheckListController extends Controller
       $reparaciones = Reparaciones::all();
       $cliente = Cliente::all();
 
+      $user = User::all();
+
       $tipoDireccion = [
 
         'Mecanica' => 'Mecanica',
@@ -70,7 +73,7 @@ class CheckListController extends Controller
 
 
 
-      return view('admin.check.create',compact('reparaciones','cliente','tipoDireccion','tipoTraccion','tipoCombustion'));
+      return view('admin.check.create',compact('reparaciones','cliente','tipoDireccion','tipoTraccion','tipoCombustion','user'));
     }
 
     /**
@@ -189,6 +192,7 @@ return redirect()->route('check.index',$check);
     {
 
       $reparaciones = Reparaciones::all();
+      $user = User::all();
 
       $clientes = DB::table('check_lists')
       ->join('clientes','clientes.check_lists_id','=' ,'check_lists.id')
@@ -216,7 +220,7 @@ return redirect()->route('check.index',$check);
 
 
 
-      return view('admin.check.edit',compact('check','reparaciones','clientes','autos','tipoDireccion','tipoTraccion','tipoCombustion'));
+      return view('admin.check.edit',compact('check','reparaciones','clientes','autos','tipoDireccion','tipoTraccion','tipoCombustion','user'));
 
     }
 

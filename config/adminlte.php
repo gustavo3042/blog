@@ -339,6 +339,14 @@ return [
         ],
 
 
+        [
+            'text' => 'Foro',
+            'url'  => 'admin/foro',
+            'icon' => 'fas fa-fw fa-file',
+           // 'can'  => 'admin.foro.index'
+        ],
+
+
 
 /*
         [

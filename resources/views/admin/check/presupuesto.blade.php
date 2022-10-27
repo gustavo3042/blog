@@ -43,7 +43,7 @@
       <div class="card-body">
 
         
-        <h5 class="text-center" style="font-weight: bold; background:#0000ff; border-radius:30px; color:white;">Mano de Obra</h5>
+        <h5 class="text-center" style="font-weight: bold; background:#0000ff; border-radius:30px; color:white;">Presupuesto</h5>
 
         <form  action="" method="post">
 
@@ -67,7 +67,7 @@
                          
 
                        
-                            <p class="font-weight-bold">Ficha Técnica Reparaciones Realizadas</p>
+                            <p class="font-weight-bold">Ficha técnica reparaciones anotadas por el mecanico</p>
                   
                   
                             @foreach ($reparaciones as $reparar )
@@ -95,6 +95,7 @@
                       </div></div>
         
                   </div></div>
+                  
                   <div class="panel panel-footer" >
                       <table class="table table-bordered hover">
                           <thead>

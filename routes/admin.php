@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ReparacionesController;
 use App\Http\Controllers\Admin\CheckListController;
 use App\Http\Controllers\Admin\ClientesController;
 use App\Http\Controllers\Admin\OrdenController;
+use App\Http\Controllers\Admin\ForoController;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -43,6 +44,11 @@ Route::get('admin/check/index',[CheckListController::class, 'index'])->name('che
 Route::get('admin/check/{check}',[CheckListController::class, 'edit'])->name('check.edit');
 Route::get('admin/check/{check}/show',[CheckListController::class, 'show'])->name('check.show');
 Route::get('admin/check/{check}/presupuesto',[CheckListController::class,'presupuesto'])->name('check.presupuesto');
+
+
+Route::resource('foro','App\Http\Controllers\Admin\ForoController');
+Route::get('admin/foro/index',[ForoController::class, 'index'])->name('foro.index');
+Route::get('admin/foro/buscar',[ForoController::class, 'buscar'])->name('foro.buscar');
 
 
 Route::resource('reparaciones','App\Http\Controllers\Admin\ReparacionesController');

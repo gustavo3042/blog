@@ -23,18 +23,18 @@ class DatabaseSeeder extends Seeder
 
 Storage::deleteDirectory('posts');
 Storage::makeDirectory('posts');
-Storage::deleteDirectory('check_lists');
-Storage::makeDirectory('check_lists');
-Storage::deleteDirectory('orden_servicios');
-Storage::makeDirectory('orden_servicios');
+//Storage::deleteDirectory('check_lists');
+//Storage::makeDirectory('check_lists');
+//Storage::deleteDirectory('orden_servicios');
+//Storage::makeDirectory('orden_servicios');
 
 $this->call(RoleSeeder::class);
 $this->call(UserSeeder::class);
 
 
 
-Category::factory(4)->create();
-Tag::factory(8)->create();
+Category::factory(0)->create();
+Tag::factory(0)->create();
 //Reparaciones::factory(8)->create();
 //Autos::factory(5)->create();
 
@@ -46,7 +46,7 @@ $this->call(PostSeeder::class);
 
 //$this->call(CheckListseeder::class);
 
-$this->call(OrdenSeeder::class);
+//$this->call(OrdenSeeder::class);
 
 
 

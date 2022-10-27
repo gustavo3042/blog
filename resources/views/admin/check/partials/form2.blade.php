@@ -50,8 +50,20 @@
     
             <div class="form-group">
               {!! Form::label('nombre','Nombre') !!}
+
+              <select name="nombre" id="" class="form-control">
+
+          @foreach ($user as $item)
+
+
+          <option value="{{$item->id}}">{{$item->name}}</option>
+              
+          @endforeach
+
+
+              </select>
     
-              {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Ingrese Nombre Cliente']) !!}
+            
     
     
     
@@ -466,7 +478,7 @@
     
             <div class="form-group">
     
-              {!! Form::label('solucion','Solución Encontrada') !!}
+              {!! Form::label('solucion','Solución y Repuestos') !!}
               {!! Form::textarea('solucion',null,['class'=>'form-control']) !!}
     
               @error ('solucion')

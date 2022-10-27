@@ -19,12 +19,16 @@ class RoleSeeder extends Seeder
 
 //se crean dos roles el admin y el blogger
     $role1=  Role::create(['name'=>'Admin']);
-    $role2=  Role::create(['name'=>'Blogger']);
+    $role2=  Role::create(['name'=>'Cliente']);
     $role3= Role::create(['name'=>'Mecanico']);
+    //$role4= Role::create(['name'=> 'Cliente']);
 
 //se dan los permisos a determinado usuario para poder ver el admin.home
     Permission::create(['name' => 'admin.home',
     'description'=>'Ver el Dashboard'])->syncRoles([$role1,$role2,$role3]);
+
+    Permission::create(['name' => 'admin.foro','description'=>'Ver el modulo para clientes'])->syncRoles([$role1,$role2]);    
+    
 
     Permission::create(['name' => 'admin.users.index',
     'description'=>'Ver listado de Usuarios'])->syncRoles([$role1]);
@@ -34,7 +38,7 @@ class RoleSeeder extends Seeder
 
 
     Permission::create(['name' => 'admin.categorias.index',
-    'description'=>'Ver listado de Categorias'])->syncRoles([$role1,$role2]); //codigo para crear rol y asignar permisos a ese rol, esta parte pertenece al crud de roles
+    'description'=>'Ver listado de Categorias'])->syncRoles([$role1]); //codigo para crear rol y asignar permisos a ese rol, esta parte pertenece al crud de roles
 
     Permission::create(['name' => 'admin.categorias.create',
     'description'=>'Crear Categoria'])->syncRoles([$role1]);
@@ -46,7 +50,7 @@ class RoleSeeder extends Seeder
     'description'=>'Eliminar Categoria'])->syncRoles([$role1]);
 
     Permission::create(['name' => 'admin.tags.index',
-    'description'=>'Ver listado de Etiquetas'])->syncRoles([$role1,$role2]);
+    'description'=>'Ver listado de Etiquetas'])->syncRoles([$role1]);
 
     Permission::create(['name' => 'admin.tags.create',
     'description'=>'Crear Etiqueta'])->syncRoles([$role1]);

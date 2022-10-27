@@ -44,7 +44,19 @@
         <div class="form-group">
           {!! Form::label('nombre','Datos del Cliente') !!}
 
-          {!! Form::text('nombre',$clientes->nombre,['class'=>'form-control','placeholder'=>'Ingrese Nombre Cliente']) !!}
+          <select name="nombre" id="" class="form-control">
+
+            <option value="{{$clientes->nombre}}">{{$clientes->nombre}}</option>
+
+            @foreach ($user as $item)
+  
+  
+            <option value="{{$item->id}}">{{$item->name}}</option>
+                
+            @endforeach
+  
+  
+                </select>
 
 
 
@@ -494,7 +506,7 @@
 
         <div class="form-group">
 
-          {!! Form::label('solucion','Solución Encontrada') !!}
+          {!! Form::label('solucion','Solucion y Repuestos') !!}
           {!! Form::textarea('solucion',null,['class'=>'form-control']) !!}
 
           @error ('solucion')
