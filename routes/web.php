@@ -64,6 +64,8 @@ Route::get('category/{category}', [PostController::class, 'category'])->name('po
 
 Route::get('tag/{tag}',[PostController::class, 'tag'])->name('posts.tag');
 
+Route::get('sobreNosotros',[PostController::class, 'sobreNosotros'])->name('posts.sobreNosotros');
+
 //Route::get('/',[PostController::class, 'index'])->name('post.index');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

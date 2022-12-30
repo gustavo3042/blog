@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\CheckList;
+use App\Models\User;
 
 class ForoController extends Controller
 {
@@ -27,13 +28,20 @@ class ForoController extends Controller
 
         $buscar = $request->buscar;  
 
-        
+        /*
+        $check = DB::table('check_lists')
+        ->join('clientes','clientes.check_lists_id','=','check_lists.id')
+        ->join('users','users.name','=','clientes.nombre')        
+        ->get();
 
-        $checkl = CheckList::where('patente','LIKE','%'.$buscar.'%')
+        */
+
+        $check1 = CheckList::where('patente','LIKE','%'.$buscar.'%')
+       // ->where('users.id',auth()->user()->id)
         ->latest('id')
         ->paginate(5);
 
-          return view('admin.foro.buscar',compact('checkl'));
+          return view('admin.foro.buscar',compact('check1'));
 
     }
 

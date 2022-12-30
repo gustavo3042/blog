@@ -1,5 +1,7 @@
 
 <nav class="bg-gray-800" x-data="{open:false}">
+
+  
   <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
     <div class="relative flex items-center justify-between h-16">
 
@@ -47,7 +49,7 @@
 
 
             <a href="{{route('posts.category',$category)}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-
+           
               {{$category->name}}</a>
 
           @endforeach
@@ -139,5 +141,16 @@
 
 
     </div>
+
+
+   
+
+
   </div>
+
+
+
 </nav>
+
+
+

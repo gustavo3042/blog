@@ -5,135 +5,167 @@
 <!--sesion parte datos del vehiculo -->
 
 
-
-  <h3 class="font-weight-bold ">Ficha formulario</h1>
-
-
 <div class="card-header">
 
+  <h3   style="font-weight: bold;" class="mb-5" >Ficha Tecnica formulario</h1>
+
 <div class="container">
-  <div class="row">
 
 
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+            data-bs-target="#home" type="button" role="tab" aria-controls="home"
+            aria-selected="true"><i class="fas fa-user"></i>Datos Cliente</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+            data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
+            aria-selected="false"> <i class="fas fa-car"></i>Datos Tecnicos del Vehículo</button>
+    </li>
 
 
-
-<div class="col-sm">
-
-
-
-
-        <div class="form-group">
-          {!! Form::label('encargado','Encargado de la Reparación') !!}
-
-          {!! Form::text('encargado',auth()->user()->name,['class'=>'form-control','placeholder'=>'ingrese el nombre del encargado','readonly']) !!}
-
-
-
-          @error ('encargado')
-
-            <small class="text-danger">{{$message}}</small>
-
-          @enderror
-
-        </div>
-
-
-
-
-        <div class="form-group">
-          {!! Form::label('nombre','Datos del Cliente') !!}
-
-          <select name="nombre" id="" class="form-control">
-
-            <option value="{{$clientes->nombre}}">{{$clientes->nombre}}</option>
-
-            @foreach ($user as $item)
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+          data-bs-target="#datos" type="button" role="tab" aria-controls="datos"
+          aria-selected="false"> <i class="fas fa-wrench"></i> Datos del Vehículo</button>
+  </li>
+  
+  </ul>
+  
+  <br>
+  
+  <div class="tab-content" id="myTabContent">
   
   
-            <option value="{{$item->id}}">{{$item->name}}</option>
-                
-            @endforeach
+    <div class="tab-pane fade show active" id="home" role="tabpanel"
+    aria-labelledby="home-tab">
   
   
-                </select>
+  
+<!--Primera parte -->
+<div  class="col-sm">
+
+  <br>
+    
+      <h5 class="text-center" style="">Datos del Cliente</h5>
+    
+      <!-- #0000ff color azul -->
+        <!-- #1E90FF color celeste -->
+    
+  
+            <div class="form-group">
+              {!! Form::label('encargado','Encargado de la Reparación') !!}
+    
+              {!! Form::text('encargado',auth()->user()->name,['class'=>'form-control','placeholder'=>'ingrese el nombre del encargado','readonly']) !!}
+    
+    
+    
+              @error ('encargado')
+    
+                <small class="text-danger">{{$message}}</small>
+    
+              @enderror
+    
+            </div>
+    
+    
+    
+    
+            <div class="form-group">
+              {!! Form::label('nombre','Nombre Cliente') !!}
+
+            <input type="text" name="nombre" id="nombre" value="{{$clientes->nombre}}" class="form-control" placeholder="Ingrese Cliente">
+    
+            
+    
+    
+    
+              @error ('nombre')
+    
+                <small class="text-danger">{{$message}}</small>
+    
+              @enderror
+    
+            </div>
+    
+    
+    
+            <div class="form-group">
+              {!! Form::label('direccion','Direccion') !!}
+    
+            
+    
+              {!! Form::text('direccion',$clientes->direccion,['class'=>'form-control','placeholder'=>'Ingrese Direccion']) !!}
+    
+              @error ('direccion')
+    
+                <small class="text-danger">{{$message}}</small>
+    
+              @enderror
+    
+            </div>
+    
+    
+    
+            <div class="form-group">
+              {!! Form::label('telefono','Telefono') !!}
+    
+           
+    
+              {!! Form::text('telefono',$clientes->telefono,['class'=>'form-control','placeholder'=>'Ingrese telefono']) !!}
+    
+              @error ('telefono')
+    
+                <small class="text-danger">{{$message}}</small>
+    
+              @enderror
+    
+            </div>
+    
+    
+            <div class="form-group">
+              {!! Form::label('correo','Correo') !!}
+    
+          
+              {!! Form::text('correo',$clientes->correo,['class'=>'form-control','placeholder'=>'Ingrese Correo']) !!}
+    
+    
+              @error ('correo')
+    
+                <small class="text-danger">{{$message}}</small>
+    
+              @enderror
+    
+            </div>
+  
+    
+    </div>
 
 
+    <!-- fin primera parte -->
+    
+  </div>
+  
+  
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  
+    
 
-          @error ('nombre')
+    
+<!--Segunda parte -->
+    
+<div  class="col-sm">
 
-            <small class="text-danger">{{$message}}</small>
+  <br>
 
-          @enderror
-
-        </div>
-
-
-
-        <div class="form-group">
-          {!! Form::label('direccion','Direccion') !!}
-
-          {!! Form::text('direccion',$clientes->direccion,['class'=>'form-control','placeholder'=>'Ingrese Direccion']) !!}
-
-
-
-          @error ('direccion')
-
-            <small class="text-danger">{{$message}}</small>
-
-          @enderror
-
-        </div>
-
-
-
-        <div class="form-group">
-          {!! Form::label('telefono','Telefono') !!}
-
-          {!! Form::text('telefono',$clientes->telefono,['class'=>'form-control','placeholder'=>'Ingrese telefono']) !!}
-
-
-
-          @error ('telefono')
-
-            <small class="text-danger">{{$message}}</small>
-
-          @enderror
-
-        </div>
-
-
-        <div class="form-group">
-          {!! Form::label('correo','Correo') !!}
-
-          {!! Form::text('correo',$clientes->correo,['class'=>'form-control','placeholder'=>'Ingrese Correo']) !!}
-
-
-
-          @error ('correo')
-
-            <small class="text-danger">{{$message}}</small>
-
-          @enderror
-
-        </div>
-
-
-
-
-
-
-</div>
-
-
-<div class="col-sm">
-
+  <h5 class="text-center" >Datos Tecnicos del Vehículo</h5>
 
 
         <div class="form-group">
           {!! Form::label('fecha','Fecha') !!}
 
-          {!! Form::date('fecha',null,['class'=>'form-control','placeholder'=>'ingrese el nombre del encargado']) !!}
+          {!! Form::date('fecha',null,['class'=>'form-control','placeholder'=>'ingrese el nombre del encargado']) !!}        
 
           @error ('fecha')
 
@@ -146,8 +178,8 @@
 
         <div class="form-group">
 
-          {!! Form::label('tipoDireccion','Tipo Direccion') !!}
-
+          {!! Form::label('tipoDireccion','Tipo de Dirección') !!}
+       
           <select name="tipoDireccion" class="form-control" id="tipoDireccion">
                             
                             
@@ -167,7 +199,8 @@
 
 
         </select>
-
+          
+          
           @error ('tipoDireccion')
             <small class="text-danger">{{$message}}</small>
           @enderror
@@ -177,7 +210,7 @@
 
       <div class="form-group">
 
-        {!! Form::label('tipoTraccion','Tipo Traccion') !!}
+        {!! Form::label('tipoTraccion','Tipo de Tracción') !!}
 
         <select name="tipoTraccion" class="form-control" id="tipoTraccion">
                             
@@ -198,7 +231,6 @@
 
 
       </select>
-  
         
         @error ('tipoTraccion')
           <small class="text-danger">{{$message}}</small>
@@ -208,9 +240,7 @@
 
     <div class="form-group">
 
-      
-      {!! Form::label('combustion','Tipo Combustion') !!}
-
+      {!! Form::label('combustion','Combustion') !!}
 
       <select name="tipoCombustion" class="form-control" id="tipoCombustion">
                             
@@ -232,8 +262,7 @@
 
 
     </select>
-
-   
+      
       
       @error ('combustion')
         <small class="text-danger">{{$message}}</small>
@@ -243,6 +272,7 @@
   <div class="form-group">
 
     {!! Form::label('cilindros','Cilindrada') !!}
+
     {!! Form::text('cilindrada',$autos->cilindrada,['class'=>'form-control','placeholder'=>'Ingrese Cilindrada del motor']) !!}
     
     
@@ -250,18 +280,34 @@
       <small class="text-danger">{{$message}}</small>
     @enderror
 </div>
+      
+
+  </div>
+
+  <!--fin segunda parte -->
+  
+  </div>
 
 
+  <div class="tab-pane fade" id="datos" role="tabpanel" aria-labelledby="profile-tab">
 
-        </div>
 
+    
 
-<div class="col-sm">
+<!--tercera parte -->
+
+<div  class="col-sm">
+
+  <br>
+
+  <h5 class="text-center" >Datos del Vehículo</h5>
+
 
 
                 <div class="form-group">
                   {!! Form::label('patente','Patente') !!}
 
+            
                   {!! Form::text('patente',null,['class'=>'form-control','placeholder'=>'ingrese Patente del vehículo']) !!}
 
                   @error ('patente')
@@ -274,16 +320,14 @@
 
 
 
-
-                
+             
 
                 <div class="form-group">
-                  {!! Form::label('marca','Datos del Vehículo') !!}
-          
+                  {!! Form::label('marca','Marca') !!}
+
                   {!! Form::text('marca',$autos->marca,['class'=>'form-control','placeholder'=>'Ingrese Marca']) !!}
-          
-          
-          
+            
+                            
                   @error ('marca')
           
                     <small class="text-danger">{{$message}}</small>
@@ -298,9 +342,8 @@
                 <div class="form-group">
                   {!! Form::label('modelo','Modelo') !!}
           
+          
                   {!! Form::text('modelo',$autos->modelo,['class'=>'form-control','placeholder'=>'Ingrese Modelo']) !!}
-          
-          
           
                   @error ('modelo')
           
@@ -314,8 +357,8 @@
        <div class="form-group">
         {!! Form::label('ano','Año') !!}
 
+     
         {!! Form::text('ano',$autos->ano,['class'=>'form-control','placeholder'=>'Ingrese Año']) !!}
-
 
 
         @error ('ano')
@@ -332,8 +375,8 @@
   <div class="form-group">
     {!! Form::label('color','Color') !!}
 
+ 
     {!! Form::text('color',$autos->color,['class'=>'form-control','placeholder'=>'Ingrese Color']) !!}
-
 
 
     @error ('color')
@@ -348,17 +391,39 @@
 
 
 
+   </div>
+
+   <!-- tercera parte -->
 
 
-      </div>
+  </div>
+  
+  
+    </div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 </div>
 
-</div>
+<br>
 
 </div>
+
+
+
 
 
 
@@ -399,6 +464,69 @@
         </div>
 
         <br>
+
+
+
+        <section>
+          <div class="panel panel-header">
+
+            
+          
+          <div class="panel panel-footer" >
+              <table class="table table-bordered hover">
+                  <thead>
+                      <tr>
+                          <th>Trabajo</th>
+                          <th>Descripción</th>
+                          <th>Cantidad</th>
+                          <th>Precio</th>
+                          <th>Total</th>
+
+                          <!--boton addRow para agregar input para abajo class addRow -->
+                          <th><a href="#" class="addRow"><i class="fa fa-plus"></i></a></th>
+                      </tr>
+                  </thead>
+
+              
+                      
+                 
+
+                  <tbody>
+
+                    @foreach ($presupuestoDetails as $item)
+      <tr>
+      <td><input type="text" name="product_name[]" class="form-control" value="{{$item->trabajo}}" required=""></td>
+      <td><input type="text" name="brand[]" class="form-control" value="{{$item->descripcion}}"></td>
+        <td><input type="text" name="quantity[]" class="form-control quantity" value="{{$item->cantidad}}" required=""></td>
+        <td><input type="text" name="budget[]" class="form-control budget" value="{{$item->precio}}"></td>
+        <td><input type="text" name="amount[]" class="form-control amount" value="{{$item->amount}}"></td>
+      <td><a href="#" class="btn btn-danger remove"><i class="fa fa-trash"></i></a></td>
+      </tr>
+
+      @endforeach
+                      </tr>
+                  </tbody>
+
+                
+
+                  <tfoot>
+                      <tr>
+                          <td style="border: none"></td>
+                          <td style="border: none"></td>
+                          <td style="border: none"></td>
+                          <td >Total :</td>
+                          <td><b class="total"></b> </td>
+                        
+                      </tr>
+                  </tfoot>
+
+
+
+              </table>
+
+
+          </div>
+      </section>
 
 
 
@@ -518,3 +646,144 @@
         </div>
 
 <br>
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" ></script>
+
+
+
+
+<script>
+var path = "{{ route('check.action')  }}";
+$('#patente').typeahead({
+
+  source:  function (query, process) {
+
+  return $.get(path, { term: query }, function (data) {
+
+          return process(data);
+      });
+  }
+});
+
+
+
+var marcas = "{{ route('check.marca')  }}";
+$('#marca').typeahead({
+
+  source:  function (query, process) {
+
+  return $.get(marcas, { term: query }, function (data) {
+
+          return process(data);
+      });
+  }
+});
+
+
+
+var modelos = "{{ route('check.modelo')  }}";
+$('#modelo').typeahead({
+
+  source:  function (query, process) {
+
+  return $.get(modelos, { term: query }, function (data) {
+
+          return process(data);
+      });
+  }
+});
+
+var anos = "{{ route('check.ano')  }}";
+$('#ano').typeahead({
+
+  source:  function (query, process) {
+
+  return $.get(anos, { term: query }, function (data) {
+
+          return process(data);
+      });
+  }
+});
+
+
+var colors = "{{ route('check.color')  }}";
+$('#color').typeahead({
+
+  source:  function (query, process) {
+
+  return $.get(colors, { term: query }, function (data) {
+
+          return process(data);
+      });
+  }
+});
+
+
+var cilindrada = "{{ route('check.cilindrada')  }}";
+$('#cilindrada').typeahead({
+
+  source:  function (query, process) {
+
+  return $.get(cilindrada, { term: query }, function (data) {
+
+          return process(data);
+      });
+  }
+});
+
+
+
+var nombre = "{{ route('check.nombre')  }}";
+$('#nombre').typeahead({
+
+  source:  function (query, process) {
+
+  return $.get(nombre, { term: query }, function (data) {
+
+          return process(data);
+      });
+  }
+});
+
+var direccion = "{{ route('check.direccion')  }}";
+$('#direccion').typeahead({
+
+  source:  function (query, process) {
+
+  return $.get(direccion, { term: query }, function (data) {
+
+          return process(data);
+      });
+  }
+});
+
+
+var telefono = "{{ route('check.telefono')  }}";
+$('#telefono').typeahead({
+
+  source:  function (query, process) {
+
+  return $.get(telefono, { term: query }, function (data) {
+
+          return process(data);
+      });
+  }
+});
+
+
+var correo = "{{ route('check.correo')  }}";
+$('#correo').typeahead({
+
+  source:  function (query, process) {
+
+  return $.get(correo, { term: query }, function (data) {
+
+          return process(data);
+      });
+  }
+});
+
+</script>

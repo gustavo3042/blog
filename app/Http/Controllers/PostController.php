@@ -89,5 +89,11 @@ public function tag(Tag $tag){
 
 }
 
+public function sobreNosotros(){
+
+return view('post.sobreNosotros');
+
+}
+
 
 }

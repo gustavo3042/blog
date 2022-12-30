@@ -90,9 +90,17 @@
 
     <td width="10px">
 
-      <a style="color:white; background: darkcyan;" class="btn-sm" href="{{route('check.presupuesto',$check)}}">Presupuesto</a>
+ 
+ 
 
-    </td>
+      <a  class="btn btn-primary btn-sm " href="{{route('check.pdf',$check->id)}}" >PDF</a>
+    
+    
+    
+        </td>
+
+
+ 
 
   
 

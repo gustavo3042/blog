@@ -28,8 +28,9 @@
   
       <a class="btn btn-success" href=""><i class="fa fa-file"></i>Crear Post </a>
 
-      <a style="color:white; background: darkcyan;" href=""><i class="fa fa-check"></i>Mis Posts</a>
+      <a class="btn btn-primary"><i class="fa fa-check"></i>Mis Posts</a>
         
+      <a class="btn btn-info" href=""><i class="fa fa-car"></i>Foro Consultas</a>
         
       <form action="{{route('foro.buscar')}}" method="GET" class="float-right">
 
@@ -67,7 +68,7 @@
    </thead>
  
    <tbody>
-   @foreach ($checkl as $check )
+   @foreach ($check1 as $check )
  
    <tr>
      <td>{{$check->id}}</td>

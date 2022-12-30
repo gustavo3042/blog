@@ -17,6 +17,8 @@ Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->n
 
 Route::resource('users','App\Http\Controllers\Admin\UserController')->only(['index','edit','update']);
 Route::get('users',[UserController::class,'index'])->name('users.index');
+//Route::get('users/autocomplete', [UserController::class, 'autocompleteSearch'])->name('users.autocomplete');
+//Route::get('users/typeahead_autocomplete/action', [UserController::class, 'action'])->name('typeahead_autocomplete.action');
 
 
 Route::resource('roles','App\Http\Controllers\Admin\RoleController');
@@ -44,6 +46,25 @@ Route::get('admin/check/index',[CheckListController::class, 'index'])->name('che
 Route::get('admin/check/{check}',[CheckListController::class, 'edit'])->name('check.edit');
 Route::get('admin/check/{check}/show',[CheckListController::class, 'show'])->name('check.show');
 Route::get('admin/check/{check}/presupuesto',[CheckListController::class,'presupuesto'])->name('check.presupuesto');
+Route::get('admin/check/cliente',[CheckListController::class, 'clientes'])->name('check.cliente');
+Route::get('admin/check/pdf/{id}',[CheckListController::class, 'documentoPdf'])->name('check.pdf');
+
+//------------------------------------Rutas para el autocomplete--------------------------------------------
+Route::get('admin/typeahead_autocomplete/action', [CheckListController::class, 'action'])->name('check.action');
+Route::get('admin/typeahead_autocomplete/marca', [CheckListController::class, 'marca'])->name('check.marca');
+Route::get('admin/typeahead_autocomplete/modelo', [CheckListController::class, 'modelo'])->name('check.modelo');
+Route::get('admin/typeahead_autocomplete/ano', [CheckListController::class, 'ano'])->name('check.ano');
+Route::get('admin/typeahead_autocomplete/color', [CheckListController::class, 'color'])->name('check.color');
+Route::get('admin/typeahead_autocomplete/cilindrada', [CheckListController::class, 'cilindros'])->name('check.cilindrada');
+Route::get('admin/typeahead_autocomplete/nombre', [CheckListController::class, 'nombre'])->name('check.nombre');
+Route::get('admin/typeahead_autocomplete/direccion', [CheckListController::class, 'direccion'])->name('check.direccion');
+Route::get('admin/typeahead_autocomplete/telefono', [CheckListController::class, 'telefono'])->name('check.telefono');
+Route::get('admin/typeahead_autocomplete/correo', [CheckListController::class, 'correo'])->name('check.correo');
+
+//Route::get('admin/datos/{id}',[CheckListController::class, 'datos'])->name('datos');
+
+
+//------------------------Fin rutas del autocomplete--------------------------------------------------------------
 
 
 Route::resource('foro','App\Http\Controllers\Admin\ForoController');
@@ -64,3 +85,4 @@ Route::get('clientes',[ClientesController::class, 'index'])->name('clientes.inde
 Route::resource('orden','App\Http\Controllers\Admin\OrdenController');
 Route::get('admin/orden/index',[OrdenController::class,'index'])->name('orden.index');
 Route::get('admin/edit/{orden}',[OrdenController::class,'edit'])->name('orden.edit');
+

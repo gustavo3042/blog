@@ -15,7 +15,17 @@ class CreatePresupuestosTable extends Migration
     {
         Schema::create('presupuestos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('total')->nullable();
+            $table->string('iva')->nullable();
+            $table->string('subtotal')->nullable();
+        
+        
+            $table->unsignedBigInteger('check_lists_id');
+          
+ 
+             $table->foreign('check_lists_id')->references('id')->on('check_lists')->onDelete('cascade');
+             $table->timestamps();
+          
         });
     }
 

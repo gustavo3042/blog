@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Presupuesto extends Model
+class PresupuestoDetails extends Model
 {
     use HasFactory;
 
 
-    protected $fillable = ['total','iva','subtotal','check_lists_id'];
-
+    protected $fillable = ['trabajo','descripcion','cantidad','precio','amount','presupuestos_id'];
+   
 }

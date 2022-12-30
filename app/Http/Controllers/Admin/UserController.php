@@ -33,6 +33,26 @@ $this->middleware('can:admin.users.edit')->only('edit','update');
 }
 
 
+public function autocompleteSearch()
+{
+  return view('admin.users.autocomplete');
+}
+
+
+function action(Request $request)
+{
+    $data = $request->all();
+
+    $query = $data['query'];
+
+    $filter_data = User::select('name')
+                    ->where('name', 'LIKE', '%'.$query.'%')
+                    ->get();
+
+    return response()->json($filter_data);
+}
+
+
     public function index()
     {
       return view('admin.users.index');
