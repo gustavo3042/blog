@@ -26,6 +26,7 @@ class CreateAutosTable extends Migration
             $table->string('tipoTraccion');
             $table->string('tipoCombustion');
             $table->string('cilindrada');
+   
             $table->timestamps();
         });
     }

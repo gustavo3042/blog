@@ -11,6 +11,7 @@ use App\Models\Autos;
 use App\Models\User;
 use App\Models\Presupuesto;
 use App\Models\PresupuestoDetails;
+use App\Models\Kilometraje;
 
 use App\Http\Requests\Check\StoreRequest;
 
@@ -156,6 +157,8 @@ class CheckListController extends Controller
     public function create()
     {
 
+      /*
+
 
       $patentes = DB::table('check_lists')->get();
 
@@ -192,9 +195,9 @@ class CheckListController extends Controller
       ];
 
 
+        */
 
-
-      return view('admin.check.create',compact('reparaciones','cliente','tipoDireccion','tipoTraccion','tipoCombustion','user','patentes'));
+      return view('admin.check.create');
     }
 
     /**
@@ -206,6 +209,8 @@ class CheckListController extends Controller
     public function store(StoreRequest $request)
     {
 
+
+     // dd($request->all());
 
 
     $check =    CheckList::create($request->all());
@@ -262,7 +267,15 @@ class CheckListController extends Controller
       }
 
 
+      $checkClient = CheckList::where('patente',$request->patente)->first();
 
+     // dd($checkClient);
+
+      $clientNew = Cliente::where('check_lists_id',$checkClient->id)->first();
+
+    // dd($clientNew);
+
+    if (empty($clientNew->check_lists_id)) {
 
       Cliente::insert([
 
@@ -273,21 +286,90 @@ class CheckListController extends Controller
         'check_lists_id' => $check->id
 
       ]);
+    
+    }
 
-      Autos::insert([
 
-      'marca'=> $request->marca,
-      'modelo'=> $request->modelo,
-      'ano'=> $request->ano,
-      'color'=> $request->color,
-      'check_lists_id' => $checkA,
-      'tipoDireccion' => $request->tipoDireccion,
-      'tipoTraccion' => $request->tipoTraccion,
-      'tipoCombustion' =>$request->combustion,
-      'cilindrada' => $request->cilindrada,
+
+    $checkAuto = CheckList::where('patente',$request->patente)->first();
+
+    // dd($checkClient);
+
+     $autoNew = Autos::where('check_lists_id',$checkAuto->id)->first();
+
+
+    // dd($autoNew);
+
+
+     if (empty($autoNew->check_lists_id)) {
+      
+
+
+        $autosL= new Autos();
+        $autosL->marca = $request->marca;
+        $autosL->modelo = $request->modelo;
+        $autosL->ano = $request->ano;
+        $autosL->color = $request->color;
+        $autosL->check_lists_id = $checkA;
+        $autosL->tipoDireccion = $request->tipoDireccion;
+        $autosL->tipoTraccion = $request->tipoTraccion;
+        $autosL->tipoCombustion = $request->combustion;
+        $autosL->cilindrada = $request->cilindrada;
+        $autosL->save();
+
+        
+
+
+        Kilometraje::insert([
+
+          'tipoAceite'=>$request->tipoAceite,
+          'kilometraje'=> $request->kilometraje,
+          'newKilometraje'=> 0,
+          'autos_id'=> $autosL->id
+
+        ]);
+
+
+
+
+
+
+     }else{
+
+
+   //   dd($request->patente);
+
+      $checkAuto2 = CheckList::where('patente',$request->patente)->first();
+
+   //  dd($checkAuto2);
+  
+       $autoNew2 = Autos::where('check_lists_id',$checkAuto2->id)->first();
+
+
+      $kmCar = Kilometraje::where('autos_id',$autoNew2->id)->latest('id')->first();
+
+      //dd($kmCar->autos_id);
+
+      $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
+
+        
+      Kilometraje::insert([
+
+        'tipoAceite' => $request->tipoAceite,
+        'kilometraje' => $request->kilometraje,
+        'newKilometraje' => $kmNuevo,
+        'autos_id' =>  $kmCar->autos_id
+
 
       ]);
 
+      //dd($kmCar);
+
+     }
+
+    
+
+     
 
 
         if ($request->file('file')) {

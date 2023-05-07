@@ -49,7 +49,7 @@
         
 
 
-          @include('admin.check.partials.form2')
+        @livewire('admin.check-create')
 
           
 
@@ -73,8 +73,9 @@
 
  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
-
-  <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script>
+ 
+ <!--<script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script> -->
+ 
  
  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"> </script>
@@ -83,8 +84,7 @@
 
 
 
-
-
+<!--
   <script>
 
 
@@ -92,27 +92,30 @@
 
 
 
-      ClassicEditor
-          .create( document.querySelector( '#problema' ) )
-          .catch( error => {
-              console.error( error );
-          } );
+    ClassicEditor
+        .create( document.querySelector( '#problema' ) )
+        .catch( error => {
+            console.error( error );
+        } );
 
 
-  </script>
+</script>
 
 
-  <script>
+<script>
 
 
-      ClassicEditor
-          .create( document.querySelector( '#solucion' ) )
-          .catch( error => {
-              console.error( error );
-          } );
+    ClassicEditor
+        .create( document.querySelector( '#solucion' ) )
+        .catch( error => {
+            console.error( error );
+        } );
 
 
-  </script>
+</script>
+
+
+-->
 
 
   <script>
