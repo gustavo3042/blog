@@ -325,6 +325,7 @@ class CheckListController extends Controller
           'tipoAceite'=>$request->tipoAceite,
           'kilometraje'=> $request->kilometraje,
           'newKilometraje'=> 0,
+          'check_lists_id' => $autosL->check_lists_id,
           'autos_id'=> $autosL->id
 
         ]);
@@ -339,31 +340,73 @@ class CheckListController extends Controller
 
    //   dd($request->patente);
 
-      $checkAuto2 = CheckList::where('patente',$request->patente)->first();
 
-   //  dd($checkAuto2);
-  
-       $autoNew2 = Autos::where('check_lists_id',$checkAuto2->id)->first();
+   if ($request->tipoAceite == 5) {
+    
 
 
-      $kmCar = Kilometraje::where('autos_id',$autoNew2->id)->latest('id')->first();
+    $checkAuto2 = CheckList::where('patente',$request->patente)->first();
 
-      //dd($kmCar->autos_id);
+     // dd($checkAuto2);
+   
+        $autoNew2 = Autos::where('check_lists_id',$checkAuto2->id)->first();
+ 
+ 
+       $kmCar = Kilometraje::where('autos_id',$autoNew2->id)->latest('id')->first();
+ 
+      // dd($kmCar->autos_id);
+ 
+       $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
+ 
+         
+       Kilometraje::insert([
+ 
+         'tipoAceite' => $request->tipoAceite,
+         'kilometraje' => $request->kilometraje,
+         'newKilometraje' => $kmNuevo,
+         'check_lists_id' => $checkA,
+         'autos_id' =>  $kmCar->autos_id
+ 
+ 
+       ]);
+ 
+       //dd($kmCar);
 
-      $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
 
-        
-      Kilometraje::insert([
-
-        'tipoAceite' => $request->tipoAceite,
-        'kilometraje' => $request->kilometraje,
-        'newKilometraje' => $kmNuevo,
-        'autos_id' =>  $kmCar->autos_id
+   }elseif ($request->tipoAceite == 1 || $request->tipoAceite == 2 || $request->tipoAceite == 3 || $request->tipoAceite == 4) {
+    
 
 
-      ]);
+    $checkAuto2 = CheckList::where('patente',$request->patente)->first();
 
-      //dd($kmCar);
+    //  dd($checkAuto2);
+   
+        $autoNew2 = Autos::where('check_lists_id',$checkAuto2->id)->first();
+ 
+ 
+       $kmCar = Kilometraje::where('autos_id',$autoNew2->id)->latest('id')->first();
+ 
+       //dd($kmCar->autos_id);
+ 
+       
+ 
+         
+       Kilometraje::insert([
+ 
+         'tipoAceite' => $request->tipoAceite,
+         'kilometraje' => $request->kilometraje,
+         'newKilometraje' => 0,
+         'check_lists_id' => $checkA,
+         'autos_id' =>  $kmCar->autos_id
+ 
+ 
+       ]);
+
+
+
+   }
+
+     
 
      }
 

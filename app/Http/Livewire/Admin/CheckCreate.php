@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Cliente;
 use Livewire\withPagination;
 use Illuminate\Http\Request;
+use App\Models\Kilometraje;
 
 class CheckCreate extends Component
 {
@@ -85,31 +86,54 @@ class CheckCreate extends Component
 
           */
 
-            $most = CheckList::join('clientes','clientes.check_lists_id','=','check_lists.id')
-            ->join('autos','autos.check_lists_id','=','check_lists.id')
-            ->join('kilometrajes','kilometrajes.autos_id','=','autos.id')
-            ->where('patente',$this->patente)
-            ->select('check_lists.id as id','clientes.nombre as nombre','clientes.direccion as direccion','clientes.telefono as telefono','clientes.correo as  correo',
-            'check_lists.fecha as  fecha','autos.tipoDireccion as tipoDireccion','autos.cilindrada as cilindrada','autos.marca as marca','autos.modelo as modelo',
-            'autos.ano as ano','autos.color as color','kilometrajes.kilometraje as kilometraje','kilometrajes.tipoAceite as tipoAceite')
-            ->latest('id')
-            ->first();
+       
+            
+          
+        
+            
+
+              
+              $most = CheckList::join('clientes','clientes.check_lists_id','=','check_lists.id')
+              ->join('autos','autos.check_lists_id','=','check_lists.id')
+              ->join('kilometrajes','kilometrajes.autos_id','=','autos.id')
+              ->where('patente',$this->patente)
+          
+              ->select('check_lists.id as id','clientes.nombre as nombre','clientes.direccion as direccion','clientes.telefono as telefono','clientes.correo as  correo',
+              'check_lists.fecha as  fecha','autos.tipoDireccion as tipoDireccion','autos.cilindrada as cilindrada','autos.marca as marca','autos.modelo as modelo',
+              'autos.ano as ano','autos.color as color','autos.id as autos_id','kilometrajes.kilometraje as  kilometraje','kilometrajes.id as km_id')
+             // ->latest('id')
+              ->orderBy('kilometrajes.id','desc')
+              ->first();
+
+          //    $km = Kilometraje::where('autos_id',$most->autos_id)->latest('id')->first();
+
+
+              return view('livewire.admin.check-create',compact('reparaciones','cliente','tipoDireccion','tipoTraccion','tipoCombustion','user','patentes','most'));
+
+            
+
+
+
+
+           
+
+            
+
         
 
-//dd($most);
+       
+
           
 
+          
 
+         
 
-   
-
-      
-
-
-      //  dd($most);
+        //  dd($most->autos_id);
+          
 
         
 
-        return view('livewire.admin.check-create',compact('reparaciones','cliente','tipoDireccion','tipoTraccion','tipoCombustion','user','patentes','most'));
+      
     }
 }
