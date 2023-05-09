@@ -46,6 +46,8 @@
           </div>
   
         @endif
+
+       
   
     <table class="table table-striped">
     <thead>
@@ -90,6 +92,10 @@
       </div>
   
       <div class="card-footer">
+
+
+     
+       
        
       </div>
   

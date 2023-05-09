@@ -6,9 +6,9 @@
 
 
 
-<div class="card-header">
+<div class="card-header ">
 
-    <h1 style="font-weight: bold;" class="text-center">Nueva Ficha Tecnica</h1>
+    <h1 style="font-weight: bold;" class="text-center pt-5 ">Nueva Ficha Tecnica</h1>
 
     <a class="btn btn-primary" href="{{route('check.index')}}">volver</a>
 

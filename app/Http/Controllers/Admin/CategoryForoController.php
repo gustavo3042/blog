@@ -4,13 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\CheckList;
-use App\Models\User;
-use App\Models\Kilometraje;
-use App\Models\Autos;
 
-class ForoController extends Controller
+class CategoryForoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,42 +14,7 @@ class ForoController extends Controller
      */
     public function index()
     {
-
-      //  $check = DB::table('check_lists')->get();
-
-        return view('admin.foro.index');
-    }
-
-
-    public function buscar(Request $request){
-
-        $buscar = $request->buscar;  
-
-      
-
-        /*
-        $check = DB::table('check_lists')
-        ->join('clientes','clientes.check_lists_id','=','check_lists.id')
-        ->join('users','users.name','=','clientes.nombre')        
-        ->get();
-
-        */
-
-        $check1 = CheckList::where('patente','LIKE','%'.$buscar.'%')
-       // ->where('users.id',auth()->user()->id)
-        ->latest('id')
-        ->paginate(5);
-
-        $autos = Autos::where('check_lists_id',$check1[1]->id)->get();
-
-       // dd($autos[0]->id);
-
-        $km = Kilometraje::where('autos_id',$autos[0]->id)->get();
-
-        dd($km);
-
-          return view('admin.foro.buscar',compact('check1'));
-
+        //
     }
 
     /**

@@ -99,6 +99,9 @@
      </div>
  
      <div class="card-footer">
+
+      <h6 class="mb-0 text-uppercase">Estadisticas</h6>
+      <hr />
       
      </div>
  

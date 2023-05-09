@@ -18,6 +18,7 @@ class CreateKilometrajesTable extends Migration
             $table->string('tipoAceite');
             $table->integer('kilometraje');
             $table->integer('newKilometraje');
+            $table->integer('mostKilometraje');
             $table->unsignedBigInteger('check_lists_id');
             $table->unsignedBigInteger('autos_id');
            

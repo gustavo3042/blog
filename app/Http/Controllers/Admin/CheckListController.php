@@ -325,6 +325,7 @@ class CheckListController extends Controller
           'tipoAceite'=>$request->tipoAceite,
           'kilometraje'=> $request->kilometraje,
           'newKilometraje'=> 0,
+          'mostKilometraje' => 0,
           'check_lists_id' => $autosL->check_lists_id,
           'autos_id'=> $autosL->id
 
@@ -355,8 +356,11 @@ class CheckListController extends Controller
        $kmCar = Kilometraje::where('autos_id',$autoNew2->id)->latest('id')->first();
  
       // dd($kmCar->autos_id);
+       // dd($kmCar);
  
        $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
+
+       $mtskm = ($request->kilometraje - $kmCar->kilometraje) + $kmCar->newKilometraje;
  
          
        Kilometraje::insert([
@@ -364,6 +368,7 @@ class CheckListController extends Controller
          'tipoAceite' => $request->tipoAceite,
          'kilometraje' => $request->kilometraje,
          'newKilometraje' => $kmNuevo,
+         'mostkilometraje' => $mtskm,
          'check_lists_id' => $checkA,
          'autos_id' =>  $kmCar->autos_id
  
@@ -386,16 +391,18 @@ class CheckListController extends Controller
  
        $kmCar = Kilometraje::where('autos_id',$autoNew2->id)->latest('id')->first();
  
-       //dd($kmCar->autos_id);
+       //dd($kmCar);
  
-       
+       $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
  
+       $mtskm = ($request->kilometraje - $kmCar->kilometraje) + $kmCar->newKilometraje;
          
        Kilometraje::insert([
  
          'tipoAceite' => $request->tipoAceite,
          'kilometraje' => $request->kilometraje,
-         'newKilometraje' => 0,
+         'newKilometraje' => $kmNuevo,
+         'mostkilometraje' => $mtskm,
          'check_lists_id' => $checkA,
          'autos_id' =>  $kmCar->autos_id
  

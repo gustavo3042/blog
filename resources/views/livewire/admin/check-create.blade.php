@@ -15,9 +15,9 @@
 
 
 
-    <div class="card-header">
+    <div class="card-body">
 
-      <h3   style="font-weight: bold;" class="mb-5 pt-5" >Ficha Tecnica formulario</h1>
+      <h3    class="font-weight-bold text-center mb-5 pt-5" >Ficha Tecnica formulario</h1>
     
     <div class="container">
 
@@ -798,7 +798,7 @@
     
     
             <div class="form-group">
-              <h3 class="font-weight-bold">Presupuesto y Reparaciones</h3>
+              <h3 class="font-weight-bold text-center mb-5" >Presupuesto</h3>
 
               <br>
     
