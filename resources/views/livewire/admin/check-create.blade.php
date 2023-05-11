@@ -720,7 +720,7 @@
                   <input class="form-check-input" value="3" type="radio" name="tipoAceite" >
   
                   <label class="form-check-label" for="status3">
-                      Aceite sintetico 10000 a 15000 km
+                      Aceite sintetico 20000 km
                   </label>
               </div>
 
@@ -730,7 +730,7 @@
                 <input class="form-check-input" value="4" type="radio" name="tipoAceite" >
 
                 <label class="form-check-label" for="status4">
-                    Aceite alto kilometraje 100000 km
+                    Aceite alto kilometraje 30000 km
                 </label>
             </div>
     

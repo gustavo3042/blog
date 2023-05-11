@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CheckListController;
 use App\Http\Controllers\Admin\ClientesController;
 use App\Http\Controllers\Admin\OrdenController;
 use App\Http\Controllers\Admin\ForoController;
+use App\Http\Controllers\Admin\CategoryForoController;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -70,6 +71,17 @@ Route::get('admin/typeahead_autocomplete/correo', [CheckListController::class, '
 Route::resource('foro','App\Http\Controllers\Admin\ForoController');
 Route::get('admin/foro/index',[ForoController::class, 'index'])->name('foro.index');
 Route::get('admin/foro/buscar',[ForoController::class, 'buscar'])->name('foro.buscar');
+
+
+Route::resource('foroCategory','App\Http\Controllers\Admin\CategoryForoController');
+Route::get('admin/foroCategory',[CategoryForoController::class, 'index'])->name('foroCategory.index');
+Route::get('admin/foroCategory/create',[CategoryForoController::class, 'create'])->name('foroCategory.create');
+Route::post('admin/foroCategory/store',[CategoryForoController::class, 'store'])->name('foroCategory.store');
+Route::get('admin/foroCategory/{id}/edit',[CategoryForoController::class, 'edit'])->name('foroCategory.edit');
+Route::put('admin/foroCategory/{id}/update',[CategoryForoController::class, 'update'])->name('foroCategory.update');
+Route::delete('admin/foroCategory/{id}',[CategoryForoController::class, 'destroy'])->name('foroCategory.delete');
+
+
 
 
 Route::resource('reparaciones','App\Http\Controllers\Admin\ReparacionesController');

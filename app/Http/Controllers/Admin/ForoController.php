@@ -9,6 +9,7 @@ use App\Models\CheckList;
 use App\Models\User;
 use App\Models\Kilometraje;
 use App\Models\Autos;
+use App\Models\CategoryForo;
 
 class ForoController extends Controller
 {
@@ -45,17 +46,41 @@ class ForoController extends Controller
         ->latest('id')
         ->paginate(5);
 
-        $autos = Autos::where('check_lists_id',$check1[1]->id)->get();
+            
+        $most = CheckList::join('autos','autos.check_lists_id','=','check_lists.id')
+        ->join('kilometrajes','kilometrajes.autos_id','=','autos.id')
+        ->where('patente',$buscar)
 
-       // dd($autos[0]->id);
+        ->select('kilometrajes.mostKilometraje as totalKilometros','kilometrajes.tipoAceite as tipoAceite','kilometrajes.id as idKm')
+    
+        ->orderBy('kilometrajes.id','desc')
+        ->first();
+
+       // dd($most);
+
+        /*
+
+        $autos = Autos::where('check_lists_id',$check1->id)->get();
+
+        dd($autos);
 
         $km = Kilometraje::where('autos_id',$autos[0]->id)->get();
 
-        dd($km);
+      //  dd($autos);
 
-          return view('admin.foro.buscar',compact('check1'));
+            */
+
+          return view('admin.foro.buscar',compact('check1','most'));
 
     }
+
+
+
+   
+
+
+
+    
 
     /**
      * Show the form for creating a new resource.

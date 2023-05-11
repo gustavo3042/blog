@@ -100,8 +100,74 @@
  
      <div class="card-footer">
 
-      <h6 class="mb-0 text-uppercase">Estadisticas</h6>
-      <hr />
+      @if($most->totalKilometros >= 5000 && $most->totalKilometros < 10000 && $most->tipoAceite == 5)
+
+    
+
+      <div class="alert alert-danger" role="alert">
+
+        <h6 class="mb-0 text-uppercase">Los kilometros recorridos desde su ultima reparacion son de  {{$most->totalKilometros}} kilometros</h6>
+        <hr />
+
+        <strong>Deberia cambiar el aceite de su vehiculo a un aceite mineral</strong>
+
+        
+      </div>
+
+
+      @elseif($most->totalKilometros >= 10000 && $most->totalKilometros < 20000 && $most->tipoAceite == 5)
+
+
+      <div class="alert alert-danger" role="alert">
+
+        <h6 class="mb-0 text-uppercase">Los kilometros recorridos desde su ultima reparacion son de  {{$most->totalKilometros}} kilometros</h6>
+        <hr />
+
+        <strong>Deberia cambiar el aceite de su vehiculo a un aceite semisintetico</strong>
+
+        
+      </div>
+
+
+
+      @elseif($most->totalKilometros >= 20000 && $most->totalKilometros < 30000 && $most->tipoAceite == 5)
+
+
+      <div class="alert alert-danger" role="alert">
+
+        <h6 class="mb-0 text-uppercase">Los kilometros recorridos desde su ultima reparacion son de  {{$most->totalKilometros}} kilometros</h6>
+        <hr />
+
+        <strong>Deberia cambiar el aceite de su vehiculo a un aceite sintetico</strong>
+
+        
+      </div>
+
+
+      @elseif($most->totalKilometros >= 30000 &&  $most->tipoAceite == 5)
+
+
+      <div class="alert alert-danger" role="alert">
+
+        <h6 class="mb-0 text-uppercase">Los kilometros recorridos desde su ultima reparacion son de  {{$most->totalKilometros}} kilometros</h6>
+        <hr />
+
+        <strong>Deberia cambiar el aceite de su vehiculo usando un aceite de alto kilometraje</strong>
+
+        
+      </div>
+
+
+
+    
+
+    
+
+
+          
+      @endif
+
+     
       
      </div>
  

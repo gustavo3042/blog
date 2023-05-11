@@ -15,6 +15,7 @@ class CreateCategoryForosTable extends Migration
     {
         Schema::create('category_foros', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
             $table->timestamps();
         });
     }

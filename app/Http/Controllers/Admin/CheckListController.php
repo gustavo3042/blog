@@ -401,8 +401,8 @@ class CheckListController extends Controller
  
          'tipoAceite' => $request->tipoAceite,
          'kilometraje' => $request->kilometraje,
-         'newKilometraje' => $kmNuevo,
-         'mostkilometraje' => $mtskm,
+         'newKilometraje' => 0,
+         'mostkilometraje' => 0,
          'check_lists_id' => $checkA,
          'autos_id' =>  $kmCar->autos_id
  

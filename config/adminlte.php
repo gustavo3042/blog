@@ -347,6 +347,13 @@ return [
         ],
 
 
+        [
+            'text' => 'Foro Categoria',
+            'url'  => 'admin/foroCategory',
+            'icon' => 'fas fa-fw fa-file',
+           // 'can'  => 'admin.foro.index'
+        ],
+
 
 /*
         [

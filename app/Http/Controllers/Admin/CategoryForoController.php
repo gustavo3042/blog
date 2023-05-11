@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\CategoryForo;
 
 class CategoryForoController extends Controller
 {
@@ -14,7 +15,10 @@ class CategoryForoController extends Controller
      */
     public function index()
     {
-        //
+
+        $foroCategory = CategoryForo::all();
+
+        return view('admin.foroCategory.index',compact('foroCategory'));
     }
 
     /**
@@ -24,7 +28,7 @@ class CategoryForoController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.foroCategory.create');
     }
 
     /**
@@ -35,7 +39,16 @@ class CategoryForoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+       // dd($request->all());
+        
+
+       $most =  CategoryForo::create($request->all());
+
+       return redirect()->route('foroCategory.index')->with('Mensaje','Categoria creada con éxito');
+
+
+
     }
 
     /**
@@ -55,9 +68,12 @@ class CategoryForoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(CategoryForo $id)
     {
-        //
+       // dd($id);
+
+        return view('admin.foroCategory.edit',compact('id'));
+
     }
 
     /**
@@ -67,9 +83,17 @@ class CategoryForoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,CategoryForo $id)
     {
-        //
+
+       // dd($id);
+        
+        $id->update($request->all());
+
+
+        return redirect()->route('foroCategory.index')->with('Mensaje','Categoria actualizada con éxito');
+
+
     }
 
     /**
@@ -78,8 +102,18 @@ class CategoryForoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CategoryForo $id)
     {
-        //
+        
+      //  dd($id);
+
+        
+
+        $id->delete();
+
+        return redirect()->route('foroCategory.index',$id)->with('Mensaje','Categoria borrada con éxito');
+
+        
+
     }
 }
