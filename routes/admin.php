@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ClientesController;
 use App\Http\Controllers\Admin\OrdenController;
 use App\Http\Controllers\Admin\ForoController;
 use App\Http\Controllers\Admin\CategoryForoController;
+use App\Http\Controllers\Admin\PostForoController;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -80,6 +81,12 @@ Route::post('admin/foroCategory/store',[CategoryForoController::class, 'store'])
 Route::get('admin/foroCategory/{id}/edit',[CategoryForoController::class, 'edit'])->name('foroCategory.edit');
 Route::put('admin/foroCategory/{id}/update',[CategoryForoController::class, 'update'])->name('foroCategory.update');
 Route::delete('admin/foroCategory/{id}',[CategoryForoController::class, 'destroy'])->name('foroCategory.delete');
+
+
+Route::resource('foroPosts','App\Http\Controllers\Admin\PostForoController');
+Route::get('admin/foroPosts',[PostForoController::class, 'index'])->name('foroPosts.index');
+Route::get('admin/foroPosts/create',[PostForoController::class, 'create'])->name('foroPosts.create');
+Route::post('admin/foroPosts/store',[PostForoController::class, 'store'])->name('foroPosts.store');
 
 
 

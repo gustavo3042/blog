@@ -104,7 +104,7 @@ Publicado
 
 @else
 
-    <img id="picture" src="https://cdn.pixabay.com/photo/2021/05/27/20/53/field-6289253_960_720.jpg" alt="">
+    <img id="picture" src="https://cdn.pixabay.com/photo/2014/06/04/16/36/man-362150_1280.jpg" alt="">
 
 @endif
 
