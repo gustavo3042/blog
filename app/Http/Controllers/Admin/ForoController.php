@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Kilometraje;
 use App\Models\Autos;
 use App\Models\CategoryForo;
+use App\Models\PostForoConsultas;
 
 class ForoController extends Controller
 {
@@ -76,7 +77,15 @@ class ForoController extends Controller
 
 
 
-   
+    public function consultas(){
+
+
+        $postsForo = PostForoConsultas::all();
+
+
+        return view('admin.foro.foroConsultas',compact('postsForo'));
+
+    }
 
 
 

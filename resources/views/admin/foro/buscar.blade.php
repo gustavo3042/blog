@@ -30,7 +30,7 @@
 
       <a class="btn btn-primary" href="{{route('foroPosts.index')}}"><i class="fa fa-check"></i>Mis Posts</a>
         
-      <a class="btn btn-info" href=""><i class="fa fa-car"></i>Foro Consultas</a>
+      <a class="btn btn-info" href="{{route('foro.consultas')}}"><i class="fa fa-car"></i>Foro Consultas</a>
         
       <form action="{{route('foro.buscar')}}" method="GET" class="float-right">
 

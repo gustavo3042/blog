@@ -72,6 +72,7 @@ Route::get('admin/typeahead_autocomplete/correo', [CheckListController::class, '
 Route::resource('foro','App\Http\Controllers\Admin\ForoController');
 Route::get('admin/foro/index',[ForoController::class, 'index'])->name('foro.index');
 Route::get('admin/foro/buscar',[ForoController::class, 'buscar'])->name('foro.buscar');
+Route::get('admin/foro/consultas',[ForoController::class, 'consultas'])->name('foro.consultas');
 
 
 Route::resource('foroCategory','App\Http\Controllers\Admin\CategoryForoController');
@@ -87,6 +88,9 @@ Route::resource('foroPosts','App\Http\Controllers\Admin\PostForoController');
 Route::get('admin/foroPosts',[PostForoController::class, 'index'])->name('foroPosts.index');
 Route::get('admin/foroPosts/create',[PostForoController::class, 'create'])->name('foroPosts.create');
 Route::post('admin/foroPosts/store',[PostForoController::class, 'store'])->name('foroPosts.store');
+Route::get('admin/foroPosts/{postsForo}/edit',[PostForoController::class, 'edit'])->name('foroPosts.edit');
+Route::put('admin/foroPosts/{postsForo}/update',[PostForoController::class, 'update'])->name('foroPosts.update');
+Route::delete('admin/foroPosts/{postsForo}/delete',[PostForoController::class, 'destroy'])->name('foroPosts.destroy');
 
 
 

@@ -7,7 +7,7 @@
 
     <div class="card-header">
     
-        <h2 style="font-weight: bold;" class="text-center pt-5 mb-4">Foro Consultas </h2>
+        <h2 style="font-weight: bold;" class="text-center pt-5 mb-4">Mis Posts Foro Consultas </h2>
     
         <a class="btn btn-primary btn-sm mb-4" href="{{route('foro.index')}}">Volver</a>
     
@@ -48,24 +48,30 @@
     
     <tr>
       <td>{{$post->id}}</td>
-      <td>{{$post->name}}</td>
+      <td>{{$post->nombre}}</td>
       <td><input type="hidden" value="{{$post->user_id}}"></td>
     
+
+    
+  
+    
+  
+    
       <td width="10px">
+
+        <div  class="btn-group" role="group" aria-label="Basic example">
+
+    <a class="btn btn-primary btn-sm" href="{{route('foroPosts.edit',$post->id)}}">Editar</a>
     
-    <a class="btn btn-primary btn-sm" href="{{route('posts.edit',$post)}}">Editar</a>
-    
-      </td>
-    
-      <td width="10px">
-    
-    <form class="" action="{{route('posts.destroy',$post)}}" method="post">
+    <form class="" action="{{route('foroPosts.destroy',$post->id)}}" method="post">
       @csrf
       @method('DELETE')
     
-    <button onClick="return confirm('¿Borrar?');" class="btn btn-danger btn-sm" type="submit" name="button">Eliminar</button>
+    <button onclick=" return confirm('¿Seguro desea borrar este registro?');" class="btn btn-danger btn-sm" type="submit">Eliminar</button>
     
     </form>
+
+        </div>
     
       </td>
     </tr>

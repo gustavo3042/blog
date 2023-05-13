@@ -3,35 +3,30 @@
 <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
 
 <div class="form-group">
-    {!! Form::label('name','Nombre ') !!}
-    {!! Form::text('name',null,['class'=>'form-control','placeholder'=>'Ingrese el nombre del post']) !!}
+    {!! Form::label('nombre','Nombre ') !!}
+    {!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Ingrese el nombre del post']) !!}
     
     
-    @error ('name')
+    @error ('nombre')
     <small class="text-danger">{{$message}}</small>
     @enderror
     
     </div>
     
 
-    <div class="form-group">
-      {!! Form::label('fecha','Fecha ') !!}
-      {!! Form::date('fecha',null,['class'=>'form-control','placeholder'=>'Ingrese fecha']) !!}
+   
+   <input type="hidden" name="fecha" class="form-control" value="{{\Carbon\Carbon::now()->format('Y/m/d')}}" id="" readonly>
       
       
-      @error ('fecha')
-      <small class="text-danger">{{$message}}</small>
-      @enderror
-      
-      </div>
+    
     
  
     
     
     <div class="form-group">
     
-    {!! Form::label('category_id','Categoría') !!}
-    {!! Form::select('category_id',$category_foro,null,['class'=>'form-control']) !!}
+    {!! Form::label('category_foros_id','Categoría') !!}
+    {!! Form::select('category_foros_id',$category_foro,null,['class'=>'form-control']) !!}
     
     
     @error ('category_id')

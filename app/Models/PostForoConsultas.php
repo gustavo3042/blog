@@ -10,7 +10,7 @@ class PostForoConsultas extends Model
     use HasFactory;
 
 
-    protected $fillable = ['nombre','fecha','body','status','user_id','category_foros_id'];
+    protected $guarded = ['id','created_at','updated_at'];
 
 
     public function user(){
