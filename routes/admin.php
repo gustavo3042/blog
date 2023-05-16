@@ -73,6 +73,10 @@ Route::resource('foro','App\Http\Controllers\Admin\ForoController');
 Route::get('admin/foro/index',[ForoController::class, 'index'])->name('foro.index');
 Route::get('admin/foro/buscar',[ForoController::class, 'buscar'])->name('foro.buscar');
 Route::get('admin/foro/consultas',[ForoController::class, 'consultas'])->name('foro.consultas');
+Route::get('admin/foro/{id}/comentarAdmin',[ForoController::class, 'comentarAdmin'])->name('foro.comentarAdmin');
+Route::post('admin/foro/comentCrear',[ForoController::class, 'comentCrear'])->name('foro.comentCrear');
+Route::put('admin/foro/{id}/cometarEdit',[ForoController::class,'comentarEdit'])->name('foro.comentarEdit');
+Route::delete('admin/foro/{id}/comentarDelete',[ForoController::class, 'comentarDelete'])->name('foro.comentarDelete');
 
 
 Route::resource('foroCategory','App\Http\Controllers\Admin\CategoryForoController');

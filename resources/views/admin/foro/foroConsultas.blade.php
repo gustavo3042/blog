@@ -52,8 +52,18 @@
 
                    <br>
                    <br>
+
+                   @if(auth()->user()->id == 1)
+
+                   <a  class="btn btn-primary"  type="submit" href="{{route('foro.comentarAdmin',$item->id)}}">Comentar</a>
+
+                   @else
+
+                   holis
+
+                   @endif
              
-                   <a  class="btn btn-primary   " type="submit" href="">Comentar</a>
+                
                
                    </div>
                  

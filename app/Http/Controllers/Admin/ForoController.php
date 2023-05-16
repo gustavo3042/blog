@@ -11,6 +11,9 @@ use App\Models\Kilometraje;
 use App\Models\Autos;
 use App\Models\CategoryForo;
 use App\Models\PostForoConsultas;
+use App\Models\PostForoComent;
+
+
 
 class ForoController extends Controller
 {
@@ -85,6 +88,69 @@ class ForoController extends Controller
 
         return view('admin.foro.foroConsultas',compact('postsForo'));
 
+    }
+
+
+    public function comentarAdmin($id){
+
+    
+     //   dd($id);
+
+        $foroComent = PostForoConsultas::find($id);
+
+
+        $coment = PostForoComent::all();
+
+        $most = PostForoComent::join('users','users.id','=','post_foro_coments.user_id')
+        ->where('post_foro_coments.post_foro_consultas_id',$id)->get();
+
+
+        return view('admin.foro.foroComentarAdmin',compact('foroComent','coment','most'));
+
+
+
+       // dd($foroComent);
+
+    }
+
+    public function comentCrear(Request $request){
+
+      //  dd($request->all());
+
+      $comentar = PostForoComent::create($request->all());
+
+    
+
+      return redirect()->route('foro.comentarAdmin',$request->post_foro_consultas_id)->with('Mensaje','Comentario creado con éxito!!!');
+
+
+    }
+
+    public function comentarEdit(Request $request,$id){
+
+
+        //dd($request->all(),$id);
+
+   // $foroComent = PostForoConsultas::find($id);
+
+     $most = DB::table('post_foro_coments')->where('id',$id)->update(['bodyComent'=> $request->bodyComent]);
+
+
+     return redirect()->back()->with('Mensaje','Comentario actualizado con éxito!!!');
+
+    }
+
+
+    public function comentarDelete(PostForoComent $id){
+
+
+      //  dd($id);
+
+        $id->delete();
+
+
+        return redirect()->back()->with('Mensaje','Comentario borrado con éxito!!!');
+        
     }
 
 
