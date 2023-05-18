@@ -99,13 +99,12 @@ class ForoController extends Controller
         $foroComent = PostForoConsultas::find($id);
 
 
-        $coment = PostForoComent::all();
+        $coment = PostForoComent::where('post_foro_consultas_id',$id)->get();
 
-        $most = PostForoComent::join('users','users.id','=','post_foro_coments.user_id')
-        ->where('post_foro_coments.post_foro_consultas_id',$id)->get();
+        $users = User::all();
 
 
-        return view('admin.foro.foroComentarAdmin',compact('foroComent','coment','most'));
+        return view('admin.foro.foroComentarAdmin',compact('foroComent','coment','users'));
 
 
 
@@ -113,15 +112,59 @@ class ForoController extends Controller
 
     }
 
+
+    public function comentarClient($id){
+
+    
+        //   dd($id);
+   
+           $foroComent = PostForoConsultas::find($id);
+   
+   
+           $coment = PostForoComent::where('post_foro_consultas_id',$id)->get();
+   
+          
+
+           $users = User::all();
+           
+
+          // dd($most);
+   
+   
+           return view('admin.foro.foroComentarClient',compact('foroComent','coment','users'));
+   
+   
+   
+          // dd($foroComent);
+   
+       }
+
     public function comentCrear(Request $request){
 
-      //  dd($request->all());
+        //dd($request->all());
 
-      $comentar = PostForoComent::create($request->all());
+        if ($request->client == 0) {
+            
+            $comentar = PostForoComent::create($request->all());
 
     
 
-      return redirect()->route('foro.comentarAdmin',$request->post_foro_consultas_id)->with('Mensaje','Comentario creado con éxito!!!');
+            return redirect()->route('foro.comentarClient',$request->post_foro_consultas_id)->with('Mensaje','Comentario creado con éxito!!!');
+
+        }elseif($request->client == 1){
+
+
+
+            $comentar = PostForoComent::create($request->all());
+
+    
+
+            return redirect()->route('foro.comentarAdmin',$request->post_foro_consultas_id)->with('Mensaje','Comentario creado con éxito!!!');
+
+
+        }
+
+     
 
 
     }
@@ -129,14 +172,29 @@ class ForoController extends Controller
     public function comentarEdit(Request $request,$id){
 
 
-        //dd($request->all(),$id);
+      //  dd($request->all());
+
+
+      if ($request->edits == 0) {
+        
+
+        $most = DB::table('post_foro_coments')->where('id',$id)->update(['bodyComent'=> $request->bodyComent]);
+
+
+        return redirect()->back()->with('Mensaje','Comentario actualizado con éxito!!!');
+        
+      }elseif ($request->edits == 1) {
+    
+        $most = DB::table('post_foro_coments')->where('id',$id)->update(['bodyComent'=> $request->bodyComent]);
+
+
+        return redirect()->back()->with('Mensaje','Comentario actualizado con éxito!!!');
+
+      }
 
    // $foroComent = PostForoConsultas::find($id);
 
-     $most = DB::table('post_foro_coments')->where('id',$id)->update(['bodyComent'=> $request->bodyComent]);
-
-
-     return redirect()->back()->with('Mensaje','Comentario actualizado con éxito!!!');
+  
 
     }
 

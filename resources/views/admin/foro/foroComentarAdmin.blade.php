@@ -98,6 +98,7 @@
 
         <input type="hidden" value="{{$foroComent->id}}" name="post_foro_consultas_id" >
 
+        <input type="hidden" name="client" value="1">
 
        <div class="form-group">
 
@@ -120,7 +121,7 @@
 </div>
 @endif
 
-<div class="card-header mb-4 pt-5">
+<div class="card-body mb-4 pt-5">
 
 @foreach ($coment as $val)
 
@@ -132,8 +133,19 @@
 
 <div class="form-group">
 
-<label for="">Comentado por: {{$most[0]->name}} con fecha del {{$val->fechaComent}} </label>
+    @foreach ($users as $tot)
+        
+    @if ($val->user_id == $tot->id)
+
+    <label class="form-label" for="">Comentado Por: {{$tot->name}} el {{$val->fechaComent}}</label>
+        
+    @endif
+
+    @endforeach
+
 <textarea  class="form-control" name="bodyComent"  cols="7" rows="7" >{{$val->bodyComent}}</textarea>
+
+<input type="hidden" name="edits" value="1">
 
 </div>
 

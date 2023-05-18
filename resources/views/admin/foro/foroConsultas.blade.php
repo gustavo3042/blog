@@ -32,7 +32,7 @@
 
             @foreach ($postsForo as $item)
 
-            <div class="col-sm-3 ">
+            <div class="col-sm-4 ">
 
 
               
@@ -55,11 +55,11 @@
 
                    @if(auth()->user()->id == 1)
 
-                   <a  class="btn btn-primary"  type="submit" href="{{route('foro.comentarAdmin',$item->id)}}">Comentar</a>
+                   <a  class="btn btn-primary"   type="submit" href="{{route('foro.comentarAdmin',$item->id)}}">Comentar</a>
 
                    @else
 
-                   holis
+                   <a  class="btn btn-primary"  type="submit" href="{{route('foro.comentarClient',$item->id)}}">Comentar</a>
 
                    @endif
              
