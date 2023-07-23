@@ -61,43 +61,31 @@
     <td>{{$check->encargado}}</td>
    
 
-
+    <td>{{$check->patente}}</td>
    
-    <td>{{$check->patente}}
+    <div class="form-group">  
+      <td >
       {!! Form::hidden('user_id',auth()->user()->id) !!}
-    </td>
-    <td><input type="hidden" value="{{$check->user_id}}"></td>
+    
+    <input type="hidden" value="{{$check->user_id}}">
 
-    <td width="10px">
+
 
   <a class="btn btn-primary btn-sm" href="{{route('check.edit',$check)}}">Editar</a>
 
-    </td>
+  
 
-    <td width="10px"><a class="btn btn-success btn-sm" href="{{route('check.show',$check)}}">Show</a></td>
+   <a class="btn btn-success btn-sm" href="{{route('check.show',$check)}}">Show</a>
 
-    <td width="10px">
-
- 
- 
 
   <button  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal" >Eliminar</button>
 
 
-
-    </td>
-
-
-    <td width="10px">
-
- 
- 
-
       <a  class="btn btn-primary btn-sm " href="{{route('check.pdf',$check->id)}}" >PDF</a>
     
     
-    
-        </td>
+    </td>
+    </div>
 
 
  

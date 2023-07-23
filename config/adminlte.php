@@ -310,6 +310,13 @@ return [
 
         ],
 
+        [
+            'text' => 'Trabajadores',
+            'url'  => 'admin/workers',
+            'icon' => 'fas fa-fw fa-lock',
+
+        ],
+
         ['header' => 'OPCIONES DE BLOG'],
 
 

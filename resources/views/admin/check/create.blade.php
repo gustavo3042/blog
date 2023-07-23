@@ -154,6 +154,9 @@ alert('Publicado significa que esta publicacion aparecera en el foro disponible 
 
 <script type="text/javascript">
 
+
+
+
   $('tbody').delegate('.quantity,.budget','keyup',function(){
       var tr= $(this).parent().parent();
       var quantity=tr.find('.quantity').val();

@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\OrdenController;
 use App\Http\Controllers\Admin\ForoController;
 use App\Http\Controllers\Admin\CategoryForoController;
 use App\Http\Controllers\Admin\PostForoController;
+use App\Http\Controllers\Admin\WorkersController;
+use App\Http\Livewire\Admin\Workers\WorkersIndex;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -115,3 +117,14 @@ Route::resource('orden','App\Http\Controllers\Admin\OrdenController');
 Route::get('admin/orden/index',[OrdenController::class,'index'])->name('orden.index');
 Route::get('admin/edit/{orden}',[OrdenController::class,'edit'])->name('orden.edit');
 
+
+
+Route::resource('workers','App\Http\Controllers\Admin\WorkersController');
+Route::get('admin/workers/index', [WorkersController::class, 'index'])->name('workers.index');
+Route::get('admin/workers/create', [WorkersController::class, 'create'])->name('workers.create');
+Route::post('admin/workers/store', [WorkersController::class, 'store'])->name('workers.store');
+Route::get('admin/workers/edit/{worker}', [WorkersController::class, 'edit'])->name('workers.edit');
+Route::put('admin/workers/{worker}/update', [WorkersController::class, 'update'])->name('workers.update');
+Route::delete('admin/workers/{worker}/delete', [WorkersController::class, 'destroy'])->name('workers.delete');
+Route::get('admin/workers/enable/{worker}', [WorkersController::class, 'enable'])->name('workers.enable');
+Route::get('admin/workers/disabled/{worker}', [WorkersController::class, 'disabled'])->name('workers.disabled');
