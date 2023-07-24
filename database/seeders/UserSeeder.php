@@ -31,6 +31,7 @@ User::factory(1)->create();
 
 $this->insertAfp();
 $this->insertTipoContrato();
+$this->insertAbsences();
 
     }
 
@@ -108,4 +109,32 @@ $this->insertTipoContrato();
 
        
     }
+
+
+    private static function insertAbsences()
+    {
+        $now = \Carbon\Carbon::now();
+        $absences = [
+
+
+            ['Ninguno'],
+            ['Falla'],
+            ['Licencia'],
+            ['Vacaciones'],
+            ['Permiso de Medio Tiempo'],
+            ['Permiso de Tiempo Completo'],
+
+        ];
+        $absences = array_map(function ($type) use ($now) {
+            return [
+                'name' => $type[0],
+                'updated_at' => $now,
+                'created_at' => $now,
+            ];
+        }, $absences);
+
+        DB::table('absences')->insert($absences);
+    }
+
+  
 }

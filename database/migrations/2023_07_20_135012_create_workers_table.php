@@ -30,6 +30,12 @@ class CreateWorkersTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('absences', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('workers', function (Blueprint $table) {
             $table->id();
           
@@ -52,6 +58,43 @@ class CreateWorkersTable extends Migration
             $table->string('causalFinContrato')->nullable();
             $table->timestamps();
         });
+
+        
+        Schema::create('check_lists_workers', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('check_lists_id');
+            $table->unsignedBigInteger('workers_id');
+            $table->foreign('check_lists_id')->references('id')->on('check_lists')->onDelete('cascade');
+            $table->foreign('workers_id')->references('id')->on('workers')->onDelete('cascade');
+            $table->timestamps();
+        });
+
+        Schema::create('productions', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('check_lists_id')->nullable()->references('id')->on('check_lists')->onDelete("cascade");
+            $table->foreignId('workers_id')->nullable()->references('id')->on('check_lists_workers')->onDelete("cascade");
+            $table->integer('cantidad')->nullable();
+            $table->decimal('rendimiento', 5,1 )->nullable();
+            $table->integer('pagodiario')->nullable();
+            $table->integer('porcentaje')->nullable();
+            $table->integer('pagoporcentaje')->nullable();
+
+        
+            $table->timestamps();
+        });
+
+        Schema::create('assistances', function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignId('check_lists_id')->nullable()->references('id')->on('check_lists')->onDelete("cascade");
+            $table->foreignId('workers_id')->nullable()->references('id')->on('check_lists_workers')->onDelete("cascade");
+            $table->boolean('presente')->default(0);
+
+            $table->foreignId('inasistencia_id')->nullable()->references('id')->on('absences')->onDelete("cascade")->default(1);
+
+            $table->timestamps();
+        });
+        
     }
 
     /**
@@ -61,8 +104,16 @@ class CreateWorkersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workers');
+        
         Schema::dropIfExists('afps');
         Schema::dropIfExists('tipo_contratos');
+        Schema::dropIfExists('absences');
+        Schema::dropIfExists('workers');
+        Schema::dropIfExists('check_lists_workers');
+        Schema::dropIfExists('productions');
+        Schema::dropIfExists('assistances');
+        
+       
+       
     }
 }

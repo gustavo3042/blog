@@ -12,14 +12,11 @@ use App\Models\User;
 use App\Models\Presupuesto;
 use App\Models\PresupuestoDetails;
 use App\Models\Kilometraje;
-
 use App\Http\Requests\Check\StoreRequest;
-
 use Illuminate\Support\Facades\Storage;
-
 use Illuminate\Support\Facades\DB;
 use PDF;
-
+use App\Models\Worker;
 class CheckListController extends Controller
 {
     /**
@@ -460,30 +457,69 @@ return redirect()->route('check.index',$check);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(CheckList $check)
+    public function show($check)
     {
-      $reparaciones = DB::table('check_lists')
-      ->join('check_list_reparaciones','check_list_reparaciones.check_list_id','=','check_lists.id')
-      ->join('reparaciones','reparaciones.id','=','check_list_reparaciones.reparaciones_id')
-      ->select('name')
-      ->where('check_lists.id',$check->id)
-      ->get();
+    
+
+      return view('admin.check.show',compact('check'));
 
 
-      $clientes = DB::table('check_lists')
-      ->join('clientes','clientes.check_lists_id','=','check_lists.id')
-      ->where('clientes.check_lists_id',$check->id)
-      ->get();
+    }
+
+    public function addWorkers(Request $request)
+    {
+
+       // dd($request->all());
+
+        if (empty($request->workers)) {
+            Toastr::warning('Favor de Agregar Trabajadores', 'Sin Trabajadores', );
+
+            return redirect()->back();
+        }
+
+        // Se obtiene el array de todos los trabajadores
+        $workers = $request->workers;
+
+        // se obtiene la faena
+        $activeChore = CheckList::find($request->faenaActiva_id);
 
 
-      $autos = DB::table('check_lists')
-      ->join('autos','autos.check_lists_id','=','check_lists.id')
-      ->where('autos.check_lists_id',$check->id)
-      ->get();
-
-      return view('admin.check.show',compact('check','reparaciones','clientes','autos'));
 
 
+        foreach ($request->workers as $key => $value) {
+            $addWorkers = DB::table('check_lists_workers')->insert([
+                'check_lists_id' => $activeChore->id,
+                'workers_id' => $request->workers[$key]
+            ]);
+
+          
+
+            
+            $chor_worker = DB::table('check_lists_workers')->where(['check_lists_id' => $activeChore->id, 'workers_id' => $request->workers[$key]])->first();
+
+            $produccion = DB::table('productions')->insert(
+                ['check_lists_id' => $activeChore->id,
+                'workers_id' => $chor_worker->id,
+                'cantidad' => 0,
+                'rendimiento' => 0,
+                ]
+            );
+
+            $asistencia = DB::table('assistances')->insert(
+                ['check_lists_id' => $activeChore->id,
+                'workers_id' => $chor_worker->id,
+                'presente' => 1,
+                'inasistencia_id' => 1,
+                ]
+            );
+        }
+
+    
+
+
+        //Toastr::success('Agregado', 'Trabajadores agregados a la faena con éxito', );
+
+        return redirect()->route('workers.show', $activeChore->id);
     }
 
     /**

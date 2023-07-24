@@ -52,6 +52,7 @@ Route::get('admin/check/{check}/show',[CheckListController::class, 'show'])->nam
 Route::get('admin/check/{check}/presupuesto',[CheckListController::class,'presupuesto'])->name('check.presupuesto');
 Route::get('admin/check/cliente',[CheckListController::class, 'clientes'])->name('check.cliente');
 Route::get('admin/check/pdf/{id}',[CheckListController::class, 'documentoPdf'])->name('check.pdf');
+Route::post('addWorkers', [CheckListController::class, 'addWorkers'])->name('addWorkers');
 
 //------------------------------------Rutas para el autocomplete--------------------------------------------
 Route::get('admin/typeahead_autocomplete/action', [CheckListController::class, 'action'])->name('check.action');
@@ -128,3 +129,5 @@ Route::put('admin/workers/{worker}/update', [WorkersController::class, 'update']
 Route::delete('admin/workers/{worker}/delete', [WorkersController::class, 'destroy'])->name('workers.delete');
 Route::get('admin/workers/enable/{worker}', [WorkersController::class, 'enable'])->name('workers.enable');
 Route::get('admin/workers/disabled/{worker}', [WorkersController::class, 'disabled'])->name('workers.disabled');
+
+
