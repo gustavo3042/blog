@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\CategoryForoController;
 use App\Http\Controllers\Admin\PostForoController;
 use App\Http\Controllers\Admin\WorkersController;
 use App\Http\Livewire\Admin\Workers\WorkersIndex;
+use App\Http\Controllers\Admin\AsistenciaController;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -131,3 +132,6 @@ Route::get('admin/workers/enable/{worker}', [WorkersController::class, 'enable']
 Route::get('admin/workers/disabled/{worker}', [WorkersController::class, 'disabled'])->name('workers.disabled');
 
 
+Route::resource('assistences','App\Http\Controllers\Admin\AsistenciaController');
+Route::get('assistences/edit/{id}', [AsistenciaController::class, 'edit'])->name('assistance.pasar');
+Route::put('assistences/update/{id}', [AsistenciaController::class, 'update'])->name('assistance.update');

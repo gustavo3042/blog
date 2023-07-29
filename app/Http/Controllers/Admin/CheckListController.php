@@ -518,8 +518,9 @@ return redirect()->route('check.index',$check);
 
 
         //Toastr::success('Agregado', 'Trabajadores agregados a la faena con éxito', );
-
-        return redirect()->route('workers.show', $activeChore->id);
+    
+       
+        return redirect()->route('check.show', $activeChore->id)->with('Mensaje', 'Trabajador agregado con éxito.');
     }
 
     /**

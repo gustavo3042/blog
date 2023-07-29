@@ -1,4 +1,6 @@
 <div>
+
+ 
   
 <div style="padding: 15px;" class="card">
 
@@ -182,11 +184,11 @@
                     <div class="d-flex align-items-center">
                         <div>
                           <p class="mb-0 text-secondary">Trabajadores</p>
-                            <h4 class="my-1"> </h4>
+                            <h4 class="my-1">{{$workersActive->count()}} </h4>
                                 <p class="mb-0 font-13 text-info"></i> En faena</p>
                         </div>
                              <div class="widgets-icons bg-light-info text-info ms-auto"><i
-                                class='bx bx-group'></i>
+                                class='fas fa-user'></i>
                               </div>
                              </div>
                     </div>
@@ -198,12 +200,14 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
-                          <p class="mb-0 text-secondary">Trabajadores</p>
-                            <h4 class="my-1"> </h4>
+                          <p class="mb-0 text-secondary">Asistencia</p>
+                            <h4 class="my-1">
+                               {{$workExist}}/ {{$workersActive->count()}}
+                               </h4>
                                 <p class="mb-0 font-13 text-info"></i> En faena</p>
                         </div>
-                             <div class="widgets-icons bg-light-info text-info ms-auto"><i
-                                class='bx bx-group'></i>
+                             <div class="widgets-icons bg-light-info text-info ms-auto"><i 
+                                class="fas fa-list"></i>
                               </div>
                              </div>
                     </div>
@@ -396,8 +400,8 @@
 
                 <div class="float-left">
                     
-
-                    <a class="btn btn-primary" wire:click.prevent="asistencia()"> <i
+              
+                    <a class="btn btn-primary" href="{{route('assistance.pasar',$checks->id)}}"> <i
                         class="fas fa-user-check"></i>Asistencia</a>
 
                     <a class="btn btn-primary" href="">
@@ -425,3 +429,5 @@
 
 
 </div>
+
+

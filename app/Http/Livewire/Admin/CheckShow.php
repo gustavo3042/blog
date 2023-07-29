@@ -39,9 +39,15 @@ class CheckShow extends Component
                             ->get();
                     });
         })->get();
+
+        $this->workersActive = DB::table('assistances')->where('check_lists_id',$this->check)->get();
+
+        $this->workExist = DB::table('assistances')->where(['check_lists_id' => $this->check, 'presente' => 1])->sum('presente');
+
+
     }
 
-    // return view('admin.check.show',compact('check','reparaciones','clientes','autos','workers'));
+
     public function render()
     {
 
@@ -91,7 +97,7 @@ class CheckShow extends Component
 
 public function asistencia(){
 
-    dd('holios');
+    return view('livewire.admin.assistence');
 
 }
    
