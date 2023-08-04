@@ -45,6 +45,34 @@ class CheckShow extends Component
         $this->workExist = DB::table('assistances')->where(['check_lists_id' => $this->check, 'presente' => 1])->sum('presente');
 
 
+        $this->choreWorkers = DB::select(
+            DB::raw("
+                Select
+                workers.id as id,
+                workers.rut as rut,
+                workers.name as name,
+                workers.surname,
+                workers.surname2,
+    
+                productions.cantidad,
+                productions.rendimiento,
+                productions.pagodiario,
+                productions.porcentaje,
+                productions.pagoporcentaje,
+                assistances.presente
+    
+                from check_lists_workers
+                join workers on check_lists_workers.workers_id = workers.id
+                left join productions on productions.workers_id = check_lists_workers.id
+                left join assistances on assistances.workers_id = check_lists_workers.id
+    
+                where check_lists_workers.check_lists_id = ".$this->check."
+               
+            ")
+        );
+
+      //  dd($this->choreWorkers);
+
     }
 
 

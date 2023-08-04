@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\PostForoController;
 use App\Http\Controllers\Admin\WorkersController;
 use App\Http\Livewire\Admin\Workers\WorkersIndex;
 use App\Http\Controllers\Admin\AsistenciaController;
+use App\Http\Controllers\Admin\ProductionsController;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -135,3 +136,8 @@ Route::get('admin/workers/disabled/{worker}', [WorkersController::class, 'disabl
 Route::resource('assistences','App\Http\Controllers\Admin\AsistenciaController');
 Route::get('assistences/edit/{id}', [AsistenciaController::class, 'edit'])->name('assistance.pasar');
 Route::put('assistences/update/{id}', [AsistenciaController::class, 'update'])->name('assistance.update');
+
+
+Route::resource('production','App\Http\Controllers\Admin\ProductionsController');
+Route::get('production/edit/{id}', [ProductionsController::class, 'produccion'])->name('productions.produccion');
+Route::put('production/update/{id}', [ProductionsController::class, 'update'])->name('productions.update');

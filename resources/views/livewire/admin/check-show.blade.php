@@ -204,7 +204,7 @@
                             <h4 class="my-1">
                                {{$workExist}}/ {{$workersActive->count()}}
                                </h4>
-                                <p class="mb-0 font-13 text-info"></i> En faena</p>
+                                <p class="mb-0 font-13 text-info"></i>%</p>
                         </div>
                              <div class="widgets-icons bg-light-info text-info ms-auto"><i 
                                 class="fas fa-list"></i>
@@ -220,9 +220,9 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
-                          <p class="mb-0 text-secondary">Trabajadores</p>
+                          <p class="mb-0 text-secondary">Inasistencias</p>
                             <h4 class="my-1"> </h4>
-                                <p class="mb-0 font-13 text-info"></i> En faena</p>
+                                <p class="mb-0 font-13 text-info"></i>%</p>
                         </div>
                              <div class="widgets-icons bg-light-info text-info ms-auto"><i
                                 class='bx bx-group'></i>
@@ -404,11 +404,8 @@
                     <a class="btn btn-primary" href="{{route('assistance.pasar',$checks->id)}}"> <i
                         class="fas fa-user-check"></i>Asistencia</a>
 
-                    <a class="btn btn-primary" href="">
-                        <i class="fas fa-calculator"></i> Producción</a>
-
-
-
+                    <a class="btn btn-primary" href="{{route('productions.produccion',$checks->id)}}">
+                        <i class="fas fa-calculator"></i>Producción</a>
 
                 </div>
 
@@ -417,6 +414,81 @@
 
             <div class="card-body">
 
+
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th colspan="3"> </th>
+                                <th colspan="2">Jornada a Trato</th>
+                                <th colspan="2">Jornada al día</th>
+                            </tr>
+
+
+                            <tr>
+                                <th>N°</th>
+                                <th width="10%">Rut</th>
+                                <th>Nombre</th>
+                                <th>Asistencia</th>
+                                <th>Cantidad</th>
+                                <th>Rendimiento</th>
+                                <th>Pago Diario</th>
+                                <th>Porcentaje</th>
+                                <th>Pago %</th>
+                                
+                             
+                                <th width="10%">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($choreWorkers as $workers)
+                                <tr>
+
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td> {{ $workers->rut }}</td>
+                                    <td> {{ $workers->name }} {{ $workers->surname }}
+                                        {{ $workers->surname2 }}</td>
+                                    <td>
+                                        @if ($workers->presente == 1)
+                                            <span class="badge rounded-pill bg-success">Presente</span>
+                                        @else
+                                            <span class="badge rounded-pill bg-danger">Inasistencia</span>
+                                        @endif
+                                    </td>
+                                    <td> {{ $workers->cantidad ?? 'Sin Producción' }} 
+
+                                      
+
+                                    </td>
+                                    <td> {{ $workers->rendimiento ?? '-' }} hrs</td>
+                                    <td>${{ $workers->pagodiario ?? '-' }}</td>
+                                    <td>%{{ $workers->porcentaje ?? '-' }}</td>
+
+                                    <td>${{ $workers->pagoporcentaje ?? '-' }}</td>
+                                  
+                                  
+                                    <td>
+
+                                        <form action="" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="activeChore"
+                                                value="">
+                                            <input type="hidden" name="worker" value="">
+
+                                            <button type="submit" class="btn btn-danger" style="width: 50%;"
+                                                data-toggle="tooltip" data-placement="top" title="X">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
 
             </div>
