@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\WorkersController;
 use App\Http\Livewire\Admin\Workers\WorkersIndex;
 use App\Http\Controllers\Admin\AsistenciaController;
 use App\Http\Controllers\Admin\ProductionsController;
+use App\Http\Livewire\Admin\CheckShow;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -55,6 +56,8 @@ Route::get('admin/check/{check}/presupuesto',[CheckListController::class,'presup
 Route::get('admin/check/cliente',[CheckListController::class, 'clientes'])->name('check.cliente');
 Route::get('admin/check/pdf/{id}',[CheckListController::class, 'documentoPdf'])->name('check.pdf');
 Route::post('addWorkers', [CheckListController::class, 'addWorkers'])->name('addWorkers');
+Route::post('admin/checkshow/update/',[CheckShow::class, 'update'])->name('edit.jobs');
+
 
 //------------------------------------Rutas para el autocomplete--------------------------------------------
 Route::get('admin/typeahead_autocomplete/action', [CheckListController::class, 'action'])->name('check.action');

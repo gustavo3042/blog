@@ -1,6 +1,8 @@
 <div>
 
- 
+@include('livewire.admin.modals.update',['check'=>$check])
+
+
   
 <div style="padding: 15px;" class="card">
 
@@ -455,19 +457,18 @@
                                             <span class="badge rounded-pill bg-danger">Inasistencia</span>
                                         @endif
                                     </td>
-                                    <td> {{ $workers->cantidad ?? 'Sin Producción' }} 
-
-                                      
-
+                                    <td>
+                                         <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $workers->id }})" class="btn btn-primary btn-sm"><i class="fas fa-pen">{{ $workers->cantidad ?? 'Sin Producción' }} </i></button> 
                                     </td>
                                     <td> {{ $workers->rendimiento ?? '-' }} hrs</td>
                                     <td>${{ $workers->pagodiario ?? '-' }}</td>
                                     <td>%{{ $workers->porcentaje ?? '-' }}</td>
 
                                     <td>${{ $workers->pagoporcentaje ?? '-' }}</td>
-                                  
-                                  
                                     <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+
+                            
 
                                         <form action="" method="POST">
                                             @csrf
@@ -475,17 +476,23 @@
                                                 value="">
                                             <input type="hidden" name="worker" value="">
 
-                                            <button type="submit" class="btn btn-danger" style="width: 50%;"
+                                            <button type="submit" class="btn btn-danger btn-sm"
                                                 data-toggle="tooltip" data-placement="top" title="X">
                                                 <i class="fas fa-trash"></i>
                                             </button>
 
                                         </form>
 
+                                    </div>
                                     </td>
 
                                 </tr>
                             @endforeach
+                            <script type="text/javascript">
+                                window.livewire.on('userStore', () => {
+                                    $('#exampleModal').modal('hide');
+                                });
+                            </script> 
                         </tbody>
                     </table>
                 </div>

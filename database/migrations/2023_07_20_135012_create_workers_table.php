@@ -108,6 +108,17 @@ class CreateWorkersTable extends Migration
         
             $table->timestamps();
         });
+
+
+        Schema::create('jobs', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('check_lists_id')->nullable()->references('id')->on('check_lists')->onDelete("cascade");
+            $table->foreignId('workers_id')->nullable()->references('id')->on('check_lists_workers')->onDelete("cascade");
+          
+
+        
+            $table->timestamps();
+        });
         
     }
 
