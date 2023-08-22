@@ -2,13 +2,13 @@
 
 
 
-  <header>
+  <header style="background: white">
     <!-- Navbar -->
    
     <!-- Navbar -->
   
     <!-- Jumbotron -->
-    <div class="text-center bg-gray-50 text-gray-800 py-20 px-6">
+    <div class="text-center  text-gray-800 py-20 px-6">
       <h1 class="text-5xl font-bold mt-0 mb-6">Mecánica Ríos</h1>
       <h3 class="text-3xl font-bold mb-8">Mecanica en General</h3>
       <a href="{{route('posts.sobreNosotros')}}" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light" href="#!" role="button">Sobre Nosotros</a>
@@ -23,9 +23,10 @@
 
   </header>
 
+  <br>
 
 
-<div class="container py-8  ">
+<div style="background: white" class="container py-8  ">
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -117,16 +118,22 @@
 <div class="mt-4">
   {{$posts->links()}}
 </div>
-</div>
-
-
-<div class="container pt-5">
-
-
 
 </div>
 
 
+<div style="background: white;" class="container pt-5">
+
+
+  <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
+    <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+</a>
+<br>
+
+</div>
+
+<br>
 <footer class="p-4 bg-white rounded-lg shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
   <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022 <a href="https://flowbite.com/" class="hover:underline">Mecanica Rios™</a>. All Rights Reserved.
   </span>
