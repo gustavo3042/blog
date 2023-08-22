@@ -89,8 +89,9 @@ class CheckShow extends Component
   
   
         $autos = DB::table('check_lists')
-        ->join('autos','autos.check_lists_id','=','check_lists.id')
-        ->where('autos.check_lists_id',$this->check)
+        ->join('check_lists_autos','check_lists_autos.check_lists_id','=','check_lists.id')
+        ->join('autos','autos.id','=','check_lists_autos.autos_id')
+        ->where('check_lists_autos.check_lists_id',$this->check)
         ->first();
   
         $id = $this->check;
