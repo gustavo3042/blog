@@ -95,26 +95,14 @@ class CreateWorkersTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('productions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('check_lists_id')->nullable()->references('id')->on('check_lists')->onDelete("cascade");
-            $table->foreignId('workers_id')->nullable()->references('id')->on('check_lists_workers')->onDelete("cascade");
-            $table->integer('cantidad')->nullable();
-            $table->decimal('rendimiento', 5,1 )->nullable();
-            $table->integer('pagodiario')->nullable();
-            $table->integer('porcentaje')->nullable();
-            $table->integer('pagoporcentaje')->nullable();
-
-        
-            $table->timestamps();
-        });
+     
 
 
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('check_lists_id')->nullable()->references('id')->on('check_lists')->onDelete("cascade");
             $table->foreignId('workers_id')->nullable()->references('id')->on('check_lists_workers')->onDelete("cascade");
-          
+            $table->foreignId('presupuesto_details_id')->nullable()->references('id')->on('presupuesto_details')->onDelete("cascade");
 
         
             $table->timestamps();
@@ -138,6 +126,7 @@ class CreateWorkersTable extends Migration
         Schema::dropIfExists('productions');
         Schema::dropIfExists('assistances');
         Schema::dropIfExists('productions');
+        Schema::dropIfExists('jobs');
         
        
        

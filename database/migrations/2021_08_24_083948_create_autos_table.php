@@ -29,6 +29,21 @@ class CreateAutosTable extends Migration
    
             $table->timestamps();
         });
+
+
+        Schema::create('check_lists_autos', function (Blueprint $table) {
+            $table->id();
+         
+
+            $table->unsignedBigInteger('check_lists_id');
+           
+            $table->foreign('check_lists_id')->references('id')->on('check_lists')->onDelete('cascade');
+            $table->unsignedBigInteger('autos_id');
+           
+            $table->foreign('autos_id')->references('id')->on('autos')->onDelete('cascade');
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -39,5 +54,6 @@ class CreateAutosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('autos');
+        Schema::dropIfExists('check_lists_autos');
     }
 }

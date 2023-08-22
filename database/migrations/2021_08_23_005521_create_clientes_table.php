@@ -23,10 +23,20 @@ class CreateClientesTable extends Migration
             $table->unsignedBigInteger('check_lists_id');
            
             $table->foreign('check_lists_id')->references('id')->on('check_lists')->onDelete('cascade');
-          
+            $table->timestamps();
+        });
 
 
+        Schema::create('check_lists_clientes', function (Blueprint $table) {
+            $table->id();
+         
 
+            $table->unsignedBigInteger('check_lists_id');
+           
+            $table->foreign('check_lists_id')->references('id')->on('check_lists')->onDelete('cascade');
+            $table->unsignedBigInteger('clientes_id');
+           
+            $table->foreign('clientes_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -39,5 +49,6 @@ class CreateClientesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('clientes');
+        Schema::dropIfExists('check_lists_clientes');
     }
 }

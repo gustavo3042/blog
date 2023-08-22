@@ -268,13 +268,24 @@ class CheckListController extends Controller
 
      // dd($checkClient);
 
+     /*
+      $clientNew = DB::table('check_lists_clientes')
+      ->join('clientes','clientes.id','=','check_lists_clientes.clientes_id')
+      
+      ->where('check_lists_clientes.check_lists_id',$checkClient->id)->first();
+      */
+  
       $clientNew = Cliente::where('check_lists_id',$checkClient->id)->first();
 
     // dd($clientNew);
 
+
+
+    //dd($clientId);
+
     if (empty($clientNew->check_lists_id)) {
 
-      Cliente::insert([
+    $client =  Cliente::create([
 
         'nombre' =>$request->nombre,
         'direccion' =>$request->direccion,
@@ -283,7 +294,19 @@ class CheckListController extends Controller
         'check_lists_id' => $check->id
 
       ]);
+
+      //dd($client->id);
+
+      $clientMost = DB::table('check_lists_clientes')
+      ->insert(['check_lists_id'=> $checkA,'clientes_id' =>$client->id ]);
     
+    }else{
+      
+      $clientId = $clientNew->id;
+
+      $clientMost = DB::table('check_lists_clientes')
+      ->insert(['check_lists_id'=> $checkA,'clientes_id' => $clientId]);
+      
     }
 
 
@@ -314,7 +337,8 @@ class CheckListController extends Controller
         $autosL->cilindrada = $request->cilindrada;
         $autosL->save();
 
-        
+        $autosMost = DB::table('check_lists_autos')
+        ->insert(['check_lists_id'=> $checkA,'autos_id' =>$autosL->id ]);
 
 
         Kilometraje::insert([
@@ -338,6 +362,10 @@ class CheckListController extends Controller
 
    //   dd($request->patente);
 
+   $autosId = $autoNew->id;
+
+   $autosMost = DB::table('check_lists_autos')
+   ->insert(['check_lists_id'=> $checkA,'autos_id' =>$autosId ]);
 
    if ($request->tipoAceite == 5) {
     

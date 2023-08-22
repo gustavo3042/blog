@@ -81,8 +81,10 @@ class CheckShow extends Component
   
   
         $clientes = DB::table('check_lists')
-        ->join('clientes','clientes.check_lists_id','=','check_lists.id')
-        ->where('clientes.check_lists_id',$this->check)
+        ->join('check_lists_clientes','check_lists_clientes.check_lists_id','=','check_lists.id')
+        ->join('clientes','clientes.id','=','check_lists_clientes.clientes_id')
+        
+        ->where('check_lists_clientes.check_lists_id',$this->check)
         ->first();
   
   
@@ -157,7 +159,8 @@ public function edit ($worker_id){
 
       $most = Worker::find($worker_id);
 
-    
+      $worker = DB::table('check_lists_workers')->where(['check_lists_id'=>$this->check,'workers_id' => $most->id])->first();
+    //  dd($worker);
 
       $this->rut = $most->rut;
       $this->name = $most->name;
