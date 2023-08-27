@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <header>
+    <header style="background: white;">
         <!-- Navbar -->
        
         <!-- Navbar -->
@@ -21,50 +21,86 @@
     
       </header>
 
+      <br>
 
 
-        <body class="container pt-5">
+        <body style="background: white;">
 
-            <div class="card-body">
+           <div style="background: white;" class="container pt-5">
 
-                <h3 class="text-3xl text-dark leading-8 foont-bold mt-2 text-center">¿Quienes Somos?</h3>
-                <br>
-                <br>
-                <p class="text-base text-gray-600 leading-normal">Con mas de 20 años de funcionamiento el taller mecanico automotriz Mecanica Rios, dirigido por el jefe de taller
-                    el señor Luis Alberto Rios Aguilera  proporciona una variedad de servicios mecanicos como reparación de motor, reparacion de frenos,reparaciones
-                    de electromecanica y asitencias de compra de vehiculos, para hacer sus servicios y reparaciones se apoya de su basta experiencia en el rubro y sobre
-                    todo en la calidad del servicio.</p>
-
-            </div>
-
-<br>
-<br>
-
-            <div class="card-body">
-
-                <h3 class="text-3xl text-dark leading-8 foont-bold mt-2 text-center">Visión</h3>
-                <br>
-                <br>
-                <p class="text-base text-gray-600 leading-normal">Mejorar la calidad cada vez más del servicio automotriz, a través de la provisión de servicios de óptima calidad, de manera más eficiente y con la
-                    excelente atención al cliente, buscando incorporar la empresa en servicios de asesoría y asistencias para abarcar una mayor cantidad de clientes e integrarla a las nuevas herramientas tecnicas.</p>
-
-            </div>
 
             
-<br>
-<br>
+<div class="inline-block max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <a href="#">
+        <img class="rounded-t-lg" src="https://media.istockphoto.com/id/1278783843/es/foto/un-signo-de-interrogaci%C3%B3n-en-un-cubo-de-madera-en-un-teclado-de-ordenador-con-un-fondo-borroso.jpg?s=1024x1024&w=is&k=20&c=ptSNrZi11ioWK9UUk21RcbBZZgTA6KWUVTS3YMXO_Kc=" alt="" />
+    </a>
+    <div class="p-5">
+        <a href="#">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">¿Quienes Somos?</h5>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Con mas de 20 años de funcionamiento el taller mecanico automotriz Mecanica Rios, dirigido por el jefe de taller
+            el señor Luis Alberto Rios Aguilera  proporciona una variedad de servicios mecanicos como reparación de motor, reparacion de frenos,reparaciones
+            de electromecanica y asitencias de compra de vehiculos, para hacer sus servicios y reparaciones se apoya de su basta experiencia en el rubro y sobre
+            todo en la calidad del servicio.</p>
+        <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Read more
+             <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+            </svg>
+        </a>
+    </div>
+</div>
 
-            <div class="card-body">
 
-                <h3 class="text-3xl text-dark leading-8 foont-bold mt-2 text-center">Misión</h3>
-                <br>
-                <br>
-                <p class="text-base text-gray-600 leading-normal">Brindar asesorías y reparaciones de calidad que proporcionen seguridad a nuestros clientes a precios accesibles cumpliendo con los tiempos de entrega
-                    del vehículo al cliente.</p>
+            
+<div class="inline-block max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <a href="#">
+        <img class="rounded-t-lg" src="https://cdn.pixabay.com/photo/2018/09/22/11/34/business-3695073_1280.jpg" alt="" />
+    </a>
+    <div class="p-5">
+        <a href="#">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Visión</h5>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Mejorar cada vez más la calidad del servicio automotriz, a través de la provisión de herramientas de óptima calidad, de manera más eficiente y con la
+            excelente atención al cliente, buscando incorporar a la empresa nuevas herramientas, tecnologias y servicios como asesorías y asistencias online para abarcar una mayor cantidad de clientes y sectores de producción.</p>
+        <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Read more
+             <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+            </svg>
+        </a>
+    </div>
+</div>
 
-            </div>
+
+            
+            
+<div class="inline-block max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <a href="#">
+        <img class="rounded-t-lg" src="https://cdn.pixabay.com/photo/2018/04/18/18/47/hands-3331216_1280.jpg" alt="" />
+    </a>
+    <div class="p-5">
+        <a href="#">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Misión</h5>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Brindar asesorías y reparaciones de calidad que proporcionen seguridad a nuestros clientes a precios accesibles cumpliendo con los tiempos de entrega
+            del vehículo al cliente.</p>
+        <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Read more
+             <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+            </svg>
+        </a>
+    </div>
+</div>
+          
+
+           </div>
 
 
+
+
+          
             
     
         </body>
@@ -95,5 +131,8 @@
             </li>
         </ul>
       </footer>
+
+
+      
 
 </x-app-layout>

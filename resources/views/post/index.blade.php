@@ -125,15 +125,27 @@
 <div style="background: white;" class="container pt-5">
 
 
-  <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-    <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+  <a href="#" class="inline-block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mb-4">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Reparaciones Mecanicas Multimarca</h5>
+    <p class="font-normal text-gray-700 dark:text-gray-400">Reparaciones y mantenimiento mecanico general.</p>
 </a>
+
+<a href="#" class="inline-block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mb-4">
+  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Reparaciones Electromecanicas Multimarca</h5>
+  <p class="font-normal text-gray-700 dark:text-gray-400">Identificacion de fallas en los equipos electronicos.</p>
+</a>
+
+<a href="#" class="inline-block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mb-4">
+  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Asistencia de compra y venta de vehiculos</h5>
+  <p class="font-normal text-gray-700 dark:text-gray-400">Asistencia para compra de vehiculos online y en terreno.</p>
+</a>
+
 <br>
 
 </div>
 
 <br>
+
 <footer class="p-4 bg-white rounded-lg shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
   <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022 <a href="https://flowbite.com/" class="hover:underline">Mecanica Rios™</a>. All Rights Reserved.
   </span>

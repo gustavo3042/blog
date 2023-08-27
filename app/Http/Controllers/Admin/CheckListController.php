@@ -571,19 +571,36 @@ return redirect()->route('check.index',$check);
 
    // dd($presupuestoDetails);
 
+   /*
       $clientes = DB::table('check_lists')
       ->join('clientes','clientes.check_lists_id','=' ,'check_lists.id')
       ->select('clientes.nombre','clientes.direccion','clientes.telefono','clientes.correo')
       ->where('clientes.check_lists_id',$check->id)
       ->first();
 
+    */  
 
+      $clientes = DB::table('check_lists')
+      ->join('check_lists_clientes','check_lists_clientes.check_lists_id','=','check_lists.id')
+      ->join('clientes','clientes.id','=','check_lists_clientes.clientes_id')
+      
+      ->where('check_lists_clientes.check_lists_id',$check->id)
+      ->first();
+
+/*
       $autos = DB::table('check_lists')
       ->join('autos','autos.check_lists_id','=' ,'check_lists.id')
       ->select('autos.marca','autos.modelo','autos.ano','autos.color','autos.cilindrada')
       ->where('autos.check_lists_id',$check->id)
       ->first();
 
+  */    
+
+  $autos = DB::table('check_lists')
+  ->join('check_lists_autos','check_lists_autos.check_lists_id','=','check_lists.id')
+  ->join('autos','autos.id','=','check_lists_autos.autos_id')
+  ->where('check_lists_autos.check_lists_id',$check->id)
+  ->first();
 
       $tipoDireccion = Autos::select('tipoDireccion')->where('check_lists_id',$check->id)->get();
       $tipoTraccion = Autos::select('tipoTraccion')->where('check_lists_id',$check->id)->get();
