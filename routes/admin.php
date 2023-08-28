@@ -57,6 +57,7 @@ Route::get('admin/check/cliente',[CheckListController::class, 'clientes'])->name
 Route::get('admin/check/pdf/{id}',[CheckListController::class, 'documentoPdf'])->name('check.pdf');
 Route::post('addWorkers', [CheckListController::class, 'addWorkers'])->name('addWorkers');
 Route::post('admin/checkshow/update/',[CheckShow::class, 'update'])->name('edit.jobs');
+Route::post('admin/checkshow/change/',[CheckShow::class, 'change'])->name('change.jobs');
 
 
 //------------------------------------Rutas para el autocomplete--------------------------------------------

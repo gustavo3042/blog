@@ -13,6 +13,8 @@ use App\Models\Worker;
 use App\Models\Presupuesto;
 use App\Models\PresupuestoDetails;
 use Illuminate\Http\Request;
+use App\Models\Job;
+use App\Models\Production;
 
 class CheckShow extends Component
 {
@@ -128,6 +130,7 @@ class CheckShow extends Component
                 productions.pagodiario,
                 productions.porcentaje,
                 productions.pagoporcentaje,
+              
                 assistances.presente
     
                 from check_lists_workers
@@ -175,7 +178,43 @@ public function edit ($worker_id){
 
   public function update(Request $request){
 
-    dd($request->all());
+  //  dd($request->all());
+
+    //dd($request->check);
+
+
+
+   // dd(count($request->job));
+
+   $sum = count($request->job);
+
+  $editCantidad =  Production::where(['check_lists_id'=> $request->check, 'workers_id'=> $request->idWorker])->update(['cantidad' => $sum]);
+   
+
+    if (count($request->job) > 0) {
+        # code...
+    
+      
+    foreach ($request->job as $index => $value) {
+
+        $most = array(
+
+            'check_lists_id' => $request->check,
+            'workers_id' => $request->idWorker,
+            'presupuesto_details_id' => $request->job[$index],
+
+        );
+  
+
+        Job::insert($most);
+
+    }
+
+    }
+
+   // dd($sum);
+
+    return redirect()->route('check.show',$request->check);
 
   }
 

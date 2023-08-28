@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
        <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Trabajos realizados en esta faena por {{$name}} {{$surname}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Trabajos realizados por {{$name}} {{$surname}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -13,13 +13,12 @@
                    
                     @csrf
 
-                    <input type="text" wire:model="rut">
-                    <div class="mb-3">
-                        <input type="text" wire:model="idWorker">
-                        <label for="rut">Rut{{$check}}</label>
-                        <input type="text" class="form-control" name="rut" wire:model="rut"  placeholder="Rut">
-                        @error('rut') <span class="text-danger">{{ $message }}</span>@enderror
-                    </div>
+                 
+
+            
+                        <input type="hidden" name="idWorker" wire:model="idWorker">
+                  
+                        <input type="text" name="check" value="{{$check}}">
 
                     <div class="form-group">
 
@@ -39,15 +38,7 @@
                         
                           
                         </tr>
-                        
-                   
-                        
                         @endforeach
-                        
-                        
-                        
-                   
-                        
                         </div>
 
                         <div class="modal-footer">
