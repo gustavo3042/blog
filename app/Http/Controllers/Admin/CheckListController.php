@@ -228,8 +228,8 @@ class CheckListController extends Controller
       $dt->iva = ($prom * 0.19);
       $dt->subtotal = ($prom * 0.19) + $prom;
       $dt->check_lists_id =  $checkA;
-      $dt->created_at = $check->fecha;
-      $dt->updated_at = $check->fecha;
+     // $dt->created_at = $check->fecha;
+     // $dt->updated_at = $check->fecha;
       $dt->save();
 
 

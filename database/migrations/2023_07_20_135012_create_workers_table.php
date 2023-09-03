@@ -103,7 +103,7 @@ class CreateWorkersTable extends Migration
             $table->foreignId('check_lists_id')->nullable()->references('id')->on('check_lists')->onDelete("cascade");
             $table->foreignId('workers_id')->nullable()->references('id')->on('check_lists_workers')->onDelete("cascade");
             $table->foreignId('presupuesto_details_id')->nullable()->references('id')->on('presupuesto_details')->onDelete("cascade");
-
+            $table->string('trabajos');
         
             $table->timestamps();
         });

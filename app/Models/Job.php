@@ -9,5 +9,10 @@ class Job extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['check_lists_id','workers_id','presupuesto_details_id'];
+    protected $fillable = ['check_lists_id','workers_id','presupuesto_details_id','trabajos'];
+
+    public function presupuesto_details(){
+
+        return  $this->belongsToMany(PresupuestoDetails::class);
+        }
 }

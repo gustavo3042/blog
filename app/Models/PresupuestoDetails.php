@@ -11,5 +11,12 @@ class PresupuestoDetails extends Model
 
 
     protected $fillable = ['trabajo','descripcion','cantidad','precio','amount','presupuestos_id'];
+
+
+    public function jobs(){
+
+
+        return $this->belongsToMany(Job::class);
+      }
    
 }

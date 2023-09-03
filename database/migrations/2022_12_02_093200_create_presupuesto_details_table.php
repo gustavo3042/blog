@@ -25,7 +25,7 @@ class CreatePresupuestoDetailsTable extends Migration
           
  
             $table->foreign('presupuestos_id')->references('id')->on('presupuestos')->onDelete('cascade');
-            $table->timestamps();
+         //   $table->timestamps();
        
         });
     }

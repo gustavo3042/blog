@@ -25,12 +25,13 @@ class CheckShow extends Component
     public $email;
     public $idWorker;
     public $job;
+    public $jobNew = [];
 
     public function mount($check){
 
-      
+     // dd($check);
         $this->check = $check;
-     
+    // dd($this->check);
 
       //  $this->presupuesto = DB::table('presupuestos')->where('check_lists_id',$this->check)->first();
 
@@ -64,7 +65,7 @@ class CheckShow extends Component
 
 
       
-
+      //  $this->jobs = Job::all();
     
 
     }
@@ -73,6 +74,7 @@ class CheckShow extends Component
     public function render()
     {
 
+     //  dd($this->check);
 
         $reparaciones = DB::table('check_lists')
         ->join('check_list_reparaciones','check_list_reparaciones.check_list_id','=','check_lists.id')
@@ -132,6 +134,7 @@ class CheckShow extends Component
                 productions.pagoporcentaje,
               
                 assistances.presente
+              
     
                 from check_lists_workers
                 join workers on check_lists_workers.workers_id = workers.id
@@ -145,7 +148,11 @@ class CheckShow extends Component
 
         $presupuestos = DB::table('presupuestos')->where('check_lists_id',$this->check)->first();
         $this->details = DB::table('presupuesto_details')->where('presupuestos_id',$presupuestos->id)->get();
+        $this->detailsCompare = DB::table('jobs')->get();
 
+      
+
+       // dd($jobs);
         return view('livewire.admin.check-show',compact('checks','reparaciones','clientes','autos','workers','choreWorkers'));
     }
 
@@ -166,19 +173,84 @@ public function edit ($worker_id){
       $worker = DB::table('check_lists_workers')->where(['check_lists_id'=>$this->check,'workers_id' => $most->id])->first();
     //  dd($worker);
 
+     // $this->jobNew = Job::where('workers_id',$worker_id)->get();
+
+     // dd($this->jobNew);
+
       $this->rut = $most->rut;
       $this->name = $most->name;
       $this->surname = $most->surname;
       $this->email = $most->email;
       $this->idWorker = $most->id;
   
+
     
   
   }
 
-  public function update(Request $request){
+
+  public function changeEdit($worker_id){
+
+  //dd($worker_id);
+
+    $most = Worker::find($worker_id);
+
+    $worker = DB::table('check_lists_workers')->where(['check_lists_id'=>$this->check,'workers_id' => $most->id])->first();
+  //  dd($worker);
+
+     $this->jobNew = Job::where('workers_id',$worker_id)->get();
+
+   // dd($this->jobNew);
+
+    $this->rut = $most->rut;
+    $this->name = $most->name;
+    $this->surname = $most->surname;
+    $this->email = $most->email;
+    $this->idWorker = $most->id;
+
+  }
+
+
+  public function change(Request $request){
 
   //  dd($request->all());
+
+    $sum = count($request->job);
+
+    $editCantidad =  Production::where(['check_lists_id'=> $request->check, 'workers_id'=> $request->idWorker])->update(['cantidad' => $sum]);
+     
+  
+      if (count($request->job) > 0) {
+          # code...
+      
+        
+      foreach ($request->job as $index => $value) {
+  
+          $most = array(
+  
+              'check_lists_id' => $request->check,
+              'workers_id' => $request->idWorker,
+              'presupuesto_details_id' => $request->job[$index],
+              'trabajos' => $request->trabajos[$index],
+  
+          );
+    
+  
+       //   Job::insert($most);
+  
+      }
+  
+      }
+  
+     // dd($sum);
+  
+      return redirect()->route('check.show',$request->check);
+
+  }
+
+  public function update(Request $request){
+
+  // dd($request->all(),count($request->job));
 
     //dd($request->check);
 
@@ -202,6 +274,7 @@ public function edit ($worker_id){
             'check_lists_id' => $request->check,
             'workers_id' => $request->idWorker,
             'presupuesto_details_id' => $request->job[$index],
+            'trabajos' => $request->trabajos[$index],
 
         );
   
