@@ -89,7 +89,7 @@
                  
 
             
-                    <input type="hidden" name="idWorker" wire:model="idWorker">
+                    <input type="hidden" name="idWorker[]" wire:model="idWorker">
                   
                     <input type="text" name="check" value="{{$check}}">
 
@@ -167,6 +167,166 @@
 
                     
                     
+
+                        <div class="modal-footer">
+                            <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button  type="button" onclick="submitForm(this);" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                        </div>
+                  
+                </form>
+            </div>
+          
+       </div>
+    </div>
+</div>
+
+
+<div wire:ignore.self class="modal fade" id="porcentajeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Porcentajes por faena</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <h5 class="modal-title text-center pt-3">Trabajador</h5>
+
+            <div class="container pt-3">
+
+                <div class="row">
+
+                    <div class="col">
+                        <p>Nombre:</p>
+                        <p>{{$name}} {{$surname}}</p>
+
+                    </div>
+
+                    <div class="col">
+                        <p>Rut</p>
+                        <p>{{$rut}}</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-body">
+                <form method="POST" action="{{route('check.porcentaje')}}" >
+                   
+                    @csrf
+
+                 
+
+            
+                        <input type="text" name="idWorker"  wire:model="idWorker">
+                  
+                        <input type="text" name="check" value="{{$check}}">
+
+                    
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Trabajo</th>
+                                    <th>Precio</th>
+                                    <th>Porcentaje</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                           @foreach ($faenasWorkers as $item)
+                               
+                        
+                                <tr>
+                                    <td><input type="text" name="trabajo[]" class="form-control" value="{{$item->trabajo}}" readonly></td>
+                                    <td><input type="number" class="form-control" name="precio[]" value="{{$item->precio}}" readonly></td>
+
+                                <td>
+
+                                 
+                                        
+                                    <input type="number"  name="porcent[]" class="form-control" >
+                                    <input type="hidden" name="idFaenas[]" value="{{$item->idFaenas}}">
+
+                                 
+
+                                </td>
+
+                                </tr>
+                            @endforeach   
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Total</td>    
+                            </tr>
+                            </tfoot>
+                            </table>
+        
+        
+
+                        <div class="modal-footer">
+                            <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button  type="button" onclick="submitForm(this);" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                        </div>
+                  
+                </form>
+            </div>
+          
+       </div>
+    </div>
+</div>
+
+<div wire:ignore.self class="modal fade" id="porcentajeModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Porcentajes por faena</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <h5 class="modal-title text-center pt-3">Trabajador</h5>
+
+            <div class="container pt-3">
+
+                <div class="row">
+
+                    <div class="col">
+                        <p>Nombre:</p>
+                        <p>{{$name}} {{$surname}}</p>
+
+                    </div>
+
+                    <div class="col">
+                        <p>Rut</p>
+                        <p>{{$rut}}</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-body">
+                <form >
+                   
+                    @csrf
+
+                 
+
+            
+                        <input type="text" name="idWorker"  wire:model="idWorker">
+                  
+                        <input type="text" name="check" value="{{$check}}">
+
+                    
+                   
+        
+        
 
                         <div class="modal-footer">
                             <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal">Close</button>

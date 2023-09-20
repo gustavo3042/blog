@@ -435,7 +435,7 @@
                                 <th>Cantidad</th>
                                 <th>Rendimiento</th>
                                 <th>Pago Diario</th>
-                                <th>Porcentaje</th>
+                                <th>Porcentaje acumulado</th>
                                 <th>Pago %</th>
                                 
                              
@@ -459,6 +459,16 @@
                                     </td>
                                     <td>
 
+                                    
+
+                                            @if ($workers->cantidad > 0)
+                                            <span class="badge  bg-info">{{ $workers->cantidad ?? 'Sin Producción' }} </span> 
+                                            @else
+                                            <span class="badge  bg-danger">{{ $workers->cantidad ?? 'Sin Producción' }} </span> 
+                                            @endif
+
+                                    <!--
+
                                         @if ($workers->cantidad > 0)
                                         
                         <button data-toggle="modal" data-target="#changeModal" wire:click="changeEdit({{ $workers->id }})" class="btn btn-primary btn-sm"><i class="fas fa-pen">{{ $workers->cantidad ?? 'Sin Producción' }} </i></button> 
@@ -468,11 +478,30 @@
                                         
                         <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $workers->id }})" class="btn btn-primary btn-sm"><i class="fas fa-pen">{{ $workers->cantidad ?? 'Sin Producción' }} </i></button> 
                                         @endif
+
+                                        -->
                         
                                     </td>
                                     <td> {{ $workers->rendimiento ?? '-' }} hrs</td>
                                     <td>${{ $workers->pagodiario ?? '-' }}</td>
-                                    <td>%{{ $workers->porcentaje ?? '-' }}</td>
+                                    <td>
+
+                                        @if ($workers->porcentaje > 0)
+
+                                        <button style="font-size: 10px;" data-toggle="modal" data-target="#porcentajeModalEdit" wire:click="porcentajesMost({{ $workers->id }})" class="btn btn-primary btn-sm">
+                                            <i class="">{{$workers->porcentaje}}%</i></button>
+        
+
+                                        @else
+
+                                        <button style="font-size: 10px;" data-toggle="modal" data-target="#porcentajeModal" wire:click="porcentajes({{ $workers->id }})" class="btn btn-danger btn-sm">
+                                            <i style="font-size: 10px;" class="">{{$workers->porcentaje}}%</i>Sin Producción</button>
+        
+                                            
+                                        @endif
+
+                                 
+                                    </td>
 
                                     <td>${{ $workers->pagoporcentaje ?? '-' }}</td>
                                     <td>
@@ -500,8 +529,9 @@
                             @endforeach
                             <script type="text/javascript">
                                 window.livewire.on('userStore', () => {
-                                    $('#exampleModal').modal('hide');
-                                    //$('#changeModal').modal('hide');
+                                  //  $('#exampleModal').modal('hide');
+                                    $('#porcentajeModal').modal('hide');
+                                    $('#porcentajeModalEdit').modal('hide');
                                 });
                             </script> 
                         </tbody>

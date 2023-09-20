@@ -109,6 +109,7 @@ class ProductionsController extends Controller
                 "check_lists_id" => $checkList->id,
                 "cantidad" => $request->produccion[$key],   // array[2]
                 "rendimiento" => $request->rendimiento[$key], // array[3]
+                "pagodiario" => 20000
           
             
          

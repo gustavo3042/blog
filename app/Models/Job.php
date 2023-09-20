@@ -9,7 +9,7 @@ class Job extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['check_lists_id','workers_id','presupuesto_details_id','trabajos'];
+    protected $fillable = ['check_lists_id','workers_id','presupuesto_details_id','trabajos','porcentaje','pagoporcentaje'];
 
     public function presupuesto_details(){
 

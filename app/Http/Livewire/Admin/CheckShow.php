@@ -26,6 +26,11 @@ class CheckShow extends Component
     public $idWorker;
     public $job;
     public $jobNew = [];
+    public $faenasWorkers = [];
+    public $trabajo;
+   // public $precio;
+   // public $porcent;
+ 
 
     public function mount($check){
 
@@ -163,6 +168,167 @@ public function asistencia(){
 
 }
 
+public function porcentajes($id){
+
+//dd($id);
+
+$worker = Worker::find($id);
+
+
+    $this->idWorker = $worker->id;
+    $this->name = $worker->name;
+    $this->surname = $worker->surname;
+    $this->rut = $worker->rut;
+ 
+    $this->faenasWorkers  = DB::select(
+
+            DB::raw("
+
+            Select
+     
+ 
+
+            productions.cantidad,
+            productions.rendimiento,
+            productions.pagodiario,
+            productions.porcentaje,
+            productions.pagoporcentaje,
+            presupuesto_details.trabajo,
+            presupuesto_details.precio,
+            presupuesto_details.id as idFaenas
+       
+          
+         
+          
+
+            from check_lists_workers
+            join workers on check_lists_workers.workers_id = workers.id
+            left join productions on productions.workers_id = check_lists_workers.id
+            left join presupuestos on presupuestos.check_lists_id = check_lists_workers.check_lists_id
+            left join presupuesto_details on presupuesto_details.presupuestos_id = presupuestos.id
+         
+
+            WHERE check_lists_workers.check_lists_id = '".$this->check."' AND workers.id = '".$this->idWorker ."'
+         
+            
+            ")
+    );
+
+    //dd($this->faenasWorkers);
+   // $this->faenasWorkers  = $faenas;
+   
+
+
+
+
+}
+
+
+public function porcentajesMost($id){
+
+    //dd($id);
+    
+    $worker = Worker::find($id);
+    
+    
+        $this->idWorker = $worker->id;
+        $this->name = $worker->name;
+        $this->surname = $worker->surname;
+        $this->rut = $worker->rut;
+     
+        $this->faenasWorkers  = DB::select(
+    
+                DB::raw("
+    
+                Select
+         
+     
+    
+            
+                presupuesto_details.trabajo,
+                presupuesto_details.precio,
+                presupuesto_details.id as idFaenas,
+                jobs.porcentaje as totalPorcentaje,
+                jobs.pagoporcentaje as amountPorcentaje
+           
+              
+             
+              
+    
+                from jobs
+            
+                left join presupuesto_details on presupuesto_details.id = jobs.presupuesto_details_id
+            
+    
+                WHERE jobs.check_lists_id = '".$this->check."' AND jobs.workers_id = '".$this->idWorker ."'
+            
+             
+                
+                ")
+        );
+    
+      //  dd($this->faenasWorkers);
+       // $this->faenasWorkers  = $faenas;
+       
+    }
+
+
+public function editPorcentaje(Request $request){
+
+    //dd($request->all());
+
+
+if (count($request->porcent) > 0) {
+    
+    $totales  = 0;
+    $amount = 0;
+    $tot = 0;
+    
+    foreach ($request->porcent as $key => $value) {
+
+        if ($request->porcent[$key] > 0) {
+        
+        $totales = $totales + 1;
+
+        $amount += $request->porcent[$key];    
+        $tot +=  $request->porcent[$key]/100 * $request->precio[$key];  
+     
+      
+        
+            $ar = Job::create([
+
+                'check_lists_id' => $request->check,
+                'workers_id' => $request->idWorker,
+                'presupuesto_details_id' => $request->idFaenas[$key],
+                'trabajos' => $request->trabajo[$key],
+                'porcentaje' => $request->porcent[$key],
+                'pagoporcentaje' => $request->porcent[$key]/100 * $request->precio[$key],
+
+            ]);
+            
+        }
+
+
+
+    }
+
+  $ar = Production::where(['check_lists_id'=> $request->check, 'workers_id' => $request->idWorker])->update(['cantidad'=>$totales,'porcentaje'=>$amount,'pagoporcentaje'=> $tot]);
+
+  //dd($tot,$amount,$totales);
+
+
+
+}
+
+    return redirect()->back();
+
+}
+
+
+/*
+
+Funciones 
+
 public function edit ($worker_id){
 
     
@@ -215,28 +381,35 @@ public function edit ($worker_id){
 
   //  dd($request->all());
 
+
+    $faena = $request->check;
+
+    $mostFaena = CheckList::find($faena);
+
+   // dd($mostFaena);
+
     $sum = count($request->job);
 
     $editCantidad =  Production::where(['check_lists_id'=> $request->check, 'workers_id'=> $request->idWorker])->update(['cantidad' => $sum]);
      
   
-      if (count($request->job) > 0) {
+      if (count($request->idWorker) > 0) {
           # code...
       
         
-      foreach ($request->job as $index => $value) {
+      foreach ($request->idWorker as $index => $value) {
   
           $most = array(
   
               'check_lists_id' => $request->check,
-              'workers_id' => $request->idWorker,
+              'workers_id' => $request->idWorker[$index],
               'presupuesto_details_id' => $request->job[$index],
               'trabajos' => $request->trabajos[$index],
   
           );
     
   
-       //   Job::insert($most);
+          $productionUpdate = Job::where(['check_lists_id'=> $mostFaena->id, 'workers_id' =>$request->idWorker[$index]])->update($most);
   
       }
   
@@ -280,6 +453,7 @@ public function edit ($worker_id){
   
 
         Job::insert($most);
+        
 
     }
 
@@ -291,11 +465,15 @@ public function edit ($worker_id){
 
   }
 
+
+*/
+
 private function resetInputFields(){
     $this->rut = '';
     $this->name = '';
     $this->email = '';
     $this->jobs = '';
+    $this->trabajo= '';
 }
 
 

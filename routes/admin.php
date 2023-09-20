@@ -58,7 +58,7 @@ Route::get('admin/check/pdf/{id}',[CheckListController::class, 'documentoPdf'])-
 Route::post('addWorkers', [CheckListController::class, 'addWorkers'])->name('addWorkers');
 Route::post('admin/checkshow/update/',[CheckShow::class, 'update'])->name('edit.jobs');
 Route::post('admin/checkshow/change/',[CheckShow::class, 'change'])->name('change.jobs');
-
+Route::post('admin/check/porcentajes',[checkshow::class, 'editPorcentaje'])->name('check.porcentaje');
 
 //------------------------------------Rutas para el autocomplete--------------------------------------------
 Route::get('admin/typeahead_autocomplete/action', [CheckListController::class, 'action'])->name('check.action');

@@ -75,7 +75,7 @@
                                                                 class="badge rounded-pill bg-danger">Ausente</span>
                                                         @endif
 
-                                                            {{ ' | ' . $CW->presente ?? '' }}
+                                                         
 
                                                         </td>
                                                         <td class="">
@@ -84,7 +84,7 @@
                                                                 name="produccion[]" {{ $CW->presente == 0 ? 'readonly' : '' }}
                                                                >
 
-                                                               <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $CW->id }})" class="btn btn-primary btn-sm"><i class="fas fa-pen">{{ $CW->cantidad ?? 'Sin Producción' }} </i></button> 
+
                                                         </td>
                                                         <td class="">
                                                             <select class="form-control" name="rendimiento[]"
