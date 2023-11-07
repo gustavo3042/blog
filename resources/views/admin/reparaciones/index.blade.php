@@ -23,9 +23,22 @@
 
       <div class="card-header">
 
+     
+
         <a class="btn btn-secondary" href="{{route('reparaciones.create')}}">Crear Reparación</a>
 
       </div>
+
+
+      @if (Session::has('Mensaje2'))
+
+      
+      <div class="alert alert-success" role="alert">
+
+        {{Session::get('Mensaje2')}}
+      </div>
+
+    @endif
 
       <div class="card-body">
 
@@ -79,10 +92,17 @@
 
     @endforeach
 </table>
+
+
+
+
+
+
+
       </div>
 
     </div>
-@stop
+@stop 
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">

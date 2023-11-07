@@ -14,6 +14,16 @@
 
       <div class="card-body">
 
+        @if (Session::has('Mensaje'))
+
+        <div class="alert alert-danger" role="alert">
+          {{Session::get('Mensaje')}}
+        </div>
+  
+       @endif
+
+
+
         {!! Form::open(['route'=>'reparaciones.store']) !!}
 
         @include('admin.reparaciones.partials.form');

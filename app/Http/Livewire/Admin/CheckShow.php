@@ -19,17 +19,30 @@ use App\Models\Production;
 class CheckShow extends Component
 {
 
-    public $rut;
-    public $name;
-    public $surname;
+   
     public $email;
-    public $idWorker;
+    
     public $job;
     public $jobNew = [];
     public $faenasWorkers = [];
-    public $trabajo;
+    public $faenasWorkers2 = [];
+  
+    public $mostFinal;
+
+ 
+  
+    public $idWorker;
+    public $name;
+    public $surname;
+    public $rut;
+    public $trabajo = [];
+
+    public $workers;
+  
    // public $precio;
    // public $porcent;
+
+
  
 
     public function mount($check){
@@ -107,6 +120,7 @@ class CheckShow extends Component
         $checks = CheckList::where('id',$this->check)->first();
          //dd($checks);
   
+         /*
         $workers = DB::table('workers')
   
         ->where('status',1)
@@ -122,6 +136,10 @@ class CheckShow extends Component
                             ->get();
                     });
         })->get();
+
+        */
+
+        $workers = $this->workers;
 
         $choreWorkers = DB::select(
             DB::raw("
@@ -170,15 +188,36 @@ public function asistencia(){
 
 public function porcentajes($id){
 
-//dd($id);
+//dd($id,$this->check);
 
-$worker = Worker::find($id);
+//$worker = Worker::find($id);
+    $worker = DB::table('check_lists_workers')->where(['check_lists_id'=>$this->check,'workers_id'=>$id])->first();
 
+    //dd($worker);
+    $workerDate = Worker::find($id);
 
     $this->idWorker = $worker->id;
-    $this->name = $worker->name;
-    $this->surname = $worker->surname;
-    $this->rut = $worker->rut;
+    $this->name = $workerDate->name;
+    $this->surname = $workerDate->surname;
+    $this->rut = $workerDate->rut;
+    $this->workers = $workers = DB::table('workers')
+  
+     ->where('status',1)
+     ->whereNotIn('id', function ($g) use ($id) {
+         $g->select('workers_id')
+             ->from('check_lists_workers')
+           
+
+                 ->whereIn('check_lists_id', function ($p) use ($id) {
+                     $p->select('id')
+                         ->from('check_lists')
+                         ->where('id', $id)
+                         ->get();
+                 });
+     })->get();
+
+
+    //dd($this->idWorker);
  
     $this->faenasWorkers  = DB::select(
 
@@ -208,7 +247,7 @@ $worker = Worker::find($id);
             left join presupuesto_details on presupuesto_details.presupuestos_id = presupuestos.id
          
 
-            WHERE check_lists_workers.check_lists_id = '".$this->check."' AND workers.id = '".$this->idWorker ."'
+            WHERE check_lists_workers.check_lists_id = '".$this->check."' AND workers.id = '".$workerDate->id ."'
          
             
             ")
@@ -226,17 +265,33 @@ $worker = Worker::find($id);
 
 public function porcentajesMost($id){
 
-    //dd($id);
-    
-    $worker = Worker::find($id);
+   // dd($id);
+    $worker = DB::table('check_lists_workers')->where(['check_lists_id'=>$this->check,'workers_id'=>$id])->first();
+    $workerDate = Worker::find($id);
     
     
         $this->idWorker = $worker->id;
-        $this->name = $worker->name;
-        $this->surname = $worker->surname;
-        $this->rut = $worker->rut;
+        $this->name = $workerDate->name;
+        $this->surname = $workerDate->surname;
+        $this->rut = $workerDate->rut;
+
+        $this->workers = $workers = DB::table('workers')
+  
+        ->where('status',1)
+        ->whereNotIn('id', function ($g) use ($id) {
+            $g->select('workers_id')
+                ->from('check_lists_workers')
+              
+   
+                    ->whereIn('check_lists_id', function ($p) use ($id) {
+                        $p->select('id')
+                            ->from('check_lists')
+                            ->where('id', $id)
+                            ->get();
+                    });
+        })->get();
      
-        $this->faenasWorkers  = DB::select(
+        $this->faenasWorkers2  = DB::select(
     
                 DB::raw("
     
@@ -249,7 +304,8 @@ public function porcentajesMost($id){
                 presupuesto_details.precio,
                 presupuesto_details.id as idFaenas,
                 jobs.porcentaje as totalPorcentaje,
-                jobs.pagoporcentaje as amountPorcentaje
+                jobs.pagoporcentaje as amountPorcentaje,
+                jobs.id as jobs_id
            
               
              
@@ -260,15 +316,18 @@ public function porcentajesMost($id){
                 left join presupuesto_details on presupuesto_details.id = jobs.presupuesto_details_id
             
     
-                WHERE jobs.check_lists_id = '".$this->check."' AND jobs.workers_id = '".$this->idWorker ."'
+                WHERE jobs.check_lists_id = '".$this->check."' AND jobs.workers_id = '". $this->idWorker  ."'
             
              
                 
                 ")
         );
     
-      //  dd($this->faenasWorkers);
+        $this->mostFinal = Job::where(['check_lists_id' => $this->check,'workers_id'=>$this->idWorker])->sum('pagoporcentaje');
+
+      //  dd($this->faenasWorkers2);
        // $this->faenasWorkers  = $faenas;
+      // dd($most);
        
     }
 
@@ -277,40 +336,55 @@ public function editPorcentaje(Request $request){
 
     //dd($request->all());
 
+  //  dd($this->trabajo);
 
-if (count($request->porcent) > 0) {
+  
+
+  $jobsNew = Job::where(['check_lists_id'=> $request->check, 'workers_id'=> $request->idWorker])->get();
+  
+//  dd($jobsNew,$request->all());
+  //dd();
+
+
     
     $totales  = 0;
     $amount = 0;
     $tot = 0;
-    
-    foreach ($request->porcent as $key => $value) {
 
-        if ($request->porcent[$key] > 0) {
+
+ 
+    
+
+        
+
+    
+    
+    foreach ($request->jobsId as $key => $items) {
+
+        
         
         $totales = $totales + 1;
 
         $amount += $request->porcent[$key];    
         $tot +=  $request->porcent[$key]/100 * $request->precio[$key];  
+
      
-      
-        
-            $ar = Job::create([
+        $jobsId['id'] = $request->jobsId[$key];
+        $jobsId['porcentaje'] = $request->porcent[$key];
+        $jobsId['pagoporcentaje'] = $request->porcent[$key]/100 * $request->precio[$key];  
 
-                'check_lists_id' => $request->check,
-                'workers_id' => $request->idWorker,
-                'presupuesto_details_id' => $request->idFaenas[$key],
-                'trabajos' => $request->trabajo[$key],
-                'porcentaje' => $request->porcent[$key],
-                'pagoporcentaje' => $request->porcent[$key]/100 * $request->precio[$key],
+ 
 
-            ]);
+        Job::where('id',$request->jobsId[$key])->update($jobsId);
             
-        }
+        
 
 
 
     }
+
+
+
 
   $ar = Production::where(['check_lists_id'=> $request->check, 'workers_id' => $request->idWorker])->update(['cantidad'=>$totales,'porcentaje'=>$amount,'pagoporcentaje'=> $tot]);
 
@@ -318,10 +392,20 @@ if (count($request->porcent) > 0) {
 
 
 
-}
+
 
     return redirect()->back();
 
+}
+
+public function refresh(){
+
+  //  dd('holis');
+
+  $this->resetInputFields();
+
+    return redirect()->back();
+    
 }
 
 

@@ -8,6 +8,8 @@ use App\Models\Reparaciones;
 
 class ReparacionesController extends Controller
 {
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +19,9 @@ class ReparacionesController extends Controller
     {
         $reparaciones = Reparaciones::all();
 
-        return view('admin.reparaciones.index',compact('reparaciones'));
+        $repara =  Reparaciones::all();
+
+        return view('admin.reparaciones.index',compact('reparaciones','repara'));
     }
 
     /**
@@ -36,9 +40,10 @@ class ReparacionesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Reparaciones $reparacione)
+    public function store(Request $request,Reparaciones $reparaciones)
     {
 
+        
       $request->validate([
 
 'name' => 'required|string|min:10|max:120|unique:Reparaciones',
@@ -47,11 +52,18 @@ class ReparacionesController extends Controller
       ]);
 
 
-    $reparacione=  Reparaciones::create($request->all());
+        
+    //  dd($request->Precio);
 
-      return redirect()->route('reparar.index',compact('reparacione'));
+    
 
+        $reparaciones =  Reparaciones::create($request->all());
+        
+        return redirect()->route('reparar.index')->with('Mensaje2','Reparacion guardada con éxito');
 
+ 
+
+   
     }
 
     /**

@@ -1,4 +1,7 @@
 <!-- Modal -->
+
+
+
 <div wire:ignore.self class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
        <div class="modal-content">
@@ -221,7 +224,17 @@
                  
 
             
+                       
+
+                        @if (isset($idWorker))
+
                         <input type="text" name="idWorker"  wire:model="idWorker">
+
+                        @else
+
+                        no hay
+                            
+                        @endif
                   
                         <input type="text" name="check" value="{{$check}}">
 
@@ -239,7 +252,7 @@
                                
                         
                                 <tr>
-                                    <td><input type="text" name="trabajo[]" class="form-control" value="{{$item->trabajo}}" readonly></td>
+                                    <td><input type="text" name="trabajo[]" class="form-control" value="{{$item->trabajo }}" readonly></td>
                                     <td><input type="number" class="form-control" name="precio[]" value="{{$item->precio}}" readonly></td>
 
                                 <td>
@@ -268,8 +281,11 @@
         
 
                         <div class="modal-footer">
-                            <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button  type="button" onclick="submitForm(this);" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                        
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">Cerrar</span>
+                            </button>
+                            <button  type="button" onclick="submitForm(this);" class="btn btn-primary" data-dismiss="modal">Guardar</button>
                         </div>
                   
                 </form>
@@ -289,7 +305,7 @@
                 </button>
             </div>
 
-            <h5 class="modal-title text-center pt-3">Trabajador</h5>
+            <h5 class="modal-title text-center pt-3">Trabajador1</h5>
 
             <div class="container pt-3">
 
@@ -312,7 +328,7 @@
             </div>
 
             <div class="modal-body">
-                <form >
+                <form method="POST" action="{{route('check.porcentaje')}}" >
                    
                     @csrf
 
@@ -323,14 +339,61 @@
                   
                         <input type="text" name="check" value="{{$check}}">
 
-                    
-                   
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Trabajo</th>
+                                    <th>Precio</th>
+                                    <th>Porcentaje</th>
+                                    <th>Pago porcentaje</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                           @foreach ($faenasWorkers2 as $key => $item)
+                               
+                        
+                                <tr>
+                                    <td><input type="text" name="jobsId[]" value="{{$item->jobs_id}}" class="form-control"></td>
+                                    <td><input style="font-size: 15px;" type="text" name="trabajo[]" class="form-control" value="{{$item->trabajo}}" readonly></td>
+                                    <td><input style="font-size: 15px;"  type="number" class="form-control" name="precio[]" value="{{$item->precio}}" readonly></td>
+
+                                <td>
+
+                                 
+                                        
+                                    <input style="font-size: 15px;"  type="number"  name="porcent[]" class="form-control" value="{{ $item->totalPorcentaje }}" >
+                                    <input style="font-size: 15px;"  type="hidden" name="idFaenas[]" value="{{$item->idFaenas}}">
+
+                                 
+
+                                </td>
+                                <td>
+
+                                    <input style="font-size: 15px;"  type="number" value="{{ $item->amountPorcentaje }}" class="form-control" readonly>
+
+                                </td>
+
+                                </tr>
+                            @endforeach   
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total: ${{$mostFinal}}</td>    
+                            </tr>
+                            </tfoot>
+                            </table>
+                
         
         
 
                         <div class="modal-footer">
-                            <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button  type="button" onclick="submitForm(this);" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                            <button type="button" class="btn btn-secondary"  data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">Cerrar</span>
+                            </button>
+                            <button  type="button" onclick="submitForm(this);" class="btn btn-primary" data-dismiss="modal">Guardar</button>
                         </div>
                   
                 </form>

@@ -467,19 +467,8 @@
                                             <span class="badge  bg-danger">{{ $workers->cantidad ?? 'Sin Producción' }} </span> 
                                             @endif
 
-                                    <!--
-
-                                        @if ($workers->cantidad > 0)
-                                        
-                        <button data-toggle="modal" data-target="#changeModal" wire:click="changeEdit({{ $workers->id }})" class="btn btn-primary btn-sm"><i class="fas fa-pen">{{ $workers->cantidad ?? 'Sin Producción' }} </i></button> 
-                
-                                        @else
-              
-                                        
-                        <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $workers->id }})" class="btn btn-primary btn-sm"><i class="fas fa-pen">{{ $workers->cantidad ?? 'Sin Producción' }} </i></button> 
-                                        @endif
-
-                                        -->
+                                  
+                                    
                         
                                     </td>
                                     <td> {{ $workers->rendimiento ?? '-' }} hrs</td>

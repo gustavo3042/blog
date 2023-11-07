@@ -4,12 +4,12 @@
 {!! Form::text('name',null,['class'=>'form-control','placeholder'=>'Ingrese Reparacion']) !!}
 
 
-
 @error ('name')
 
-  <small class="text-danger">{{$message}}</small>
 
+  <small class="text-danger">{{$message}}</small>
 @enderror
+
 
 </div>
 
@@ -21,11 +21,11 @@
 {!! Form::text('Precio',null,['class'=>'form-control','placeholder'=>'Ingrese Precio']) !!}
 
 
-
 @error ('Precio')
 
-  <small class="text-danger">{{$message}}</small>
 
+  <small class="text-danger">{{$message}}</small>
 @enderror
+
 
 </div>
