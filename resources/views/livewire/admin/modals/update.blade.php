@@ -188,7 +188,7 @@
     <div class="modal-dialog" role="document">
        <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Porcentajes por faena</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Porcentajes por faena crear</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -217,14 +217,9 @@
             </div>
 
             <div class="modal-body">
-                <form method="POST" action="{{route('check.porcentaje')}}" >
+                <form method="POST" action="{{route('edit.jobs')}}" >
                    
                     @csrf
-
-                 
-
-            
-                       
 
                         @if (isset($idWorker))
 
@@ -252,6 +247,7 @@
                                
                         
                                 <tr>
+                               
                                     <td><input type="text" name="trabajo[]" class="form-control" value="{{$item->trabajo }}" readonly></td>
                                     <td><input type="number" class="form-control" name="precio[]" value="{{$item->precio}}" readonly></td>
 
@@ -353,7 +349,7 @@
                                
                         
                                 <tr>
-                                    <td><input type="text" name="jobsId[]" value="{{$item->jobs_id}}" class="form-control"></td>
+                                    <input type="hidden" name="jobsId[]" value="{{$item->jobs_id}}" class="form-control">
                                     <td><input style="font-size: 15px;" type="text" name="trabajo[]" class="form-control" value="{{$item->trabajo}}" readonly></td>
                                     <td><input style="font-size: 15px;"  type="number" class="form-control" name="precio[]" value="{{$item->precio}}" readonly></td>
 

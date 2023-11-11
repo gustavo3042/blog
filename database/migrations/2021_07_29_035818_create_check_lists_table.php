@@ -26,7 +26,7 @@ class CreateCheckListsTable extends Migration
            //$table->unsignedBigInteger('client_id');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
+            $table->enum('statusNow',[0,1])->default(1);
 
           // $table->foreign('client_id')->references('id')->on('failed_jobs')->onDelete('cascade');
 

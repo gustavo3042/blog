@@ -63,15 +63,14 @@
     <td>{{$reparacione->name}}</td>
       <td>{{$reparacione->Precio}}</td>
 
-    <td width='10px'>
+      <td width='10px'>
+      <div class="btn-group" role="group" aria-label="Basic example">
+  
 
 <a class="btn btn-primary btn-sm" href="{{route('reparaciones.edit',$reparacione)}}">Editar</a>
 
 
-    </td>
-
-
-    <td width='10px'>
+  
 
 {!! Form::open(['route'=>['reparaciones.destroy',$reparacione],'method'=>'DELETE']) !!}
 
@@ -80,8 +79,10 @@
 
 {!! Form::close() !!}
 
-    </td>
 
+
+  </div>
+</td>
 
   </tr>
 

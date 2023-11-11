@@ -319,9 +319,9 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
-                          <p class="mb-0 text-secondary">Trabajadores</p>
+                          <p class="mb-0 text-secondary">Faena en proceso</p>
                             <h4 class="my-1"> </h4>
-                                <p class="mb-0 font-13 text-info"></i> En faena</p>
+                                <a  class="btn btn-info btn-sm">Terminado</a>
                         </div>
                              <div class="widgets-icons bg-light-info text-info ms-auto"><i
                                 class='bx bx-group'></i>
