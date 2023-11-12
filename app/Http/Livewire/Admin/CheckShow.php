@@ -38,6 +38,15 @@ class CheckShow extends Component
     public $trabajo = [];
 
     public $workers;
+    public $jobs;
+
+    public $check;
+    public $workersActive;
+    public $workExist;
+    public $details;
+    public $detailsCompare;
+
+    public $updateMode;
   
    // public $precio;
    // public $porcent;
@@ -47,17 +56,9 @@ class CheckShow extends Component
 
     public function mount($check){
 
-     // dd($check);
+    
         $this->check = $check;
-    // dd($this->check);
-
-      //  $this->presupuesto = DB::table('presupuestos')->where('check_lists_id',$this->check)->first();
-
-       // dd($this->presupuesto->id);
- 
-     //  $this->presupuestoDetails = DB::table('presupuesto_details')->where('presupuestos_id',$this->presupuesto->id)->get();
-
-      // dd($this->presupuestoDetails);
+  
 
         $id = $this->check;
   
@@ -345,12 +346,20 @@ public function editPorcentaje(Request $request){
 //  dd($jobsNew,$request->all());
   //dd();
 
+
     
     $totales  = 0;
     $amount = 0;
     $tot = 0;
 
 
+ 
+    
+
+        
+
+    
+    
     foreach ($request->jobsId as $key => $items) {
 
         
@@ -368,6 +377,10 @@ public function editPorcentaje(Request $request){
  
 
         Job::where('id',$request->jobsId[$key])->update($jobsId);
+            
+        
+
+
 
     }
 
@@ -388,64 +401,39 @@ public function editPorcentaje(Request $request){
 
 
 
-public function update(Request $request){
+public function statusFaenas(Request $request,$check){
 
- //    dd($request->all());
-  
-      //dd($request->check);
-  
-  
-  
-     // dd(count($request->job));
-  
-    // $sum = count($request->job);
+    //dd($request->all(),$check);
 
+    if (isset($request->finalizar)) {
+
+        $change = CheckList::find($check)->update([
+
+            'statusNow' => $request->finalizar
     
-  
-   // $editCantidad =  Production::where(['check_lists_id'=> $request->check, 'workers_id'=> $request->idWorker])->update(['cantidad' => $sum]);
-     
-    $totales  = 0;
-    $amount = 0;
-    $tot = 0;
+        ]);
 
-      if (count($request->trabajo) > 0) {
-          # code...
       
-        
-      foreach ($request->trabajo as $index => $value) {
-
-
-        $totales = $totales + 1;
-
-        $amount += $request->porcent[$index];    
-        $tot +=  $request->porcent[$index]/100 * $request->precio[$index];  
-  
-          $most = array(
-  
-              'check_lists_id' => $request->check,
-              'workers_id' => $request->idWorker,
-              'presupuesto_details_id' => $request->idFaenas[$index],
-              'trabajos' => $request->trabajo[$index],
-              'porcentaje' => $request->porcent[$index],
-              'pagoporcentaje' =>  $request->porcent[$index]/100 * $request->precio[$index]
-  
-          );
     
-  
-          Job::insert($most);
-          
-  
-      }
-  
-      }
+    }elseif($request->continuar){
 
-      $ar = Production::where(['check_lists_id'=> $request->check, 'workers_id' => $request->idWorker])->update(['cantidad'=>$totales,'porcentaje'=>$amount,'pagoporcentaje'=> $tot]);
-  
-     // dd($sum);
-  
-      return redirect()->route('check.show',$request->check);
-  
+
+        $change = CheckList::find($check)->update([
+
+            'statusNow' => $request->continuar
+    
+        ]);
+
+       
     }
+
+
+    
+
+    return redirect()->route('check.show',$check);
+
+}
+
 
 public function refresh(){
 
@@ -554,7 +542,49 @@ public function edit ($worker_id){
 
   }
 
+  public function update(Request $request){
+
+  // dd($request->all(),count($request->job));
+
+    //dd($request->check);
+
+
+
+   // dd(count($request->job));
+
+   $sum = count($request->job);
+
+  $editCantidad =  Production::where(['check_lists_id'=> $request->check, 'workers_id'=> $request->idWorker])->update(['cantidad' => $sum]);
+   
+
+    if (count($request->job) > 0) {
+        # code...
+    
+      
+    foreach ($request->job as $index => $value) {
+
+        $most = array(
+
+            'check_lists_id' => $request->check,
+            'workers_id' => $request->idWorker,
+            'presupuesto_details_id' => $request->job[$index],
+            'trabajos' => $request->trabajos[$index],
+
+        );
   
+
+        Job::insert($most);
+        
+
+    }
+
+    }
+
+   // dd($sum);
+
+    return redirect()->route('check.show',$request->check);
+
+  }
 
 
 */

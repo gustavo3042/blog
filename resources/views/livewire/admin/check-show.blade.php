@@ -9,7 +9,13 @@
     <div class="card-header">
     
         <div style="padding: 3px;" class="">
+
+            @if ($checks->statusNow == 1)
             <span class="card-title">Faena Activa</span>
+            @elseif($checks->statusNow == 0)
+            <span class="card-title">Faena Terminada</span>
+            @endif
+          
         </div>
 
         <br>
@@ -319,9 +325,26 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
-                          <p class="mb-0 text-secondary">Faena en proceso</p>
+                          <p class="mb-0 text-secondary">Estado actual de la faena</p>
                             <h4 class="my-1"> </h4>
-                                <a  class="btn btn-info btn-sm">Terminado</a>
+
+                            <form method="POST" action="{{route('check.status',$check)}}">
+                                @csrf
+                                {{ method_field('PUT') }}
+                                @if ($checks->statusNow == 1)
+                                En Proceso:
+                                <button type="submit" name="finalizar" value="0" class="btn btn-primary btn-sm">Finalizar?</button>
+                                
+
+                                @elseif($checks->statusNow == 0)
+
+                                Finalizada:
+                                <button type="submit" name="continuar" value="1" class="btn btn-primary btn-sm">Activar?</button>
+
+                                @endif
+
+                            </form>
+
                         </div>
                              <div class="widgets-icons bg-light-info text-info ms-auto"><i
                                 class='bx bx-group'></i>
@@ -483,8 +506,8 @@
 
                                         @else
 
-                                        <button style="font-size: 10px;" data-toggle="modal" data-target="#porcentajeModal" wire:click="porcentajes({{ $workers->id }})" class="btn btn-danger btn-sm">
-                                            <i style="font-size: 10px;" class="">{{$workers->porcentaje}}%</i>Sin Producción</button>
+                                        <a type="submit" style="font-size: 10px;" href="{{route('check.showCreate',[$workers->id,$checks->id])}}"  class="btn btn-danger btn-sm">
+                                            <i style="font-size: 10px;" class="">{{$workers->porcentaje}}%</i>Sin Producción</a>
         
                                             
                                         @endif
