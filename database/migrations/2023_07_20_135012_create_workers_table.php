@@ -106,6 +106,7 @@ class CreateWorkersTable extends Migration
             $table->string('trabajos');
             $table->integer('porcentaje')->nullable();
             $table->integer('pagoporcentaje')->nullable();
+            $table->double('workingHrs')->nullable();
         
             $table->timestamps();
         });

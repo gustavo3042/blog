@@ -53,10 +53,24 @@
                         {{$faena->solucion}}
                     </div>
 
+                    <div class="form-group">
+                        <strong>Reparacion :</strong>
+
+                        @if ($faena->statusNow == 1)
+                            En Proceso
+
+                            @elseif($faena->statusNow == 0)
+
+                            Faena Finalizada
+
+                        @endif
+                      
+                    </div>
+
                 </div>
 
             </div>
-        <h1 class="card-title mb-3">Crear Porcentaje faena </h1>
+        <h1 class="card-title mb-3">Crear Producción</h1>
 
          
 
@@ -78,8 +92,9 @@
                     <thead>
                         <tr>
                             <th>Trabajo</th>
-                            <th>Precio</th>
-                            <th>Porcentaje</th>
+                            <th>Precio $CLP</th>
+                            <th>Porcentaje%</th>
+                            <th>Horas Trabajadas</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -95,11 +110,113 @@
 
                          
                                 
-                            <input type="number"  name="porcent[]" class="form-control" >
+                            <input type="number"  name="porcent[]" class="form-control" placeholder="10" >
                             <input type="hidden" name="idFaenas[]" value="{{$item->idFaenas}}">
+                           
 
                          
 
+                        </td>
+                        <td>
+                            <select class="form-control" name="workingHrs[]"
+                            >
+                            <option value="0"
+                        > Sin
+                                Rendimiento </option>
+                            <option value="0.5"
+                             >30
+                                Minutos</option>
+                            <option value="1"
+                             >1 hora
+                            </option>
+                            <option value="1.5"
+                             >1
+                                hora y media</option>
+                            <option value="2"
+                             >2 horas
+                            </option>
+                            <option value="2.5"
+                                >2
+                                horas y media</option>
+                            <option value="3"
+                              > 3
+                                horas</option>
+                            <option value="3.5"
+                             >3
+                                horas y media</option>
+                            <option value="4"
+                               >4 horas
+                            </option>
+                            <option value="4.5"
+                               >4
+                                horas y media</option>
+                            <option value="5"
+                            >5 horas
+                            </option>
+                            <option value="5.5"
+                               >5
+                                horas y media</option>
+                            <option value="6"
+                                >6 horas
+                            </option>
+                            <option value="6.5"
+                              >6
+                                horas y media</option>
+                            <option value="7"
+                               >7 horas
+                            </option>
+                            <option value="7.5"
+                           >7
+                                horas y media</option>
+                            <option value="8"
+                             >8 horas
+                            </option>
+                            <option value="8.5"
+                             >8
+                                horas y media</option>
+                            <option value="9"
+                              >9 horas
+                            </option>
+                            <option value="9.5"
+                              >9
+                                horas y media</option>
+                            <option value="10"
+                               >10
+                                horas</option>
+                            <option value="10.5"
+                              >10
+                                horas y media</option>
+                            <option value="11"
+                               >11
+                                horas</option>
+                            <option value="11.5"
+                                >11
+                                horas y media</option>
+                            <option value="12"
+                            >12
+                                horas</option>
+                            <option value="12.5"
+                             >12
+                                horas y media</option>
+                            <option value="13"
+                           >13
+                                horas</option>
+                            <option value="13.5"
+                              >13
+                                horas y media</option>
+                            <option value="14"
+                             >14
+                                horas</option>
+                            <option value="14.5"
+                                >14
+                                horas y media</option>
+                            <option value="15"
+                                >15
+                                horas</option>
+                            <option value="15.5"
+                                >15
+                                horas y media</option>
+                        </select>
                         </td>
 
                         </tr>

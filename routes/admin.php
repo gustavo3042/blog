@@ -21,6 +21,8 @@ use App\Http\Controllers\Admin\ProductionsController;
 use App\Http\Livewire\Admin\CheckShow;
 use App\Http\Livewire\Admin\CheckShowCreate;
 use App\Http\Controllers\Admin\CheckShowCreateController;
+use App\Http\Controllers\Admin\CheckShowEditController;
+use App\Http\Livewire\Admin\CheckShowEdit;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -60,10 +62,12 @@ Route::get('admin/check/pdf/{id}',[CheckListController::class, 'documentoPdf'])-
 Route::post('addWorkers', [CheckListController::class, 'addWorkers'])->name('addWorkers');
 
 Route::post('admin/checkshow/change/',[CheckShow::class, 'change'])->name('change.jobs');
-Route::post('admin/check/porcentajes',[Checkshow::class, 'editPorcentaje'])->name('check.porcentaje');
+
 Route::post('admin/checkshowcreate/update/',[CheckShowCreate::class, 'update'])->name('edit.jobs');
 
 Route::get('admin/checkshowcreate/index/{id}{check}',[CheckShowCreateController::class,'index'])->name('check.showCreate');
+Route::get('admin/checkshowedit/index/{id}{check}',[CheckShowEditController::class,'index'])->name('check.showEdit');
+Route::post('admin/check/porcentajes',[CheckShowEdit::class, 'editPorcentaje'])->name('check.porcentaje');
 Route::put('admin/checkshow/{check}',[CheckShow::class,'statusFaenas'])->name('check.status');
 
 //------------------------------------Rutas para el autocomplete--------------------------------------------

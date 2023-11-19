@@ -157,7 +157,8 @@ class CheckShow extends Component
                 productions.porcentaje,
                 productions.pagoporcentaje,
               
-                assistances.presente
+                assistances.presente,
+                check_lists_workers.id as workersCheck_id
               
     
                 from check_lists_workers
@@ -434,6 +435,30 @@ public function statusFaenas(Request $request,$check){
 
 }
 
+public function deletesPorcentajes($id){
+
+   // dd($id);
+
+   $mostNew = DB::table('check_lists_workers')->where('id',$id)->first();
+
+   $this->idWorker = $mostNew->id;
+
+  // dd($mostNew);
+
+ //  $delete = DB::table('check_lists_workers')->where('id',$id)->delete();
+
+   //return redirect()->back();
+    
+    }
+
+    public function destroyProduction(){
+
+       // $mostCheck = DB::table('check_lists_workers')->where('workers_id',$this->idWorker)->first();
+        $delete = DB::table('check_lists_workers')->where('id',$this->idWorker)->delete();
+      //  return redirect()->back()->with('Mensaje','Producción eliminada con éxito');
+
+        return redirect()->route('check.show',$this->check)->with('Mensaje','Producción eliminada con éxito');
+    }
 
 public function refresh(){
 
@@ -444,6 +469,9 @@ public function refresh(){
     return redirect()->back();
     
 }
+
+
+
 
 
 /*

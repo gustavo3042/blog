@@ -159,13 +159,7 @@
 
 
 
-    @if (Session::has('Mensaje'))
-
-    <div class="alert alert-success" role="alert">
-      {{Session::get('Mensaje')}}
-    </div>
-
-    @endif
+   
 
 
     @if (Session::has('Mensaje2'))
@@ -439,6 +433,14 @@
 
             <div class="card-body">
 
+                @if (Session::has('Mensaje'))
+
+                <div class="alert alert-success" role="alert">
+                  {{Session::get('Mensaje')}}
+                </div>
+            
+                @endif
+
 
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -500,8 +502,8 @@
 
                                         @if ($workers->porcentaje > 0)
 
-                                        <button style="font-size: 10px;" data-toggle="modal" data-target="#porcentajeModalEdit" wire:click="porcentajesMost({{ $workers->id }})" class="btn btn-primary btn-sm">
-                                            <i class="">{{$workers->porcentaje}}%</i></button>
+                                        <a type="submit" style="font-size: 10px;"   href="{{route('check.showEdit',[$workers->id,$checks->id])}}" class="btn btn-primary btn-sm">
+                                            <i class="">{{$workers->porcentaje}}%</i></a>
         
 
                                         @else
@@ -519,20 +521,11 @@
                                     <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
 
-                            
 
-                                        <form action="" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="activeChore"
-                                                value="">
-                                            <input type="hidden" name="worker" value="">
+                                        <button style="font-size: 10px;" data-toggle="modal" data-target="#porcentajeModalDelete" wire:click="deletesPorcentajes({{ $workers->workersCheck_id }})" class="btn btn-danger">
+                                            <i class="fas fa-trash"></i></button>
 
-                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                data-toggle="tooltip" data-placement="top" title="X">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-
-                                        </form>
+                                      
 
                                     </div>
                                     </td>
@@ -544,6 +537,8 @@
                                   //  $('#exampleModal').modal('hide');
                                     $('#porcentajeModal').modal('hide');
                                     $('#porcentajeModalEdit').modal('hide');
+                                    $('#porcentajeModalDelete').modal('hide');
+                                    
                                 });
                             </script> 
                         </tbody>

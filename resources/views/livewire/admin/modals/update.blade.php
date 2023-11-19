@@ -398,3 +398,36 @@
        </div>
     </div>
 </div>
+
+
+<div wire:ignore.self class="modal fade" id="porcentajeModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar Producción</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <h5 class="modal-title text-center pt-3">Quiere eliminar esta producción?</h5>
+
+            
+
+            <div class="modal-body">
+
+
+                <input type="hidden" wire:model="idWorker">
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"  data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">Cerrar</span>
+                    </button>
+                    <button  type="button" wire:click.prevent="destroyProduction()" class="btn btn-primary" data-dismiss="modal">Eliminar</button>
+                </div>
+               
+            </div>
+          
+       </div>
+    </div>
+</div>

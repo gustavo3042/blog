@@ -158,7 +158,8 @@ class CheckShowCreate extends Component
                      'presupuesto_details_id' => $request->idFaenas[$index],
                      'trabajos' => $request->trabajo[$index],
                      'porcentaje' => $request->porcent[$index],
-                     'pagoporcentaje' =>  $request->porcent[$index]/100 * $request->precio[$index]
+                     'pagoporcentaje' =>  $request->porcent[$index]/100 * $request->precio[$index],
+                     'workingHrs' => $request->workingHrs[$index] 
          
                  );
            
