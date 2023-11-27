@@ -80,12 +80,12 @@
 
               
 
-                <input type="hidden" name="idWorker"  value="{{$worker_id}}">
+                <input type="text" name="idWorker"  value="{{$worker_id}}">
 
               
                     
              
-                <input type="hidden" name="check" value="{{$check_id}}">
+                <input type="text" name="check" value="{{$check_id}}">
 
             
                 <table class="table">

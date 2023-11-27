@@ -502,13 +502,13 @@
 
                                         @if ($workers->porcentaje > 0)
 
-                                        <a type="submit" style="font-size: 10px;"   href="{{route('check.showEdit',[$workers->id,$checks->id])}}" class="btn btn-primary btn-sm">
+                                        <a type="submit" style="font-size: 10px;"   href="{{route('check.showEdit',[$workers->workersCheck_id,$check])}}" class="btn btn-primary btn-sm">
                                             <i class="">{{$workers->porcentaje}}%</i></a>
         
 
                                         @else
 
-                                        <a type="submit" style="font-size: 10px;" href="{{route('check.showCreate',[$workers->id,$checks->id])}}"  class="btn btn-danger btn-sm">
+                                        <a type="submit" style="font-size: 10px;" href="{{route('check.showCreate',[$workers->workersCheck_id,$check])}}"  class="btn btn-danger btn-sm">
                                             <i style="font-size: 10px;" class="">{{$workers->porcentaje}}%</i>Sin Producción</a>
         
                                             

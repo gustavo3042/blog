@@ -36,8 +36,14 @@ class CheckShowCreate extends Component
 
        // dd($id,$check);
 
+    
+
         $this->worker_id = $id;
         $this->check_id = $check;
+
+      //  dd($this->worker_id);
+
+       // dd($this->worker_id,$this->check_id);
 
         $this->auto = Autos::join('check_lists_autos','check_lists_autos.autos_id','=','autos.id')
         ->where('check_lists_autos.check_lists_id',$this->check_id)->first();
@@ -46,12 +52,12 @@ class CheckShowCreate extends Component
 
        $this->faena = CheckList::find($check);
 
-        $worker = DB::table('check_lists_workers')->where(['check_lists_id'=>$this->check_id,'workers_id'=>$id])->first();
+        $worker = DB::table('check_lists_workers')->where('id',$this->worker_id)->first();
 
         //dd($worker);
-        $workerDate = Worker::find($id);
+        $workerDate = Worker::find($worker->workers_id);
     
-        $this->idWorker = $worker->id;
+        $this->idWorker = $worker->workers_id;
         $this->name = $workerDate->name;
         $this->surname = $workerDate->surname;
         $this->rut = $workerDate->rut;
@@ -121,7 +127,7 @@ class CheckShowCreate extends Component
 
     public function update(Request $request){
 
-        //    dd($request->all());
+           // dd($request->all());
          
              //dd($request->check);
          
@@ -172,6 +178,18 @@ class CheckShowCreate extends Component
              }
        
              $ar = Production::where(['check_lists_id'=> $request->check, 'workers_id' => $request->idWorker])->update(['cantidad'=>$totales,'porcentaje'=>$amount,'pagoporcentaje'=> $tot]);
+
+            /*
+             if ($ar) {
+            
+                dd('Positivo');
+
+             }else{
+
+                dd('Fallo');
+
+             }
+           */  
          
             // dd($sum);
          

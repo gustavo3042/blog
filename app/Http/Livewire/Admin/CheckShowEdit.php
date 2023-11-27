@@ -27,15 +27,20 @@ class CheckShowEdit extends Component
     public $faenasWorkers2;
     public $mostFinal;
     public $check_lists;
+    public $worker_id;
 
     public function mount($id,$check){
 
        // dd($id,$check);
 
+       $this->worker_id = $id;
        $this->check = $check;
 
-        $worker = DB::table('check_lists_workers')->where(['check_lists_id'=>$this->check,'workers_id'=>$id])->first();
-        $workerDate = Worker::find($id);
+        $worker = DB::table('check_lists_workers')->where('id',$this->worker_id)->first();
+       // dd($worker,$this->worker_id);
+        $workerDate = Worker::find($worker->workers_id);
+      
+
         $this->check_lists = CheckList::find($check);
         
         
@@ -71,14 +76,14 @@ class CheckShowEdit extends Component
                     left join presupuesto_details on presupuesto_details.id = jobs.presupuesto_details_id
                 
         
-                    WHERE jobs.check_lists_id = '".$this->check."' AND jobs.workers_id = '". $this->idWorker  ."'
+                    WHERE jobs.check_lists_id = '".$this->check."' AND jobs.workers_id = '". $id  ."'
                 
                  
                     
                     ")
             );
         
-            $this->mostFinal = Job::where(['check_lists_id' => $this->check,'workers_id'=>$this->idWorker])->sum('pagoporcentaje');
+            $this->mostFinal = Job::where('workers_id',$this->worker_id)->sum('pagoporcentaje');
     
           // dd($this->faenasWorkers2);
            // $this->faenasWorkers  = $faenas;

@@ -159,6 +159,8 @@ class CheckShow extends Component
               
                 assistances.presente,
                 check_lists_workers.id as workersCheck_id
+        
+
               
     
                 from check_lists_workers
@@ -178,6 +180,8 @@ class CheckShow extends Component
       
 
        // dd($jobs);
+
+       //dd($choreWorkers);
         return view('livewire.admin.check-show',compact('checks','reparaciones','clientes','autos','workers','choreWorkers'));
     }
 
