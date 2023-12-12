@@ -35,7 +35,7 @@ class Assistances extends Component
 
                 from check_lists_workers
                 join workers on check_lists_workers.workers_id = workers.id
-                left join assistances on assistances.workers_id = workers.id
+                left join assistances on assistances.workers_id = check_lists_workers.id
 
                 where check_lists_workers.check_lists_id = ". $activeCheck->id ."
 
@@ -43,7 +43,7 @@ class Assistances extends Component
         );
 
        // dd($activeCheck);
-       // dd($checkWorkers);
+       //dd($this->checkWorkers);
 
       //  dd($this->assistance_id);
     }

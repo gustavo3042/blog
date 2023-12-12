@@ -29,7 +29,7 @@
                         @foreach ($checkWorkers as $key => $CW)
                         <tr>
                             <td> {{ $CW->name }}</td>
-                            <input type="hidden" name="workers[]" value="{{ $CW->idWorkers}}">
+                            <input type="hidden" name="workers[]" value="{{ $CW->checklistsWorkers_id}}">
     
                             <td>
                                 <input class="form-check-input" value="1" type="radio"

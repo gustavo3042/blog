@@ -497,7 +497,7 @@ return redirect()->route('check.index',$check);
     public function addWorkers(Request $request)
     {
 
-       // dd($request->all());
+        //dd($request->all());
 
         if (empty($request->workers)) {
             Toastr::warning('Favor de Agregar Trabajadores', 'Sin Trabajadores', );

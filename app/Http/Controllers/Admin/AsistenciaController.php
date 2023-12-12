@@ -76,7 +76,7 @@ class AsistenciaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //dd($id);
+    //dd($request->all());
 
         $checkList = CheckList::find($request->check_lists_id);
 
@@ -84,15 +84,8 @@ class AsistenciaController extends Controller
 
 
         foreach ($request->workers as $key => $value) { // as key for one each
-
-            $assistencia = array( // new array
-                "check_lists_id" => $checkList->id,
-                "workers_id" => $request->workers[$key],
-             
-                "presente" => $request->presente[$key][0],   // array[2]
-                "inasistencia_id" => $request->inasistencia_id[$key], // array[3]
-
-            );
+            
+          
 
 
 
@@ -103,14 +96,26 @@ class AsistenciaController extends Controller
             $assistenciaUpdate = Assistance::
             where('check_lists_id', $checkList->id)
             ->where('workers_id', $request->workers[$key])
-            ->first();
+            ->update([
 
+                "check_lists_id" => $checkList->id,
+                "workers_id" => $request->workers[$key],
+             
+                "presente" => $request->presente[$key][0],   // array[2]
+                "inasistencia_id" => $request->inasistencia_id[$key], // array[3]
+
+
+            ]);
+           // $assistenciaUpdate->update($assistencia);
+
+            /*
             if($assistenciaUpdate == null){
                 $create = Assistance::create($assistencia);
             }else{
-                $assistenciaUpdate->update($assistencia);
+                
             }
 
+            */
 
         }
 
