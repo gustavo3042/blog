@@ -23,6 +23,7 @@ use App\Http\Livewire\Admin\CheckShowCreate;
 use App\Http\Controllers\Admin\CheckShowCreateController;
 use App\Http\Controllers\Admin\CheckShowEditController;
 use App\Http\Livewire\Admin\CheckShowEdit;
+use App\Http\Livewire\Admin\Clientes\ClientesCreate;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -127,6 +128,7 @@ Route::get('reparaciones',[ReparacionesController::class, 'index'])->name('repar
 
 Route::resource('clientes','App\Http\Controllers\Admin\ClientesController');
 Route::get('clientes',[ClientesController::class, 'index'])->name('clientes.index');
+Route::get('clientes/create',[ClientesController::class,'create'])->name('clientes.create');
 
 
 

@@ -1,4 +1,4 @@
-<div>
+<div >
     
 
 
@@ -18,6 +18,8 @@
     <div class="card-body">
 
       <h3    class="font-weight-bold text-center mb-5 pt-5" >Ficha Tecnica formulario</h1>
+
+        <a class="btn btn-primary mb-5" href="{{route('check.index')}}">volver</a>
     
     <div class="container">
 

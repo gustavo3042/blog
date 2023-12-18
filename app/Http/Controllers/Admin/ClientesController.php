@@ -16,9 +16,9 @@ class ClientesController extends Controller
     public function index()
     {
 
-        $clientes = Cliente::all();
+      //  $clientes = Cliente::all();
 
-        return view('admin.clientes.index',compact('clientes'));
+        return view('admin.clientes.index');
     }
 
     /**
@@ -28,7 +28,7 @@ class ClientesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.clientes.create');
     }
 
     /**

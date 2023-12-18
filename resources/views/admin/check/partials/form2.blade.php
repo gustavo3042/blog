@@ -13,9 +13,11 @@
 
 
 
-    <div class="card-header">
+    <div class="card-header mb-5">
 
       <h3   style="font-weight: bold;" class="mb-5" >Ficha Tecnica formulario</h1>
+
+       
     
     <div class="container">
 

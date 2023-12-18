@@ -209,7 +209,7 @@
                                 <p class="mb-0 font-13 text-info"></i>%</p>
                         </div>
                              <div class="widgets-icons bg-light-info text-info ms-auto"><i 
-                                class="fas fa-list"></i>
+                                class="fas fa-check"></i>
                               </div>
                              </div>
                     </div>
@@ -223,11 +223,12 @@
                     <div class="d-flex align-items-center">
                         <div>
                           <p class="mb-0 text-secondary">Inasistencias</p>
-                            <h4 class="my-1"> </h4>
+                            <h4 class="my-1">{{$allAsistencias}}</h4>
                                 <p class="mb-0 font-13 text-info"></i>%</p>
                         </div>
-                             <div class="widgets-icons bg-light-info text-info ms-auto"><i
-                                class='bx bx-group'></i>
+                             <div class="widgets-icons bg-light-info text-info ms-auto">
+                                <i 
+                                class="fas fa-calendar-times"></i>
                               </div>
                              </div>
                     </div>
@@ -242,12 +243,14 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
-                          <p class="mb-0 text-secondary">Trabajadores</p>
-                            <h4 class="my-1"> </h4>
-                                <p class="mb-0 font-13 text-info"></i> En faena</p>
+                          <p class="mb-0 text-secondary">Licencias</p>
+                            <h4 class="my-1">{{$allLicencias}} </h4>
+                                <p class="mb-0 font-13 text-info"></i>Ausente</p>
                         </div>
-                             <div class="widgets-icons bg-light-info text-info ms-auto"><i
-                                class='bx bx-group'></i>
+                             <div class="widgets-icons bg-light-info text-info ms-auto">
+                                <i 
+                                class="fas fa-briefcase-medical"></i>
+                                
                               </div>
                              </div>
                     </div>
@@ -259,32 +262,12 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
-                          <p class="mb-0 text-secondary">Trabajadores</p>
-                            <h4 class="my-1"> </h4>
-                                <p class="mb-0 font-13 text-info"></i> En faena</p>
+                          <p class="mb-0 text-secondary">Costo de Reparación</p>
+                            <h4 class="my-1">${{$allPrecioTotal->total}}</h4>
+                                <p class="mb-0 font-13 text-info"></i>Por faena</p>
                         </div>
                              <div class="widgets-icons bg-light-info text-info ms-auto"><i
-                                class='bx bx-group'></i>
-                              </div>
-                             </div>
-                    </div>
-             </div>
-        </div>
-
-
-
-
-        <div class="col">
-            <div class="card radius-10">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div>
-                          <p class="mb-0 text-secondary">Trabajadores</p>
-                            <h4 class="my-1"> </h4>
-                                <p class="mb-0 font-13 text-info"></i> En faena</p>
-                        </div>
-                             <div class="widgets-icons bg-light-info text-info ms-auto"><i
-                                class='bx bx-group'></i>
+                                class='fas fa-wrench'></i>
                               </div>
                              </div>
                     </div>
@@ -299,12 +282,32 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div>
-                          <p class="mb-0 text-secondary">Trabajadores</p>
-                            <h4 class="my-1"> </h4>
-                                <p class="mb-0 font-13 text-info"></i> En faena</p>
+                          <p class="mb-0 text-secondary">Total Pago Trabajadores</p>
+                            <h4 class="my-1">{{$allJobs}}</h4>
+                                <p class="mb-0 font-13 text-info"></i>Por faena</p>
                         </div>
                              <div class="widgets-icons bg-light-info text-info ms-auto"><i
-                                class='bx bx-group'></i>
+                                class='fas fa-chart-bar'></i>
+                              </div>
+                             </div>
+                    </div>
+             </div>
+        </div>
+
+
+
+
+        <div class="col">
+            <div class="card radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                          <p class="mb-0 text-secondary">Ganancias taller</p>
+                            <h4 class="my-1">{{$allGanancias}} </h4>
+                                <p class="mb-0 font-13 text-info"></i>Por faena</p>
+                        </div>
+                             <div class="widgets-icons bg-light-info text-info ms-auto"><i
+                                class='fas fa-child'></i>
                               </div>
                              </div>
                     </div>

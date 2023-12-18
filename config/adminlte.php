@@ -290,14 +290,14 @@ return [
         [
             'text' => 'Reparaciones',
             'url'  => 'admin/reparaciones',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-fw fa-wrench',
 
         ],
 
         [
             'text' => 'FichaTecnica',
             'url'  => 'admin/check',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-fw fa-clipboard',
 
         ],
 
@@ -306,14 +306,21 @@ return [
         [
             'text' => 'Clientes',
             'url'  => 'admin/clientes',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-fw fa-briefcase',
+
+        ],
+
+        [
+            'text' => 'Autos',
+            'url'  => 'admin/autos',
+            'icon' => 'fas fa-car',
 
         ],
 
         [
             'text' => 'Trabajadores',
             'url'  => 'admin/workers',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-user-tie',
 
         ],
 

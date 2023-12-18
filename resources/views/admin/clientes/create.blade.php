@@ -2,14 +2,13 @@
 
 @section('title', 'Gustavo Rios App')
 
-
+@section('content_header')
+ 
+@stop
 
 @section('content')
-    
-
-
-
-    @livewire('admin.clientes.clientes')
+   
+    @livewire('admin.clientes.clientes-create')
 
 @stop
 

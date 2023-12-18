@@ -15,6 +15,7 @@ use App\Models\PresupuestoDetails;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Production;
+use App\Models\Assistance;
 
 class CheckShow extends Component
 {
@@ -47,7 +48,13 @@ class CheckShow extends Component
     public $detailsCompare;
 
     public $updateMode;
-  
+
+    public $allAsistencias;
+    public $allLicencias;
+    public $allPrecioTotal;
+    public $allJobs;
+    public $allGanancias;
+
    // public $precio;
    // public $porcent;
 
@@ -82,9 +89,27 @@ class CheckShow extends Component
 
         $this->workExist = DB::table('assistances')->where(['check_lists_id' => $this->check, 'presente' => 1])->sum('presente');
 
+        $allAsistencias = Assistance::where(['check_lists_id'=>$check,'presente'=>0])->get();
+        $this->allAsistencias =  count($allAsistencias);
 
+
+        $allLicencias = Assistance::where(['check_lists_id'=>$check,'presente'=>0,'inasistencia_id'=>3])->get();
+        $this->allLicencias =  count($allLicencias);
+
+
+        $this->allPrecioTotal = Presupuesto::where('check_lists_id',$check)->first();
+
+        $this->allJobs = Job::where('check_lists_id',$check)->sum('pagoporcentaje');
+
+        $this->allGanancias = $this->allPrecioTotal->total - $this->allJobs;
+      //  dd($this->allJobs);
+        //$this->allPrecioTotal =  count($allPrecioTotal);
+
+        //dd($this->allAsistencias);
       
       //  $this->jobs = Job::all();
+
+
     
 
     }
@@ -116,9 +141,15 @@ class CheckShow extends Component
         ->join('autos','autos.id','=','check_lists_autos.autos_id')
         ->where('check_lists_autos.check_lists_id',$this->check)
         ->first();
+
+
   
         $id = $this->check;
         $checks = CheckList::where('id',$this->check)->first();
+
+       
+        
+        
          //dd($checks);
   
          /*

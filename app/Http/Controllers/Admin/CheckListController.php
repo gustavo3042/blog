@@ -530,6 +530,7 @@ return redirect()->route('check.index',$check);
                 'workers_id' => $chor_worker->id,
                 'cantidad' => 0,
                 'rendimiento' => 0,
+                'pagodiario' => 20000,
                 ]
             );
 
