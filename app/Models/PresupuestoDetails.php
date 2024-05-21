@@ -10,7 +10,7 @@ class PresupuestoDetails extends Model
     use HasFactory;
 
 
-    protected $fillable = ['trabajo','descripcion','cantidad','precio','amount','presupuestos_id'];
+    protected $fillable = ['trabajo','descripcion','cantidadRepuestos','precioRepuestos','totalRepuestoss','cantidad','precio','amount','presupuestos_id'];
 
 
     public function jobs(){

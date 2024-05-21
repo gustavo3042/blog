@@ -30,6 +30,40 @@
 
  <div class="container pt-3" >
 
+
+   {{--  <div class="card-body">
+        <div class="container">
+
+            <table class="table table-bordered">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Hola</th>
+                        <th>Perra</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Pruebas1</td>
+                        <td>Pruebas2</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div> --}}
+
     <div class="row">
 
         <div class="col-sm-4">
@@ -88,9 +122,29 @@
     
 </div>
 
+<div class="form-group">
 
+    <strong>Trabajos:</strong>
+    @foreach ($details as $trabajos)
+     {{$trabajos->trabajo}}<br/>   
+    @endforeach
 
 </div>
+
+
+<div class="form-group">
+
+    <strong>Repuestos:</strong>
+    @foreach ($details as $repuestos)
+     {{$repuestos->descripcion}}<br/>   
+    @endforeach
+
+</div>
+
+</div>
+
+
+
 
 <div class="col-sm-4">
 
@@ -263,7 +317,7 @@
                     <div class="d-flex align-items-center">
                         <div>
                           <p class="mb-0 text-secondary">Costo de Reparación</p>
-                            <h4 class="my-1">${{$allPrecioTotal->total}}</h4>
+                            <h4 class="my-1">${{ $allPrecioTotal->total}}</h4>
                                 <p class="mb-0 font-13 text-info"></i>Por faena</p>
                         </div>
                              <div class="widgets-icons bg-light-info text-info ms-auto"><i
@@ -505,13 +559,13 @@
 
                                         @if ($workers->porcentaje > 0)
 
-                                        <a type="submit" style="font-size: 10px;"   href="{{route('check.showEdit',[$workers->workersCheck_id,$check])}}" class="btn btn-primary btn-sm">
+                                        <a type="submit" style="font-size: 10px;"   href="{{route('check.showEdit',$workers->workersCheck_id)}}" class="btn btn-primary btn-sm">
                                             <i class="">{{$workers->porcentaje}}%</i></a>
         
 
                                         @else
 
-                                        <a type="submit" style="font-size: 10px;" href="{{route('check.showCreate',[$workers->workersCheck_id,$check])}}"  class="btn btn-danger btn-sm">
+                                        <a type="submit" style="font-size: 10px;" href="{{route('check.showCreate',$workers->workersCheck_id)}}"  class="btn btn-danger btn-sm">
                                             <i style="font-size: 10px;" class="">{{$workers->porcentaje}}%</i>Sin Producción</a>
         
                                             

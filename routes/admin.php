@@ -26,6 +26,7 @@ use App\Http\Livewire\Admin\CheckShowEdit;
 use App\Http\Livewire\Admin\Clientes\ClientesCreate;
 use App\Http\Controllers\Admin\AutosController;
 use App\Http\Livewire\Admin\autos\AutosIndex;
+use App\Http\Livewire\Admin\CheckCreate;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -68,10 +69,12 @@ Route::post('admin/checkshow/change/',[CheckShow::class, 'change'])->name('chang
 
 Route::post('admin/checkshowcreate/update/',[CheckShowCreate::class, 'update'])->name('edit.jobs');
 
-Route::get('admin/checkshowcreate/index/{id}{check}',[CheckShowCreateController::class,'index'])->name('check.showCreate');
-Route::get('admin/checkshowedit/index/{id}{check}',[CheckShowEditController::class,'index'])->name('check.showEdit');
+Route::get('admin/checkshowcreate/index/{id}',[CheckShowCreateController::class,'index'])->name('check.showCreate');
+Route::get('admin/checkshowedit/index/{id}',[CheckShowEditController::class,'index'])->name('check.showEdit');
 Route::post('admin/check/porcentajes',[CheckShowEdit::class, 'editPorcentaje'])->name('check.porcentaje');
 Route::put('admin/checkshow/{check}',[CheckShow::class,'statusFaenas'])->name('check.status');
+
+Route::post('admin/checkCreate/',[CheckCreate::class,'storePresupuesto'])->name('check.storePresupuesto');
 
 //------------------------------------Rutas para el autocomplete--------------------------------------------
 Route::get('admin/typeahead_autocomplete/action', [CheckListController::class, 'action'])->name('check.action');
@@ -100,7 +103,7 @@ Route::get('admin/foro/{id}/comentarClient',[ForoController::class, 'comentarCli
 Route::post('admin/foro/comentCrear',[ForoController::class, 'comentCrear'])->name('foro.comentCrear');
 Route::put('admin/foro/{id}/cometarEdit',[ForoController::class,'comentarEdit'])->name('foro.comentarEdit');
 Route::delete('admin/foro/{id}/comentarDelete',[ForoController::class, 'comentarDelete'])->name('foro.comentarDelete');
-
+Route::get('admin/foro/{id}',[ForoController::class, 'documentoPdf'])->name('foro.pdf');
 
 
 Route::resource('foroCategory','App\Http\Controllers\Admin\CategoryForoController');

@@ -32,14 +32,16 @@ class CheckShowCreate extends Component
     public $auto;
     public $faena;
 
-    public function mount($id,$check){
+    public function mount($id){
 
-       // dd($id,$check);
+     
 
-    
+        $most = DB::table('check_lists_workers')->where('id',$id)->first();
 
-        $this->worker_id = $id;
-        $this->check_id = $check;
+        //dd($most);
+
+        $this->worker_id = $most->workers_id;
+        $this->check_id = $most->check_lists_id;
 
       //  dd($this->worker_id);
 
@@ -50,14 +52,16 @@ class CheckShowCreate extends Component
 
        // dd($this->auto);
 
-       $this->faena = CheckList::find($check);
+       $this->faena = CheckList::find($this->check_id);
 
-        $worker = DB::table('check_lists_workers')->where('id',$this->worker_id)->first();
+       // $worker = DB::table('check_lists_workers')->where('id',$this->worker_id)->first();
 
         //dd($worker);
-        $workerDate = Worker::find($worker->workers_id);
+        $workerDate = Worker::find($this->worker_id);
+
+        //dd($workerDate);
     
-        $this->idWorker = $worker->workers_id;
+       // $this->idWorker = $this->workers_id;
         $this->name = $workerDate->name;
         $this->surname = $workerDate->surname;
         $this->rut = $workerDate->rut;

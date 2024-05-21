@@ -24,11 +24,13 @@ class CreateCheckListsTable extends Migration
 
             $table->unsignedBigInteger('user_id');
            //$table->unsignedBigInteger('client_id');
+           // $table->unsignedBigInteger('autos_id');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('statusNow',[0,1])->default(1);
 
           // $table->foreign('client_id')->references('id')->on('failed_jobs')->onDelete('cascade');
+          //  $table->foreign('autos_id')->nullable()->references('id')->on('autos')->onDelete('cascade');
 
 
 

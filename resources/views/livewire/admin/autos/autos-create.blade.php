@@ -24,6 +24,16 @@
         @endif
         <div class="card-body">
 
+            <div class="form-group">
+
+                <label for="patente">Patente</label>
+                <input type="text" wire:model="patente" class="form-control">
+
+                @error('patente')
+                <span class="error text-danger">{{ $message }}</span>
+                @enderror
+
+            </div>
           
            
             <div class="form-group">
@@ -144,6 +154,15 @@
                 @enderror
             </div>
 
+            <div class="form-group">
+                <label for="kilometraje">Kilometraje</label>
+                <input type="number" wire:model="kilometraje" id="" class="form-control" placeholder="" >
+               
+                @error('kilometraje')
+                <span class="error text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
             
 
             <div class="btn-group" role="group" aria-label="Basic example">
@@ -151,6 +170,9 @@
                 <button wire:click="crearAuto()" class="btn btn-primary btn-sm">Guardar</button>
 
             </div>
+
+
+          
             
         </div>
         <div class="card-footer text-muted">

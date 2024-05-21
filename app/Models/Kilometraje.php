@@ -9,5 +9,5 @@ class Kilometraje extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tipoAceite','kilometraje','newKilometraje','autos_id'];
+    protected $fillable = ['tipoAceite','kilometraje','newKilometraje','mostKilometraje','check_lists_id','autos_id'];
 }

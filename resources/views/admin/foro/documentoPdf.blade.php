@@ -41,6 +41,7 @@
         margin-right: 2%;
         font-size: 20px;
         background: #33AFFF;
+        color: azure;
     }
 
     section {
@@ -81,7 +82,7 @@
 
     #faccomprador thead {
         padding: 20px;
-        background: #33AFFF;
+        background:#33AFFF;
         text-align: center;
         border-bottom: 1px solid #FFFFFF;
     }
@@ -194,8 +195,12 @@
                     @endforeach
                    
                 </tbody>
-                <br> <br> <br> <br> <br> <br> 
-                <tfoot>
+                <br> <br> 
+
+              
+
+              
+            {{--      <tfoot>
 
                     <tr>
                         <th colspan="3">
@@ -232,20 +237,70 @@
                         </td>
                     </tr>
 
-                </tfoot>
+                </tfoot>  --}}
             </table>
+
+
+
         </div>
     </section>
     <br>
     <br>
-    <footer>
+
+    <section>
+
+        <table id="facproducto">
+            <thead>
+
+                <tr id="fa">
+
+                    <th>Problema</th>
+                    <th>Solucion</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+              
+                    <tr>
+                        <td style="text-align: center;"><p>{{$check->problema}}</p></td>
+                        <td style="text-align: center;"><p>{{$check->solucion}}</p></td>
+
+                    </tr>
+           
+                
+
+            </tbody>
+          
+                    
+        </table>
+
+    </section>
+
         <!--puedes poner un mensaje aqui-->
         <div id="datos">
-            <p id="encabezado">
-                {{--  <b>{{$company->name}}</b><br>{{$company->description}}<br>Telefono:{{$company->telephone}}<br>Email:{{$company->email}}  --}}
-            </p>
+         
+ 
+                <br><br><br>
+
+                <table>
+                    <tr>
+                        <td>Total a pagar: ${{$presupuesto->total}}</td>
+                    </tr>
+                    <tr>
+                        <td>IVA: ${{$presupuesto->iva}}</td>
+                    </tr>
+                    <tr>
+                        <td>Repuestos: ${{$totalRepuestos}}</td>
+                    </tr>
+    
+                </table>
+
+          
         </div>
-    </footer>
+
 </body>
 
 </html>

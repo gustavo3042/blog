@@ -83,7 +83,7 @@
      
  
    
-    <td width="10px"><a class="btn btn-danger btn-sm" href=""><i class="fa fa-file-pdf">PDF</i></a></td>
+    <td width="10px"><a class="btn btn-danger btn-sm" href="{{route('foro.pdf',$check->id)}}"><i class="fa fa-file-pdf">PDF</i></a></td>
     <td width="10px"><a class="btn btn-primary btn-sm" href=""><i class="fa fa-eye">Ver</i></a></td>
  
    

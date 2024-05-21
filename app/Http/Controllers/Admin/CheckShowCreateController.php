@@ -12,9 +12,9 @@ class CheckShowCreateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id,$check)
+    public function index($id)
     {
-        return view('admin.check.checkShowCreate',compact('id','check'));
+        return view('admin.check.checkShowCreate',compact('id'));
     }
 
     /**

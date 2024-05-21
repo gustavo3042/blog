@@ -49,9 +49,9 @@
       
       <div class="tab-content" id="myTabContent">
       
-      
         <div class="tab-pane fade show active" id="home" role="tabpanel"
         aria-labelledby="home-tab">
+       
       
       
       
@@ -285,24 +285,25 @@
              
         
         
-               
+                </div> 
       
         
-        </div>
+              </div> 
     
     
         <!-- fin primera parte -->
         
-      </div>
       
       
-      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      
+
       
         
 
         
   <!--Segunda parte -->
         
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
     <div  class="col-sm">
 
       <br>
@@ -484,22 +485,24 @@
      
 
      
-     
+    </div>
           
     
       </div>
 
       <!--fin segunda parte -->
       
-      </div>
+      
 
 
-      <div class="tab-pane fade" id="datos" role="tabpanel" aria-labelledby="profile-tab">
+      
 
 
         
 
  <!--tercera parte -->
+
+ <div class="tab-pane fade" id="datos" role="tabpanel" aria-labelledby="profile-tab">
     
     <div  class="col-sm">
 
@@ -756,32 +759,19 @@
        <!-- tercera parte -->
 
 
-      </div>
+    
       
       
         </div>
 
-     
-    
-    
-    
-    
-
-
-
-    
   
-  
-    
-    
-    
-    
     </div>
     
     <br>
     
     </div>
     
+  </div>
     
     
     
@@ -794,9 +784,16 @@
 
     
     <br>
+
+  
+
+ 
+
+
+        
+   
     
-    
-    
+        <div class="container">
     
     
             <div class="form-group">
@@ -831,6 +828,10 @@
 
 
             <section>
+
+
+             
+
               <div class="panel panel-header">
     
                 
@@ -840,10 +841,15 @@
                       <thead>
                           <tr>
                               <th>Trabajo</th>
-                              <th>Descripción</th>
+                          
                               <th>Cantidad</th>
                               <th>Precio</th>
+                              <th>Repuestos</th>
+                              <th>Cantidad Repuestos</th>
+                              <th>Precio Repuestos</th>
+
                               <th>Total</th>
+                            
     
                               <!--boton addRow para agregar input para abajo class addRow -->
                               <th><a href="#" class="addRow"><i class="fa fa-plus"></i></a></th>
@@ -852,11 +858,16 @@
     
                       <tbody>
           <tr>
-          <td><input type="text" name="product_name[]" class="form-control" required=""></td>
+          <td><input type="text" name="product_name[]"  class="form-control" required=""></td>
+          <td><input type="text" name="quantity[]" class="form-control quantity" required=""></td>
+          <td><input type="text" name="budget[]" class="form-control budget"></td>
+        
+
           <td><input type="text" name="brand[]" class="form-control"></td>
-            <td><input type="text" name="quantity[]" class="form-control quantity" required=""></td>
-            <td><input type="text" name="budget[]" class="form-control budget"></td>
-            <td><input type="text" name="amount[]" class="form-control amount"></td>
+          <td><input type="text" name="cantidadRepuestos[]" class="form-control cantidadRepuestos" required=""></td>
+          <td><input type="text" name="precioRepuestos[]" class="form-control precioRepuestos" required=""></td>
+        
+          <td><input type="text" name="amount[]" class="form-control amount"></td>
           <td><a href="#" class="btn btn-danger remove"><i class="fa fa-trash"></i></a></td>
           </tr>
                           </tr>
@@ -868,8 +879,11 @@
                               <td style="border: none"></td>
                               <td style="border: none"></td>
                               <td style="border: none"></td>
+                              <td style="border: none"></td>
+                              <td style="border: none"></td>
                               <td >Total :</td>
                               <td><b class="total"></b> </td>
+                            
                             
                           </tr>
                       </tfoot>
@@ -880,9 +894,16 @@
     
     
               </div>
+
+
+
           </section>
+
+
+        </div>
     
-    
+
+     
     
             <div class="form-group">
     
@@ -1022,7 +1043,7 @@
 
 
 
-    <!--
+    
 
  
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -1165,7 +1186,7 @@
 </script>
 
 
--->
+
 
 </body>
 

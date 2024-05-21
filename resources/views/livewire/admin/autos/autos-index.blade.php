@@ -36,7 +36,7 @@
         
               <thead>
                 <tr>
-        
+                  <th>Patente</th>
                   <th>Marca</th>
                   <th>Modelo</th>
                   <th>Año</th>
@@ -52,6 +52,7 @@
         
         
                 <tr>
+                  <td>{{$car->patente}}</td>
                   <td>{{$car->marca}}</td>
                   <td>{{$car->modelo}}</td>
                   <td>{{$car->ano}}</td>

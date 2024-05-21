@@ -15,11 +15,14 @@ class CreatePresupuestoDetailsTable extends Migration
     {
         Schema::create('presupuesto_details', function (Blueprint $table) {
             $table->id();
-            $table->string('trabajo');
-            $table->string('descripcion');
-            $table->string('cantidad');
-            $table->string('precio');
-            $table->string('amount');
+            $table->string('trabajo')->nullable();
+            $table->string('descripcion')->nullable();
+            $table->string('cantidadRepuestos')->nullable();
+            $table->string('precioRepuestos')->nullable();
+            $table->string('totalRepuestos')->nullable();
+            $table->string('cantidad')->nullable();
+            $table->string('precio')->nullable();
+            $table->string('amount')->nullable();
 
             $table->unsignedBigInteger('presupuestos_id');
           

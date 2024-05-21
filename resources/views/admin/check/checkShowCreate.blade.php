@@ -10,7 +10,7 @@
 @section('content')
 
 
-@livewire('admin.check-show-create',['id'=>$id,'check'=>$check])
+@livewire('admin.check-show-create',['id'=>$id])
 
 
 @stop

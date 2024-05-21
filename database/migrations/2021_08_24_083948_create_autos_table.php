@@ -15,6 +15,7 @@ class CreateAutosTable extends Migration
     {
         Schema::create('autos', function (Blueprint $table) {
             $table->id();
+            $table->string('patente')->nullable();
             $table->string('marca');
             $table->string('modelo');
             $table->string('ano');
@@ -33,8 +34,9 @@ class CreateAutosTable extends Migration
 
         Schema::create('check_lists_autos', function (Blueprint $table) {
             $table->id();
-         
+            
 
+          
             $table->unsignedBigInteger('check_lists_id');
            
             $table->foreign('check_lists_id')->references('id')->on('check_lists')->onDelete('cascade');

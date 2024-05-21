@@ -29,22 +29,30 @@ class CheckShowEdit extends Component
     public $check_lists;
     public $worker_id;
 
-    public function mount($id,$check){
+    public function mount($id){
 
-       // dd($id,$check);
+       
 
-       $this->worker_id = $id;
-       $this->check = $check;
+       $most = DB::table('check_lists_workers')->where('id',$id)->first();
 
-        $worker = DB::table('check_lists_workers')->where('id',$this->worker_id)->first();
+      // dd($most);
+
+       $this->worker_id = $most->workers_id;
+       $this->check   = $most->check_lists_id;
+
+
+
+       
+
+       // $worker = DB::table('check_lists_workers')->where('id',$this->worker_id)->first();
        // dd($worker,$this->worker_id);
-        $workerDate = Worker::find($worker->workers_id);
+        $workerDate = Worker::find($this->worker_id);
       
 
-        $this->check_lists = CheckList::find($check);
+        $this->check_lists = CheckList::find($this->check);
         
         
-            $this->idWorker = $worker->id;
+           // $this->idWorker = $worker->id;
             $this->name = $workerDate->name;
             $this->surname = $workerDate->surname;
             $this->rut = $workerDate->rut;
@@ -76,7 +84,7 @@ class CheckShowEdit extends Component
                     left join presupuesto_details on presupuesto_details.id = jobs.presupuesto_details_id
                 
         
-                    WHERE jobs.check_lists_id = '".$this->check."' AND jobs.workers_id = '". $id  ."'
+                    WHERE jobs.check_lists_id = '".$this->check."' AND jobs.workers_id = '". $id ."'
                 
                  
                     

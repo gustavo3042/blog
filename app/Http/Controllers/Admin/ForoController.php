@@ -12,6 +12,9 @@ use App\Models\Autos;
 use App\Models\CategoryForo;
 use App\Models\PostForoConsultas;
 use App\Models\PostForoComent;
+use PDF;
+use App\Models\Presupuesto;
+use App\Models\PresupuestoDetails;
 
 
 
@@ -36,7 +39,7 @@ class ForoController extends Controller
         $buscar = $request->buscar;  
 
       
-
+      //  dd($buscar);
         /*
         $check = DB::table('check_lists')
         ->join('clientes','clientes.check_lists_id','=','check_lists.id')
@@ -48,12 +51,14 @@ class ForoController extends Controller
         $check1 = CheckList::where('patente','LIKE','%'.$buscar.'%')
        // ->where('users.id',auth()->user()->id)
         ->latest('id')
-        ->paginate(5);
+    // ->orderBy('check_lists.id','desc')
+        ->get();
+      // ->paginate(5);
 
             
         $most = CheckList::join('autos','autos.check_lists_id','=','check_lists.id')
         ->join('kilometrajes','kilometrajes.autos_id','=','autos.id')
-        ->where('patente',$buscar)
+        ->where('check_lists.patente',$buscar)
 
         ->select('kilometrajes.mostKilometraje as totalKilometros','kilometrajes.tipoAceite as tipoAceite','kilometrajes.id as idKm')
     
@@ -75,6 +80,33 @@ class ForoController extends Controller
             */
 
           return view('admin.foro.buscar',compact('check1','most'));
+
+    }
+
+
+
+   
+
+    //funcion para documento pdf boleta
+    public function documentoPdf($id){
+
+      //  dd($id);
+      $check = CheckList::find($id);
+
+      $presupuesto = Presupuesto::where('check_lists_id',$check->id)->first();
+      $presupuestDetails = DB::table('presupuesto_details')->where('presupuestos_id',$presupuesto->id)->get();
+      $totalRepuestos = PresupuestoDetails::where('presupuestos_id',$presupuesto->id)->sum('totalRepuestos');
+    //  dd($totalRepuestos);
+      $correo = DB::table('check_lists')
+      ->join('users','users.id','=','check_lists.user_id')
+      ->where('check_lists.id',$id)->first();
+
+     // dd($correo);
+
+    //dd($presupuestDetails);
+
+      $pdf = PDF::loadView('admin.foro.documentoPdf',compact('check','presupuesto','presupuestDetails','correo','totalRepuestos'));
+      return $pdf->setPaper('Doc')->stream('Boleta servicio');
 
     }
 

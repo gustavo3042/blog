@@ -19,10 +19,10 @@ class CreateKilometrajesTable extends Migration
             $table->integer('kilometraje');
             $table->integer('newKilometraje');
             $table->integer('mostKilometraje');
-            $table->unsignedBigInteger('check_lists_id');
+            $table->unsignedBigInteger('check_lists_id')->nullable();
             $table->unsignedBigInteger('autos_id');
            
-            $table->foreign('check_lists_id')->references('id')->on('check_lists')->onDelete('cascade');
+            $table->foreign('check_lists_id')->nullable()->references('id')->on('check_lists')->onDelete('cascade');
             $table->foreign('autos_id')->references('id')->on('autos')->onDelete('cascade');
             $table->timestamps();
         });

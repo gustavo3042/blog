@@ -54,6 +54,7 @@ class CheckShow extends Component
     public $allPrecioTotal;
     public $allJobs;
     public $allGanancias;
+    public $detailsRepuestos;
 
    // public $precio;
    // public $porcent;
@@ -120,6 +121,11 @@ class CheckShow extends Component
 
      //  dd($this->check);
 
+        $a = CheckList::find($this->check);
+      //  $a = Autos::where('check_lists_id',$this->check)->with('check_lists')->get();
+
+       // dd($a);
+
         $reparaciones = DB::table('check_lists')
         ->join('check_list_reparaciones','check_list_reparaciones.check_list_id','=','check_lists.id')
         ->join('reparaciones','reparaciones.id','=','check_list_reparaciones.reparaciones_id')
@@ -136,12 +142,13 @@ class CheckShow extends Component
         ->first();
   
   
-        $autos = DB::table('check_lists')
+      /*   $autos = DB::table('check_lists')
         ->join('check_lists_autos','check_lists_autos.check_lists_id','=','check_lists.id')
         ->join('autos','autos.id','=','check_lists_autos.autos_id')
         ->where('check_lists_autos.check_lists_id',$this->check)
-        ->first();
+        ->first(); */
 
+        $autos = Autos::where('patente',$a->patente)->first();
 
   
         $id = $this->check;
@@ -204,11 +211,14 @@ class CheckShow extends Component
             ")
         );
 
+        //dd($choreWorkers);
+
         $presupuestos = DB::table('presupuestos')->where('check_lists_id',$this->check)->first();
         $this->details = DB::table('presupuesto_details')->where('presupuestos_id',$presupuestos->id)->get();
         $this->detailsCompare = DB::table('jobs')->get();
 
-      
+        $this->detailsRepuestos = PresupuestoDetails::where('presupuestos_id',$presupuestos->id)->sum('totalRepuestos');
+        //dd($this->detailsRepuestos);
 
        // dd($jobs);
 
@@ -237,6 +247,7 @@ public function porcentajes($id){
     $this->name = $workerDate->name;
     $this->surname = $workerDate->surname;
     $this->rut = $workerDate->rut;
+    
     $this->workers = $workers = DB::table('workers')
   
      ->where('status',1)

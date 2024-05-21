@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Autos;
 
 use Livewire\Component;
 use App\Models\Autos;
+use App\Models\Kilometraje;
 
 class AutosCreate extends Component
 {
@@ -16,8 +17,11 @@ class AutosCreate extends Component
     public $tipoTraccion;
     public $tipoCombustion;
     public $cilindrada;
+    public $patente;
+    public $kilometraje;
 
     protected $validationAttributes   = [
+        'patente' => 'Patente',
         'marca' => 'Marca',
         'modelo' => 'Modelo',
         'ano' => 'Año',
@@ -25,7 +29,8 @@ class AutosCreate extends Component
         'tipoDireccion' => 'Tipo de dirección',
         'tipoTraccion' => 'Tipo de traccion',
         'tipoCombustion' => 'Tipo de combustion',
-        'cilindrada' => 'Cilindrada'  
+        'cilindrada' => 'Cilindrada',
+        'kilometraje' => 'Kilometraje'
 
 
         
@@ -33,6 +38,7 @@ class AutosCreate extends Component
       ];
     
       protected $rules = [
+        'patente' => 'required|string|max:7',
         'marca' => 'required|string|max:120',
         'modelo' => 'required|string|max:120',
         'ano' => 'required||integer',
@@ -41,6 +47,7 @@ class AutosCreate extends Component
         'tipoTraccion' => 'required|string|max:120',
         'tipoCombustion' => 'required|string|max:120',
         'cilindrada' => 'required||integer',
+        'kilometraje' => 'required|integer',
         
       
   
@@ -68,13 +75,14 @@ class AutosCreate extends Component
 
     public function crearAuto(){
 
+      //  dd($this->kilometraje);
 
         $this->validate();
 
         try {
             
             $create = Autos::create([
-
+                'patente' => $this->patente,
                 'marca' => $this->marca,
                 'modelo' => $this->modelo,
                 'ano' => $this->ano,
@@ -83,6 +91,22 @@ class AutosCreate extends Component
                 'tipoTraccion' => $this->tipoTraccion,
                 'tipoCombustion' => $this->tipoCombustion,
                 'cilindrada' => $this->cilindrada
+
+            ]);
+
+
+          
+
+            Kilometraje::insert([
+
+            
+                'tipoAceite' => 5,
+                'kilometraje' => $this->kilometraje,
+                'newKilometraje' => 0,
+                'mostkilometraje' => 0,
+                'check_lists_id' => null,
+                'autos_id' => $create->id
+
 
             ]);
 

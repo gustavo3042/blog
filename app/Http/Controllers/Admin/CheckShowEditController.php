@@ -12,9 +12,9 @@ class CheckShowEditController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id,$check)
+    public function index($id)
     {
-        return view('admin.check.checkShowEdit',compact('id','check'));
+        return view('admin.check.checkShowEdit',compact('id'));
     }
 
     /**

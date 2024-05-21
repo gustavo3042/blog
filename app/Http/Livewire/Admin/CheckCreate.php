@@ -21,10 +21,14 @@ class CheckCreate extends Component
     protected $paginationTheme= "bootstrap";
   
     public $patente;
+    //public $selectPresupuesto = 1;
+    public $confirmStatus;
+
+   // public $product_name = [];
   
     public function updatingSearch(){
   
-  $this->resetPage();
+    $this->resetPage();
   
     }
 
@@ -97,11 +101,12 @@ class CheckCreate extends Component
               ->join('clientes','clientes.id','=','check_lists_clientes.clientes_id')
               ->join('autos','autos.check_lists_id','=','check_lists.id')
               ->join('kilometrajes','kilometrajes.autos_id','=','autos.id')
-              ->where('patente',$this->patente)
+              ->where('check_lists.patente',$this->patente)
+              //->where('autos.patente',$this->patente)
           
               ->select('check_lists.id as id','clientes.nombre as nombre','clientes.direccion as direccion','clientes.telefono as telefono','clientes.correo as  correo',
               'check_lists.fecha as  fecha','autos.tipoDireccion as tipoDireccion','autos.cilindrada as cilindrada','autos.marca as marca','autos.modelo as modelo',
-              'autos.ano as ano','autos.color as color','autos.id as autos_id','kilometrajes.kilometraje as  kilometraje','kilometrajes.id as km_id')
+              'autos.ano as ano','autos.color as color','autos.id as autos_id','kilometrajes.kilometraje as  kilometraje','kilometrajes.id as km_id','autos.patente')
              // ->latest('id')
               ->orderBy('kilometrajes.id','desc')
               ->first();
@@ -139,4 +144,13 @@ class CheckCreate extends Component
 
       
     }
+
+
+    public function storePresupuesto(Request $request){
+
+      dd($request->product_name);
+
+    }
+
+
 }

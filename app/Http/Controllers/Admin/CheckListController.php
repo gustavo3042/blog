@@ -115,7 +115,8 @@ class CheckListController extends Controller
 
       $presupuesto = Presupuesto::where('check_lists_id',$check->id)->first();
       $presupuestDetails = DB::table('presupuesto_details')->where('presupuestos_id',$presupuesto->id)->get();
-      
+      $totalRepuestos = PresupuestoDetails::where('presupuestos_id',$check->id)->sum('totalRepuestos');
+     // dd($totalRepuestos);
       $correo = DB::table('check_lists')
       ->join('users','users.id','=','check_lists.user_id')
       ->where('check_lists.id',$id)->first();
@@ -124,7 +125,7 @@ class CheckListController extends Controller
 
     //dd($presupuestDetails);
 
-      $pdf = PDF::loadView('admin.check.documentoPdf',compact('check','presupuesto','presupuestDetails','correo'));
+      $pdf = PDF::loadView('admin.check.documentoPdf',compact('check','presupuesto','presupuestDetails','correo','totalRepuestos'));
       return $pdf->setPaper('Doc')->stream('Boleta servicio');
 
     }
@@ -207,10 +208,10 @@ class CheckListController extends Controller
     {
 
 
-     // dd($request->all());
+      //dd($request->all());
 
 
-    $check =    CheckList::create($request->all());
+    $check = CheckList::create($request->all());
 
 
     $checkA = $check->id;
@@ -218,15 +219,20 @@ class CheckListController extends Controller
       $dt = new Presupuesto();
       $dt->id;
       $prom = 0;
-
-      foreach ($request->amount as $item) {
-        
-        $prom += $item;
+      $repuest = 0;
+      
+  
+     
+      foreach ($request->precioRepuestos as $key => $val) {
+        $repuest += $request->precioRepuestos[$key] * $request->cantidadRepuestos[$key];
+        $prom += $request->amount[$key];
       }
 
-      $dt->total = $prom;
-      $dt->iva = ($prom * 0.19);
-      $dt->subtotal = ($prom * 0.19) + $prom;
+     // dd(($prom + $repuest) * 0.19);
+
+      $dt->total = ($prom + $repuest);
+      $dt->iva = ($prom + $repuest) * 0.19;
+      $dt->subtotal = (($prom + $repuest) * 0.19) + $prom + $repuest;
       $dt->check_lists_id =  $checkA;
      // $dt->created_at = $check->fecha;
      // $dt->updated_at = $check->fecha;
@@ -247,6 +253,10 @@ class CheckListController extends Controller
 
             'trabajo' => $request->product_name[$key],
             'descripcion' => $request->brand[$key],
+            'cantidadRepuestos' => $request->cantidadRepuestos[$key],
+            'precioRepuestos' => $request->precioRepuestos[$key],
+            'totalRepuestos' => $request->precioRepuestos[$key] * $request->cantidadRepuestos[$key] ,
+
             'cantidad' => $request->quantity[$key],
             'precio'=> $request->budget[$key],
             'amount' => $request->amount[$key],
@@ -266,22 +276,8 @@ class CheckListController extends Controller
 
       $checkClient = CheckList::where('patente',$request->patente)->first();
 
-     // dd($checkClient);
 
-     /*
-      $clientNew = DB::table('check_lists_clientes')
-      ->join('clientes','clientes.id','=','check_lists_clientes.clientes_id')
-      
-      ->where('check_lists_clientes.check_lists_id',$checkClient->id)->first();
-      */
-  
       $clientNew = Cliente::where('check_lists_id',$checkClient->id)->first();
-
-    // dd($clientNew);
-
-
-
-    //dd($clientId);
 
     if (empty($clientNew->check_lists_id)) {
 
@@ -294,8 +290,6 @@ class CheckListController extends Controller
         'check_lists_id' => $check->id
 
       ]);
-
-      //dd($client->id);
 
       $clientMost = DB::table('check_lists_clientes')
       ->insert(['check_lists_id'=> $checkA,'clientes_id' =>$client->id ]);
@@ -313,19 +307,13 @@ class CheckListController extends Controller
 
     $checkAuto = CheckList::where('patente',$request->patente)->first();
 
-    // dd($checkClient);
+     $autoNew = Autos::where('patente',$checkAuto->patente)->first();
 
-     $autoNew = Autos::where('check_lists_id',$checkAuto->id)->first();
-
-
-    // dd($autoNew);
-
-
-     if (empty($autoNew->check_lists_id)) {
-      
+     if (empty($autoNew->patente)) {
 
 
         $autosL= new Autos();
+        $autosL->patente = $request->patente;
         $autosL->marca = $request->marca;
         $autosL->modelo = $request->modelo;
         $autosL->ano = $request->ano;
@@ -359,89 +347,195 @@ class CheckListController extends Controller
 
      }else{
 
+      //aqui existe el auto pero no esta unido a ningun checklist por lo tanto solo debe editar 
+      //ingresando el check_lists_id
+      if (empty($autoNew->check_lists_id)) {
 
-   //   dd($request->patente);
+        $autosL = Autos::where('id',$autoNew->id)->update([
 
+
+          'patente' => $request->patente,
+          'marca' => $request->marca,
+          'modelo' => $request->modelo,
+          'ano' => $request->ano,
+          'color' => $request->color,
+          'check_lists_id' => $checkA,
+          'tipoDireccion' => $request->tipoDireccion,
+          'tipoTraccion' =>  $request->tipoTraccion,
+          'tipoCombustion' =>  $request->combustion,
+          'cilindrada' => $request->cilindrada,
+
+
+        ]);
+
+        $autosMost = DB::table('check_lists_autos')
+        ->insert(['check_lists_id'=> $checkA,'autos_id' =>$autoNew->id ]);
+
+      
+      }else {
+        
+
+        $autosMost = DB::table('check_lists_autos')
+        ->insert(['check_lists_id'=> $checkA,'autos_id' =>$autoNew->id ]);
+
+      }
+
+
+
+
+   $checkAuto = CheckList::where('patente',$request->patente)->first();
+   $autoNew = Autos::where('check_lists_id',$checkAuto->id)->first();
    $autosId = $autoNew->id;
 
-   $autosMost = DB::table('check_lists_autos')
-   ->insert(['check_lists_id'=> $checkA,'autos_id' =>$autosId ]);
 
-   if ($request->tipoAceite == 5) {
-    
-
-
-    $checkAuto2 = CheckList::where('patente',$request->patente)->first();
-
-     // dd($checkAuto2);
+   $kil = Kilometraje::where('autos_id',$autoNew->id)->first();
+   $kil2 = Kilometraje::where('autos_id',$autoNew->id)->latest('id')->first();
    
-        $autoNew2 = Autos::where('check_lists_id',$checkAuto2->id)->first();
- 
- 
-       $kmCar = Kilometraje::where('autos_id',$autoNew2->id)->latest('id')->first();
- 
-      // dd($kmCar->autos_id);
-       // dd($kmCar);
- 
-       $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
 
-       $mtskm = ($request->kilometraje - $kmCar->kilometraje) + $kmCar->newKilometraje;
- 
-         
-       Kilometraje::insert([
- 
-         'tipoAceite' => $request->tipoAceite,
-         'kilometraje' => $request->kilometraje,
-         'newKilometraje' => $kmNuevo,
-         'mostkilometraje' => $mtskm,
-         'check_lists_id' => $checkA,
-         'autos_id' =>  $kmCar->autos_id
- 
- 
-       ]);
- 
-       //dd($kmCar);
+  if ($kil->check_lists_id == null && $kil->autos_id == true) {
 
-
-   }elseif ($request->tipoAceite == 1 || $request->tipoAceite == 2 || $request->tipoAceite == 3 || $request->tipoAceite == 4) {
+    if ($request->tipoAceite == 5) {
     
-
-
-    $checkAuto2 = CheckList::where('patente',$request->patente)->first();
-
-    //  dd($checkAuto2);
-   
-        $autoNew2 = Autos::where('check_lists_id',$checkAuto2->id)->first();
- 
- 
-       $kmCar = Kilometraje::where('autos_id',$autoNew2->id)->latest('id')->first();
- 
-       //dd($kmCar);
- 
-       $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
- 
-       $mtskm = ($request->kilometraje - $kmCar->kilometraje) + $kmCar->newKilometraje;
-         
-       Kilometraje::insert([
- 
-         'tipoAceite' => $request->tipoAceite,
-         'kilometraje' => $request->kilometraje,
-         'newKilometraje' => 0,
-         'mostkilometraje' => 0,
-         'check_lists_id' => $checkA,
-         'autos_id' =>  $kmCar->autos_id
- 
- 
-       ]);
-
-
-
-   }
-
      
+   
+       $checkAuto2 = CheckList::where('patente',$request->patente)->first();
+   
+       
+    
+          $kmCar = Kilometraje::where('autos_id',$autoNew->id)->latest('id')->first();
+
+          if ($request->kilometraje < $kmCar->kilometraje) {
+
+            dd('No puede ingresar un kilometraje menor al ultimo registrado, vuelva a registrar el kilometraje');
+          }
+
+        
+   
+           //cuando crees el auto debes poner el kilometraje por eso es q el sumar queda en 0
+           //en la migracion de kilometrajes poner el check_lists_id como nullable
+    
+          $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
+   
+          $mtskm = ($request->kilometraje - $kmCar->kilometraje) + $kmCar->newKilometraje;
+    
+            
+          Kilometraje::insert([
+    
+            'tipoAceite' => $request->tipoAceite,
+            'kilometraje' => $request->kilometraje,
+            'newKilometraje' => $kmNuevo,
+            'mostkilometraje' => $mtskm,
+            'check_lists_id' => $checkA,
+            'autos_id' =>  $kmCar->autos_id
+    
+    
+          ]);
+    
+
+      }elseif ($request->tipoAceite == 1 || $request->tipoAceite == 2 || $request->tipoAceite == 3 || $request->tipoAceite == 4) {
+       
+  
+    
+          $kmCar = Kilometraje::where('autos_id',$autoNew->id)->latest('id')->first();
+  
+    
+          $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
+    
+          $mtskm = ($request->kilometraje - $kmCar->kilometraje) + $kmCar->newKilometraje;
+            
+          Kilometraje::insert([
+    
+            'tipoAceite' => $request->tipoAceite,
+            'kilometraje' => $request->kilometraje,
+            'newKilometraje' => 0,
+            'mostkilometraje' => 0,
+            'check_lists_id' => $checkA,
+            'autos_id' =>  $kmCar->autos_id
+    
+    
+          ]);
+   
+   
+   
+      }
+
+  }elseif ($kil2->check_lists_id == true) {
+  
+  //si existe el check list hace esto
+
+ 
+
+  if ($request->tipoAceite == 5) {
+
+ 
+     $checkAuto2 = CheckList::where('patente',$request->patente)->first();
+     
+         $autoNew2 = Autos::where('check_lists_id',$checkAuto2->id)->first();
+
+  
+        $kmCar = Kilometraje::where('autos_id',$autoNew2->id)->latest('id')->first();
+  
+
+         //cuando crees el auto debes poner el kilometraje por eso es q el sumar queda en 0
+         //en la migracion de kilometrajes poner el check_lists_id como nullable
+  
+        $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
+ 
+        $mtskm = ($request->kilometraje - $kmCar->kilometraje) + $kmCar->newKilometraje;
+  
+          
+        Kilometraje::insert([
+  
+          'tipoAceite' => $request->tipoAceite,
+          'kilometraje' => $request->kilometraje,
+          'newKilometraje' => $kmNuevo,
+          'mostkilometraje' => $mtskm,
+          'check_lists_id' => $checkA,
+          'autos_id' =>  $kmCar->autos_id
+  
+  
+        ]);
+  
+     
+    }elseif ($request->tipoAceite == 1 || $request->tipoAceite == 2 || $request->tipoAceite == 3 || $request->tipoAceite == 4) {
+     
+ 
+ 
+     $checkAuto2 = CheckList::where('patente',$request->patente)->first();
+ 
+    
+         $autoNew2 = Autos::where('check_lists_id',$checkAuto2->id)->first();
+  
+  
+        $kmCar = Kilometraje::where('autos_id',$autoNew2->id)->latest('id')->first();
+  
+  
+        $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
+  
+        $mtskm = ($request->kilometraje - $kmCar->kilometraje) + $kmCar->newKilometraje;
+          
+        Kilometraje::insert([
+  
+          'tipoAceite' => $request->tipoAceite,
+          'kilometraje' => $request->kilometraje,
+          'newKilometraje' => 0,
+          'mostkilometraje' => 0,
+          'check_lists_id' => $checkA,
+          'autos_id' =>  $kmCar->autos_id
+  
+  
+        ]);
+ 
+ 
+ 
+    }
+
+
+  }
+   
 
      }
-
+    #fin de if de autos
     
 
      

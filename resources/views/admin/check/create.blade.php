@@ -189,11 +189,17 @@ alert('Publicado significa que esta publicacion aparecera en el foro disponible 
       var tr='<tr>'+
       '<td><input type="text" name="product_name[]" class="form-control" required=""></td>'+
 
-      '<td><input type="text" name="brand[]" class="form-control"></td>'+
-
       '<td><input type="text" name="quantity[]" class="form-control quantity" required=""></td>'+
 
       '<td><input type="text" name="budget[]" class="form-control budget"></td>'+
+
+     
+
+      '<td><input type="text" name="brand[]" class="form-control"></td>'+
+
+      '<td><input type="text" name="cantidadRepuestos[]" class="form-control cantidadRepuestos" required=""></td>'+
+
+      '<td><input type="text" name="precioRepuestos[]" class="form-control precioRepuestos" required=""></td>'+
 
       ' <td><input type="text" name="amount[]" class="form-control amount"></td>'+
 
