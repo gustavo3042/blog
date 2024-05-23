@@ -29,8 +29,10 @@ $this->middleware('can:admin.roles.destroy')->only('destroy');
     public function index()
     {
 
-      $roles = Role::all();
-        return view('admin.roles.index',compact('roles'));
+    /*   $roles = Role::all();
+        return view('admin.roles.index',compact('roles')); */
+
+        return view('admin.roles.index');
     }
 
     /**
@@ -41,9 +43,9 @@ $this->middleware('can:admin.roles.destroy')->only('destroy');
     public function create()
     {
 
-$permisos = Permission::all();
+        $permissions = Permission::all();
 
-        return view('admin.roles.create',compact('permisos'));
+        return view('admin.roles.create',compact('permissions'));
     }
 
     /**
@@ -62,9 +64,12 @@ $request->validate([
 ]);
 
 
-$role = Role::create($request->all());
+/* $role = Role::create($request->all());
 
-$role->permissions()->sync($request->permisos); // se debe poner el permisos[] del checkbox
+$role->permissions()->sync($request->permissions); */ // se debe poner el permisos[] del checkbox
+
+$role = Role::create($request->only('name'));
+$role->permissions()->sync($request->permissions);
 
 return redirect()->route('roles.index')->with('Mensaje','El rol se creo con éxito');
 
@@ -91,9 +96,9 @@ return redirect()->route('roles.index')->with('Mensaje','El rol se creo con éxi
     public function edit(Role $role)
     {
 
-        $permisos = Permission::all();
+        $permissions = Permission::all();
 
-        return view('admin.roles.edit',compact('role','permisos'));
+        return view('admin.roles.edit',compact('role','permissions'));
     }
 
     /**
@@ -109,7 +114,7 @@ return redirect()->route('roles.index')->with('Mensaje','El rol se creo con éxi
 
       $request->validate([
 
-'name' => 'required'
+    'name' => 'required'
 
       ]);
 

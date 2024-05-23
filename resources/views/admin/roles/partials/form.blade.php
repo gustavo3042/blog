@@ -19,14 +19,17 @@
 
 <h2 class="h3">Lista de Permisos</h2>
 
-@foreach ($permisos as $permiso)
+@foreach ($permissions as $permiso)
 
 <div>
 
   <label>
 
-{!! Form::checkbox('permisos[]',$permiso->id,null,['class'=>'mr-1']) !!}
+{!! Form::checkbox('permissions[]',$permiso->id,null,['class'=>'mr-1']) !!}
 {{$permiso->description}}
+
+
+
 
   </label>
 
