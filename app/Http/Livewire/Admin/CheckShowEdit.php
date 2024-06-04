@@ -28,6 +28,7 @@ class CheckShowEdit extends Component
     public $mostFinal;
     public $check_lists;
     public $worker_id;
+    public $workers_id;
 
     public function mount($id){
 
@@ -36,7 +37,7 @@ class CheckShowEdit extends Component
        $most = DB::table('check_lists_workers')->where('id',$id)->first();
 
       // dd($most);
-
+      $this->workers_id = $id;
        $this->worker_id = $most->workers_id;
        $this->check   = $most->check_lists_id;
 

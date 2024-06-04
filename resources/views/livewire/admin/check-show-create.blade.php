@@ -81,7 +81,7 @@
 
               
 
-                <input type="text" name="idWorker"  value="{{$worker_id}}">
+                <input type="text" name="idWorker"  value="{{$workers_id}}">
 
               
                     

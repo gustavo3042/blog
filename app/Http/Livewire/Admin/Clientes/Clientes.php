@@ -4,15 +4,28 @@ namespace App\Http\Livewire\Admin\Clientes;
 
 use Livewire\Component;
 use App\Models\Cliente;
+use Livewire\WithPagination; 
 
 class Clientes extends Component
 {
-    public $clientes;
+
+    use WithPagination;
+
+    public $search;
+   
     public $nombre;
     public $direccion;
     public $telefono;
     public $correo;
     public $cliente_id;
+
+    protected $paginationTheme = "bootstrap";
+
+
+
+    public function updatingSearch(){
+      $this->resetPage();
+    }
 
 
     protected function rules()
@@ -33,9 +46,9 @@ class Clientes extends Component
     public function render()
     {
 
-        $this->clientes = Cliente::all();
+        $clientes = Cliente::where('nombre','LIKE','%'.$this->search.'%')->paginate(10);
 
-        return view('livewire.admin.clientes.clientes',['clientes' => $this->clientes ?? [],]);
+        return view('livewire.admin.clientes.clientes',compact('clientes'));
     }
 
 
@@ -86,6 +99,21 @@ class Clientes extends Component
         }
 
     }
+
+    public function captarId($id){
+
+        //  dd($id);
+        $mostDelete = Cliente::find($id);
+        $this->cliente_id = $mostDelete->id;
+  
+      }
+
+      public function eliminar(){
+
+        $borrar = Cliente::find($this->cliente_id)->delete();
+        return redirect()->route('clientes.index')->with('Mensaje','Cliente borrado con éxito');
+        $this->dispatchBrowserEvent('close-modal');
+      }
 
 
     public function closeModal()

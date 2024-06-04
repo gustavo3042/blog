@@ -9,7 +9,7 @@ class Navigation2 extends Component
 {
     public function render()
     {
-
+     
       $categories = Category::all();
         return view('livewire.navigation2',compact('categories'));
     }

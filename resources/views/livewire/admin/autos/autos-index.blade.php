@@ -1,5 +1,6 @@
 <div>
     @include('livewire.admin.autos.modal.editAutos')
+    @include('livewire.admin.autos.modal.deleteAutos')
   
   
       <div class="card mt-4">
@@ -13,6 +14,7 @@
         @endif
   
   
+     
   
       
   
@@ -23,14 +25,20 @@
               <h2 style="padding: 15px;">Autos Taller</h2> 
   
            </div>
+
+           <input wire:model="search" class="form-control" placeholder="Buscar">
   
           </div>
+
+       
+
+          @if($autos->count())
   
           <div class="card-body">
   
              
-              
-              <a class="btn btn-info btn-sm mb-5" href="{{route('autos.create')}}">Crear Vehículo</a>
+            <a class="btn btn-info btn-sm mb-5" href="{{route('autos.create')}}">Crear Vehículo</a>
+          
         
             <table class="table table-striped">
         
@@ -65,7 +73,7 @@
   
                   <button  data-toggle="modal" data-target="#editarAutos" wire:click="editar({{ $car->id }})" class="btn btn-info btn-sm">
                     <i class="fas fa-pencil"></i>Editar</button>
-                  <button class="btn btn-danger btn-sm" type="submit" wire:click="">Borrar</button>
+                  <button class="btn btn-danger btn-sm" data-toggle="modal"  data-target="#borrarAutos"  wire:click="captarId({{$car->id}})">Borrar</button>
   
                 </div>
         
@@ -79,6 +87,23 @@
             </table>
         
           </div>
+
+          <div class="card-footer">
+
+
+            {{$autos->links()}}
+          </div>
+            
+              @else
+            
+            
+                <div class="card-body">
+            
+            <strong>No hay registros</strong>
+            
+                </div>
+            
+              @endif
         
         </div>
   </div>
@@ -88,7 +113,7 @@
     window.livewire.on('userStore', () => {
     
         $('#editarAutos').modal('hide');
-  
+        $('#borrarAutos').modal('hide');
         
     });
   </script> 

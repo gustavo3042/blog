@@ -15,13 +15,7 @@
 
 
 
-        @if (Session::has('Mensaje'))
-        
-
-        <div class="alert alert-danger" role="alert">
-            {{Session::get('Mensaje2')}}
-          </div>
-        @endif
+      
         <div class="card-body">
 
           

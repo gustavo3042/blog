@@ -17,12 +17,19 @@
 
     <div class="card-body">
 
-      <h3    class="font-weight-bold text-center mb-5 pt-5" >Ficha Tecnica formulario</h1>
+      <h3 class="font-weight-bold text-center mb-5 pt-5" >Ficha Tecnica formulario</h1>
 
-        <a class="btn btn-primary mb-5" href="{{route('check.index')}}">volver</a>
+        <a class="btn btn-primary mt-5 mb-5" href="{{route('check.index')}}">volver</a>
+
+        
+
+       
+
+   
     
     <div class="container">
 
+     
 
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -60,7 +67,7 @@
 
       <br>
         
-          <h5 class="text-center" style="">Datos del Cliente</h5>
+          <h5 class="text-center" style="">Recepción del Cliente</h5>
         
           <!-- #0000ff color azul -->
             <!-- #1E90FF color celeste -->
@@ -308,7 +315,7 @@
 
       <br>
     
-      <h5 class="text-center" >Datos Tecnicos del Vehículo</h5>
+      <h5 class="text-center" >Recepción del Vehículo</h5>
     
 
 

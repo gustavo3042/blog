@@ -1,5 +1,6 @@
 <div>
   @include('livewire.admin.clientes.modal.editCliente')
+  @include('livewire.admin.clientes.modal.deleteCliente')
 
 
     <div class="card mt-4">
@@ -24,11 +25,13 @@
 
          </div>
 
+         <input wire:model="search" class="form-control" placeholder="Buscar">
+
         </div>
 
         <div class="card-body">
 
-           
+          @if($clientes->count())
             
             <a class="btn btn-info btn-sm mb-5" href="{{route('clientes.create')}}">Crear Cliente</a>
       
@@ -64,7 +67,7 @@
 
                 <button  data-toggle="modal" data-target="#editarCliente" wire:click="editar({{ $client->id }})" class="btn btn-info btn-sm">
                   <i class="fas fa-pencil"></i>Editar</button>
-                <button class="btn btn-danger btn-sm" type="submit" wire:click="">Borrar</button>
+                  <button class="btn btn-danger btn-sm" data-toggle="modal"  data-target="#borrarCliente"  wire:click="captarId({{$client->id}})">Borrar</button>
 
               </div>
       
@@ -78,6 +81,23 @@
           </table>
       
         </div>
+
+        <div class="card-footer">
+
+
+          {{$clientes->links()}}
+        </div>
+          
+            @else
+          
+          
+              <div class="card-body">
+          
+          <strong>No hay registros</strong>
+          
+              </div>
+          
+            @endif
       
       </div>
 </div>
@@ -87,6 +107,7 @@
   window.livewire.on('userStore', () => {
   
       $('#editarCliente').modal('hide');
+      $('#borrarCliente').modal('hide');
 
       
   });

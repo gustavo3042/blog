@@ -722,6 +722,7 @@ return redirect()->route('check.index',$check);
      */
     public function update(StoreRequest $request,CheckList $check)
     {
+
       $check->update($request->all());
 
 
@@ -737,9 +738,11 @@ return redirect()->route('check.index',$check);
    //  dd($presupuestoDelete->id);
 
    $prom = 0;
+   $repuest = 0;
      
-   foreach ($request->amount as $item) {
+   foreach ($request->amount as $key => $item) {
      
+    $repuest += $request->precioRepuestos[$key] * $request->cantidadRepuestos[$key];
      $prom += $item;
    }
    
@@ -760,6 +763,9 @@ return redirect()->route('check.index',$check);
      
            'trabajo' => $request->product_name[$key],
            'descripcion' => $request->brand[$key],
+           'cantidadRepuestos' => $request->cantidadRepuestos[$key],
+           'precioRepuestos' => $request->precioRepuestos[$key],
+           'totalRepuestos' => $request->precioRepuestos[$key] * $request->cantidadRepuestos[$key] ,
            'cantidad' => $request->quantity[$key],
            'precio'=> $request->budget[$key],
            'amount' => $request->amount[$key],
@@ -786,8 +792,8 @@ return redirect()->route('check.index',$check);
 
       $autos = DB::table('autos')->where('check_lists_id',$check->id)
       ->update(['marca'=>$request->marca,'modelo'=> $request->modelo,'ano'=>$request->ano,'color'=>$request->color,
-                'tipoDireccion'=> $request->tipoDireccion,'tipoTraccion'=> $request->tipoTraccion,'tipoCombustion'=> $request->tipoCombustion,
-              'cilindrada'=> $request->cilindrada]);
+      'tipoDireccion'=> $request->tipoDireccion,'tipoTraccion'=> $request->tipoTraccion,'tipoCombustion'=> $request->tipoCombustion,
+      'cilindrada'=> $request->cilindrada]);
    
 
       if ($request->file('file')) {

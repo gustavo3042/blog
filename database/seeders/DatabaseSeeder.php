@@ -7,6 +7,7 @@ use App\Models\Reparaciones;
 use App\Models\Cliente;
 use App\Models\Tag;
 use App\Models\Autos;
+use App\Models\Worker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 class DatabaseSeeder extends Seeder
@@ -47,6 +48,45 @@ $this->call(PostSeeder::class);
 //$this->call(CheckListseeder::class);
 
 //$this->call(OrdenSeeder::class);
+
+
+$create = Reparaciones::create([
+
+    'name' => 'Reparaciones Mecánicas',
+    'precio'=> 500000
+
+]);
+
+$create2 = Reparaciones::create([
+
+    'name' => 'Reparaciones Electromecanicas',
+    'precio'=> 120000
+
+]);
+
+
+$workers = Worker::create([
+
+    'name' => 'Luis',
+    'name2' => 'Alberto',
+    'surname' => 'Rios',
+    'surname2' => 'Aguilera',
+    'rut' => '8069821-6',
+    
+
+]);
+
+$workers2 = Worker::create([
+
+    'name' => 'Jaime',
+    'name2' => 'Alberto',
+    'surname' => 'Rios',
+    'surname2' => 'Cabeza',
+    'rut' => '18451216-5',
+    
+
+]);
+
 
 
 

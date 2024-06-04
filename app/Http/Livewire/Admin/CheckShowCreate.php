@@ -28,18 +28,19 @@ class CheckShowCreate extends Component
     public $rut;
 
     public $worker_id;
+    public $workers_id;
     public $check_id;
     public $auto;
     public $faena;
 
     public function mount($id){
 
-     
+   //  dd($id);
 
         $most = DB::table('check_lists_workers')->where('id',$id)->first();
 
         //dd($most);
-
+        $this->workers_id = $id;
         $this->worker_id = $most->workers_id;
         $this->check_id = $most->check_lists_id;
 
@@ -84,7 +85,7 @@ class CheckShowCreate extends Component
          })->get();
      */
     
-        //dd($this->idWorker);
+   
      
         $this->faenasWorkers  = DB::select(
     
@@ -119,6 +120,8 @@ class CheckShowCreate extends Component
                 
                 ")
         );
+
+          //  dd($this->faenasWorkers);
     
         
     }
@@ -131,7 +134,7 @@ class CheckShowCreate extends Component
 
     public function update(Request $request){
 
-           // dd($request->all());
+          //  dd($request->all());
          
              //dd($request->check);
          
@@ -151,7 +154,8 @@ class CheckShowCreate extends Component
        
              if (count($request->trabajo) > 0) {
                  # code...
-             
+                 
+                
                
              foreach ($request->trabajo as $index => $value) {
        
@@ -160,6 +164,8 @@ class CheckShowCreate extends Component
        
                $amount += $request->porcent[$index];    
                $tot +=  $request->porcent[$index]/100 * $request->precio[$index];  
+
+              // dd($totales,$amount,$tot);
          
                  $most = array(
          
@@ -173,15 +179,17 @@ class CheckShowCreate extends Component
          
                  );
            
-         
+              
                  Job::insert($most);
-                 
+              
          
              }
+
+             $ar = Production::where(['check_lists_id'=> $request->check, 'workers_id' => $request->idWorker])->update(['cantidad'=>$totales,'porcentaje'=>$amount,'pagoporcentaje'=> $tot]);
          
              }
        
-             $ar = Production::where(['check_lists_id'=> $request->check, 'workers_id' => $request->idWorker])->update(['cantidad'=>$totales,'porcentaje'=>$amount,'pagoporcentaje'=> $tot]);
+           
 
             /*
              if ($ar) {

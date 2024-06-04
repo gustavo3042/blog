@@ -52,7 +52,7 @@
                
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" wire:click.prevent="closeModal()"  data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn btn-secondary" wire:click.prevent="closeModal(a)"  data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">Cerrar</span>
                     </button>
                     <button  type="button" wire:click.prevent="actualizarCliente('{{$cliente_id}}')" class="btn btn-primary" data-dismiss="modal">Editar</button>

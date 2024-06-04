@@ -69,7 +69,7 @@ class ClientesCreate extends Component
 
             ]);
 
-            return redirect()->route('clientes.create')->with('Mensaje','Cliente creado con éxito');
+            return redirect()->route('clientes.index')->with('Mensaje','Cliente creado con éxito');
             
         } catch (\Throwable $th) {
             

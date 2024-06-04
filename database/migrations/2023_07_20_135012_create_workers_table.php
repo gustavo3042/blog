@@ -44,10 +44,10 @@ class CreateWorkersTable extends Migration
             $table->string('surname');
             $table->string('surname2');
             $table->string('rut')->unique();
-            $table->date('birthDate');
+            $table->date('birthDate')->nullable();
             $table->integer('sex')->nullable();
             $table->boolean('status')->default(1);
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->integer('Afp')->nullable();
             $table->string('email')->unique()->nullable();

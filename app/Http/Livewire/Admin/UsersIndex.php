@@ -37,6 +37,7 @@ $users = User::where('name','LIKE','%'.$this->search.'%')
               ->orWhere('email','LIKE','%'.$this->search.'%')
               ->paginate(10);
 
+         
         return view('livewire.admin.users-index',compact('users'));
 
 
@@ -94,11 +95,6 @@ $users = User::where('name','LIKE','%'.$this->search.'%')
   //    dd($update);
 
   }
-
-  
-
-
-
 
   public function closeModal()
   {

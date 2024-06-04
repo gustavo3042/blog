@@ -130,9 +130,102 @@
 
     </script>
 
-
+    
 
 <script type="text/javascript">
+
+
+
+
+  $('tbody').delegate('.quantity,.budget','keyup',function(){
+      var tr= $(this).parent().parent();
+      var quantity=tr.find('.quantity').val();
+      var budget=tr.find('.budget').val();
+      var amount=(quantity*budget);
+      tr.find('.amount').val(amount);
+      total();
+
+  });
+
+
+  function total()
+  {
+
+    var total = 0;
+
+    $('.amount').each(function(i,e){
+
+
+      var amount = $(this).val()-0;
+
+      total +=amount;
+
+
+    });
+
+    $('.total').html(total+".00 $");
+
+  }
+
+
+
+  $('.addRow').on('click',function(e){
+      addRow();
+       e.preventDefault();
+      
+  });
+
+
+
+
+  function addRow()
+  {
+      var tr='<tr>'+
+      '<td><input type="text" name="product_name[]" class="form-control" required=""></td>'+
+
+      '<td><input type="text" name="quantity[]" class="form-control quantity" required=""></td>'+
+
+      '<td><input type="text" name="budget[]" class="form-control budget"></td>'+
+
+     
+
+      '<td><input type="text" name="brand[]" class="form-control"></td>'+
+
+      '<td><input type="text" name="cantidadRepuestos[]" class="form-control cantidadRepuestos" required=""></td>'+
+
+      '<td><input type="text" name="precioRepuestos[]" class="form-control precioRepuestos" required=""></td>'+
+
+      ' <td><input type="text" name="amount[]" class="form-control amount"></td>'+
+
+      '<td><a href="#" class="btn btn-danger remove"><i class="fa fa-trash"></i></a></td>'+
+      '</tr>';
+      $('tbody').append(tr);
+  };
+
+
+  $('.remove').live('click',function(e){
+
+      var last=$('tbody tr').length;
+
+      if(last==1){
+          alert("no se puede eliminar la ultima columna");
+          e.preventDefault();
+      }
+      else{
+           $(this).parent().parent().remove();
+           e.preventDefault();
+      }
+
+  });
+
+
+
+
+</script>
+
+
+
+{{-- <script type="text/javascript">
 
   $('tbody').delegate('.quantity,.budget','keyup',function(){
       var tr= $(this).parent().parent();
@@ -212,6 +305,6 @@
 
 
 
-</script>
+</script> --}}
 
 @stop

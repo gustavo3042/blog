@@ -31,7 +31,7 @@
       
 
  
-             <input type="text" name="idWorker"  wire:model="worker_id">
+             <input type="text" name="idWorker"  wire:model="workers_id">
        
              <input type="text" name="check" value="{{$check}}">
 
