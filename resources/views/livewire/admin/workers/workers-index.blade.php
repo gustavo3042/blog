@@ -14,16 +14,17 @@
 
         <div class="card-header">
             <div class="card-title">Trabajadores</div>
+            <input wire:model="search" class="form-control mt-5" placeholder="Buscar por rut">
         </div>
 
-
+      
 
         @if ($allWorkers->count())
             <div class="card-body">
                 <div>
 
-                    <input wire:model="search" class="form-control mb-5 float-right col-sm-3" placeholder="Buscar">
-                    <a class="btn btn-info mr-3 " href="{{ route('workers.create') }}"> <i class="fas fa-check"></i>
+                  
+                    <a class="btn btn-info btn-sm mr-3 mb-3" href="{{ route('workers.create') }}"> <i class="fas fa-check"></i>
                         Crear Trabajador</a>
 
                 </div>

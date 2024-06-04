@@ -3,106 +3,14 @@
 @section('title', 'Gustavo Rios App')
 
 @section('content_header')
-    <h1>Lista Reparaciones</h1>
+
   
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+   
 
-
-
-
-
-
-
-
-
-    <div class="card">
-
-
-      <div class="card-header">
-
-     
-
-        <a class="btn btn-secondary" href="{{route('reparaciones.create')}}">Crear Reparación</a>
-
-      </div>
-
-
-      @if (Session::has('Mensaje2'))
-
-      
-      <div class="alert alert-success" role="alert">
-
-        {{Session::get('Mensaje2')}}
-      </div>
-
-    @endif
-
-      <div class="card-body">
-
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nombre Reparacion</th>
-        <th>Precio Aproximado</th>
-        <th>Acciones</th>
-    </tr>
-  </thead>
-
-
-  <tbody>
-
-    @foreach ($reparaciones as $reparacione)
-
-  <tr>
-    <td>{{$reparacione->id}}</td>
-    <td>{{$reparacione->name}}</td>
-      <td>{{$reparacione->Precio}}</td>
-
-      <td width='10px'>
-      <div class="btn-group" role="group" aria-label="Basic example">
-  
-
-<a class="btn btn-primary btn-sm" href="{{route('reparaciones.edit',$reparacione)}}">Editar</a>
-
-
-  
-
-{!! Form::open(['route'=>['reparaciones.destroy',$reparacione],'method'=>'DELETE']) !!}
-
-
-{!! Form::submit('Eliminar', ['class'=>'btn btn-danger btn-sm']) !!}
-
-{!! Form::close() !!}
-
-
-
-  </div>
-</td>
-
-  </tr>
-
-
-
-  </tbody>
-
-
-    @endforeach
-</table>
-
-
-
-
-
-
-
-      </div>
-
-    </div>
+@livewire('admin.reparaciones.reparacion')
 @stop 
 
 @section('css')
