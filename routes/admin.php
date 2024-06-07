@@ -27,6 +27,7 @@ use App\Http\Livewire\Admin\Clientes\ClientesCreate;
 use App\Http\Controllers\Admin\AutosController;
 use App\Http\Livewire\Admin\autos\AutosIndex;
 use App\Http\Livewire\Admin\CheckCreate;
+use App\Http\Livewire\Admin\Insumos\InsumosCreate;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -46,20 +47,25 @@ Route::get('admin/categorias',[CategoryController::class,'index'])->name('catego
 
 
 Route::resource('tags','App\Http\Controllers\Admin\TagController')->except('show'); //el except nos sirve para q el middleware q esta en el controlador correspondiente no valla a la ruta show q no se usa
-Route::get('admin/tags',[TagController::class, 'index'])->name('tags.index');
+//Route::get('admin/tags',[TagController::class, 'index'])->name('tags.index');
 
 
 
 Route::resource('posts','App\Http\Controllers\Admin\PostsController')->except('show');
-Route::get('admin/posts/index',[PostsController::class,'index'])->name('posts.index');
-Route::get('posts/edit/{post}',[PostsController::class,'edit'])->name('posts.edit');
+//Route::get('admin/posts/index',[PostsController::class,'index'])->name('posts.index');
+//Route::get('posts/edit/{post}',[PostsController::class,'edit'])->name('posts.edit');
 //Route::put('admin/posts/update/{post}',[PostsController::class,'update'])->name('posts.update');
+
+Route::resource('insumos','App\Http\Controllers\Admin\InsumosController');
+//Route::get('admin/insumos',[])
+
+
 
 
 Route::resource('check','App\Http\Controllers\Admin\CheckListController');
-Route::get('admin/check/index',[CheckListController::class, 'index'])->name('check.index');
-Route::get('admin/check/{check}',[CheckListController::class, 'edit'])->name('check.edit');
-Route::get('admin/check/{check}/show',[CheckListController::class, 'show'])->name('check.show');
+//Route::get('admin/check/index',[CheckListController::class, 'index'])->name('check.index');
+//Route::get('admin/check/{check}',[CheckListController::class, 'edit'])->name('check.edit');
+//Route::get('admin/check/{check}/show',[CheckListController::class, 'show'])->name('check.show');
 Route::get('admin/check/{check}/presupuesto',[CheckListController::class,'presupuesto'])->name('check.presupuesto');
 Route::get('admin/check/cliente',[CheckListController::class, 'clientes'])->name('check.cliente');
 Route::get('admin/check/pdf/{id}',[CheckListController::class, 'documentoPdf'])->name('check.pdf');
@@ -95,7 +101,7 @@ Route::get('admin/typeahead_autocomplete/correo', [CheckListController::class, '
 
 
 Route::resource('foro','App\Http\Controllers\Admin\ForoController');
-Route::get('admin/foro/index',[ForoController::class, 'index'])->name('foro.index');
+//Route::get('admin/foro/index',[ForoController::class, 'index'])->name('foro.index');
 Route::get('admin/foro/buscar',[ForoController::class, 'buscar'])->name('foro.buscar');
 Route::get('admin/foro/consultas',[ForoController::class, 'consultas'])->name('foro.consultas');
 Route::get('admin/foro/{id}/comentarAdmin',[ForoController::class, 'comentarAdmin'])->name('foro.comentarAdmin');
@@ -107,21 +113,21 @@ Route::get('admin/foro/{id}',[ForoController::class, 'documentoPdf'])->name('for
 
 
 Route::resource('foroCategory','App\Http\Controllers\Admin\CategoryForoController');
-Route::get('admin/foroCategory',[CategoryForoController::class, 'index'])->name('foroCategory.index');
-Route::get('admin/foroCategory/create',[CategoryForoController::class, 'create'])->name('foroCategory.create');
-Route::post('admin/foroCategory/store',[CategoryForoController::class, 'store'])->name('foroCategory.store');
-Route::get('admin/foroCategory/{id}/edit',[CategoryForoController::class, 'edit'])->name('foroCategory.edit');
-Route::put('admin/foroCategory/{id}/update',[CategoryForoController::class, 'update'])->name('foroCategory.update');
+//Route::get('admin/foroCategory',[CategoryForoController::class, 'index'])->name('foroCategory.index');
+//Route::get('admin/foroCategory/create',[CategoryForoController::class, 'create'])->name('foroCategory.create');
+//Route::post('admin/foroCategory/store',[CategoryForoController::class, 'store'])->name('foroCategory.store');
+//Route::get('admin/foroCategory/{id}/edit',[CategoryForoController::class, 'edit'])->name('foroCategory.edit');
+//Route::put('admin/foroCategory/{id}/update',[CategoryForoController::class, 'update'])->name('foroCategory.update');
 Route::delete('admin/foroCategory/{id}',[CategoryForoController::class, 'destroy'])->name('foroCategory.delete');
 
 
 Route::resource('foroPosts','App\Http\Controllers\Admin\PostForoController');
-Route::get('admin/foroPosts',[PostForoController::class, 'index'])->name('foroPosts.index');
-Route::get('admin/foroPosts/create',[PostForoController::class, 'create'])->name('foroPosts.create');
-Route::post('admin/foroPosts/store',[PostForoController::class, 'store'])->name('foroPosts.store');
-Route::get('admin/foroPosts/{postsForo}/edit',[PostForoController::class, 'edit'])->name('foroPosts.edit');
-Route::put('admin/foroPosts/{postsForo}/update',[PostForoController::class, 'update'])->name('foroPosts.update');
-Route::delete('admin/foroPosts/{postsForo}/delete',[PostForoController::class, 'destroy'])->name('foroPosts.destroy');
+//Route::get('admin/foroPosts',[PostForoController::class, 'index'])->name('foroPosts.index');
+//Route::get('admin/foroPosts/create',[PostForoController::class, 'create'])->name('foroPosts.create');
+//Route::post('admin/foroPosts/store',[PostForoController::class, 'store'])->name('foroPosts.store');
+//Route::get('admin/foroPosts/{postsForo}/edit',[PostForoController::class, 'edit'])->name('foroPosts.edit');
+//Route::put('admin/foroPosts/{postsForo}/update',[PostForoController::class, 'update'])->name('foroPosts.update');
+//Route::delete('admin/foroPosts/{postsForo}/delete',[PostForoController::class, 'destroy'])->name('foroPosts.destroy');
 
 
 
@@ -143,18 +149,18 @@ Route::get('autos/create',[AutosController::class,'create'])->name('autos.create
 
 
 
-Route::resource('orden','App\Http\Controllers\Admin\OrdenController');
+/* Route::resource('orden','App\Http\Controllers\Admin\OrdenController');
 Route::get('admin/orden/index',[OrdenController::class,'index'])->name('orden.index');
-Route::get('admin/edit/{orden}',[OrdenController::class,'edit'])->name('orden.edit');
+Route::get('admin/edit/{orden}',[OrdenController::class,'edit'])->name('orden.edit'); */
 
 
 
 Route::resource('workers','App\Http\Controllers\Admin\WorkersController');
-Route::get('admin/workers/index', [WorkersController::class, 'index'])->name('workers.index');
-Route::get('admin/workers/create', [WorkersController::class, 'create'])->name('workers.create');
-Route::post('admin/workers/store', [WorkersController::class, 'store'])->name('workers.store');
-Route::get('admin/workers/edit/{worker}', [WorkersController::class, 'edit'])->name('workers.edit');
-Route::put('admin/workers/{worker}/update', [WorkersController::class, 'update'])->name('workers.update');
+//Route::get('admin/workers/index', [WorkersController::class, 'index'])->name('workers.index');
+//Route::get('admin/workers/create', [WorkersController::class, 'create'])->name('workers.create');
+//Route::post('admin/workers/store', [WorkersController::class, 'store'])->name('workers.store');
+//Route::get('admin/workers/edit/{worker}', [WorkersController::class, 'edit'])->name('workers.edit');
+//Route::put('admin/workers/{worker}/update', [WorkersController::class, 'update'])->name('workers.update');
 Route::delete('admin/workers/{worker}/delete', [WorkersController::class, 'destroy'])->name('workers.delete');
 Route::get('admin/workers/enable/{worker}', [WorkersController::class, 'enable'])->name('workers.enable');
 Route::get('admin/workers/disabled/{worker}', [WorkersController::class, 'disabled'])->name('workers.disabled');

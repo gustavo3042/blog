@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use PDF;
 use App\Models\Worker;
+use Spatie\Permission\Models\Role;
+
 class CheckListController extends Controller
 {
     /**
@@ -293,13 +295,57 @@ class CheckListController extends Controller
 
       $clientMost = DB::table('check_lists_clientes')
       ->insert(['check_lists_id'=> $checkA,'clientes_id' =>$client->id ]);
+
+
+      $userNew = User::where('email',$client->correo)->get();
+
+      if (count($userNew) > 0) {
+
+      
+        
+      }else{
+
+        $role = Role::where('id',2)->first();
+        $userCreate = new User();
+
+        $userCreate->name = $client->nombre;
+        $userCreate->email = $client->correo;
+        $userCreate->password = bcrypt($client->telefono); 
+        $userCreate->save();
+
+        $userCreate->roles()->sync($role->id);
+
+      }
     
     }else{
       
       $clientId = $clientNew->id;
+      $clientCorreo = $clientNew->correo;
 
       $clientMost = DB::table('check_lists_clientes')
       ->insert(['check_lists_id'=> $checkA,'clientes_id' => $clientId]);
+
+
+      $userNew = User::where('email',$clientCorreo)->get();
+
+      if (count($userNew) > 0) {
+
+        
+        
+      }else{
+
+      
+      $role = Role::where('id',2)->first();
+      $userCreate = new User();
+
+      $userCreate->name = $clientNew->nombre;
+      $userCreate->email = $clientNew->correo;
+      $userCreate->password = bcrypt($clientNew->telefono); 
+      $userCreate->save();
+      $userCreate->roles()->sync($role->id);
+     
+
+      }
       
     }
 
