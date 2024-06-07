@@ -27,21 +27,52 @@
           </div>
   
           <div class="card-body">
-  
-            <div class="container mx-auto p-4">
-                <h1 class="text-2xl font-bold mb-4">Lista de Productos</h1>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    @foreach($insumos as $product)
-                        <div class="bg-white shadow-md rounded-lg p-4">
-                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-48 object-cover mb-4 rounded">
-                            <h2 class="text-xl font-semibold">{{ $product->name }}</h2>
-                            <p class="text-gray-600 mb-2">{{ $product->descripcion }}</p>
-                            <span class="text-green-500 font-bold">${{ $product->stock }}</span>
+
+          {{--   <div class="container">
+              <div class="row">
+                  @foreach($insumos as $product)
+                      <div class="col-md-4">
+                          <div class="card mb-4">
+                              <img src="{{asset('storage').'/'.$product->imageInsumo->url}}" class="card-img-top" alt="{{ $product->name }}">
+                              <div class="card-body">
+                                  <h5 class="card-title">{{ $product->name }}</h5>
+                                  <p class="card-text">{{ $product->descripcion }}</p>
+                                  <p class="card-text">Stock Actual :{{ $product->stock }}</p>
+                                  <p class="card-text">Status :{{ $product->status }}</p>
+                                  <p class="card-text"><strong>${{ $product->precio }}</strong></p>
+                                 
+                                  <a href="#" class="btn btn-primary">Comprar</a>
+                              </div>
+                          </div>
+                      </div>
+                  @endforeach
+              </div>
+          </div> --}}
+
+          
+          <div class="container">
+            <div class="row">
+                @foreach($insumos as $product)
+                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card" style="height: 100%;">
+                            <img src="{{asset('storage').'/'.$product->imageInsumo->url}}" class="card-img-top" alt="{{ $product->name }}">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <p class="card-text">{{ $product->descripcion }}</p>
+                                <p class="card-text">Stock : {{ $product->stock }}</p>
+                                <p class="card-text"><strong>${{ $product->precio }}</strong></p>
+                                <div class="mt-auto">
+                                    <div class="btn-group">
+                                    <a href="" class="btn btn-primary btn-sm">Editar Producto</a>
+                                    <a href="" class="btn btn-danger btn-sm">Borrar Producto</a>
+                                  </div>
+                                </div>
+                            </div>
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
             </div>
-         
+        </div>
         
         </div>
   </div>
