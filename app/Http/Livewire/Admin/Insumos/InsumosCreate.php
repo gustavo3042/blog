@@ -52,5 +52,10 @@ class InsumosCreate extends Component
      
             ]);
           }
+
+
+          $this->emit('registroCreado');
+
+        //  return redirect()->route('insumos.index');
     }
 }

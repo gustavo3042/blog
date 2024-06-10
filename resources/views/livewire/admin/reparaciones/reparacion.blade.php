@@ -12,7 +12,7 @@
 
      <div class="card-title">
 
-        <h2 style="padding: 15px;">Reparaciones</h2> 
+        <h2 style="padding: 15px;">Categoria Reparaciones y Servicios</h2> 
 
      </div>
     <input wire:model="search" class="form-control" placeholder="Buscar">

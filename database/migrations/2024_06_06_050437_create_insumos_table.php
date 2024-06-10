@@ -20,6 +20,7 @@ class CreateInsumosTable extends Migration
             $table->integer('stock')->nullable();
             $table->integer('precio')->nullable();
             $table->boolean('status')->default(1);
+            $table->integer('tipoProducto')->nullable();
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Insumo;
 use Illuminate\Http\Request;
 
 class InsumosController extends Controller
@@ -60,7 +61,14 @@ class InsumosController extends Controller
      */
     public function edit($id)
     {
-        //
+
+       // dd($id);
+/* 
+       $most = Insumo::find($id);
+       $id = $most->id; */
+
+
+        return view('admin.insumos.edit',compact('id'));
     }
 
     /**

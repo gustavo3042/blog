@@ -1,3 +1,4 @@
+
 <div>
    
     <style>
@@ -130,7 +131,7 @@
 
         </div>
 
-        <a class="btn btn-primary btn-sm float-right" wire:click="store()">Guardar Producto</a>
+        <a class="btn btn-primary btn-sm float-right" wire:click="update()">Editar Producto</a>
 
     </div>
 
@@ -143,9 +144,9 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('livewire:load', function () {
-        Livewire.on('registroCreado', () => {
+        Livewire.on('registroEditado', () => {
             Swal.fire({
-                title: 'Registro guardado con éxito!',
+                title: 'Registro actualizado con éxito!',
                 text: 'El producto quedo guardado en la lista de insumos del taller!',
                 icon: 'success',
                 confirmButtonText: 'OK'

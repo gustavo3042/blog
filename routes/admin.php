@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\AutosController;
 use App\Http\Livewire\Admin\autos\AutosIndex;
 use App\Http\Livewire\Admin\CheckCreate;
 use App\Http\Livewire\Admin\Insumos\InsumosCreate;
+use App\Http\Livewire\Admin\Insumos\InsumosEdit;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -57,6 +58,7 @@ Route::resource('posts','App\Http\Controllers\Admin\PostsController')->except('s
 //Route::put('admin/posts/update/{post}',[PostsController::class,'update'])->name('posts.update');
 
 Route::resource('insumos','App\Http\Controllers\Admin\InsumosController');
+//Route::get('insumos\edit\{id}',InsumosEdit::class)->name('insumos.editInsumos');
 //Route::get('admin/insumos',[])
 
 

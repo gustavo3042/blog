@@ -13,6 +13,7 @@ use App\Models\Presupuesto;
 use App\Models\PresupuestoDetails;
 use App\Models\Kilometraje;
 use App\Http\Requests\Check\StoreRequest;
+use App\Models\Insumo;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use PDF;
@@ -208,10 +209,6 @@ class CheckListController extends Controller
      */
     public function store(StoreRequest $request)
     {
-
-
-      //dd($request->all());
-
 
     $check = CheckList::create($request->all());
 
@@ -500,6 +497,25 @@ class CheckListController extends Controller
     
     
           ]);
+
+          $insumosCantidadActual = Insumo::where('name','Aceite Total Quartz')->first();
+
+      
+
+          foreach ($request->cantidadRepuestos as $e => $value) {
+            $totalStock = $insumosCantidadActual->stock -  $request->cantidadRepuestos[$e];
+          }
+         
+  
+         // dd($totalStock);
+  
+          $insumosNow = Insumo::where('name','Aceite Total Quartz')->update([
+  
+            'stock' => $totalStock
+  
+          ]);
+         
+       
    
    
    
@@ -571,6 +587,23 @@ class CheckListController extends Controller
   
   
         ]);
+
+        $insumosCantidadActual = Insumo::where('name','Aceite Total Quartz')->first();
+
+      
+
+        foreach ($request->cantidadRepuestos as $e => $value) {
+          $totalStock = $insumosCantidadActual->stock -  $request->cantidadRepuestos[$e];
+        }
+       
+
+       // dd($totalStock);
+
+        $insumosNow = Insumo::where('name','Aceite Total Quartz')->update([
+
+          'stock' => $totalStock
+
+        ]);
  
  
  
@@ -587,7 +620,7 @@ class CheckListController extends Controller
      
 
 
-        if ($request->file('file')) {
+      if ($request->file('file')) {
 
       $url = Storage::put('check_lists', $request->file('file'));
 

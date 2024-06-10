@@ -18,6 +18,8 @@
           <div class="card-title">
   
               <h2 style="padding: 15px;">Insumos Taller</h2> 
+
+           
   
            </div>
   
@@ -57,14 +59,14 @@
                         <div class="card" style="height: 100%;">
                             <img src="{{asset('storage').'/'.$product->imageInsumo->url}}" class="card-img-top" alt="{{ $product->name }}">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <h5 class="card-title font-weight-bold">{{ $product->name }}</h5>
                                 <p class="card-text">{{ $product->descripcion }}</p>
                                 <p class="card-text">Stock : {{ $product->stock }}</p>
                                 <p class="card-text"><strong>${{ $product->precio }}</strong></p>
                                 <div class="mt-auto">
                                     <div class="btn-group">
-                                    <a href="" class="btn btn-primary btn-sm">Editar Producto</a>
-                                    <a href="" class="btn btn-danger btn-sm">Borrar Producto</a>
+                                    <a type="submit" href="{{route('insumos.edit',$product->id)}}" class="btn btn-primary btn-sm">Editar Producto</a>
+                                    <a wire:click="$emit('deleteInsumo',{{$product->id}})" class="btn btn-danger btn-sm">Borrar Producto</a>
                                   </div>
                                 </div>
                             </div>
@@ -76,14 +78,82 @@
         
         </div>
   </div>
-  
-  <script type="text/javascript">
+
+  @push('js')
+
+{{--   <script type="text/javascript">
   
     window.livewire.on('userStore', () => {
     
         $('#editarInsumos').modal('hide');
-        $('#borrarInsumos').modal('hide');
-  
-        
+        $('#borrarInsumos').modal('hide');  
     });
-  </script> 
+  </script>  --}}
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+
+  /*   Livewire.on('deletePost',postId => {
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+            if (result.isConfirmed) {
+
+                console.log(postId)
+                Livewire.emitTo('insumos-index','delete',postId)
+
+                Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+                });
+            }
+            });
+
+
+    }) */
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        @this.on('deleteInsumo', insumoId => {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, bórralo!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.call('delete', insumoId);
+                    Swal.fire({
+                title: "Producto eliminado!",
+                text: "Insumo borrado con éxito.",
+                icon: "success"
+                });
+                    
+                }
+            })
+        });
+    });
+
+
+
+
+  </script>
+
+
+ 
+      
+  @endpush
+  
+ 
