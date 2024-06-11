@@ -67,7 +67,7 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
                         data-bs-target="#home" type="button" role="tab" aria-controls="home"
-                        aria-selected="true"><i class="fas fa-briefcase"></i>Ganancias Por Mes</button>
+                        aria-selected="true"><i class="fas fa-briefcase"></i>Ganancias Mes</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
@@ -79,7 +79,7 @@
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
                       data-bs-target="#datos" type="button" role="tab" aria-controls="datos"
-                      aria-selected="false"> <i class="fas fa-check"></i>Holis</button>
+                      aria-selected="false"> <i class="fas fa-check"></i>Insumos Mes</button>
               </li>
               
               </ul>
@@ -102,6 +102,81 @@
             </div>
 
          </div>
+
+
+        </div>
+
+
+
+
+        <div class="card-body mt-5 mb-5">
+
+
+            <div class="container">
+
+
+                <div class="row">
+
+
+                    <div class="col">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Hola</th>
+                                    <th>Hola2</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td scope="row"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+
+
+                    <div class="col">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Hola</th>
+                                    <th>Hola2</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td scope="row"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td scope="row"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+
+
+                </div>
+
+
+            </div>
 
 
         </div>

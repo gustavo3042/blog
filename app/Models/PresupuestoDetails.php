@@ -18,5 +18,11 @@ class PresupuestoDetails extends Model
 
         return $this->belongsToMany(Job::class);
       }
+
+
+      public function faena()
+      {
+          return $this->belongsTo(Presupuesto::class);
+      }
    
 }

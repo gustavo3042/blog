@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CheckList;
 use App\Models\Presupuesto;
 use App\Models\PresupuestoDetails;
 use Illuminate\Http\Request;
@@ -34,19 +35,48 @@ class HomeController extends Controller
 
 
 
-  $totals = DB::table('presupuestos')
-           // ->join('check_lists','check_lists.id','=','presupuestos.check_lists_id')
+   /*  $totals = DB::table('presupuestos')
+            ->join('check_lists','check_lists.id','=','presupuestos.check_lists_id')
             ->select(DB::raw('SUM(presupuestos.total) as total, MONTH(presupuestos.created_at) as month'))
-            //->where('check_lists.statusNow',0)
             ->groupBy('month')
             ->get()
             ->keyBy('month')
             ->map(function ($item) {
-                return $item->total;
+                return  $item->total;
             })
-            ->toArray();
+            ->toArray();   */
 
-           // dd($totals);
+
+            $totals = Presupuesto::join('check_lists','check_lists.id','=','presupuestos.check_lists_id')
+           
+            ->select('check_lists.statusNow as statusNow',DB::raw('SUM(presupuestos.total) as total'),DB::raw('MONTH(presupuestos.created_at) as month'))
+            ->where('check_lists.statusNow',1)
+            ->groupBy('month','statusNow')
+           
+            ->get()
+            ->keyBy('month')
+            ->map(function ($item) {
+                return 
+                  $item->total;  
+            })
+            ->toArray(); 
+
+          /*   $this->coursesAll = Course::where('teachingType_id', $dt)->with('grade')->get(); */
+
+          $id = 1; 
+          $m = CheckList::all();
+         
+         /*  */
+
+
+      
+            
+           
+         //dd($totals);
+
+      
+
+        
 
             $totalComprasMes = DB::table('presupuestos')
             ->join('presupuesto_details','presupuesto_details.presupuestos_id','=','presupuestos.id')

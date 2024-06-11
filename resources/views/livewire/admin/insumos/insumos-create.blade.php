@@ -68,15 +68,17 @@
                   </div>
                     
                   </div>
-                  
+
+                </div>
+
+                <div class="form-group ">
+                  <label for="descripcion">Descripción</label>
+                 <textarea wire:model="descripcion" cols="20" rows="5" class="form-control"></textarea>
                 </div>
     
               </div>
 
-              <div class="form-group ">
-                <label for="descripcion">Descripción</label>
-               <textarea wire:model="descripcion" cols="20" rows="5" class="form-control"></textarea>
-              </div>
+           
 
 <!-- sesion de imagen, se debe crear un grid y poner dentro de un row y tantos div como columnas quiera crear -->
     <div class="row mt-5">

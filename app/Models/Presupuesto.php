@@ -12,4 +12,17 @@ class Presupuesto extends Model
 
     protected $fillable = ['total','iva','subtotal','check_lists_id'];
 
+
+    public function checklist()
+    {
+        return $this->belongsTo(CheckList::class);
+    }
+
+
+    public function presupuestosDetails(){
+
+        return $this->hasMany(PresupuestoDetails::class,'presupuestos_id');
+  
+      }
+
 }

@@ -42,6 +42,12 @@ class CheckList extends Model
       return $this->morphOne(Image::class, 'imageable');
     }
 
+    public function presupuestos(){
+
+      return $this->hasMany(Presupuesto::class,'check_lists_id');
+
+    }
+
 
 
 
