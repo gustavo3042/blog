@@ -17,6 +17,7 @@ class CreateCheckListsTable extends Migration
             $table->id();
             $table->string('encargado');
             $table->date('fecha');
+            $table->date('fechaTermino')->nullable();
             $table->enum('status',[1,2])->default(1);
             $table->text('problema')->nullable();
             $table->text('solucion')->nullable();
@@ -27,7 +28,7 @@ class CreateCheckListsTable extends Migration
            // $table->unsignedBigInteger('autos_id');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->enum('statusNow',[0,1])->default(0);
+            $table->enum('statusNow',[1,2])->default(1);
 
           // $table->foreign('client_id')->references('id')->on('failed_jobs')->onDelete('cascade');
           //  $table->foreign('autos_id')->nullable()->references('id')->on('autos')->onDelete('cascade');

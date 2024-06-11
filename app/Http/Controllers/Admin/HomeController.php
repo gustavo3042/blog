@@ -19,13 +19,13 @@ class HomeController extends Controller
    // $totales = Presupuesto::all();
    // $productosvendidos = PresupuestoDetails::all();
 
-    $startOfMonth = Carbon::now()->startOfMonth();
+     $startOfMonth = Carbon::now()->startOfMonth();
     $endOfMonth = Carbon::now()->endOfMonth();
 
     $totalVentas = Presupuesto::whereBetween('created_at', [$startOfMonth, $endOfMonth])->sum('total');
     $totalCompras = Presupuesto::join('presupuesto_details','presupuesto_details.presupuestos_id','=','presupuestos.id')
     ->whereBetween('created_at', [$startOfMonth, $endOfMonth])->sum('totalRepuestos');
-
+ 
     //dd($startOfMonth,$endOfMonth,$totalCompras);
 /* 
     $chartData = [
@@ -63,16 +63,20 @@ class HomeController extends Controller
 
           /*   $this->coursesAll = Course::where('teachingType_id', $dt)->with('grade')->get(); */
 
-          $id = 1; 
-          $m = CheckList::all();
-         
+          //$id = 1; 
+         // $m = CheckList::where('statusNow','!=',1)->with('presupuestos')->get();
+          //  $m = CheckList::where('statusNow',0)->get();
          /*  */
 
-
+         $inicioDeMes = Carbon::now()->startOfMonth();
+         $finDeMes = Carbon::now()->endOfMonth();
       
-            
+         $registros = CheckList::whereBetween('created_at', [$inicioDeMes, $finDeMes])->get();
+
+         // Cargar la relación uno a muchos de los registros
+         $registros->load('presupuestos');
            
-         //dd($totals);
+       //  dd($registros);
 
       
 
@@ -100,7 +104,7 @@ class HomeController extends Controller
       'data' => $sales->pluck('subtotal')
   ];
 
-      return view('admin.index',compact('totals','totalComprasMes','totalVentas','totalCompras'));
+      return view('admin.index',compact('totals','totalComprasMes','totalVentas','totalCompras','registros'));
 
 
     }

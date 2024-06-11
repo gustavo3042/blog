@@ -115,68 +115,71 @@
             <div class="container">
 
 
-                <div class="row">
-
-
-                    <div class="col">
-
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Hola</th>
-                                    <th>Hola2</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td scope="row"></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row"></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-
-                    </div>
-
-
-
-                    <div class="col">
-
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Hola</th>
-                                    <th>Hola2</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td scope="row"></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row"></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                    </div>
-
-
+              
+                <div class="card-title">
+                    <h3>Reparaciones del Mes</h3>
                 </div>
 
 
-            </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Patente</th>
+                                    <th>Total</th>
+                                    <th>Reparaciones</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($registros as $item)
+                                <tr>
+                                    <td scope="row">{{$item->id}}</td>
+                                    <td>{{$item->patente}}</td>
+                                   
+                                        @foreach ($item->presupuestos as $val)
+                                        <td>{{$val->total}}   </td>
+                                        @endforeach
+
+
+                                        @foreach ($item->presupuestos as $i)
+                                        <td>
+                                        <ul>
+                                        @foreach ($i->presupuestosDetails as $e)
+                                        
+                                        <li>{{$e->trabajo}}</li>
+                                        
+                                        @endforeach
+                                         </ul>
+                                        </td>
+                                        @endforeach
+
+                                 
+
+                                    <td>
+                                            @if ($item->statusNow == 1)
+                                            <span class="badge badge-success">Trabajo Terminado</span>
+                                            @elseif($item->statusNow == 0)
+                                            <span class="badge badge-danger">Trabajo En Proceso</span>
+                                            @endif
+                                      
+
+
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+
+            
+
+
+
+               
+
+
+            
 
 
         </div>

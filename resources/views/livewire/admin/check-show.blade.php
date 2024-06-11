@@ -390,7 +390,7 @@
                                 @elseif($checks->statusNow == 0)
 
                                 Finalizada:
-                                <button type="submit" name="continuar" value="0" class="btn btn-primary btn-sm">Activar?</button>
+                                <button type="submit" name="continuar" value="2" class="btn btn-primary btn-sm">Activar?</button>
 
                                 @endif
 
