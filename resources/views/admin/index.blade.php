@@ -30,7 +30,7 @@
                         <div class="h3">Compras</div>
                     </div>
                     <div class="chart-wrapper mt-3 mx-3" style="height:35px;">
-                        <a href="" class="small-box-footer h4">Compras <i
+                        <a href="{{route('compras.index')}}" class="small-box-footer h4">Compras <i
                                 class="fa fa-arrow-circle-right"></i></a>
                     </div>
     
@@ -50,7 +50,7 @@
                         <div class="h3">Ventas</div>
                     </div>
                     <div class="chart-wrapper mt-3 mx-3" style="height:35px;">
-                        <a href="" class="small-box-footer h4">Ventas <i
+                        <a href="{{route('ventas.index')}}" class="small-box-footer h4">Ventas <i
                                 class="fa fa-arrow-circle-right"></i></a>
                     </div>
     
@@ -70,7 +70,7 @@
                         aria-selected="true"><i class="fas fa-briefcase"></i>Ganancias Mes</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                    <button  class="nav-link" id="profile-tab" data-bs-toggle="tab"
                         data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
                         aria-selected="false"><i class="fas fa-cart-plus"></i>Compras Mes</button>
                 </li>

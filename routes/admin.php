@@ -29,6 +29,8 @@ use App\Http\Livewire\Admin\autos\AutosIndex;
 use App\Http\Livewire\Admin\CheckCreate;
 use App\Http\Livewire\Admin\Insumos\InsumosCreate;
 use App\Http\Livewire\Admin\Insumos\InsumosEdit;
+use App\Http\Controllers\Admin\ComprasController;
+use App\Http\Controllers\Admin\VentasController;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -61,7 +63,9 @@ Route::resource('insumos','App\Http\Controllers\Admin\InsumosController');
 //Route::get('insumos\edit\{id}',InsumosEdit::class)->name('insumos.editInsumos');
 //Route::get('admin/insumos',[])
 
+Route::resource('compras','App\Http\Controllers\Admin\ComprasController');
 
+Route::resource('ventas','App\Http\Controllers\Admin\VentasController');
 
 
 Route::resource('check','App\Http\Controllers\Admin\CheckListController');
