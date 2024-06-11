@@ -157,9 +157,9 @@
                                  
 
                                     <td>
-                                            @if ($item->statusNow == 1)
+                                            @if ($item->statusNow == 2)
                                             <span class="badge badge-success">Trabajo Terminado</span>
-                                            @elseif($item->statusNow == 0)
+                                            @elseif($item->statusNow == 1)
                                             <span class="badge badge-danger">Trabajo En Proceso</span>
                                             @endif
                                       
