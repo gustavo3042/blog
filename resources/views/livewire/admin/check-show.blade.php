@@ -384,13 +384,13 @@
                                 {{ method_field('PUT') }}
                                 @if ($checks->statusNow == 1)
                                 En Proceso:
-                                <button type="submit" name="finalizar" value="1" class="btn btn-primary btn-sm">Finalizar?</button>
+                                <button type="submit" name="finalizar" value="2" class="btn btn-primary btn-sm">Finalizar?</button>
                                 
 
                                 @elseif($checks->statusNow == 0)
 
                                 Finalizada:
-                                <button type="submit" name="continuar" value="2" class="btn btn-primary btn-sm">Activar?</button>
+                                <button type="submit" name="continuar" value="1" class="btn btn-primary btn-sm">Activar?</button>
 
                                 @endif
 

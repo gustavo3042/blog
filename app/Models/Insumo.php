@@ -11,7 +11,7 @@ class Insumo extends Model
     use HasFactory;
 
 
-    protected $fillable = ['name','descripcion','stock','precio','status'];
+    protected $fillable = ['name','descripcion','stock','precio','precioCompra','tipoProducto','status'];
 
 
 

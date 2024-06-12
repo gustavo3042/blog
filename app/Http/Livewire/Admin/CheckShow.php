@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Production;
 use App\Models\Assistance;
+use Carbon\Carbon;
 
 class CheckShow extends Component
 {
@@ -452,11 +453,17 @@ public function statusFaenas(Request $request,$check){
 
     //dd($request->all(),$check);
 
+    $now = Carbon::now();
+   
+    $todayFormatted = $now->toDateString();
+    
+
     if (isset($request->finalizar)) {
 
         $change = CheckList::find($check)->update([
 
-            'statusNow' => $request->finalizar
+            'statusNow' => $request->finalizar,
+            'fechaTermino' =>  $todayFormatted 
     
         ]);
 

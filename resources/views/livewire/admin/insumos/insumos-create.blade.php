@@ -56,6 +56,16 @@
                         <label for="stock">Stock</label>
                         <input type="number" wire:model="stock" class="form-control">
                     </div>
+
+                    <div class="form-group">
+                      <label for="tipoProducto">Tipo Producto</label>
+                        <select wire:model="tipoProducto" class="form-control">
+
+                          <option value="1">Aceite de Motor</option>
+                          <option value="2">Neumaticos</option>
+
+                        </select>
+                    </div>
                     
                   </div>
     
@@ -66,7 +76,12 @@
                       <label for="precio">Precio</label>
                       <input type="number" wire:model="precio" class="form-control">
                   </div>
-                    
+
+                  <div class="form-group">
+                    <label for="precioCompra">Precio de Compra</label>
+                    <input type="number" wire:model="precioCompra" class="form-control">
+                </div>
+
                   </div>
 
                 </div>

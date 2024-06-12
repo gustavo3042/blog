@@ -18,7 +18,9 @@ class InsumosEdit extends Component
     public $descripcion;
     public $stock;
     public $precio;
+    public $precioCompra;
     public $status;
+    public $tipoProducto;
     public $file;
     public $fileAnt;
 
@@ -35,6 +37,8 @@ class InsumosEdit extends Component
         $this->descripcion = $most->descripcion;
         $this->stock = $most->stock;
         $this->precio = $most->precio;
+        $this->precioCompra = $most->precioCompra;
+        $this->tipoProducto = $most->tipoProducto;
         $this->fileAnt = $most->imageInsumo->url;
 
       //  dd($this->file);
@@ -60,7 +64,9 @@ class InsumosEdit extends Component
             'descripcion' => $this->descripcion,
             'stock' => $this->stock,
             'precio' => $this->precio,
+            'precioCompra' => $this->precioCompra,
             'status' => 1,
+            'tipoProducto' => $this->tipoProducto
         ]);
 
         

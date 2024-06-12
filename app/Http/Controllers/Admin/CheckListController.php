@@ -509,7 +509,7 @@ class CheckListController extends Controller
   
          // dd($totalStock);
   
-          $insumosNow = Insumo::where('name','Aceite Total Quartz')->update([
+          $insumosNow = Insumo::where('tipoProducto',1)->update([
   
             'stock' => $totalStock
   
@@ -588,7 +588,7 @@ class CheckListController extends Controller
   
         ]);
 
-        $insumosCantidadActual = Insumo::where('name','Aceite Total Quartz')->first();
+        $insumosCantidadActual = Insumo::where('tipoProducto',1)->first();
 
       
 
@@ -599,7 +599,7 @@ class CheckListController extends Controller
 
        // dd($totalStock);
 
-        $insumosNow = Insumo::where('name','Aceite Total Quartz')->update([
+        $insumosNow = Insumo::where('tipoProducto',1)->update([
 
           'stock' => $totalStock
 

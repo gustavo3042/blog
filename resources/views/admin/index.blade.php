@@ -25,9 +25,9 @@
                         <div class="float-right">
                             <i class="fas fa-cart-arrow-down fa-4x"></i>
                         </div>
-                        <div class="text-value h4"><strong>CLP {{$totalCompras}} (MES ACTUAL)</strong>
+                        <div class="text-value h4"><strong>CLP {{$totalFinal}} (MES ACTUAL)</strong>
                         </div>
-                        <div class="h3">Compras</div>
+                        <div class="h3">Compras e Insumos</div>
                     </div>
                     <div class="chart-wrapper mt-3 mx-3" style="height:35px;">
                         <a href="{{route('compras.index')}}" class="small-box-footer h4">Compras <i
@@ -249,7 +249,7 @@
             data: {
                 labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre'],
                 datasets: [{
-                    label: 'Compras Mes',
+                    label: 'Compras Repuestos Mes',
                     data: @json(array_values($totalComprasMes)),
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',

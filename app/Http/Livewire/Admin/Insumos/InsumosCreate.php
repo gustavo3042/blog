@@ -17,7 +17,9 @@ class InsumosCreate extends Component
     public $descripcion;
     public $stock;
     public $precio;
+    public $precioCompra;
     public $status;
+    public $tipoProducto;
     public $file;
 
 
@@ -37,7 +39,9 @@ class InsumosCreate extends Component
             'descripcion' => $this->descripcion,
             'stock' => $this->stock,
             'precio' => $this->precio,
+            'precioCompra' => $this->precioCompra,
             'status' => 1,
+            'tipoProducto' => $this->tipoProducto
            
         ]);
 

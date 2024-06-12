@@ -19,6 +19,7 @@ class CreateInsumosTable extends Migration
             $table->string('descripcion')->nullable();
             $table->integer('stock')->nullable();
             $table->integer('precio')->nullable();
+            $table->integer('precioCompra')->nullable();
             $table->boolean('status')->default(1);
             $table->integer('tipoProducto')->nullable();
             $table->timestamps();
