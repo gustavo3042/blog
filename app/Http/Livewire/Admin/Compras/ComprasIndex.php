@@ -29,14 +29,18 @@ class ComprasIndex extends Component
 
      
 
-       $compras = CheckList::whereBetween('created_at', [$inicioDeMes, $finDeMes])->get();
+    /*    $compras = CheckList::whereBetween('created_at', [$inicioDeMes, $finDeMes])->get();
 
        // Cargar la relación uno a muchos de los registros
        $compras->load('presupuestos');
+ */
 
+      $registros = CheckList::whereBetween('created_at', [$inicioDeMes, $finDeMes])->with('presupuestos')->get();
+
+     // dd($registros);
        //dd($compras);
 
 
-        return view('livewire.admin.compras.compras-index');
+        return view('livewire.admin.compras.compras-index',compact('registros'));
     }
 }
