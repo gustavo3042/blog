@@ -706,7 +706,7 @@
     
                 <div class="form-check">
     
-                    <input class="form-check-input" value="1" type="radio" name="tipoAceite"
+                    <input class="form-check-input" wire:model.live="tipoAceite1" value="1" type="radio" name="tipoAceite"
                     checked>
     
                     <label class="form-check-label" for="status1">
@@ -718,7 +718,7 @@
     
                 <div class="form-check">
     
-                    <input class="form-check-input" value="2" type="radio" name="tipoAceite" >
+                    <input class="form-check-input" wire:model.live="tipoAceite2" value="2" type="radio" name="tipoAceite" >
     
                     <label class="form-check-label" for="status2">
                         Aceite semisintetico 10000 km
@@ -729,7 +729,7 @@
                 
                 <div class="form-check">
     
-                  <input class="form-check-input" value="3" type="radio" name="tipoAceite" >
+                  <input class="form-check-input" wire:model.live="tipoAceite3" value="3" type="radio" name="tipoAceite" >
   
                   <label class="form-check-label" for="status3">
                       Aceite sintetico 20000 km
@@ -739,7 +739,7 @@
 
               <div class="form-check">
     
-                <input class="form-check-input" value="4" type="radio" name="tipoAceite" >
+                <input class="form-check-input" wire:model.live="tipoAceite4" value="4" type="radio" name="tipoAceite" >
 
                 <label class="form-check-label" for="status4">
                     Aceite alto kilometraje 30000 km
@@ -749,7 +749,7 @@
 
             <div class="form-check">
     
-              <input class="form-check-input" value="5" type="radio" name="tipoAceite" >
+              <input class="form-check-input" wire:model.live="tipoAceite5" value="5" type="radio" name="tipoAceite" >
 
               <label class="form-check-label" for="status5">
                   Sin cambio de aceite 0 km
@@ -801,6 +801,9 @@
    
     
         <div class="container">
+
+
+           
     
     
             <div class="form-group">
@@ -869,8 +872,19 @@
           <td><input type="text" name="quantity[]" class="form-control quantity" required=""></td>
           <td><input type="text" name="budget[]" class="form-control budget"></td>
         
+          @if ($tipoAceite1)
+          <td><select name="brand[]" class="form-control">
+            <option >--Seleccione--</option>
+            @foreach ($insumos as $item)
 
+            <option value="{{$item->id}}">{{$item->name}}</option>  
+            @endforeach
+  
+          </select></td>
+          @elseif($tipoAceite5)    
           <td><input type="text" name="brand[]" class="form-control"></td>
+          @endif
+         
           <td><input type="text" name="cantidadRepuestos[]" class="form-control cantidadRepuestos" required=""></td>
           <td><input type="text" name="precioRepuestos[]" class="form-control precioRepuestos" required=""></td>
         

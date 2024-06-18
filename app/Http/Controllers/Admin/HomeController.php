@@ -35,12 +35,24 @@ class HomeController extends Controller
  
 
   
-    $totalInsumos = Insumo::whereBetween('created_at',[$startOfMonth, $endOfMonth])->sum('stock');
-    $compraInsumos = Insumo::whereBetween('created_at',[$startOfMonth, $endOfMonth])->sum('precioCompra');
+   // $totalInsumos = Insumo::whereBetween('created_at',[$startOfMonth, $endOfMonth])->sum('stock');
+    //$compraInsumos = Insumo::whereBetween('created_at',[$startOfMonth, $endOfMonth])->sum('precioCompra');
 
-    $totalFinal = ($totalInsumos*$compraInsumos) + $totalCompras;
+    $obInsumos = Insumo::whereBetween('created_at',[$startOfMonth, $endOfMonth])->get();
 
-   // dd($totalFinal);
+   // $totalFinal = ($totalInsumos*$compraInsumos) + $totalCompras;
+
+    
+      $a = array();
+      $totalFinal = 0;
+
+       foreach ($obInsumos as $item) {
+
+        $a[] = $item->precioCompra * $item->stock;
+        $totalFinal +=$item->precioCompra * $item->stock;
+      } 
+
+   // dd($obInsumos,$totalFinal);
  
     //dd($startOfMonth,$endOfMonth,$totalCompras);
 /* 
@@ -112,7 +124,7 @@ class HomeController extends Controller
       'data' => $sales->pluck('subtotal')
   ];
 
-      return view('admin.index',compact('totals','totalComprasMes','totalVentas','totalCompras','registros','compraInsumos','totalFinal'));
+      return view('admin.index',compact('totals','totalComprasMes','totalVentas','totalCompras','registros','totalFinal'));
 
 
     }

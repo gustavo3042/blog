@@ -163,13 +163,11 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Patente</th>
-            <th>Reparaciones</th>
-            <th>Costo Repuestos</th>
-            <th>Cantidad Repuestos</th>
-            <th>Costo Unitario Repuestos</th>
-          
-            <th>Repuestos</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Stock</th>
+            <th>Precio Compra</th>
+            <th>Precio Venta</th>
             <th>Acciones</th>
            
         </tr>
@@ -177,104 +175,37 @@
     <tbody>
 
 
-       @php
-       $totalPrice = 0; // Inicializa el acumulador
-       @endphp
+      @php
+          
+
+          $acumInsumos = 0;
+ 
+      @endphp
 
 
-        @foreach ($registros as $item)
-        <tr>
-            <td scope="row">{{$item->id}}</td>
-            <td>{{$item->patente}}</td>
-
-
-            @foreach ($item->presupuestos as $i)
-            <td>
-            <ul>
-            @foreach ($i->presupuestosDetails as $e)
-            
-            <li>{{$e->trabajo}}</li>
-            
-            @endforeach
-             </ul>
-            </td>
-            @endforeach
+        @foreach ($insumos as $values)
+        <tr>   
+         <td>{{$values->id}}</td>
+         <td>{{$values->name}}</td>
+         <td>{{$values->descripcion}}</td>
+         <td>{{$values->stock}}</td>
+         <td>{{$values->precioCompra}}</td>
+         <td>{{$values->precio}}</td>
            
-                @foreach ($item->presupuestos as $val)
-                <td>
-                   <ul>
-                      @foreach ($val->presupuestosDetails as $k)
+
+         <td>
+
+            <div class="btn-group">
+
+               <a class="btn btn-success btn-sm" href="">Reparación</a>
+
+            </div>
+
+         </td>
                 
-                      <li>{{$k->totalRepuestos}}</li>
-
-                      @php
-                      $totalPrice += $k->totalRepuestos; // Acumula el precio
-                      @endphp
-
-                      @endforeach
-                   </ul>   
-                </td>
-                @endforeach
-
-
-
-                @foreach ($item->presupuestos as $l)
-                <td>
-                   <ul>
-                      @foreach ($l->presupuestosDetails as $v)
-                
-                      <li>{{$v->cantidadRepuestos}}</li>
-
-                  
-
-                      @endforeach
-                   </ul>   
-                </td>
-                @endforeach
-
-
-                @foreach ($item->presupuestos as $n)
-                <td>
-                   <ul>
-                      @foreach ($n->presupuestosDetails as $m)
-                
-                      <li>{{$m->precioRepuestos}}</li>
-
-                    
-
-                      @endforeach
-                   </ul>   
-                </td>
-                @endforeach
-
-
-              
-
-
-             @foreach ($item->presupuestos as $u)
-             <td>
-             <ul>
-             @foreach ($u->presupuestosDetails as $a)
-             
-             <li>{{$a->descripcion}}</li>
-             
-             @endforeach
-              </ul>
-             </td>
-             @endforeach
-
-             <td>
-
-                <div class="btn-group">
-
-                   <a class="btn btn-success btn-sm" href="">Reparación</a>
-
-                </div>
-
-             </td>
-
-
-                
+         @php
+             $acumInsumos += $values->precioCompra * $values->stock; 
+         @endphp
            
         </tr>
 
@@ -289,8 +220,8 @@
           <td></td>
           <td></td>
           <td></td>
-          <td></td>
-          <td><p class="font-weight-bold">Total:{{ $totalPrice }}</p></td>
+        
+          <td><p class="font-weight-bold">Total:{{ $acumInsumos }}</p></td>
        </tr>
     </tfoot>
   

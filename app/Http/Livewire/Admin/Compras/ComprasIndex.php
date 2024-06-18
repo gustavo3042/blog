@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Compras;
 
 use App\Models\CheckList;
+use App\Models\Insumo;
 use Livewire\Component;
 use Livewire\WithPagination; 
 use Carbon\Carbon;
@@ -36,11 +37,12 @@ class ComprasIndex extends Component
  */
 
       $registros = CheckList::whereBetween('created_at', [$inicioDeMes, $finDeMes])->with('presupuestos')->get();
+      $insumos  = Insumo::whereBetween('created_at',[$inicioDeMes, $finDeMes])->get();
 
-     // dd($registros);
+      //dd($registros,$insumos);
        //dd($compras);
 
 
-        return view('livewire.admin.compras.compras-index',compact('registros'));
+        return view('livewire.admin.compras.compras-index',compact('registros','insumos'));
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Reparaciones;
 use App\Models\User;
 use App\Models\Cliente;
+use App\Models\Insumo;
 use Livewire\withPagination;
 use Illuminate\Http\Request;
 use App\Models\Kilometraje;
@@ -23,6 +24,14 @@ class CheckCreate extends Component
     public $patente;
     //public $selectPresupuesto = 1;
     public $confirmStatus;
+
+    public $tipoAceite1;
+    public $tipoAceite2;
+    public $tipoAceite3;
+    public $tipoAceite4;
+    public $tipoAceite5;
+    
+    
 
    // public $product_name = [];
   
@@ -115,8 +124,10 @@ class CheckCreate extends Component
 
           //    $km = Kilometraje::where('autos_id',$most->autos_id)->latest('id')->first();
 
+          $insumos = Insumo::where('tipoProducto',1)->get();
 
-              return view('livewire.admin.check-create',compact('reparaciones','cliente','tipoDireccion','tipoTraccion','tipoCombustion','user','patentes','most'));
+
+              return view('livewire.admin.check-create',compact('reparaciones','cliente','tipoDireccion','tipoTraccion','tipoCombustion','user','patentes','most','insumos'));
 
             
 

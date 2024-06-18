@@ -20,6 +20,8 @@ use PDF;
 use App\Models\Worker;
 use Spatie\Permission\Models\Role;
 
+use function PHPUnit\Framework\isEmpty;
+
 class CheckListController extends Controller
 {
     /**
@@ -210,6 +212,8 @@ class CheckListController extends Controller
     public function store(StoreRequest $request)
     {
 
+
+      //dd($request->tipoAceite,$request->kilometraje);
     $check = CheckList::create($request->all());
 
 
@@ -498,22 +502,94 @@ class CheckListController extends Controller
     
           ]);
 
-          $insumosCantidadActual = Insumo::where('name','Aceite Total Quartz')->first();
-
-      
-
-          foreach ($request->cantidadRepuestos as $e => $value) {
-            $totalStock = $insumosCantidadActual->stock -  $request->cantidadRepuestos[$e];
-          }
          
-  
-         // dd($totalStock);
-  
-          $insumosNow = Insumo::where('tipoProducto',1)->update([
-  
-            'stock' => $totalStock
-  
-          ]);
+
+          foreach ($request->brand as $i => $value) {
+
+           
+            
+
+            // dd($request->brand[$i]);
+           if (is_numeric($request->brand[$i])) { 
+             
+             $insumos = Insumo::where('id',$request->brand[$i])->first();     
+ 
+           switch ($insumos->name) {
+             
+             case 'Aceite Total Quartz':
+ 
+               $insumosTotalQuartz = Insumo::where('id',$insumos->id)->first();
+ 
+               foreach ($request->cantidadRepuestos as $e => $value) {
+ 
+                 $totalStock =  $insumosTotalQuartz->stock -  $request->cantidadRepuestos[$e];
+ 
+               }
+ 
+               $insumosNow = Insumo::where('id',$insumos->id)->update([
+ 
+                 'stock' => $totalStock
+       
+               ]);
+ 
+            
+               
+               break;
+ 
+               case 'Aceite Wolver 15w40':
+ 
+                 $insumosWolver15w40 = Insumo::where('id',$insumos->id)->first();
+ 
+                 foreach ($request->cantidadRepuestos as $e => $value) {
+   
+                   $totalStock =  $insumosWolver15w40->stock -  $request->cantidadRepuestos[$e];
+   
+                 }
+   
+                 $insumosNow = Insumo::where('id',$insumos->id)->update([
+   
+                   'stock' => $totalStock
+         
+                 ]);
+ 
+                 break;
+ 
+ 
+                 case 'Aceite Wolver 5w30':
+ 
+                   $insumosWolver5w30 = Insumo::where('id',$insumos->id)->first();
+ 
+                   //dd($insumosWolver5w30);
+   
+                   foreach ($request->cantidadRepuestos as $e => $value) {
+     
+                     $totalStock =  $insumosWolver5w30->stock -  $request->cantidadRepuestos[$e];
+     
+                   }
+     
+                   $insumosNow = Insumo::where('id',$insumos->id)->update([
+     
+                     'stock' => $totalStock
+           
+                   ]);
+   
+                   break;
+             
+             default:
+ 
+                   dd('holis');
+               break;
+           }
+ 
+        }elseif( !is_numeric($request->brand[$i])){
+ 
+           $s = 1;
+         // dd('es un string');
+ 
+         } 
+ 
+          
+         }
          
        
    
@@ -588,38 +664,107 @@ class CheckListController extends Controller
   
         ]);
 
-        $insumosCantidadActual = Insumo::where('tipoProducto',1)->first();
+      
+      //preguntar antes que tipo de brand es numerico o letra
+      //pero debo preguntar dentro o fuera del foreach
 
       
 
-        foreach ($request->cantidadRepuestos as $e => $value) {
-          $totalStock = $insumosCantidadActual->stock -  $request->cantidadRepuestos[$e];
+
+          foreach ($request->brand as $i => $value) {
+
+           
+            
+
+           // dd($request->brand[$i]);
+          if (is_numeric($request->brand[$i])) { 
+            
+            $insumos = Insumo::where('id',$request->brand[$i])->first();     
+
+          switch ($insumos->name) {
+            
+            case 'Aceite Total Quartz':
+
+              $insumosTotalQuartz = Insumo::where('id',$insumos->id)->first();
+
+              foreach ($request->cantidadRepuestos as $e => $value) {
+
+                $totalStock =  $insumosTotalQuartz->stock -  $request->cantidadRepuestos[$e];
+
+              }
+
+              $insumosNow = Insumo::where('id',$insumos->id)->update([
+
+                'stock' => $totalStock
+      
+              ]);
+
+           
+              
+              break;
+
+              case 'Aceite Wolver 15w40':
+
+                $insumosWolver15w40 = Insumo::where('id',$insumos->id)->first();
+
+                foreach ($request->cantidadRepuestos as $e => $value) {
+  
+                  $totalStock =  $insumosWolver15w40->stock -  $request->cantidadRepuestos[$e];
+  
+                }
+  
+                $insumosNow = Insumo::where('id',$insumos->id)->update([
+  
+                  'stock' => $totalStock
+        
+                ]);
+
+                break;
+
+
+                case 'Aceite Wolver 5w30':
+
+                  $insumosWolver5w30 = Insumo::where('id',$insumos->id)->first();
+
+                  //dd($insumosWolver5w30);
+  
+                  foreach ($request->cantidadRepuestos as $e => $value) {
+    
+                    $totalStock =  $insumosWolver5w30->stock -  $request->cantidadRepuestos[$e];
+    
+                  }
+    
+                  $insumosNow = Insumo::where('id',$insumos->id)->update([
+    
+                    'stock' => $totalStock
+          
+                  ]);
+  
+                  break;
+            
+            default:
+
+                  dd('holis');
+              break;
+          }
+
+       }elseif( !is_numeric($request->brand[$i])){
+
+          $s = 1;
+        // dd('es un string');
+
+        } 
+
+         
         }
        
-
-       // dd($totalStock);
-
-        $insumosNow = Insumo::where('tipoProducto',1)->update([
-
-          'stock' => $totalStock
-
-        ]);
- 
- 
- 
     }
 
-
   }
-   
 
      }
-    #fin de if de autos
-    
-
-     
-
-
+  
+  
       if ($request->file('file')) {
 
       $url = Storage::put('check_lists', $request->file('file'));
@@ -633,8 +778,6 @@ class CheckListController extends Controller
 
         }
 
-
-
         //para subir la imagen al storage app public que es donde guardaremos la imagen tuvimos que cambiar la configuracion de el
         //archivo carpeta de configuracion config y despues en el archivo filesystems camibar el default a public = 'default' => env('FILESYSTEM_DRIVER', 'public'),
 
@@ -642,7 +785,7 @@ class CheckListController extends Controller
       if ($request->reparaciones) {
 
 
-        $check->reparaciones()->attach($request->reparaciones);
+        $check->reparaciones()->attach($request->reparaciones); //attach es para crear en una relacion de muchos a muchos esto es arquitectura
 
       }
 

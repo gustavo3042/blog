@@ -25,7 +25,7 @@
                         <div class="float-right">
                             <i class="fas fa-cart-arrow-down fa-4x"></i>
                         </div>
-                        <div class="text-value h4"><strong>CLP {{$totalFinal}} (MES ACTUAL)</strong>
+                        <div class="text-value h4"><strong>CLP {{$totalFinal + $totalCompras}} (MES ACTUAL)</strong>
                         </div>
                         <div class="h3">Compras e Insumos</div>
                     </div>
