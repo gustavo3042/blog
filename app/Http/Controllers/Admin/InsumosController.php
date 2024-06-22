@@ -13,6 +13,18 @@ class InsumosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     
+  public function __construct(){
+
+    $this->middleware('can:admin.insumos.index')->only('index');
+    $this->middleware('can:admin.insumos.create')->only('create');
+    $this->middleware('can:admin.insumos.edit')->only('edit');
+ /*   
+   
+    $this->middleware('can:admin.posts.destroy')->only('destroy'); */
+  }
+
     public function index()
     {
         

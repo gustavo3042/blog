@@ -8,7 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
-
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Str;
 
 use Laravel\Sanctum\HasApiTokens;
 
@@ -64,4 +65,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    public function roleName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Str::of($this->roles->pluck('name')[0] ?? '')->ucfirst()
+        );
+    }
 }

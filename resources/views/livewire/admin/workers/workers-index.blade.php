@@ -2,7 +2,7 @@
 
 
 
-    <div class="card">
+    <div class="card mt-3">
 
         @if (session()->has('Mensaje'))
             <div class="alert alert-success">
@@ -13,23 +13,27 @@
        
 
         <div class="card-header">
-            <div class="card-title">Trabajadores</div>
-            <input wire:model="search" class="form-control mt-5" placeholder="Buscar por rut">
+
+            <div class="card-title">
+  
+                <h2 style="padding: 15px;">Trabajadores</h2> 
+  
+             
+    
+             </div>
+
+             <input wire:model="search" class="form-control" placeholder="Buscar">
+               
+             <a class="btn btn-info btn-sm mt-3 mb-3" href="{{ route('workers.create') }}"> <i class="fas fa-check"></i>
+                Crear Trabajador</a>
+          
         </div>
 
       
 
         @if ($allWorkers->count())
             <div class="card-body">
-                <div>
-
-                  
-                    <a class="btn btn-info btn-sm mr-3 mb-3" href="{{ route('workers.create') }}"> <i class="fas fa-check"></i>
-                        Crear Trabajador</a>
-
-                </div>
-
-              
+                
 
                 <div class="table-responsive">
                     <table class="table table-bordered">

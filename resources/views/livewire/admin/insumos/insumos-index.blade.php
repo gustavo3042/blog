@@ -17,15 +17,26 @@
   
           <div class="card-title">
   
-              <h2 style="padding: 15px;">Insumos Taller</h2> 
+
+            @if(auth()->user()->hasRole('Admin') )
+            <h2 style="padding: 15px;">Insumos Taller</h2> 
+
+            @else
+
+            <h2 style="padding: 15px;">Productos</h2> 
+            @endif
+
+          
 
            
   
            </div>
   
            <input wire:model="search" class="form-control" placeholder="Buscar">
+
+           @if(auth()->user()->hasRole('Admin') )
            <a class="btn btn-info btn-sm mt-3 mb-5" href="{{route('insumos.create')}}">Crear Insumo</a>
-  
+           @endif
           </div>
   
           <div class="card-body">
@@ -80,6 +91,7 @@
                                   </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 @endforeach

@@ -233,7 +233,7 @@ $etiquetas2 = Tag::create([
         ]);
 
         $postTag5 = DB::table('post_tag')->insert(['post_id'=>$post5->id,'tag_id'=>$etiquetas5->id]); */
-
+/* 
      $insumo = Insumo::create([
 
             'name' => 'Aceite Total Quartz',
@@ -246,7 +246,7 @@ $etiquetas2 = Tag::create([
 
         ]);
 
-   /* 
+   
         $insumo2 = Insumo::create([
 
             'name' => 'Aceite Wolver 15w40',

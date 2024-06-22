@@ -8,7 +8,7 @@
 
 
 
-    <h1 style="font-weight: bold;" class="text-center">Foro Clientes</h1>
+    <h1 style="font-weight: bold;" class="text-center">Foro Clientes2</h1>
 
 
   </div>
@@ -31,6 +31,7 @@
 
       <a class="btn btn-primary" href="{{route('foroPosts.index')}}"><i class="fa fa-check"></i>Mis Posts</a>
       <a class="btn btn-info" href="{{route('foro.consultas')}}"><i class="fa fa-car"></i>Foro Consultas</a>
+      <a class="btn btn-success" href="{{route('insumos.index')}}" ><i class="fa fa-cart-plus"></i>Productos</a>
         
       <form action="{{route('foro.buscar')}}" method="GET" class="float-right">
 

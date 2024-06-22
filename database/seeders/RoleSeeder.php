@@ -87,6 +87,14 @@ Permission::create(['name'=>'admin.roles.edit',
 Permission::create(['name'=>'admin.roles.destroy',
 'description'=>'Eliminar Rol'])->syncRoles([$role1]);
 
+Permission::create(['name'=>'admin.insumos.index',
+'description'=>'Index de insumos'])->syncRoles([$role1,$role2]);
+Permission::create(['name'=>'admin.insumos.create',
+'description'=>'Crear de insumos'])->syncRoles([$role1]);
+
+Permission::create(['name'=>'admin.insumos.edit',
+'description'=>'Editar insumos'])->syncRoles([$role1]);
+
 
 //    $role1->permission()->attach([1,2,3....]); una forma para llenar los campos de la tabla role_has_permissions para asignar determinados permisos a un rol
 
