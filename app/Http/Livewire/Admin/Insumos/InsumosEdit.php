@@ -39,7 +39,7 @@ class InsumosEdit extends Component
         $this->precio = $most->precio;
         $this->precioCompra = $most->precioCompra;
         $this->tipoProducto = $most->tipoProducto;
-        $this->fileAnt = $most->imageInsumo->url;
+        $this->fileAnt = $most->imageInsumo->url ?? null;
 
       //  dd($this->file);
 
@@ -73,6 +73,10 @@ class InsumosEdit extends Component
 
         //dd($this->fileAnt);
 
+
+
+       $insumosImages = ImageInsumo::where('imageable_id',$this->insumo_id)->first();
+
         if ($this->file) {
 
             $url = Storage::put('insumos', $this->file);
@@ -93,16 +97,40 @@ class InsumosEdit extends Component
     
             }else {
     
-                $updateImage = ImageInsumo::create([
-    
+                 $updateImage = ImageInsumo::create([
+                
                   'url' => $url
+                  
     
-                ]);
+                ]); 
+
+               /*  $update->imageInsumo()->create([
+     
+                  'url'=> $url
+         
+                ]); */
     
             }
       
        
+    }else{
+
+
+      /* //dd('holis',$this->insumo_id);
+      $url = Storage::put('insumos',$this->file);
+
+      
+
+       $updateImage = ImageInsumo::create([
+                
+        'url' => $url,
+        'imageable_id' => $this->insumo_id
+
+      ]);   */
+
     }
+
+
     $this->emit('registroEditado');
     return redirect()->route('insumos.index');
    

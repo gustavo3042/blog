@@ -20,4 +20,11 @@ class Insumo extends Model
         return $this->morphOne(ImageInsumo::class, 'imageable');
     }
 
+
+    public function checkList(){
+
+
+        return $this->belongsToMany(CheckList::class);
+      }
+
 }

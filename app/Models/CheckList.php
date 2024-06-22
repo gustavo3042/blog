@@ -48,6 +48,12 @@ class CheckList extends Model
 
     }
 
+    public function insumos(){
+
+
+      return $this->belongsToMany(Insumo::class);
+    }
+
 
 
 

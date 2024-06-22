@@ -352,11 +352,10 @@ class CheckListController extends Controller
 
 
 
-    $checkAuto = CheckList::where('patente',$request->patente)->first();
+    $checkAuto = CheckList::where('patente',$request->patente)->first(); //buscamos un checklist asociado a un auto
+    $autoNew = Autos::where('patente',$checkAuto->patente)->first(); //obtenemos el auto si es q existe el check list con una patente registrada asociada al auto
 
-     $autoNew = Autos::where('patente',$checkAuto->patente)->first();
-
-     if (empty($autoNew->patente)) {
+     if (empty($autoNew->patente)) {//preguntamos si esta vacio, si esta vacio crea un nuevo vehiculo
 
 
         $autosL= new Autos();
@@ -387,12 +386,352 @@ class CheckListController extends Controller
 
         ]);
 
+      
 
+      
+       $checkAuto = CheckList::where('patente',$request->patente)->first();
+       $autoNew = Autos::where('check_lists_id',$checkAuto->id)->first();
+       $autosId = $autoNew->id;
+       $kil = Kilometraje::where('autos_id',$autoNew->id)->first();
+       $kil2 = Kilometraje::where('autos_id',$autoNew->id)->latest('id')->first();
+       
+    
+    
+          //if para el aceite para cuando se crea un checklist por primera vez
+    
+      if ($kil->check_lists_id == null && $kil->autos_id == true) {
+    
+        //si no existe ni un check list ni un auto asociado hace lo siguiente
+    
+      
+    
+        if ($request->tipoAceite == 5) {
+        
+         
+       
+           $checkAuto2 = CheckList::where('patente',$request->patente)->first();
+       
+           
+        
+              $kmCar = Kilometraje::where('autos_id',$autoNew->id)->latest('id')->first();
+    
+              if ($request->kilometraje < $kmCar->kilometraje) {
+    
+                dd('No puede ingresar un kilometraje menor al ultimo registrado, vuelva a registrar el kilometraje');
+              }
+    
+            
+       
+               //cuando crees el auto debes poner el kilometraje por eso es q el sumar queda en 0
+               //en la migracion de kilometrajes poner el check_lists_id como nullable
+        
+              $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
+       
+              $mtskm = ($request->kilometraje - $kmCar->kilometraje) + $kmCar->newKilometraje;
+        
+                
+              Kilometraje::where('check_lists_id',$check->id)->update([
+        
+                'tipoAceite' => $request->tipoAceite,
+                'kilometraje' => $request->kilometraje,
+                'newKilometraje' => $kmNuevo,
+                'mostkilometraje' => $mtskm,
+                'check_lists_id' => $checkA,
+                'autos_id' =>  $kmCar->autos_id
+        
+        
+              ]);
+        
+    
+          }elseif ($request->tipoAceite == 1 || $request->tipoAceite == 2 || $request->tipoAceite == 3 || $request->tipoAceite == 4) {
+           
+      
+        
+              $kmCar = Kilometraje::where('autos_id',$autoNew->id)->latest('id')->first();
+      
+        
+              $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
+        
+              $mtskm = ($request->kilometraje - $kmCar->kilometraje) + $kmCar->newKilometraje;
+                
 
+              Kilometraje::where('check_lists_id',$check->id)->update([ //editamos dado que el kilometraje de este auto se acaba de crear anteriormente
+        
+                'tipoAceite' => $request->tipoAceite,
+                'kilometraje' => $request->kilometraje,
+                'newKilometraje' => 0,
+                'mostkilometraje' => 0,
+                'check_lists_id' => $checkA,
+                'autos_id' =>  $kmCar->autos_id
+        
+        
+              ]);
+    
+            
+           //descartar del stock de insumos el aceite ocupado como repuestos en un check list
+    
+              foreach ($request->brand as $i => $value) {
+    
+                // dd($request->brand[$i]);
+               if (is_numeric($request->brand[$i])) { 
+                 
+                 $insumos = Insumo::where('id',$request->brand[$i])->first();     
+     
+               switch ($insumos->name) {
+                 
+                 case 'Aceite Total Quartz':
+     
+                   $insumosTotalQuartz = Insumo::where('id',$insumos->id)->first();
+     
+                   foreach ($request->cantidadRepuestos as $e => $value) {
+     
+                     $totalStock =  $insumosTotalQuartz->stock -  $request->cantidadRepuestos[$e];
+     
+                   }
+     
+                   $insumosNow = Insumo::where('id',$insumos->id)->update([
+     
+                     'stock' => $totalStock
+           
+                   ]);
+     
+                   $check->insumos()->attach($insumosTotalQuartz->id);
+                   
+                   break;
+     
+                   case 'Aceite Wolver 15w40':
+     
+                     $insumosWolver15w40 = Insumo::where('id',$insumos->id)->first();
+     
+                     foreach ($request->cantidadRepuestos as $e => $value) {
+       
+                       $totalStock =  $insumosWolver15w40->stock -  $request->cantidadRepuestos[$e];
+       
+                     }
+       
+                     $insumosNow = Insumo::where('id',$insumos->id)->update([
+       
+                       'stock' => $totalStock
+             
+                     ]);
+     
+                     $check->insumos()->attach($insumosWolver15w40->id);
+     
+                     break;
+     
+     
+                     case 'Aceite Wolver 5w30':
+     
+                       $insumosWolver5w30 = Insumo::where('id',$insumos->id)->first();
+     
+                       //dd($insumosWolver5w30);
+       
+                       foreach ($request->cantidadRepuestos as $e => $value) {
+         
+                         $totalStock =  $insumosWolver5w30->stock -  $request->cantidadRepuestos[$e];
+         
+                       }
+         
+                       $insumosNow = Insumo::where('id',$insumos->id)->update([
+         
+                         'stock' => $totalStock
+               
+                       ]);
+     
+                       $check->insumos()->attach($insumosWolver5w30->id);
+       
+                       break;
+                 
+                 default:
+     
+                       dd('holis');
+                   break;
+               }
+     
+            }elseif( !is_numeric($request->brand[$i])){
+     
+               $s = 1;
+             // dd('es un string');
+     
+             } 
+     
+              
+             }
+    
+          }
+    
+      }elseif ($kil2->check_lists_id == true) { //si existe el check list hace esto
+      
+     
+    
+     
+    
+      if ($request->tipoAceite == 5) {
+    
+     
+         $checkAuto2 = CheckList::where('patente',$request->patente)->first();
+         
+             $autoNew2 = Autos::where('check_lists_id',$checkAuto2->id)->first();
+    
+      
+            $kmCar = Kilometraje::where('autos_id',$autoNew2->id)->latest('id')->first();
+      
+    
+             //cuando crees el auto debes poner el kilometraje por eso es q el sumar queda en 0
+             //en la migracion de kilometrajes poner el check_lists_id como nullable
+      
+            $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
+     
+            $mtskm = ($request->kilometraje - $kmCar->kilometraje) + $kmCar->newKilometraje;
+      
+              
+            Kilometraje::where('check_lists_id',$check->id)->update([
+      
+              'tipoAceite' => $request->tipoAceite,
+              'kilometraje' => $request->kilometraje,
+              'newKilometraje' => $kmNuevo,
+              'mostkilometraje' => $mtskm,
+              'check_lists_id' => $checkA,
+              'autos_id' =>  $kmCar->autos_id
+      
+      
+            ]);
+      
+         
+        }elseif ($request->tipoAceite == 1 || $request->tipoAceite == 2 || $request->tipoAceite == 3 || $request->tipoAceite == 4) {
+         
+     
+     
+         $checkAuto2 = CheckList::where('patente',$request->patente)->first();
+     
+        
+             $autoNew2 = Autos::where('check_lists_id',$checkAuto2->id)->first();
+      
+      
+            $kmCar = Kilometraje::where('autos_id',$autoNew2->id)->latest('id')->first();
+      
+      
+            $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
+      
+            $mtskm = ($request->kilometraje - $kmCar->kilometraje) + $kmCar->newKilometraje;
+              
+            Kilometraje::where('check_lists_id',$check->id)->update([
+      
+              'tipoAceite' => $request->tipoAceite,
+              'kilometraje' => $request->kilometraje,
+              'newKilometraje' => 0,
+              'mostkilometraje' => 0,
+              'check_lists_id' => $checkA,
+              'autos_id' =>  $kmCar->autos_id
+      
+      
+            ]);
+    
+          
+       
+    
+          
+    
+          //preguntar antes que tipo de brand es numerico o letra
+          //pero debo preguntar dentro o fuera del foreach
+              foreach ($request->brand as $i => $value) {
+    
+               // dd($request->brand[$i]);
+              if (is_numeric($request->brand[$i])) { 
+                
+                $insumos = Insumo::where('id',$request->brand[$i])->first();     
+    
+              switch ($insumos->name) {
+                
+                case 'Aceite Total Quartz':
+    
+                  $insumosTotalQuartz = Insumo::where('id',$insumos->id)->first();
+    
+                  foreach ($request->cantidadRepuestos as $e => $value) {
+    
+                    $totalStock =  $insumosTotalQuartz->stock -  $request->cantidadRepuestos[$e];
+    
+                  }
+    
+                  $insumosNow = Insumo::where('id',$insumos->id)->update([
+    
+                    'stock' => $totalStock
+          
+                  ]);
+    
+                  $check->insumos()->attach($insumosTotalQuartz->id);
+                  
+                  break;
+    
+                  case 'Aceite Wolver 15w40':
+    
+                    $insumosWolver15w40 = Insumo::where('id',$insumos->id)->first();
+    
+                    foreach ($request->cantidadRepuestos as $e => $value) {
+      
+                      $totalStock =  $insumosWolver15w40->stock -  $request->cantidadRepuestos[$e];
+      
+                    }
+      
+                    $insumosNow = Insumo::where('id',$insumos->id)->update([
+      
+                      'stock' => $totalStock
+            
+                    ]);
+    
+                    $check->insumos()->attach($insumosWolver15w40->id);
+    
+                    break;
+    
+    
+                    case 'Aceite Wolver 5w30':
+    
+                      $insumosWolver5w30 = Insumo::where('id',$insumos->id)->first();
+    
+                      //dd($insumosWolver5w30);
+      
+                      foreach ($request->cantidadRepuestos as $e => $value) {
+        
+                        $totalStock =  $insumosWolver5w30->stock -  $request->cantidadRepuestos[$e];
+        
+                      }
+        
+                      $insumosNow = Insumo::where('id',$insumos->id)->update([
+        
+                        'stock' => $totalStock
+              
+                      ]);
+    
+                      $check->insumos()->attach($insumosWolver5w30->id);
+      
+                      break;
+                
+                default:
+    
+                      dd('holis');
+                  break;
+              }
+    
+           }elseif( !is_numeric($request->brand[$i])){
+    
+              $s = 1;
+            // dd('es un string');
+    
+            } 
+    
+             
+            }
+           
+        }
+    
+      }
 
+      //fin del aceite
 
 
      }else{
+
+
 
       //aqui existe el auto pero no esta unido a ningun checklist por lo tanto solo debe editar 
       //ingresando el check_lists_id
@@ -418,6 +757,7 @@ class CheckListController extends Controller
         $autosMost = DB::table('check_lists_autos')
         ->insert(['check_lists_id'=> $checkA,'autos_id' =>$autoNew->id ]);
 
+       
       
       }else {
         
@@ -439,9 +779,16 @@ class CheckListController extends Controller
    $kil2 = Kilometraje::where('autos_id',$autoNew->id)->latest('id')->first();
    
 
+
+      //if para el aceite y kilometraje
+
   if ($kil->check_lists_id == null && $kil->autos_id == true) {
 
-    if ($request->tipoAceite == 5) {
+    //si no existe ni un check list ni un auto asociado hace lo siguiente
+
+  
+
+    if ($request->tipoAceite == 5) { //si no hay cambio de aceite hace lo de abajo
     
      
    
@@ -502,7 +849,8 @@ class CheckListController extends Controller
     
           ]);
 
-         
+        
+        //  dd($request->brand);
 
           foreach ($request->brand as $i => $value) {
 
@@ -532,7 +880,7 @@ class CheckListController extends Controller
        
                ]);
  
-            
+               $check->insumos()->attach($insumosTotalQuartz->id);
                
                break;
  
@@ -551,6 +899,8 @@ class CheckListController extends Controller
                    'stock' => $totalStock
          
                  ]);
+ 
+                 $check->insumos()->attach($insumosWolver15w40->id);
  
                  break;
  
@@ -572,6 +922,8 @@ class CheckListController extends Controller
                      'stock' => $totalStock
            
                    ]);
+ 
+                   $check->insumos()->attach($insumosWolver5w30->id);
    
                    break;
              
@@ -590,6 +942,8 @@ class CheckListController extends Controller
  
           
          }
+
+         
          
        
    
@@ -699,7 +1053,7 @@ class CheckListController extends Controller
       
               ]);
 
-           
+              $check->insumos()->attach($insumosTotalQuartz->id);
               
               break;
 
@@ -718,6 +1072,8 @@ class CheckListController extends Controller
                   'stock' => $totalStock
         
                 ]);
+
+                $check->insumos()->attach($insumosWolver15w40->id);
 
                 break;
 
@@ -739,6 +1095,8 @@ class CheckListController extends Controller
                     'stock' => $totalStock
           
                   ]);
+
+                  $check->insumos()->attach($insumosWolver5w30->id);
   
                   break;
             
@@ -762,7 +1120,11 @@ class CheckListController extends Controller
 
   }
 
+  //fin del if para aceite
+
      }
+
+     //fin del if de autos
   
   
       if ($request->file('file')) {

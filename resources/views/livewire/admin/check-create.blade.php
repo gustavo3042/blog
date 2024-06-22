@@ -883,6 +883,12 @@
           </select></td>
           @elseif($tipoAceite5)    
           <td><input type="text" name="brand[]" class="form-control"></td>
+
+
+          @elseif($tipoAceite1 == null && $tipoAceite2 == null && $tipoAceite3 == null && $tipoAceite4 == null && $tipoAceite5 == null  )
+
+          <td><input type="text" name="brand[]" class="form-control"></td>
+
           @endif
          
           <td><input type="text" name="cantidadRepuestos[]" class="form-control cantidadRepuestos" required=""></td>

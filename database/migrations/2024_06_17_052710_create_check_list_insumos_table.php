@@ -13,13 +13,13 @@ class CreateCheckListInsumosTable extends Migration
      */
     public function up()
     {
-        Schema::create('check_list_insumos', function (Blueprint $table) {
+        Schema::create('check_list_insumo', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('check_list_id');
-            $table->unsignedBigInteger('insumos_id');
+            $table->unsignedBigInteger('insumo_id');
 
             $table->foreign('check_list_id')->references('id')->on('check_lists')->onDelete('cascade');
-            $table->foreign('insumos_id')->references('id')->on('insumos')->onDelete('cascade');
+            $table->foreign('insumo_id')->references('id')->on('insumos')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateCheckListInsumosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('check_list_insumos');
+        Schema::dropIfExists('check_list_insumo');
     }
 }

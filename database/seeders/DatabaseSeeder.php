@@ -7,6 +7,7 @@ use App\Models\Reparaciones;
 use App\Models\Cliente;
 use App\Models\Tag;
 use App\Models\Autos;
+use App\Models\Insumo;
 use App\Models\Post;
 use App\Models\Worker;
 use FontLib\Table\Type\name;
@@ -154,7 +155,7 @@ $etiquetas2 = Tag::create([
                 
                 ]);
 
-
+/* 
         $post = Post::create([
 
             'name' => 'Reparación de culata',
@@ -231,7 +232,45 @@ $etiquetas2 = Tag::create([
             'category_id' => $categoria2->id
         ]);
 
-        $postTag5 = DB::table('post_tag')->insert(['post_id'=>$post5->id,'tag_id'=>$etiquetas5->id]);
+        $postTag5 = DB::table('post_tag')->insert(['post_id'=>$post5->id,'tag_id'=>$etiquetas5->id]); */
+
+     $insumo = Insumo::create([
+
+            'name' => 'Aceite Total Quartz',
+            'descripcion' => 'Aceite total quartz 10w40 semi sintetico 4 litros para motor diesel o bencina',
+            'stock' => 16,
+            'precio' => 25000,
+            'precioCompra' => 17054,
+            'status' => 1,
+            'tipoProducto' =>1,
+
+        ]);
+
+   /* 
+        $insumo2 = Insumo::create([
+
+            'name' => 'Aceite Wolver 15w40',
+            'descripcion' => 'Aceite Wolver Turbo Evolution Diesel 15w40 4 litros',
+            'stock' => 8,
+            'precio' => 40000,
+            'precioCompra' => 24354,
+            'status' => 1,
+            'tipoProducto' =>1,
+
+        ]);
+
+
+        $insumo3 = Insumo::create([
+
+            'name' => 'Aceite Wolver 5w30',
+            'descripcion' => 'Aceite Wolver 5w30 4 litros 100% sintetico ultratec para 20000 kilometos',
+            'stock' => 6,
+            'precio' => 40000,
+            'precioCompra' => 26590,
+            'status' => 1,
+            'tipoProducto' =>1,
+
+        ]); */
 
     }
 }

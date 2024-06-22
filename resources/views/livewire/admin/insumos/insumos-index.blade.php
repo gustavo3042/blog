@@ -57,7 +57,17 @@
                 @foreach($insumos as $product)
                     <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                         <div class="card" style="height: 100%;">
+
+                            @if ($product->imageInsumo)
+
                             <img src="{{asset('storage').'/'.$product->imageInsumo->url}}" class="card-img-top" alt="{{ $product->name }}">
+                            
+                            @else
+
+                            <img id="picture" src="https://cdn.pixabay.com/photo/2014/06/04/16/36/man-362150_1280.jpg" alt="">
+                            
+                            @endif
+                         
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title font-weight-bold">{{ $product->name }}</h5>
                                 <p class="card-text">{{ $product->descripcion }}</p>
