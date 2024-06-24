@@ -13,6 +13,14 @@ class ClientesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(){
+
+        $this->middleware('can:admin.clientes.index')->only('index');
+        $this->middleware('can:admin.clientes.create')->only('create');
+    
+     }
+
     public function index()
     {
 

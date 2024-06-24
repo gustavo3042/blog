@@ -29,6 +29,24 @@ class CheckListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(){
+
+      $this->middleware('can:admin.check.index')->only('index');
+      $this->middleware('can:admin.check.create')->only('create','store');
+      $this->middleware('can:admin.check.edit')->only('edit','update');
+      $this->middleware('can:admin.check.destroy')->only('destroy');
+      $this->middleware('can:admin.check.documentoPdf')->only('documentoPdf');
+      $this->middleware('can:admin.check.show')->only('show');
+      $this->middleware('can:admin.check.addWorkers')->only('addWorkers');
+      
+      
+      
+   /*   
+     
+      $this->middleware('can:admin.posts.destroy')->only('destroy'); */
+    }
+
     public function index()
     {
 

@@ -95,6 +95,77 @@ Permission::create(['name'=>'admin.insumos.create',
 Permission::create(['name'=>'admin.insumos.edit',
 'description'=>'Editar insumos'])->syncRoles([$role1]);
 
+Permission::create(['name'=>'admin.check.index',
+'description'=>'Vista index de ficha tecnica'])->syncRoles([$role1,$role3]);
+
+Permission::create(['name'=>'admin.check.create',
+'description'=>'Vista create de ficha tecnica'])->syncRoles([$role1,$role3]);
+
+Permission::create(['name'=>'admin.check.edit',
+'description'=>'Vista para editar ficha tecnica'])->syncRoles([$role1,$role3]);
+
+
+Permission::create(['name'=>'admin.check.destroy',
+'description'=>'Borrar ficha tecnica'])->syncRoles([$role1,$role3]);
+
+Permission::create(['name'=>'admin.check.documentoPdf',
+'description'=>'Boton para generar documento pdf'])->syncRoles([$role1,$role3]);
+
+
+Permission::create(['name'=>'admin.check.show',
+'description'=>'Vista para ir a show'])->syncRoles([$role1,$role3]);
+
+Permission::create(['name'=>'admin.check.addWorkers',
+'description'=>'Boton para agregar trabajadores a la faena'])->syncRoles([$role1,$role3]);
+
+Permission::create(['name'=>'admin.reparar.index',
+'description'=>'Vista index de reparaciones'])->syncRoles([$role1]);
+
+Permission::create(['name'=>'admin.reparaciones.create',
+'description'=>'Vista create de reparaciones'])->syncRoles([$role1]);
+
+Permission::create(['name'=>'admin.reparaciones.edit',
+'description'=>'Vista edit de reparaciones'])->syncRoles([$role1]);
+
+
+Permission::create(['name'=>'admin.reparaciones.destroy',
+'description'=>'Borrar categoria reparaciones'])->syncRoles([$role1]);
+
+
+Permission::create(['name'=>'admin.autos.index',
+'description'=>'Vista index para autos'])->syncRoles([$role1]);
+
+Permission::create(['name'=>'admin.autos.create',
+'description'=>'Vista create para autos'])->syncRoles([$role1]);
+
+
+Permission::create(['name'=>'admin.clientes.index',
+'description'=>'Vista index para clientes'])->syncRoles([$role1]);
+
+Permission::create(['name'=>'admin.clientes.create',
+'description'=>'Vista create para clientes'])->syncRoles([$role1]);
+
+Permission::create(['name'=>'admin.workers.index',
+'description'=>'Vista index para trabajadores'])->syncRoles([$role1]);
+
+Permission::create(['name'=>'admin.workers.create',
+'description'=>'Vista create para trabajadores'])->syncRoles([$role1]);
+
+
+Permission::create(['name'=>'admin.workers.edit',
+'description'=>'Vista edit para trabajadores'])->syncRoles([$role1]);
+
+Permission::create(['name'=>'admin.workers.destroy',
+'description'=>'Borrar trabajadores'])->syncRoles([$role1]);
+
+
+Permission::create(['name'=>'admin.workers.enable',
+'description'=>'Boton para habilitar un trabajador'])->syncRoles([$role1]);
+
+Permission::create(['name'=>'admin.workers.disabled',
+'description'=>'Boton para deshabilitar un trabajador'])->syncRoles([$role1]);
+
+
 
 //    $role1->permission()->attach([1,2,3....]); una forma para llenar los campos de la tabla role_has_permissions para asignar determinados permisos a un rol
 

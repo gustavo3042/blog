@@ -15,6 +15,19 @@ class WorkersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(){
+
+        $this->middleware('can:admin.workers.index')->only('index');
+        $this->middleware('can:admin.workers.create')->only('create','store');
+        $this->middleware('can:admin.workers.edit')->only('edit','update');
+        $this->middleware('can:admin.workers.destroy')->only('destroy');
+        $this->middleware('can:admin.workers.enable')->only('enable');
+        $this->middleware('can:admin.workers.disabled')->only('disabled');
+
+     }
+      
+
     public function index()
     {
         return view('admin.workers.index');

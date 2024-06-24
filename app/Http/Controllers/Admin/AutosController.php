@@ -22,6 +22,14 @@ class AutosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(){
+
+        $this->middleware('can:admin.autos.index')->only('index');
+        $this->middleware('can:admin.autos.create')->only('create');
+    
+     }
+
     public function create()
     {
         return view('admin.autos.create');

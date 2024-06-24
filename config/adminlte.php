@@ -1,5 +1,7 @@
 <?php
 
+use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Php;
+
 return [
 
     /*
@@ -257,7 +259,8 @@ return [
 
 
 
-        ['header' => 'CONTROL DE USUARIOS'],
+        ['header' => 'CONTROL DE USUARIOS',
+        'can'  => 'admin.users.index'],
 
      
 
@@ -278,11 +281,15 @@ return [
         ],
 
 
+        
 
 
-        ['header' => 'ADMINISTRADOR'],
-
-
+        ['header' => 'ADMINISTRADOR',
+        'can'  => 'admin.users.index',
+        ],
+       
+    
+        
      
      
 
@@ -290,6 +297,7 @@ return [
             'text' => 'Insumos',
             'url'  => 'admin/insumos',
             'icon' => 'fas fa-fw fa-wrench',
+            'can'  => 'admin.insumos.index'
 
         ],
 
@@ -298,6 +306,7 @@ return [
             'text' => 'Reparaciones',
             'url'  => 'admin/reparaciones',
             'icon' => 'fas fa-fw fa-wrench',
+            'can'  => 'admin.reparar.index'
 
         ],
 
@@ -305,6 +314,7 @@ return [
             'text' => 'FichaTecnica',
             'url'  => 'admin/check',
             'icon' => 'fas fa-fw fa-clipboard',
+            'can'  => 'admin.check.index'
 
         ],
 
@@ -314,6 +324,7 @@ return [
             'text' => 'Clientes',
             'url'  => 'admin/clientes',
             'icon' => 'fas fa-fw fa-briefcase',
+            'can'  => 'admin.clientes.index'
 
         ],
 
@@ -321,6 +332,7 @@ return [
             'text' => 'Autos',
             'url'  => 'admin/autos',
             'icon' => 'fas fa-car',
+            'can'  => 'admin.autos.index'
 
         ],
 
@@ -328,10 +340,12 @@ return [
             'text' => 'Trabajadores',
             'url'  => 'admin/workers',
             'icon' => 'fas fa-user-tie',
+             'can'  => 'admin.workers.index'
 
         ],
 
-        ['header' => 'OPCIONES DE BLOG'],
+        ['header' => 'OPCIONES DE BLOG',
+        'can'  => 'admin.users.index'],
 
 
         [

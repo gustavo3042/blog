@@ -15,6 +15,16 @@ class ReparacionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(){
+
+        $this->middleware('can:admin.reparar.index')->only('index');
+        $this->middleware('can:admin.reparaciones.create')->only('create','store');
+        $this->middleware('can:admin.reparaciones.edit')->only('edit','update');
+        $this->middleware('can:admin.reparaciones.destroy')->only('destroy');
+     }
+      
+
     public function index()
     {
         $reparaciones = Reparaciones::all();
