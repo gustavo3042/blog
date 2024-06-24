@@ -34,6 +34,13 @@ class UserSeeder extends Seeder
         
               ])->assignRole('Cliente'); //se le asigna un rol a este usuario
 
+              User::create([
+                'name'=> 'julian Isaac',
+                'email' =>'juliantaller@gmail.com',
+                'password' =>bcrypt('12345678')
+                
+                      ])->assignRole('Mecanico'); //se le asigna un rol a este usuario           
+
 
 User::factory(1)->create();
 

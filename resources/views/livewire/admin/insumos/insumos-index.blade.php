@@ -85,10 +85,12 @@
                                 <p class="card-text">Stock : {{ $product->stock }}</p>
                                 <p class="card-text"><strong>${{ $product->precio }}</strong></p>
                                 <div class="mt-auto">
+                                    @if(auth()->user()->hasRole('Admin') )
                                     <div class="btn-group">
                                     <a type="submit" href="{{route('insumos.edit',$product->id)}}" class="btn btn-primary btn-sm">Editar Producto</a>
                                     <a wire:click="$emit('deleteInsumo',{{$product->id}})" class="btn btn-danger btn-sm">Borrar Producto</a>
                                   </div>
+                                  @endif
                                 </div>
                             </div>
                             

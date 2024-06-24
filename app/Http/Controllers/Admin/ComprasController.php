@@ -12,6 +12,14 @@ class ComprasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(){
+
+        $this->middleware('can:admin.compras.index')->only('index');
+    
+        
+      }
+
     public function index()
     {
         return view('admin.compras.index');

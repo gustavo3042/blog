@@ -30,8 +30,10 @@ class HomeController extends Controller
     ->whereBetween('created_at', [$startOfMonth, $endOfMonth])->sum('totalRepuestos'); */
 
     $totalCompras = CheckList::join('presupuestos','presupuestos.check_lists_id','=','check_lists.id')
-    ->join('presupuesto_details','presupuesto_details.presupuestos_id','=','presupuestos.id')->where('check_lists.statusNow',2)
-    ->whereBetween('check_lists.created_at', [$startOfMonth, $endOfMonth])->sum('presupuesto_details.totalRepuestos');
+    ->join('presupuesto_details','presupuesto_details.presupuestos_id','=','presupuestos.id')
+   // ->where('check_lists.statusNow',2)
+    ->whereBetween('check_lists.created_at', [$startOfMonth, $endOfMonth])
+    ->sum('presupuesto_details.totalRepuestos');
  
 
   

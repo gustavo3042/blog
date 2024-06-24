@@ -40,11 +40,6 @@ class CheckListController extends Controller
       $this->middleware('can:admin.check.show')->only('show');
       $this->middleware('can:admin.check.addWorkers')->only('addWorkers');
       
-      
-      
-   /*   
-     
-      $this->middleware('can:admin.posts.destroy')->only('destroy'); */
     }
 
     public function index()

@@ -165,6 +165,9 @@ Permission::create(['name'=>'admin.workers.enable',
 Permission::create(['name'=>'admin.workers.disabled',
 'description'=>'Boton para deshabilitar un trabajador'])->syncRoles([$role1]);
 
+Permission::create(['name'=>'admin.compras.index',
+'description'=>'Vista index de compras para administrador'])->syncRoles([$role1]);
+
 
 
 //    $role1->permission()->attach([1,2,3....]); una forma para llenar los campos de la tabla role_has_permissions para asignar determinados permisos a un rol
