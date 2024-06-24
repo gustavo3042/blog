@@ -132,8 +132,24 @@ class InsumosEdit extends Component
 
 
     $this->emit('registroEditado');
+    $this->resetInput();
     return redirect()->route('insumos.index');
    
+}
+
+public function resetInput()
+{
+
+$this->name = '';
+$this->descripcion = '';
+$this->stock = '';
+$this->precio = '';
+$this->precioCompra = '';
+$this->status = '';
+$this->tipoProducto = '';
+$this->file = '';
+
+ 
 }
 
 }
