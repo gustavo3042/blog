@@ -248,7 +248,7 @@ $etiquetas2 = Tag::create([
 
         ]);
 
-   /* 
+   
         $insumo2 = Insumo::create([
 
             'name' => 'Aceite Wolver 15w40',
@@ -272,7 +272,7 @@ $etiquetas2 = Tag::create([
             'status' => 1,
             'tipoProducto' =>1,
 
-        ]); */
+        ]); 
 
     }
 }

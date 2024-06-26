@@ -381,7 +381,7 @@ return [
             'text' => 'Foro',
             'url'  => 'admin/foro',
             'icon' => 'fas fa-fw fa-file',
-           // 'can'  => 'admin.foro.index'
+            'can'  => 'admin.foro.buscar'
         ],
 
 
@@ -389,7 +389,7 @@ return [
             'text' => 'Foro Categoria',
             'url'  => 'admin/foroCategory',
             'icon' => 'fas fa-fw fa-file',
-           // 'can'  => 'admin.foro.index'
+            'can'  => 'admin.foroCategory.index'
         ],
 
 

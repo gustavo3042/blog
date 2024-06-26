@@ -55,7 +55,11 @@ class CheckList extends Model
     }
 
 
+   /*  public function insumosVenta(){
 
+      return $this->belongsToMany(Insumo::class)->withPivot('venta', 'precioVenta','stockInicial','stockPostVenta');
+
+    } */
 
 
 }

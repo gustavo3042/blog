@@ -13,6 +13,15 @@ class CategoryForoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(){
+
+        $this->middleware('can:admin.foroCategory.index')->only('index');
+        $this->middleware('can:admin.foroCategory.create')->only('create','store');
+        $this->middleware('can:admin.foroCategory.edit')->only('edit','update');
+        $this->middleware('can:admin.foroCategory.destroy')->only('destroy'); 
+      }
+
     public function index()
     {
 

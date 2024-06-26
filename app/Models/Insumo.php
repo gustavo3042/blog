@@ -27,4 +27,11 @@ class Insumo extends Model
         return $this->belongsToMany(CheckList::class);
       }
 
+
+     /*  public function checkListVenta(){
+
+
+        return $this->belongsToMany(CheckList::class)->withPivot('venta', 'precioVenta','stockInicial','stockPostVenta');
+      } */
+
 }

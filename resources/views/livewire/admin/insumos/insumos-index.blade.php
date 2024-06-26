@@ -87,8 +87,10 @@
                                 <div class="mt-auto">
                                     @if(auth()->user()->hasRole('Admin') )
                                     <div class="btn-group">
-                                    <a type="submit" href="{{route('insumos.edit',$product->id)}}" class="btn btn-primary btn-sm">Editar Producto</a>
-                                    <a wire:click="$emit('deleteInsumo',{{$product->id}})" class="btn btn-danger btn-sm">Borrar Producto</a>
+                                    <a type="submit" href="{{route('insumos.edit',$product->id)}}" class="btn btn-primary btn-sm">Editar</a>
+                                    <a wire:click="$emit('deleteInsumo',{{$product->id}})" class="btn btn-danger btn-sm">Borrar</a>
+                                    <a  href="" class="btn btn-warning btn-sm">Compra</a>
+                                    <a  href="" class="btn btn-info btn-sm">Venta</a>
                                   </div>
                                   @endif
                                 </div>

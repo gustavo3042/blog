@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCheckListInsumosTable extends Migration
+class CreateVentaInsumosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,18 @@ class CreateCheckListInsumosTable extends Migration
      */
     public function up()
     {
-        Schema::create('check_list_insumo', function (Blueprint $table) {
+        Schema::create('venta_insumos', function (Blueprint $table) {
             $table->id();
-           // $table->integer('venta')->nullable();
-           // $table->integer('compra')->nullable();
+            $table->integer('venta')->nullable();
+            $table->integer('precioVenta')->nullable();
+            $table->integer('stockInicial')->nullable();
+            $table->integer('stockPostVenta')->nullable();
             $table->unsignedBigInteger('check_list_id')->nullable();
             $table->unsignedBigInteger('insumo_id');
 
             $table->foreign('check_list_id')->nullable()->references('id')->on('check_lists')->onDelete('cascade');
-            $table->foreign('insumo_id')->nullable()->references('id')->on('insumos')->onDelete('cascade');
+            $table->foreign('insumo_id')->references('id')->on('insumos')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -33,6 +36,6 @@ class CreateCheckListInsumosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('check_list_insumo');
+        Schema::dropIfExists('venta_insumos');
     }
 }

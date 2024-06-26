@@ -14,6 +14,31 @@
 
 
 @section('js')
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: 'Advertencia',
+            text: '{{ session('error') }}',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+@endif
+
+ @if(session('alert'))
+<script>
+    Swal.fire({
+        title: "{{ session('alert.title') }}",
+        text: "{{ session('alert.text') }}",
+        icon: "{{ session('alert.icon') }}",
+    });
+</script>
+@endif 
+
 <script>
     $(document).ready(function() {
         
@@ -34,6 +59,9 @@
         btn.form.submit();
     }
 </script>
+
+
+
 
 @stop
 

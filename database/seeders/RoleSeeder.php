@@ -27,7 +27,7 @@ class RoleSeeder extends Seeder
     Permission::create(['name' => 'admin.home',
     'description'=>'Ver el Dashboard'])->syncRoles([$role1,$role2,$role3]);
 
-    Permission::create(['name' => 'admin.foro','description'=>'Ver el modulo para clientes'])->syncRoles([$role1,$role2]);    
+ 
     
 
     Permission::create(['name' => 'admin.users.index',
@@ -168,6 +168,21 @@ Permission::create(['name'=>'admin.workers.disabled',
 Permission::create(['name'=>'admin.compras.index',
 'description'=>'Vista index de compras para administrador'])->syncRoles([$role1]);
 
+
+Permission::create(['name' => 'admin.foro.buscar','description'=>'Ver el modulo para clientes'])
+->syncRoles([$role1,$role2,$role3]);   
+
+Permission::create(['name' => 'admin.foroCategory.index','description'=>'Ver vista index de categoria de consulta'])
+->syncRoles([$role1]);   
+
+Permission::create(['name' => 'admin.foroCategory.create','description'=>'Vista para crear un tipo de categoria de consulta'])
+->syncRoles([$role1]);   
+
+Permission::create(['name' => 'admin.foroCategory.edit','description'=>'Vista para editar un tipo de categoria de consulta'])
+->syncRoles([$role1]);   
+
+Permission::create(['name' => 'admin.foroCategory.destroy','description'=>'Borrar categoria consulta'])
+->syncRoles([$role1]);   
 
 
 //    $role1->permission()->attach([1,2,3....]); una forma para llenar los campos de la tabla role_has_permissions para asignar determinados permisos a un rol

@@ -17,6 +17,15 @@ class PostForoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(){
+
+      $this->middleware('can:admin.foroPosts.index')->only('index');
+      $this->middleware('can:admin.foroPosts.create')->only('create','store');
+      $this->middleware('can:admin.foroPosts.edit')->only('edit','update');
+      $this->middleware('can:admin.foroPosts.destroy')->only('destroy'); 
+    }
+
     public function index()
     {
         

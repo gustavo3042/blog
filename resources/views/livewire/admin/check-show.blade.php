@@ -12,7 +12,7 @@
 
             @if ($checks->statusNow == 1)
             <span class="card-title">Faena Activa</span>
-            @elseif($checks->statusNow == 0)
+            @elseif($checks->statusNow == 2)
             <span class="card-title">Faena Terminada</span>
             @endif
           
@@ -387,7 +387,7 @@
                                 <button type="submit" name="finalizar" value="2" class="btn btn-primary btn-sm">Finalizar?</button>
                                 
 
-                                @elseif($checks->statusNow == 0)
+                                @elseif($checks->statusNow == 2)
 
                                 Finalizada:
                                 <button type="submit" name="continuar" value="1" class="btn btn-primary btn-sm">Activar?</button>

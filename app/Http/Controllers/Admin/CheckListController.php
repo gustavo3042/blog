@@ -482,12 +482,16 @@ class CheckListController extends Controller
     
             
            //descartar del stock de insumos el aceite ocupado como repuestos en un check list
-    
+            
               foreach ($request->brand as $i => $value) {
+               
     
-                // dd($request->brand[$i]);
+             //  dd($request->brand[$i]);
                if (is_numeric($request->brand[$i])) { 
-                 
+
+                $totalCantidadRepuestos = $request->cantidadRepuestos[$i];
+                $precioRepuestos = $request->precioRepuestos[$i];
+
                  $insumos = Insumo::where('id',$request->brand[$i])->first();     
      
                switch ($insumos->name) {
@@ -495,20 +499,53 @@ class CheckListController extends Controller
                  case 'Aceite Total Quartz':
      
                    $insumosTotalQuartz = Insumo::where('id',$insumos->id)->first();
+                  
+                  
+                  /*  foreach ($request->cantidadRepuestos as $e => $value) { */
+
+                    /* if (is_numeric($request->brand[$i])) { */
+                    
+                   
      
-                   foreach ($request->cantidadRepuestos as $e => $value) {
-     
-                     $totalStock =  $insumosTotalQuartz->stock -  $request->cantidadRepuestos[$e];
-     
-                   }
+                     $totalStock =  $insumosTotalQuartz->stock -  $request->cantidadRepuestos[$i];
+                     
+
+
+                  
+                 
+
+                   /*  } */
+
+                 /*   } */
      
                    $insumosNow = Insumo::where('id',$insumos->id)->update([
      
-                     'stock' => $totalStock
-           
+                     'stock' => $totalStock,
+                   
                    ]);
      
                    $check->insumos()->attach($insumosTotalQuartz->id);
+
+                 /*   $check->insumosVenta()->attach($insumosTotalQuartz->id,[
+
+                    'venta' => $totalCantidadRepuestos,
+                    'precioVenta' => $precioRepuestos,
+                    'stockInicial' => $insumosTotalQuartz->stock,
+                    'stockPostVenta'=> $totalStock,
+
+                   ]);
+ */
+                   $ventaInsumos = DB::table('venta_insumos')->insert([ 
+
+                    'venta' => $totalCantidadRepuestos,
+                    'precioVenta' => $precioRepuestos,
+                    'stockInicial' => $insumosTotalQuartz->stock,
+                    'stockPostVenta'=> $totalStock,
+                    'check_list_id' => $check->id,
+                    'insumo_id' =>  $insumosTotalQuartz->id
+
+                   ]); 
+                
                    
                    break;
      
@@ -516,11 +553,16 @@ class CheckListController extends Controller
      
                      $insumosWolver15w40 = Insumo::where('id',$insumos->id)->first();
      
-                     foreach ($request->cantidadRepuestos as $e => $value) {
+                 /*     foreach ($request->cantidadRepuestos as $e => $value) { */
        
-                       $totalStock =  $insumosWolver15w40->stock -  $request->cantidadRepuestos[$e];
+                       $totalStock =  $insumosWolver15w40->stock -  $request->cantidadRepuestos[$i];
+                    /*    $totalCantidadRepuestos = $request->cantidadRepuestos[$e];
+                       $precioRepuestos = $request->precioRepuestos[$e]; */
+
+
+                    
        
-                     }
+                   /*   } */
        
                      $insumosNow = Insumo::where('id',$insumos->id)->update([
        
@@ -529,6 +571,27 @@ class CheckListController extends Controller
                      ]);
      
                      $check->insumos()->attach($insumosWolver15w40->id);
+/* 
+                     $check->insumosVenta()->attach($insumosWolver15w40->id,[
+
+                      'venta' => $totalCantidadRepuestos,
+                      'precioVenta' => $precioRepuestos,
+                      'stockInicial' => $insumosWolver15w40->stock,
+                      'stockPostVenta'=> $totalStock,
+
+                     ]);
+ */
+                      $ventaInsumos = DB::table('venta_insumos')->insert([ 
+
+                      'venta' => $totalCantidadRepuestos,
+                      'precioVenta' => $precioRepuestos,
+                      'stockInicial' => $insumosWolver15w40->stock,
+                      'stockPostVenta'=> $totalStock,
+                      'check_list_id' => $check->id,
+                      'insumo_id' =>   $insumosWolver15w40->id
+  
+                     ]); 
+                   
      
                      break;
      
@@ -539,11 +602,15 @@ class CheckListController extends Controller
      
                        //dd($insumosWolver5w30);
        
-                       foreach ($request->cantidadRepuestos as $e => $value) {
+                      /*  foreach ($request->cantidadRepuestos as $e => $value) { */
          
-                         $totalStock =  $insumosWolver5w30->stock -  $request->cantidadRepuestos[$e];
+                         $totalStock =  $insumosWolver5w30->stock -  $request->cantidadRepuestos[$i];
+                        /*  $totalCantidadRepuestos = $request->cantidadRepuestos[$e];
+                         $precioRepuestos = $request->precioRepuestos[$e]; */
+
+                        
          
-                       }
+                       /* } */
          
                        $insumosNow = Insumo::where('id',$insumos->id)->update([
          
@@ -552,6 +619,28 @@ class CheckListController extends Controller
                        ]);
      
                        $check->insumos()->attach($insumosWolver5w30->id);
+
+                     /*   $check->insumosVenta()->attach($insumosWolver5w30->id,[
+
+
+                        'venta' => $totalCantidadRepuestos,
+                        'precioVenta' => $precioRepuestos,
+                        'stockInicial' => $insumosWolver5w30->stock,
+                        'stockPostVenta'=> $totalStock,
+
+
+                       ]); */
+
+                        $ventaInsumos = DB::table('venta_insumos')->insert([ 
+
+                        'venta' => $totalCantidadRepuestos,
+                        'precioVenta' => $precioRepuestos,
+                        'stockInicial' => $insumosWolver5w30->stock,
+                        'stockPostVenta'=> $totalStock,
+                        'check_list_id' => $check->id,
+                        'insumo_id' =>  $insumosWolver5w30->id
+    
+                       ]); 
        
                        break;
                  
@@ -646,11 +735,14 @@ class CheckListController extends Controller
           
     
           //preguntar antes que tipo de brand es numerico o letra
-          //pero debo preguntar dentro o fuera del foreach
+          //pero debo preguntar dentro o fuera del foreach?
               foreach ($request->brand as $i => $value) {
-    
-               // dd($request->brand[$i]);
+                
+                //dd($request->brand[$i]);
               if (is_numeric($request->brand[$i])) { 
+
+                $totalCantidadRepuestos = $request->cantidadRepuestos[$i];
+                $precioRepuestos = $request->precioRepuestos[$i];
                 
                 $insumos = Insumo::where('id',$request->brand[$i])->first();     
     
@@ -660,11 +752,14 @@ class CheckListController extends Controller
     
                   $insumosTotalQuartz = Insumo::where('id',$insumos->id)->first();
     
-                  foreach ($request->cantidadRepuestos as $e => $value) {
+                 /*  foreach ($request->cantidadRepuestos as $e => $value) { */
     
-                    $totalStock =  $insumosTotalQuartz->stock -  $request->cantidadRepuestos[$e];
+                    $totalStock =  $insumosTotalQuartz->stock -  $request->cantidadRepuestos[$i];
+                  
+
+                   
     
-                  }
+               /*    } */
     
                   $insumosNow = Insumo::where('id',$insumos->id)->update([
     
@@ -673,6 +768,26 @@ class CheckListController extends Controller
                   ]);
     
                   $check->insumos()->attach($insumosTotalQuartz->id);
+
+              /*     $check->insumosVenta()->attach($insumosTotalQuartz,[
+
+                    'venta' => $totalCantidadRepuestos,
+                    'precioVenta' => $precioRepuestos,
+                    'stockInicial' => $insumosTotalQuartz->stock,
+                    'stockPostVenta'=> $totalStock,
+
+                  ]); */
+
+                   $ventaInsumos = DB::table('venta_insumos')->insert([ 
+
+                    'venta' => $totalCantidadRepuestos,
+                    'precioVenta' => $precioRepuestos,
+                    'stockInicial' => $insumosTotalQuartz->stock,
+                    'stockPostVenta'=> $totalStock,
+                    'check_list_id' => $check->id,
+                    'insumo_id' =>  $insumosTotalQuartz->id
+
+                   ]); 
                   
                   break;
     
@@ -680,11 +795,15 @@ class CheckListController extends Controller
     
                     $insumosWolver15w40 = Insumo::where('id',$insumos->id)->first();
     
-                    foreach ($request->cantidadRepuestos as $e => $value) {
+                   /*  foreach ($request->cantidadRepuestos as $e => $value) { */
       
-                      $totalStock =  $insumosWolver15w40->stock -  $request->cantidadRepuestos[$e];
+                      $totalStock =  $insumosWolver15w40->stock -  $request->cantidadRepuestos[$i];
+                      /* $totalCantidadRepuestos = $request->cantidadRepuestos[$e];
+                      $precioRepuestos = $request->precioRepuestos[$e]; */
+
+                    
       
-                    }
+                 /*    } */
       
                     $insumosNow = Insumo::where('id',$insumos->id)->update([
       
@@ -693,6 +812,28 @@ class CheckListController extends Controller
                     ]);
     
                     $check->insumos()->attach($insumosWolver15w40->id);
+
+                 /*    $check->insumosVenta()->attach($insumosWolver15w40->id,[
+
+                      'venta' => $totalCantidadRepuestos,
+                      'precioVenta' => $precioRepuestos,
+                      'stockInicial' => $insumosWolver15w40->stock,
+                      'stockPostVenta'=> $totalStock,
+
+                    ]); */
+
+                     $ventaInsumos = DB::table('venta_insumos')->insert([ 
+
+                      'venta' => $totalCantidadRepuestos,
+                      'precioVenta' => $precioRepuestos,
+                      'stockInicial' => $insumosWolver15w40->stock,
+                      'stockPostVenta'=> $totalStock,
+                      'check_list_id' => $check->id,
+                      'insumo_id' =>   $insumosWolver15w40->id
+  
+                     ]); 
+
+                   
     
                     break;
     
@@ -703,11 +844,14 @@ class CheckListController extends Controller
     
                       //dd($insumosWolver5w30);
       
-                      foreach ($request->cantidadRepuestos as $e => $value) {
+                    /*   foreach ($request->cantidadRepuestos as $e => $value) { */
         
-                        $totalStock =  $insumosWolver5w30->stock -  $request->cantidadRepuestos[$e];
+                        $totalStock =  $insumosWolver5w30->stock -  $request->cantidadRepuestos[$i];
+                      /*   $totalCantidadRepuestos = $request->cantidadRepuestos[$e];
+                        $precioRepuestos = $request->precioRepuestos[$e]; */
+
         
-                      }
+                     /*  } */
         
                       $insumosNow = Insumo::where('id',$insumos->id)->update([
         
@@ -716,6 +860,26 @@ class CheckListController extends Controller
                       ]);
     
                       $check->insumos()->attach($insumosWolver5w30->id);
+
+                   /*    $check->insumosVenta()->attach($insumosWolver5w30,[
+
+                        'venta' => $totalCantidadRepuestos,
+                        'precioVenta' => $precioRepuestos,
+                        'stockInicial' => $insumosWolver5w30->stock,
+                        'stockPostVenta'=> $totalStock,
+                      ]); */
+                      
+                       $ventaInsumos = DB::table('venta_insumos')->insert([ 
+
+                        'venta' => $totalCantidadRepuestos,
+                        'precioVenta' => $precioRepuestos,
+                        'stockInicial' => $insumosWolver5w30->stock,
+                        'stockPostVenta'=> $totalStock,
+                        'check_list_id' => $check->id,
+                        'insumo_id' =>  $insumosWolver5w30->id
+    
+                       ]); 
+       
       
                       break;
                 
@@ -872,6 +1036,9 @@ class CheckListController extends Controller
 
             // dd($request->brand[$i]);
            if (is_numeric($request->brand[$i])) { 
+
+              $totalCantidadRepuestos = $request->cantidadRepuestos[$i];
+                 $precioRepuestos = $request->precioRepuestos[$i]; 
              
              $insumos = Insumo::where('id',$request->brand[$i])->first();     
  
@@ -881,11 +1048,15 @@ class CheckListController extends Controller
  
                $insumosTotalQuartz = Insumo::where('id',$insumos->id)->first();
  
-               foreach ($request->cantidadRepuestos as $e => $value) {
+             /*   foreach ($request->cantidadRepuestos as $e => $value) { */
  
-                 $totalStock =  $insumosTotalQuartz->stock -  $request->cantidadRepuestos[$e];
+                 $totalStock =  $insumosTotalQuartz->stock -  $request->cantidadRepuestos[$i];
+                /*  $totalCantidadRepuestos = $request->cantidadRepuestos[$e];
+                 $precioRepuestos = $request->precioRepuestos[$e]; */
+
+               
  
-               }
+             /*   } */
  
                $insumosNow = Insumo::where('id',$insumos->id)->update([
  
@@ -894,18 +1065,44 @@ class CheckListController extends Controller
                ]);
  
                $check->insumos()->attach($insumosTotalQuartz->id);
-               
+
+             /*   $check->insumosVenta()->attach($insumosTotalQuartz->id,[
+
+
+                'venta' => $totalCantidadRepuestos,
+                'precioVenta' => $precioRepuestos,
+                'stockInicial' => $insumosTotalQuartz->stock,
+                'stockPostVenta'=> $totalStock,
+
+               ]); */
+
+                $ventaInsumos = DB::table('venta_insumos')->insert([ 
+
+                'venta' => $totalCantidadRepuestos,
+                'precioVenta' => $precioRepuestos,
+                'stockInicial' => $insumosTotalQuartz->stock,
+                'stockPostVenta'=> $totalStock,
+                'check_list_id' => $check->id,
+                'insumo_id' =>  $insumosTotalQuartz->id
+
+               ]); 
+             
+
                break;
  
                case 'Aceite Wolver 15w40':
  
                  $insumosWolver15w40 = Insumo::where('id',$insumos->id)->first();
  
-                 foreach ($request->cantidadRepuestos as $e => $value) {
+             /*     foreach ($request->cantidadRepuestos as $e => $value) { */
    
-                   $totalStock =  $insumosWolver15w40->stock -  $request->cantidadRepuestos[$e];
+                   $totalStock =  $insumosWolver15w40->stock -  $request->cantidadRepuestos[$i];
+                /*    $totalCantidadRepuestos = $request->cantidadRepuestos[$e];
+                   $precioRepuestos = $request->precioRepuestos[$e]; */
+
+                
    
-                 }
+               /*   } */
    
                  $insumosNow = Insumo::where('id',$insumos->id)->update([
    
@@ -914,6 +1111,27 @@ class CheckListController extends Controller
                  ]);
  
                  $check->insumos()->attach($insumosWolver15w40->id);
+
+             /*     $check->insumosVenta()->attach($insumosWolver15w40->id,[
+
+                  'venta' => $totalCantidadRepuestos,
+                  'precioVenta' => $precioRepuestos,
+                  'stockInicial' => $insumosWolver15w40->stock,
+                  'stockPostVenta'=> $totalStock,
+
+                 ]); */
+
+                  $ventaInsumos = DB::table('venta_insumos')->insert([ 
+
+                  'venta' => $totalCantidadRepuestos,
+                  'precioVenta' => $precioRepuestos,
+                  'stockInicial' => $insumosWolver15w40->stock,
+                  'stockPostVenta'=> $totalStock,
+                  'check_list_id' => $check->id,
+                  'insumo_id' =>   $insumosWolver15w40->id
+
+                 ]); 
+               
  
                  break;
  
@@ -924,11 +1142,15 @@ class CheckListController extends Controller
  
                    //dd($insumosWolver5w30);
    
-                   foreach ($request->cantidadRepuestos as $e => $value) {
+                  /*  foreach ($request->cantidadRepuestos as $e => $value) { */
      
-                     $totalStock =  $insumosWolver5w30->stock -  $request->cantidadRepuestos[$e];
+                     $totalStock =  $insumosWolver5w30->stock -  $request->cantidadRepuestos[$i];
+            /*          $totalCantidadRepuestos = $request->cantidadRepuestos[$e];
+                     $precioRepuestos = $request->precioRepuestos[$e]; */
+
+                   
      
-                   }
+               /*     } */
      
                    $insumosNow = Insumo::where('id',$insumos->id)->update([
      
@@ -937,6 +1159,26 @@ class CheckListController extends Controller
                    ]);
  
                    $check->insumos()->attach($insumosWolver5w30->id);
+
+                 /*   $check->insumosVenta()->attach($insumosWolver5w30->id,[
+
+                    'venta' => $totalCantidadRepuestos,
+                    'precioVenta' => $precioRepuestos,
+                    'stockInicial' => $insumosWolver5w30->stock,
+                    'stockPostVenta'=> $totalStock,
+
+                   ]); */
+
+                    $ventaInsumos = DB::table('venta_insumos')->insert([ 
+
+                    'venta' => $totalCantidadRepuestos,
+                    'precioVenta' => $precioRepuestos,
+                    'stockInicial' => $insumosWolver5w30->stock,
+                    'stockPostVenta'=> $totalStock,
+                    'check_list_id' => $check->id,
+                    'insumo_id' =>  $insumosWolver5w30->id
+
+                   ]); 
    
                    break;
              
@@ -1045,6 +1287,9 @@ class CheckListController extends Controller
 
            // dd($request->brand[$i]);
           if (is_numeric($request->brand[$i])) { 
+
+                $totalCantidadRepuestos = $request->cantidadRepuestos[$i];
+                $precioRepuestos = $request->precioRepuestos[$i]; 
             
             $insumos = Insumo::where('id',$request->brand[$i])->first();     
 
@@ -1054,11 +1299,15 @@ class CheckListController extends Controller
 
               $insumosTotalQuartz = Insumo::where('id',$insumos->id)->first();
 
-              foreach ($request->cantidadRepuestos as $e => $value) {
+             /*  foreach ($request->cantidadRepuestos as $e => $value) { */
 
-                $totalStock =  $insumosTotalQuartz->stock -  $request->cantidadRepuestos[$e];
+                $totalStock =  $insumosTotalQuartz->stock -  $request->cantidadRepuestos[$i];
+              /*   $totalCantidadRepuestos = $request->cantidadRepuestos[$e];
+                $precioRepuestos = $request->precioRepuestos[$e]; */
 
-              }
+               
+
+        /*       } */
 
               $insumosNow = Insumo::where('id',$insumos->id)->update([
 
@@ -1067,6 +1316,27 @@ class CheckListController extends Controller
               ]);
 
               $check->insumos()->attach($insumosTotalQuartz->id);
+
+            /*   $check->insumosVenta()->attach($insumosTotalQuartz->id,[
+
+                'venta' => $totalCantidadRepuestos,
+                'precioVenta' => $precioRepuestos,
+                'stockInicial' => $insumosTotalQuartz->stock,
+                'stockPostVenta'=> $totalStock,
+
+              ]); */
+
+               $ventaInsumos = DB::table('venta_insumos')->insert([ 
+
+                'venta' => $totalCantidadRepuestos,
+                'precioVenta' => $precioRepuestos,
+                'stockInicial' => $insumosTotalQuartz->stock,
+                'stockPostVenta'=> $totalStock,
+                'check_list_id' => $check->id,
+                'insumo_id' =>  $insumosTotalQuartz->id
+
+               ]); 
+            
               
               break;
 
@@ -1074,11 +1344,16 @@ class CheckListController extends Controller
 
                 $insumosWolver15w40 = Insumo::where('id',$insumos->id)->first();
 
-                foreach ($request->cantidadRepuestos as $e => $value) {
+              /*   foreach ($request->cantidadRepuestos as $e => $value) { */
   
-                  $totalStock =  $insumosWolver15w40->stock -  $request->cantidadRepuestos[$e];
+                  $totalStock =  $insumosWolver15w40->stock -  $request->cantidadRepuestos[$i];
+               /*    $totalCantidadRepuestos = $request->cantidadRepuestos[$e];
+                  $precioRepuestos = $request->precioRepuestos[$e]; */
+
+                 
   
-                }
+  
+           /*      } */
   
                 $insumosNow = Insumo::where('id',$insumos->id)->update([
   
@@ -1087,6 +1362,26 @@ class CheckListController extends Controller
                 ]);
 
                 $check->insumos()->attach($insumosWolver15w40->id);
+
+              /*   $check->insumosVenta()->attach($insumosWolver15w40->id,[
+
+                  'venta' => $totalCantidadRepuestos,
+                  'precioVenta' => $precioRepuestos,
+                  'stockInicial' => $insumosWolver15w40->stock,
+                  'stockPostVenta'=> $totalStock,
+
+                ]); */
+
+                 $ventaInsumos = DB::table('venta_insumos')->insert([ 
+
+                  'venta' => $totalCantidadRepuestos,
+                  'precioVenta' => $precioRepuestos,
+                  'stockInicial' => $insumosWolver15w40->stock,
+                  'stockPostVenta'=> $totalStock,
+                  'check_list_id' => $check->id,
+                  'insumo_id' =>   $insumosWolver15w40->id
+
+                 ]); 
 
                 break;
 
@@ -1097,11 +1392,15 @@ class CheckListController extends Controller
 
                   //dd($insumosWolver5w30);
   
-                  foreach ($request->cantidadRepuestos as $e => $value) {
+                 /*  foreach ($request->cantidadRepuestos as $e => $value) { */
     
-                    $totalStock =  $insumosWolver5w30->stock -  $request->cantidadRepuestos[$e];
+                    $totalStock =  $insumosWolver5w30->stock -  $request->cantidadRepuestos[$i];
+                  /*   $totalCantidadRepuestos = $request->cantidadRepuestos[$e];
+                    $precioRepuestos = $request->precioRepuestos[$e]; */
+
+                 
     
-                  }
+            /*       } */
     
                   $insumosNow = Insumo::where('id',$insumos->id)->update([
     
@@ -1110,6 +1409,27 @@ class CheckListController extends Controller
                   ]);
 
                   $check->insumos()->attach($insumosWolver5w30->id);
+
+               /*    $check->insumosVenta()->attach($insumosWolver5w30->id,[
+
+                    'venta' => $totalCantidadRepuestos,
+                    'precioVenta' => $precioRepuestos,
+                    'stockInicial' => $insumosWolver5w30->stock,
+                    'stockPostVenta'=> $totalStock,
+
+                  ]); */
+
+                   $ventaInsumos = DB::table('venta_insumos')->insert([ 
+
+                    'venta' => $totalCantidadRepuestos,
+                    'precioVenta' => $precioRepuestos,
+                    'stockInicial' => $insumosWolver5w30->stock,
+                    'stockPostVenta'=> $totalStock,
+                    'check_list_id' => $check->id,
+                    'insumo_id' =>  $insumosWolver5w30->id
+
+                   ]); 
+   
   
                   break;
             
@@ -1191,9 +1511,19 @@ return redirect()->route('check.index',$check);
         //dd($request->all());
 
         if (empty($request->workers)) {
-            Toastr::warning('Favor de Agregar Trabajadores', 'Sin Trabajadores', );
+            //Toastr::warning('Favor de Agregar Trabajadores', 'Sin Trabajadores', );
 
-            return redirect()->back();
+          
+
+       /*      return redirect()->back()->with('alert', [
+              'title' => 'Éxito!',
+              'text' => 'Operación realizada correctamente.',
+              'icon' => 'success'
+          ]); */
+
+
+          return redirect()->back()->with('error', 'Debes seleccionar uno o mas trabajadores para registrarlos en la faena.');
+
         }
 
         // Se obtiene el array de todos los trabajadores
@@ -1240,7 +1570,14 @@ return redirect()->route('check.index',$check);
         //Toastr::success('Agregado', 'Trabajadores agregados a la faena con éxito', );
     
        
-        return redirect()->route('check.show', $activeChore->id)->with('Mensaje', 'Trabajador agregado con éxito.');
+      /*   return redirect()->route('check.show', $activeChore->id)->with('Mensaje', 'Trabajador agregado con éxito.'); */
+
+      return redirect()->route('check.show', $activeChore->id)->with('alert', [
+        'title' => 'Éxito!',
+        'text' => 'Trabajador registrado correctamente.',
+        'icon' => 'success'
+    ]);
+
     }
 
     /**
