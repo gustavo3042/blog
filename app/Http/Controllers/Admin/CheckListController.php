@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use PDF;
 use App\Models\Worker;
+use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 
 use function PHPUnit\Framework\isEmpty;
@@ -541,6 +542,8 @@ class CheckListController extends Controller
                     'precioVenta' => $precioRepuestos,
                     'stockInicial' => $insumosTotalQuartz->stock,
                     'stockPostVenta'=> $totalStock,
+                    'totalVenta'=> $totalCantidadRepuestos *  $precioRepuestos,
+                    'fechaVenta' => Carbon::now(),
                     'check_list_id' => $check->id,
                     'insumo_id' =>  $insumosTotalQuartz->id
 
@@ -587,6 +590,8 @@ class CheckListController extends Controller
                       'precioVenta' => $precioRepuestos,
                       'stockInicial' => $insumosWolver15w40->stock,
                       'stockPostVenta'=> $totalStock,
+                      'totalVenta'=> $totalCantidadRepuestos *  $precioRepuestos,
+                      'fechaVenta' => Carbon::now(),
                       'check_list_id' => $check->id,
                       'insumo_id' =>   $insumosWolver15w40->id
   
@@ -637,6 +642,8 @@ class CheckListController extends Controller
                         'precioVenta' => $precioRepuestos,
                         'stockInicial' => $insumosWolver5w30->stock,
                         'stockPostVenta'=> $totalStock,
+                        'totalVenta'=> $totalCantidadRepuestos *  $precioRepuestos,
+                        'fechaVenta' => Carbon::now(),
                         'check_list_id' => $check->id,
                         'insumo_id' =>  $insumosWolver5w30->id
     
@@ -784,6 +791,8 @@ class CheckListController extends Controller
                     'precioVenta' => $precioRepuestos,
                     'stockInicial' => $insumosTotalQuartz->stock,
                     'stockPostVenta'=> $totalStock,
+                    'totalVenta'=> $totalCantidadRepuestos *  $precioRepuestos,
+                    'fechaVenta' => Carbon::now(),
                     'check_list_id' => $check->id,
                     'insumo_id' =>  $insumosTotalQuartz->id
 
@@ -828,6 +837,8 @@ class CheckListController extends Controller
                       'precioVenta' => $precioRepuestos,
                       'stockInicial' => $insumosWolver15w40->stock,
                       'stockPostVenta'=> $totalStock,
+                      'totalVenta'=> $totalCantidadRepuestos *  $precioRepuestos,
+                      'fechaVenta' => Carbon::now(),
                       'check_list_id' => $check->id,
                       'insumo_id' =>   $insumosWolver15w40->id
   
@@ -875,6 +886,8 @@ class CheckListController extends Controller
                         'precioVenta' => $precioRepuestos,
                         'stockInicial' => $insumosWolver5w30->stock,
                         'stockPostVenta'=> $totalStock,
+                        'totalVenta'=> $totalCantidadRepuestos *  $precioRepuestos,
+                        'fechaVenta' => Carbon::now(),
                         'check_list_id' => $check->id,
                         'insumo_id' =>  $insumosWolver5w30->id
     
@@ -1082,6 +1095,8 @@ class CheckListController extends Controller
                 'precioVenta' => $precioRepuestos,
                 'stockInicial' => $insumosTotalQuartz->stock,
                 'stockPostVenta'=> $totalStock,
+                'totalVenta'=> $totalCantidadRepuestos *  $precioRepuestos,
+                'fechaVenta' => Carbon::now(),
                 'check_list_id' => $check->id,
                 'insumo_id' =>  $insumosTotalQuartz->id
 
@@ -1127,6 +1142,8 @@ class CheckListController extends Controller
                   'precioVenta' => $precioRepuestos,
                   'stockInicial' => $insumosWolver15w40->stock,
                   'stockPostVenta'=> $totalStock,
+                  'totalVenta'=> $totalCantidadRepuestos *  $precioRepuestos,
+                  'fechaVenta' => Carbon::now(),
                   'check_list_id' => $check->id,
                   'insumo_id' =>   $insumosWolver15w40->id
 
@@ -1175,6 +1192,8 @@ class CheckListController extends Controller
                     'precioVenta' => $precioRepuestos,
                     'stockInicial' => $insumosWolver5w30->stock,
                     'stockPostVenta'=> $totalStock,
+                    'totalVenta'=> $totalCantidadRepuestos *  $precioRepuestos,
+                    'fechaVenta' => Carbon::now(),
                     'check_list_id' => $check->id,
                     'insumo_id' =>  $insumosWolver5w30->id
 
@@ -1332,6 +1351,8 @@ class CheckListController extends Controller
                 'precioVenta' => $precioRepuestos,
                 'stockInicial' => $insumosTotalQuartz->stock,
                 'stockPostVenta'=> $totalStock,
+                'totalVenta'=> $totalCantidadRepuestos *  $precioRepuestos,
+                'fechaVenta' => Carbon::now(),
                 'check_list_id' => $check->id,
                 'insumo_id' =>  $insumosTotalQuartz->id
 
@@ -1378,6 +1399,8 @@ class CheckListController extends Controller
                   'precioVenta' => $precioRepuestos,
                   'stockInicial' => $insumosWolver15w40->stock,
                   'stockPostVenta'=> $totalStock,
+                  'totalVenta'=> $totalCantidadRepuestos *  $precioRepuestos,
+                  'fechaVenta' => Carbon::now(),
                   'check_list_id' => $check->id,
                   'insumo_id' =>   $insumosWolver15w40->id
 
@@ -1425,6 +1448,8 @@ class CheckListController extends Controller
                     'precioVenta' => $precioRepuestos,
                     'stockInicial' => $insumosWolver5w30->stock,
                     'stockPostVenta'=> $totalStock,
+                    'totalVenta'=> $totalCantidadRepuestos *  $precioRepuestos,
+                    'fechaVenta' => Carbon::now(),
                     'check_list_id' => $check->id,
                     'insumo_id' =>  $insumosWolver5w30->id
 

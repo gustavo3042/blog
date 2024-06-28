@@ -19,13 +19,16 @@ class CreateVentaInsumosTable extends Migration
             $table->integer('precioVenta')->nullable();
             $table->integer('stockInicial')->nullable();
             $table->integer('stockPostVenta')->nullable();
+            $table->integer('totalVenta')->nullable();
+            $table->date('fechaVenta')->nullable();
             $table->unsignedBigInteger('check_list_id')->nullable();
             $table->unsignedBigInteger('insumo_id');
 
             $table->foreign('check_list_id')->nullable()->references('id')->on('check_lists')->onDelete('cascade');
             $table->foreign('insumo_id')->references('id')->on('insumos')->onDelete('cascade');
 
-            $table->timestamps();
+          /*   $table->timestamp('timestamps')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps(); */
         });
     }
 

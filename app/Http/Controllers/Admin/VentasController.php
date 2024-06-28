@@ -17,6 +17,13 @@ class VentasController extends Controller
         return view('admin.ventas.index');
     }
 
+    public function createVenta($id){
+
+
+        return view('admin.ventas.createVentas',compact('id'));
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +31,9 @@ class VentasController extends Controller
      */
     public function create()
     {
-        //
+    
+      //  return view('admin.ventas.create');
+
     }
 
     /**

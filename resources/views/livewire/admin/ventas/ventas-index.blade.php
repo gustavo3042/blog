@@ -19,6 +19,7 @@
                <th>Costo Reparaciones</th>
                <th>Cantidad</th>
                <th>Costo Unitario</th>
+               <th>Estado</th>
                <th>Acciones</th>
            </tr>
        </thead>
@@ -97,7 +98,16 @@
  
  
                  
- 
+                   <td>
+                     @if ($item->statusNow == 2)
+                     <span class="badge badge-success">Trabajo Terminado</span>
+                     @elseif($item->statusNow == 1)
+                     <span class="badge badge-danger">Trabajo En Proceso</span>
+                     @endif
+               
+
+
+                  </td>
  
               
  
@@ -127,6 +137,7 @@
              <td></td>
              <td></td>
              <td></td>
+             <td></td>
              <td><p class="font-weight-bold">Total:{{ $totalPrice }}</p></td>
           </tr>
        </tfoot>
@@ -148,12 +159,13 @@
   <table class="table">
      <thead>
          <tr>
-             <th>ID</th>
+      
              <th>Nombre</th>
              <th>Descripción</th>
              <th>Stock</th>
              <th>Precio Compra</th>
              <th>Precio Venta</th>
+             <th>Ventas</th>
              <th>Acciones</th>
             
          </tr>
@@ -163,33 +175,34 @@
  
        @php
            
-           $acumInsumos = 0;
+           $totalVentas = 0;
   
        @endphp
  
  
          @foreach ($insumos as $values)
          <tr>   
-          <td>{{$values->id}}</td>
+       
           <td>{{$values->name}}</td>
           <td>{{$values->descripcion}}</td>
           <td>{{$values->stock}}</td>
           <td>{{$values->precioCompra}}</td>
           <td>{{$values->precio}}</td>
+          <td>{{$values->totalVentas()}}</td>
             
  
           <td>
  
              <div class="btn-group">
  
-                <a class="btn btn-info btn-sm" href="">Generar Venta</a>
+                <a class="btn btn-info btn-sm" href="{{route('ventas.createVenta',$values->id)}}">Generar Venta</a>
  
              </div>
  
           </td>
                  
           @php
-              $acumInsumos += $values->precioCompra * $values->stock; 
+           $totalVentas += $values->totalVentas();
           @endphp
             
          </tr>
@@ -206,7 +219,7 @@
            <td></td>
            <td></td>
          
-           <td><p class="font-weight-bold">Total:{{ $acumInsumos }}</p></td>
+           <td><p class="font-weight-bold">Total:{{ $totalVentas }}</p></td>
         </tr>
      </tfoot>
    
