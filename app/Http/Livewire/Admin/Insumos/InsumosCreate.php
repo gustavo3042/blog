@@ -21,8 +21,14 @@ class InsumosCreate extends Component
     public $status;
     public $tipoProducto;
     public $file;
+    public $image;
 
-
+ /*    public function updatedPhoto()
+    {
+        if ($this->photo) {
+            $this->photoPreview = $this->photo->temporaryUrl();
+        }
+    } */
 
     public function render()
     {

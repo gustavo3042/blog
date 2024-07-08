@@ -13,7 +13,7 @@
    <table class="table">
       <thead>
           <tr>
-              <th>ID</th>
+              
               <th>Patente</th>
               <th>Reparaciones</th>
               <th>Costo Repuestos</th>
@@ -35,7 +35,7 @@
 
           @foreach ($registros as $item)
           <tr>
-              <td scope="row">{{$item->id}}</td>
+             {{--  <td scope="row">{{$item->id}}</td> --}}
               <td>{{$item->patente}}</td>
 
 
@@ -113,12 +113,13 @@
                 </ul>
                </td>
                @endforeach
+               <td>{{$item->fecha}}</td>
 
                <td>
 
                   <div class="btn-group">
 
-                     <a class="btn btn-success btn-sm" href="">Reparación</a>
+                     <a class="btn btn-info btn-sm" href="">Reparación</a>
 
                   </div>
 
@@ -197,7 +198,7 @@
 
             <div class="btn-group">
 
-               <a class="btn btn-success btn-sm" href="">Reparación</a>
+               <a class="btn btn-info btn-sm" href="">Generar Compra</a>
 
             </div>
 

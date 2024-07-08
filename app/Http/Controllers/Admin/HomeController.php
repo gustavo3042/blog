@@ -23,8 +23,39 @@ class HomeController extends Controller
      $startOfMonth = Carbon::now()->startOfMonth();
     $endOfMonth = Carbon::now()->endOfMonth();
 
-    $totalVentas = Presupuesto::whereBetween('created_at', [$startOfMonth, $endOfMonth])->sum('total');
+    //$totalVentas = Presupuesto::whereBetween('created_at', [$startOfMonth, $endOfMonth])->sum('total');
 
+      $totalVentas = CheckList::join('presupuestos','presupuestos.check_lists_id','=','check_lists.id')
+      
+      ->whereBetween('check_lists.fecha',[$startOfMonth, $endOfMonth])->sum('presupuestos.total');
+
+
+   //   dd($totalVentas);
+   // $totalVentas->load('presupuestos'); 
+
+      /* $ar = array();
+      $sumAr = 0;
+    foreach ($totalVentas as $dt) {
+
+      $ar[] = $dt->presupuestos;
+
+      foreach ($dt as  $value) {
+
+        $sumAr += $value->total;
+       
+      
+      } 
+        }  
+      */
+
+      
+
+
+  
+
+  
+ 
+  
 /* 
     $totalCompras = Presupuesto::join('presupuesto_details','presupuesto_details.presupuestos_id','=','presupuestos.id')
     ->whereBetween('created_at', [$startOfMonth, $endOfMonth])->sum('totalRepuestos'); */
@@ -32,7 +63,7 @@ class HomeController extends Controller
     $totalCompras = CheckList::join('presupuestos','presupuestos.check_lists_id','=','check_lists.id')
     ->join('presupuesto_details','presupuesto_details.presupuestos_id','=','presupuestos.id')
    // ->where('check_lists.statusNow',2)
-    ->whereBetween('check_lists.created_at', [$startOfMonth, $endOfMonth])
+    ->whereBetween('check_lists.fecha', [$startOfMonth, $endOfMonth])
     ->sum('presupuesto_details.totalRepuestos');
  
 
@@ -64,24 +95,27 @@ class HomeController extends Controller
   ]; */
 
 
+            $allMonths1 = array_fill(1, 12, 0);
 
 
-
-            $totals = Presupuesto::join('check_lists','check_lists.id','=','presupuestos.check_lists_id')
-            ->select('check_lists.statusNow as statusNow',
+            $totals1 =   DB::table('check_lists')
+            ->join('presupuestos','presupuestos.check_lists_id','=','check_lists.id')
+            
+            ->select(
             DB::raw('SUM(presupuestos.total) as total'),
-            DB::raw('MONTH(presupuestos.created_at) as month'))
-            ->where('check_lists.statusNow',2)
-            ->groupBy('month','statusNow')
+            DB::raw('MONTH(check_lists.fecha) as month'))
+           // ->whereBetween('check_lists.fecha', [$startOfMonth, $endOfMonth]) 
+           // ->where('check_lists.statusNow',2)
+            ->groupBy('month')
             ->get()
-            ->keyBy('month')
+            ->keyBy('month','statusNow')
             ->map(function ($item) {
                 return 
                   $item->total;  
             })
             ->toArray(); 
 
-            
+            $totals = array_replace($allMonths1, $totals1);
 
           /*   $this->coursesAll = Course::where('teachingType_id', $dt)->with('grade')->get(); */
 
@@ -102,22 +136,33 @@ class HomeController extends Controller
 
       
 
-        
+            $allMonths = array_fill(1, 12, 0);
+       
 
-            $totalComprasMes = DB::table('presupuestos')
+            $totalsComprasMes = DB::table('check_lists')
+            ->join('presupuestos','presupuestos.check_lists_id','=','check_lists.id')
             ->join('presupuesto_details','presupuesto_details.presupuestos_id','=','presupuestos.id')
           
-            ->select(DB::raw('SUM(presupuesto_details.totalRepuestos) as total, MONTH(presupuestos.created_at) as month'))
+            ->select(DB::raw('SUM(presupuesto_details.totalRepuestos) as total, MONTH(check_lists.fecha) as month'))
            
             ->groupBy('month')
+          /*   ->orderBy('month') */
             ->get()
             ->keyBy('month')
             ->map(function ($item) {
-                return $item->total;
+
+              
+                return
+
+                 $item->total;
+                  
+                
             })
             ->toArray();
 
-           // dd($totalComprasMes);
+            $totalComprasMes = array_replace($allMonths, $totalsComprasMes);
+
+        //   dd($totalComprasMes);
     
 
   $sales = Presupuesto::all();

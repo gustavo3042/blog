@@ -122,11 +122,12 @@
         
           <div class="form-group">
         
-            {!! Form::label('file','Imagen de la falla') !!}
+    {{--         {!! Form::label('file','Imagen de la falla') !!}
           
-            {!! Form::file('file',['class'=>'form-control-file','accept'=>'image/*','wire:model' => 'file']) !!}
+            {!! Form::file('file',['class'=>'form-control-file','accept'=>'image/*','wire:model' => 'file']) !!} --}}
 
-
+            <input type="file" id="file" wire:model="image">
+          
         
             @error ('file')
         

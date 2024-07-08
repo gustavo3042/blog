@@ -266,22 +266,62 @@ class CheckListController extends Controller
         foreach ($request->product_name as $key => $value) {
         
 
-          $data = array(
+          //Aceite Total Quartz,Aceite Wolver 15w40,Aceite Wolver 5w30
 
-            'trabajo' => $request->product_name[$key],
-            'descripcion' => $request->brand[$key],
-            'cantidadRepuestos' => $request->cantidadRepuestos[$key],
-            'precioRepuestos' => $request->precioRepuestos[$key],
-            'totalRepuestos' => $request->precioRepuestos[$key] * $request->cantidadRepuestos[$key] ,
+          if ($request->brand[$key] == 1) {
+            
+            $data = array(
 
-            'cantidad' => $request->quantity[$key],
-            'precio'=> $request->budget[$key],
-            'amount' => $request->amount[$key],
-            'presupuestos_id' => $dt->id
+              'trabajo' => $request->product_name[$key],
+              'descripcion' => 'Aceite Total Quartz',
+              'cantidadRepuestos' => $request->cantidadRepuestos[$key],
+              'precioRepuestos' => $request->precioRepuestos[$key],
+              'totalRepuestos' => $request->precioRepuestos[$key] * $request->cantidadRepuestos[$key] ,
+  
+              'cantidad' => $request->quantity[$key],
+              'precio'=> $request->budget[$key],
+              'amount' => $request->amount[$key],
+              'presupuestos_id' => $dt->id
+  
+            );
 
-          );
+          }elseif ($request->brand[$key] == 2) {
 
-        
+            $data = array(
+
+              'trabajo' => $request->product_name[$key],
+              'descripcion' => 'Aceite Wolver 15w40',
+              'cantidadRepuestos' => $request->cantidadRepuestos[$key],
+              'precioRepuestos' => $request->precioRepuestos[$key],
+              'totalRepuestos' => $request->precioRepuestos[$key] * $request->cantidadRepuestos[$key] ,
+  
+              'cantidad' => $request->quantity[$key],
+              'precio'=> $request->budget[$key],
+              'amount' => $request->amount[$key],
+              'presupuestos_id' => $dt->id
+  
+            );
+            
+          }elseif ($request->brand[$key] == 3) {
+
+
+            $data = array(
+
+              'trabajo' => $request->product_name[$key],
+              'descripcion' => 'Aceite Wolver 5w30',
+              'cantidadRepuestos' => $request->cantidadRepuestos[$key],
+              'precioRepuestos' => $request->precioRepuestos[$key],
+              'totalRepuestos' => $request->precioRepuestos[$key] * $request->cantidadRepuestos[$key] ,
+  
+              'cantidad' => $request->quantity[$key],
+              'precio'=> $request->budget[$key],
+              'amount' => $request->amount[$key],
+              'presupuestos_id' => $dt->id
+  
+            );
+            
+
+          }
 
           PresupuestoDetails::insert($data);
 

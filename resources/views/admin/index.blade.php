@@ -9,6 +9,10 @@
 @section('content')
  
 
+    @if (auth()->user()->hasRole('Admin'))
+        
+  
+
     <div class="content-wrapper">
         <div class="page-header mt-5">
             <h3 class="page-title">
@@ -184,13 +188,35 @@
 
         </div>
     
-       
+    </div>
             
-        </div>
+ </div>
+
+
+ @elseif(auth()->user()->hasRole('Cliente'))
+
+
+ <div class="card mt-4">
+
+
+    <div class="card-header">
+
+        <h1 class="card-title">Bienvenido al Programa</h1>
+
+    </div>
+
+    <div class="card-body">
+
+
+    </div>
+
+ </div>
+
+ 
 
 
      
-    
+ @endif
       
 
 @stop
@@ -199,6 +225,11 @@
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
+
+@php
+    
+
+@endphp
 
 @section('js')
     <script> console.log('Hi!');</script>
@@ -213,15 +244,43 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
+   {{--  <script>
+        document.addEventListener('livewire:load', function () {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre'],
+                    datasets: [{
+                        label: 'Ganancias al Mes',
+                        data: @json(array_values($totals)),
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script> --}}
+
+
+
     <script>
         document.addEventListener('livewire:load', function () {
             const ctx = document.getElementById('myChart').getContext('2d');
             const chart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre'],
+                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
                     datasets: [{
-                        label: 'Ganancias al Mes',
+                        label: 'Ganancias Mes',
                         data: @json(array_values($totals)),
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderColor: 'rgba(75, 192, 192, 1)',
@@ -241,13 +300,56 @@
 
 
 
-<script>
+{{-- <script>
+    document.addEventListener('livewire:load', function () {
+        const ctx = document.getElementById('myChartCompras').getContext('2d');
+
+        // Definir los nombres de los meses
+        const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+        // Obtener los datos desde PHP
+        const totals = @json($totalComprasMes);
+
+        // Crear los labels y datos para el gráfico
+        const labels = [];
+        const data = [];
+        for (const [month, total] of Object.entries(totals)) {
+            labels.push(monthNames[month - 1]);
+            data.push(total);
+        }
+
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Compras Mes',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script> --}}
+
+
+
+{{-- <script>
     document.addEventListener('livewire:load', function () {
         const ctx = document.getElementById('myChartCompras').getContext('2d');
         const chart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre'],
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre'],
                 datasets: [{
                     label: 'Compras Repuestos Mes',
                     data: @json(array_values($totalComprasMes)),
@@ -265,7 +367,7 @@
             }
         });
     });
-</script>
+</script> --}}
 
 
  
@@ -312,6 +414,34 @@
         });
     });
 </script> --}}
+
+
+
+<script>
+    document.addEventListener('livewire:load', function () {
+        const ctx = document.getElementById('myChartCompras').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                datasets: [{
+                    label: 'Compra Repuestos',
+                    data: @json(array_values($totalComprasMes)),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
 
 
 @stop

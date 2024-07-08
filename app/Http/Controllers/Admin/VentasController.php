@@ -12,6 +12,14 @@ class VentasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(){
+
+        $this->middleware('can:admin.ventas.index')->only('index');
+        $this->middleware('can:admin.ventas.createVenta')->only('createVenta');
+       
+      }
+
     public function index()
     {
         return view('admin.ventas.index');

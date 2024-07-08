@@ -36,7 +36,7 @@ class ComprasIndex extends Component
        $compras->load('presupuestos');
  */
 
-      $registros = CheckList::whereBetween('created_at', [$inicioDeMes, $finDeMes])->with('presupuestos')->get();
+      $registros = CheckList::whereBetween('fecha', [$inicioDeMes, $finDeMes])->with('presupuestos')->get();
       $insumos  = Insumo::whereBetween('created_at',[$inicioDeMes, $finDeMes])->get();
 
       //dd($registros,$insumos);

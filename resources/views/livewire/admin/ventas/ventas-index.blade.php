@@ -115,7 +115,7 @@
  
                    <div class="btn-group">
  
-                      <a class="btn btn-success btn-sm" href="{{route('check.show',$item->id)}}">Reparación</a>
+                      <a class="btn btn-info btn-sm" href="{{route('check.show',$item->id)}}">Reparación</a>
  
                    </div>
  

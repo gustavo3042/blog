@@ -185,6 +185,26 @@ Permission::create(['name' => 'admin.foroCategory.destroy','description'=>'Borra
 ->syncRoles([$role1]);   
 
 
+Permission::create(['name' => 'admin.foroPosts.index','description'=>'Ver vista index de Foro'])
+->syncRoles([$role1,$role2,$role3]);   
+
+Permission::create(['name' => 'admin.foroPosts.create','description'=>'Vista para crear un post en el foro'])
+->syncRoles([$role1,$role2,$role3]);   
+
+Permission::create(['name' => 'admin.foroPosts.edit','description'=>'Vista para editar un post en el foro'])
+->syncRoles([$role1,$role2,$role3]);   
+
+Permission::create(['name' => 'admin.foroPosts.destroy','description'=>'Borrar foro'])
+->syncRoles([$role1,$role2,$role3]);   
+
+
+Permission::create(['name' => 'admin.ventas.index','description'=>'Vista index ventas'])
+->syncRoles([$role1]);   
+
+Permission::create(['name' => 'admin.ventas.createVenta','description'=>'Crear venta'])
+->syncRoles([$role1]);   
+
+
 //    $role1->permission()->attach([1,2,3....]); una forma para llenar los campos de la tabla role_has_permissions para asignar determinados permisos a un rol
 
 
