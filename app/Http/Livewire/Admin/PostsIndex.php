@@ -4,14 +4,14 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\Post;
-use Livewire\withPagination;
+use Livewire\WithPagination;
 use Illuminate\Http\Request;
 
 class PostsIndex extends Component
 {
 
 
-  use withPagination;
+  use WithPagination;
 
  protected $paginationTheme= "bootstrap";
 
