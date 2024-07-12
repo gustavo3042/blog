@@ -9,7 +9,7 @@ use App\Models\Reparaciones;
 use App\Models\User;
 use App\Models\Cliente;
 use App\Models\Insumo;
-use Livewire\withPagination;
+use Livewire\WithPagination;
 use Illuminate\Http\Request;
 use App\Models\Kilometraje;
 
@@ -17,7 +17,7 @@ class CheckCreate extends Component
 {
 
 
-    use withPagination;
+    use WithPagination;
 
     protected $paginationTheme= "bootstrap";
   
