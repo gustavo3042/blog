@@ -129,11 +129,11 @@
             <input type="file" id="file" wire:model="file">
           
         
-            @error ('file')
+        {{--     @error ('file')
         
               <span class="text-danger">{{$message}}</span>
         
-            @enderror
+            @enderror --}}
         
           </div>
         

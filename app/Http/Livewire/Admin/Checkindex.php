@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Admin;
 use Livewire\Component;
 use App\Models\CheckList;
 
-use Livewire\withPagination;
+use Livewire\WithPagination;
 
 
 
@@ -13,7 +13,7 @@ class Checkindex extends Component
 {
 
 
-    use withPagination;
+    use WithPagination;
 
     protected $paginationTheme= "bootstrap";
   
