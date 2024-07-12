@@ -8,7 +8,7 @@
 
 
 
-    <h1 style="font-weight: bold;" class="text-center">Foro Clientes2</h1>
+    <h1 style="font-weight: bold;" class="text-center">Foro Clientes</h1>
 
 
   </div>

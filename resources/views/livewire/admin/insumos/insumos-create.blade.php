@@ -126,7 +126,7 @@
           
             {!! Form::file('file',['class'=>'form-control-file','accept'=>'image/*','wire:model' => 'file']) !!} --}}
 
-            <input type="file" id="file" wire:model="image">
+            <input type="file" id="file" wire:model="file">
           
         
             @error ('file')

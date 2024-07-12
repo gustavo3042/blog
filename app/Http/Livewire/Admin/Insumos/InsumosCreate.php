@@ -51,6 +51,8 @@ class InsumosCreate extends Component
            
         ]);
 
+      //  dd($this->file);
+
         if ($this->file) { //pregunta si existe una imagen
 
             //mover imagen a la carpeta storage si cumple la condicion if
