@@ -3,13 +3,13 @@
 namespace App\Http\Livewire\Admin\Workers;
 
 use Livewire\Component;
-use Livewire\withPagination;
+use Livewire\WithPagination;
 use App\Models\Worker;
 
 class WorkersIndex extends Component
 {
 
-    use withPagination;
+    use WithPagination;
 
     protected $paginationTheme= "bootstrap";
 
