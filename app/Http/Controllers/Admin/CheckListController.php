@@ -270,7 +270,7 @@ class CheckListController extends Controller
 
           if ($request->brand[$key] == 1) {
             
-            $data = array(
+            $$dataKillometros = array(
 
               'trabajo' => $request->product_name[$key],
               'descripcion' => 'Aceite Total Quartz',
@@ -287,7 +287,7 @@ class CheckListController extends Controller
 
           }elseif ($request->brand[$key] == 2) {
 
-            $data = array(
+            $$dataKillometros = array(
 
               'trabajo' => $request->product_name[$key],
               'descripcion' => 'Aceite Wolver 15w40',
@@ -305,7 +305,7 @@ class CheckListController extends Controller
           }elseif ($request->brand[$key] == 3) {
 
 
-            $data = array(
+            $$dataKillometros = array(
 
               'trabajo' => $request->product_name[$key],
               'descripcion' => 'Aceite Wolver 5w30',
@@ -323,7 +323,7 @@ class CheckListController extends Controller
 
           }
 
-          PresupuestoDetails::insert($data);
+          PresupuestoDetails::insert($dataKillometros);
 
         }
 
