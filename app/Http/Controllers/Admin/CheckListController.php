@@ -268,9 +268,11 @@ class CheckListController extends Controller
 
           //Aceite Total Quartz,Aceite Wolver 15w40,Aceite Wolver 5w30
 
+          $dataKillometros = array();
+
           if ($request->brand[$key] == 1) {
             
-            $$dataKillometros = array(
+            $dataKillometros = array(
 
               'trabajo' => $request->product_name[$key],
               'descripcion' => 'Aceite Total Quartz',
@@ -287,7 +289,7 @@ class CheckListController extends Controller
 
           }elseif ($request->brand[$key] == 2) {
 
-            $$dataKillometros = array(
+            $dataKillometros = array(
 
               'trabajo' => $request->product_name[$key],
               'descripcion' => 'Aceite Wolver 15w40',
@@ -305,7 +307,7 @@ class CheckListController extends Controller
           }elseif ($request->brand[$key] == 3) {
 
 
-            $$dataKillometros = array(
+            $dataKillometros = array(
 
               'trabajo' => $request->product_name[$key],
               'descripcion' => 'Aceite Wolver 5w30',
