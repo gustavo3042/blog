@@ -9,7 +9,8 @@
        <h3>Reparaciones</h3>
  
       </div>
- 
+
+   <div class="table-responsive">
     <table class="table">
        <thead>
            <tr>
@@ -144,7 +145,7 @@
      
    </table>
  
- 
+ </div>
  </div>
  
  
@@ -155,7 +156,8 @@
      <h3>Venta Insumos y Productos</h3>
  
     </div>
- 
+
+<div class="table-responsive">
   <table class="table">
      <thead>
          <tr>
@@ -224,6 +226,7 @@
      </tfoot>
    
  </table>
+</div>
  
  
  </div>

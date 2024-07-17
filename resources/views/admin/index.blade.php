@@ -124,7 +124,7 @@
                     <h3>Reparaciones del Mes</h3>
                 </div>
 
-
+                <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -133,6 +133,7 @@
                                     <th>Total</th>
                                     <th>Reparaciones</th>
                                     <th>Estado</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -170,13 +171,23 @@
 
 
                                     </td>
+
+                                    <td>
+ 
+                                        <div class="btn-group">
+                      
+                                           <a class="btn btn-info btn-sm" href="{{route('check.show',$item->id)}}">Reparación</a>
+                      
+                                        </div>
+                      
+                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
 
 
-            
+                        </div>
 
 
 
