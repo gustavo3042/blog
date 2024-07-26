@@ -32,6 +32,7 @@ use App\Http\Livewire\Admin\Insumos\InsumosEdit;
 use App\Http\Controllers\Admin\ComprasController;
 use App\Http\Controllers\Admin\VentasController;
 use App\Http\Livewire\Admin\Ventas\VentasCreate;
+use App\Http\Livewire\Admin\Ventas\DynamicForm;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -68,6 +69,7 @@ Route::resource('compras','App\Http\Controllers\Admin\ComprasController');
 
 Route::resource('ventas','App\Http\Controllers\Admin\VentasController');
 Route::get('ventas/{id}/createVentas',[VentasController::class, 'createVenta'])->name('ventas.createVenta');
+Route::get('dynamic-form',[VentasController::class, 'dynamicForm'])->name('ventas.dynamicForm');
 
 
 Route::resource('check','App\Http\Controllers\Admin\CheckListController');

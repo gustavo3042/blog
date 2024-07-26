@@ -35,8 +35,11 @@
         
       <form action="{{route('foro.buscar')}}" method="GET" class="float-right">
 
-         <input  type="text" name="buscar" class="" placeholder="Ingrese Patente">
+        <label for="">Ingrese Patente <p>
+         <input  type="text" name="buscar" class="" placeholder="BWT0-20">
          <button class="btn-primary" type="submit">Buscar</button>
+        </p>
+        </label>
 
       </form>
      

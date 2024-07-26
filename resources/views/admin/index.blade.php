@@ -214,6 +214,47 @@
 
         <h1 class="card-title">Bienvenido al Programa</h1>
 
+        <div class="container mt-5">
+            <div class="row">
+              <!-- Card 1 -->
+              <div class="col-md-4">
+                <div class="card">
+                 
+                  <div class="card-body">
+                    <h5 class="card-title">Consulta tus reparaciones</h5>
+                    <p class="card-text">Consulta el historial de reparaciones ingresando la patente de tu vehículo.</p>
+                    <a href="{{route('foro.index')}}" class="btn btn-primary"><i class="fas fa-wrench"></i>Historial</a>
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Card 2 -->
+              <div class="col-md-4">
+                <div class="card">
+                  
+                  <div class="card-body">
+                    <h5 class="card-title">Crear Post</h5>
+                    <p class="card-text">Puedes crear un post de consultas,reparaciones o compras de insumos.</p>
+                    <a href="{{route('foroPosts.create')}}" class="btn btn-primary"><i class="fas fa-file"></i>Crear Post</a>
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Card 3 -->
+              <div class="col-md-4">
+                <div class="card">
+                 
+                  <div class="card-body">
+                    <h5 class="card-title">Ir al foro del taller.</h5>
+                    <p class="card-text">Revisa y comenta los post en el foro del taller.</p>
+                    <a href="{{route('foro.consultas')}}" class="btn btn-primary"><i class="fas fa-check"></i>Foro</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
     </div>
 
     <div class="card-body">

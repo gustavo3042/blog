@@ -7,6 +7,8 @@
       <div class="card-title">
  
        <h3>Reparaciones</h3>
+
+       <a class="btn btn-primary" href="{{route('ventas.dynamicForm')}}">Dinamicos</a>
  
       </div>
 

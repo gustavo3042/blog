@@ -32,6 +32,14 @@ class VentasController extends Controller
 
     }
 
+
+    public function dynamicForm(){
+        
+
+        return view('admin.ventas.dynamicForm');
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
