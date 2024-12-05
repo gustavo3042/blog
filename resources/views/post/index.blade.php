@@ -2,7 +2,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <header class="bg-white shadow">
       <div class="container mx-auto flex justify-between items-center py-6 px-4">
-          <div class="text-3xl font-bold">Mecánica Ríos</div>
+          <div class="text-3xl font-bold">Mecánica Rios</div>
           <nav>
               <a href="{{ route('posts.sobreNosotros') }}" class="px-4 py-2 text-blue-600 hover:text-blue-800">Sobre Nosotros</a>
               <!-- Agrega más enlaces según sea necesario -->
