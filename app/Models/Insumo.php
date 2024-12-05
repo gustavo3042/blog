@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Insumo extends Model
 {
@@ -21,10 +22,10 @@ class Insumo extends Model
     }
 
 
-    public function checkList(){
+    public function checkList():BelongsToMany{
 
 
-        return $this->belongsToMany(CheckList::class);
+        return $this->belongsToMany(CheckList::class,'insumos_check_list','insumo_id','check_list_id');
       }
 
 

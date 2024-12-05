@@ -1,3 +1,38 @@
+
+{{-- <style>
+  .image-wrapper{
+position: relative;
+padding-bottom: 56.25%;
+
+  }
+
+  .image-wrapper img{
+
+position: absolute;
+object-fit: cover;
+width: 100%;
+height: 100%;
+  }
+
+</style> --}}
+
+{{-- 
+<style>
+
+  th,td{
+    font-size: 13px;
+  }
+
+label {
+            font-size: 13px;
+        }
+
+        input {
+            font-size: 13px;
+        }
+
+</style> --}}
+
 <div>
 
 
@@ -108,7 +143,7 @@
 
             <div class="form-group">
                 <label for="fecha">Fecha</label>
-                <input type="text" wire:model="fecha"  class="form-control" placeholder="Ingrese fecha de ingreso">
+                <input type="date" wire:model="fecha"  class="form-control" placeholder="Ingrese fecha de ingreso">
                   @error ('fecha')
         
                     <small class="text-danger">{{$message}}</small>
@@ -279,7 +314,7 @@
                          <div class="form-group">
                             <label for="kilometraje">Kilometraje</label>
                     
-                            <input type="number" wire:model="kilometraje"  class="form-control" placeholder="Ingrese Kilometraje">
+                            <input type="number" wire:model.live="kilometraje"  class="form-control" placeholder="Ingrese Kilometraje">
                     
                     
                     
@@ -297,18 +332,47 @@
     </div>
 </div>
 
+
+{{$this->autos1}}
+    
+
  
     <div class="container">
 
         <h2  class="font-weight-bold text-center mb-5">Presupuesto</h2>
+        <br>
 
-         <table>
+        <div class="form-group">
+   
+          @foreach($reparar as $value => $label)
+          <label class="mr-2">
+            
+              <input type="checkbox" wire:model="reparaciones" value="{{ $label->id }}">
+              <label>{{ $label->name }}</label> <!-- Ajusta el atributo según tu modelo -->
+          
+               
+               
+
+                </label>
+          @endforeach
+
+          <br>
+      
+      
+        </div>
+
+         <table class="table table-bordered">
 
           <thead>
             <tr>
-                <th>Nombre</th>  
-                <th>Apellido</th>  
-                <th>Edad</th>
+                <th>Trabajo</th>  
+                <th>Cantidad</th>  
+                <th>Precio</th>
+                <th>Repuestos</th>
+                <th>Aceite</th>
+                <th>Cantidad Repuestos</th>
+                <th>Precio Repuestos</th>
+                <th>Total</th>
                 <th>  
                     <button type="button"  wire:click="addField" class="btn btn-primary btn-sm">+</button>
                     
@@ -324,34 +388,138 @@
          
 
     
-            <div class="flex space-x-2 mb-4">
+            <div wire:key="field-{{ $field['id'] }}" class="flex space-x-2 mb-4" >
                 <td>
                 <div>
                     
-                    <input type="text" id="nombres_{{ $index }}" wire:model="fields.{{ $index }}.nombres" class="form-control">
-                    @error('fields.' . $index . '.nombres') <span class="text-red-500">{{ $message }}</span> @enderror
+                    <input type="text" id="trabajo_{{ $index }}" wire:model="fields.{{ $index }}.trabajo" class="form-control">
+                    @error('fields.' . $index . '.trabajo') <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
             </td>
             <td>
                 <div>
                   
-                    <input type="text" id="apellido_{{ $index }}" wire:model="fields.{{ $index }}.apellido" class="form-control">
-                    @error('fields.' . $index . '.apellido') <span class="text-red-500">{{ $message }}</span> @enderror
+                    <input type="number" id="cantidad_{{ $index }}" min="0"  wire:model.lazy="fields.{{ $index }}.cantidad" wire:change="calcularAmount({{ $index }})" class="form-control">
+                    @error('fields.' . $index . '.cantidad') <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
             </td>
             <td>
                 <div>
                    
-                    <input type="text" id="edad_{{ $index }}" wire:model="fields.{{ $index }}.edad" class="form-control">
-                    @error('fields.' . $index . '.edad') <span class="text-red-500">{{ $message }}</span> @enderror
+                    <input type="number" min="0" id="precio_{{ $index }}" wire:model.lazy="fields.{{ $index }}.precio" wire:change="calcularAmount({{ $index }})" class="form-control">
+                    @error('fields.' . $index . '.precio') <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
             </td>
+
+
+            <td>
+              <div>
+                 
+                  <input type="text" id="repuestos_{{ $index }}" wire:model="fields.{{ $index }}.repuestos" class="form-control">
+                  @error('fields.' . $index . '.repuestos') <span class="text-red-500">{{ $message }}</span> @enderror
+              </div>
+           </td>
+
+           <td>
+
+            <div>
+
+             {{--  <div>
+                <input type="checkbox" wire:model="fields.{{$index}}.checkbox1" id="checkbox1_{{$index}}">
+                <label for="checkbox1_{{$index}}">Si</label>
+            </div>
+            <div>
+                <input type="checkbox" wire:model="fields.{{$index}}.checkbox2" id="checkbox2_{{$index}}">
+                <label for="checkbox2_{{$index}}">No</label>
+            </div> --}}
+
+
+            <div class="form-check">
+              <input type="checkbox" wire:model.live="fields.{{ $index }}.checkbox1" id="checkbox1_{{$index}}" class="form-check-input">
+              <label for="checkbox1_{{$index}}" class="form-check-label">Cambio de aceite</label>
+
               
             </div>
 
+            <div class="form-check">
+
+            <input type="checkbox" wire:model.live="fields.{{ $index }}.checkbox2" id="checkbox2_{{$index}}" class="form-check-input">
+              <label for="checkbox2_{{$index}}" class="form-check-label">Para otro trabajo</label>
+           
+            </div>
+
+         
+
+            @if ($this->fields[$index]['checkbox1'])
+               
+
+                <div>
+                  <label for="TipoAceite">Aceite</label>
+                  <select wire:model="fields.{{$index}}.tipoAceite" class="form-control"  id="">
+
+                    @foreach ($this->aceites as $item)
+                        <option value="{{$item->id}}">{{$item->name}}</option>
+                    @endforeach
+
+                  </select>
+    
+                </div>
+
+                @elseif($this->fields[$index]['checkbox2'])
+
+                <div>
+                  <label for="TipoAceite">Aceite</label>
+                  <select wire:model="fields.{{$index}}.tipoAceite" class="form-control"  id="">
+
+                    @foreach ($this->aceites as $item)
+                        <option value="{{$item->id}}">{{$item->name}}</option>
+                    @endforeach
+
+                  </select>
+    
+                </div>
+
+            @endif
+
+           
+
+            
+
+           </td>
+
+           <td>
+            <div>
+               
+                <input type="number" min="0" id="cantidadRepuestos_{{ $index }}" wire:model.lazy="fields.{{ $index }}.cantidadRepuestos" wire:change="calcularAmount({{ $index }})" class="form-control">
+                @error('fields.' . $index . '.cantidadRepuestos') <span class="text-red-500">{{ $message }}</span> @enderror
+            </div>
+             </td>
+
+
+              <td>
+              <div>
+             
+              <input type="number" min="0" id="precioRepuestos_{{ $index }}" wire:model.lazy="fields.{{ $index }}.precioRepuestos" wire:change="calcularAmount({{ $index }})" class="form-control">
+              @error('fields.' . $index . '.precioRepuestos') <span class="text-red-500">{{ $message }}</span> @enderror
+              </div>
+             </td>
+
+
+               <td>
+               <div>
+           
+             <input type="number" id="amount_{{ $index }}" wire:model="fields.{{ $index }}.amount" class="form-control" readonly>
+            @error('fields.' . $index . '.amount') <span class="text-red-500">{{ $message }}</span> @enderror 
+
+           
+               </div>
+                  </td>
+              
+       </div>
+
             <td>
                 	{{$index}}
-                <button type="button" wire:click="removeField({{ $index }})" class="btn btn-danger text-red-500">Eliminar</button>
+                <button type="button" wire:click="removeField({{ $index }})" class="btn btn-danger text-red-500"><i class="fas fa-trash"></i></button>
 
             </td>
         
@@ -363,13 +531,119 @@
       
     </tr>
     </tbody>
+
+    <tfoot>
+      <tr>
+        <td style="border: none"></td>
+        <td style="border: none"></td>
+        <td style="border: none"></td>
+        <td style="border: none"></td>
+        <td style="border: none"></td>
+        <td style="border: none"></td>
+        <td ><b class="text-lg font-bold">Total:</b></td>
+        <td><b class="total"> ${{ number_format($total, 2) }}</b> </td>
+      </tr>
+
+    </tfoot>
+
+
     </table>
     
 </div>
 
 
+
+
+
+<div class="container">
+
+<div class="form-group">
+    
+  <p class="font-weight-bold">Estado
+
+</p>
+  <label for="">
+    <div class="form-check">
+      <input class="form-check-input" type="radio" wire:model="status" id="opcion1" value="1" checked>
+      <label class="form-check-label" for="status">
+        No Publicar
+      </label>
+    </div>
+  </label>
+   
+     <!--El cliente no tendra acceso a esta publicacion y o reparacion -->
+     <label for="">
+    <div class="form-check">
+      <input class="form-check-input" type="radio" wire:model="status" id="opcion2" value="2">
+      <label class="form-check-label" for="opcion2">
+        Publicado
+      </label>
+    </div>
+  </label>
+   
+  <br>
+
+  @error ('status')
+
+    <small class="text-danger">{{$message}}</small>
+
+  @enderror
+
+</div>
+
+</div>
+
+
+<div class="container">
+
+  <div class="image-wrapper"> 
+
+  @if ($currentImage)
+      <div class="mb-4">
+          <img src="{{ asset('storage/' . $currentImage) }}" alt="Imagen actual"  class="w-48 h-48 object-cover">
+      </div>
+
+   
+  @endif
+
+  <input type="file" wire:model="image">
+
+  @error('image')
+      <span class="error">{{ $message }}</span>
+  @enderror
+
+  <div wire:loading wire:target="image">Cargando...</div>
+
+</div>
+
+</div>
+
+<br>
+
+  <div class="container">
+
+<div class="form-group">
+
+  <label for="problema">Descripcion de la falla</label>
+    <textarea wire:model="problema" id="" cols="5" class="form-control" rows="8"></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+  <label for="solucion">Solucion y repuestos</label>
+  <textarea wire:model="solucion" id="" cols="5" class="form-control" rows="8"></textarea>
+
+</div>
+
+
+</div>
+
+
+
     <div class="pt-3">
-    <button type="submit" class="btn btn-primary text-green-500">Guardar</button>
+    <button type="button" wire:click="store" class="btn btn-primary text-green-500">Guardar</button>
     </div>
 
    </form> 
@@ -378,6 +652,37 @@
 </div>
 
 </div>
+
+@push('js')
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+
+
+    document.addEventListener('livewire:load', function () {
+        Livewire.on('registroCreado', () => {
+            Swal.fire({
+                title: 'Registro guardado con éxito!',
+                text: 'La orden de trabajo fue registrada con éxito!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        });
+    });
+
+
+          document.addEventListener('livewire:load', function () {
+            Livewire.on('kilometrajeErrado', () => {
+              Swal.fire({
+            icon: "error",
+            title: "Kilometraje errado!",
+            text: "El kilometraje no puede ser menor o igual al kilometraje registrado anteriormente",
+          
+          });
+        });
+      }); 
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
@@ -389,3 +694,16 @@
 {{--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"> </script> --}}
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
+
+ <script>
+  document.addEventListener('livewire:load', function () {
+      window.addEventListener('disable-checkbox', event => {
+          let element = document.querySelector(`input[name="fields.${event.detail.id}.${event.detail.checkbox}"]`);
+          if (element) {
+              element.checked = false;
+          }
+      });
+  });
+</script>
+
+@endpush

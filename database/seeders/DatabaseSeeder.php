@@ -235,12 +235,12 @@ $etiquetas2 = Tag::create([
         ]);
 
         $postTag5 = DB::table('post_tag')->insert(['post_id'=>$post5->id,'tag_id'=>$etiquetas5->id]); */
-/* 
+ 
      $insumo = Insumo::create([
 
             'name' => 'Aceite Total Quartz',
             'descripcion' => 'Aceite total quartz 10w40 semi sintetico 4 litros para motor diesel o bencina',
-            'stock' => 16,
+            'stock' => 50,
             'precio' => 25000,
             'precioCompra' => 17054,
             'status' => 1,
@@ -253,7 +253,7 @@ $etiquetas2 = Tag::create([
 
             'name' => 'Aceite Wolver 15w40',
             'descripcion' => 'Aceite Wolver Turbo Evolution Diesel 15w40 4 litros',
-            'stock' => 8,
+            'stock' => 50,
             'precio' => 40000,
             'precioCompra' => 24354,
             'status' => 1,
@@ -266,13 +266,13 @@ $etiquetas2 = Tag::create([
 
             'name' => 'Aceite Wolver 5w30',
             'descripcion' => 'Aceite Wolver 5w30 4 litros 100% sintetico ultratec para 20000 kilometos',
-            'stock' => 6,
+            'stock' => 50,
             'precio' => 40000,
             'precioCompra' => 26590,
             'status' => 1,
             'tipoProducto' =>1,
 
         ]); 
- */
+ 
     }
 }

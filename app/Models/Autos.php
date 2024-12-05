@@ -14,13 +14,31 @@ class Autos extends Model
     protected $fillable = ['patente','marca','modelo','ano','color','check_lists_id','tipoDireccion','tipoTraccion','tipoCombustion','cilindrada'];
 
 
-  
-
-    public function check_lists(): BelongsTo
+    public function check_lists(): BelongsToMany
     {
-        return $this->BelongsTo(CheckList::class, 'check_lists_id');
+        return $this->belongsToMany(CheckList::class, 'autos_check_list', 'autos_id', 'check_lists_id');
     }
 
+ /*    public function check_lists(): BelongsToMany
+    {
+        return $this->belongsToMany(CheckList::class,'autos_id');
+    }  */
 
+
+   /*   public function check_lists()
+    {
+        return $this->belongsToMany(CheckList::class);
+    }  */
+
+  /*     public function check_lists()
+    {
+        return $this->hasMany(CheckList::class);
+    }  */
+ 
+
+/*  public function fichasTecnicas()
+ {
+     return $this->belongsToMany(CheckList::class, 'check_lists_id');
+ } */
             
 }

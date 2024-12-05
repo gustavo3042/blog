@@ -13,7 +13,7 @@ class CreateCheckListInsumosTable extends Migration
      */
     public function up()
     {
-        Schema::create('check_list_insumo', function (Blueprint $table) {
+        Schema::create('insumos_check_list', function (Blueprint $table) {
             $table->id();
            // $table->integer('venta')->nullable();
            // $table->integer('compra')->nullable();

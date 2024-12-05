@@ -32,10 +32,10 @@ class CreateAutosTable extends Migration
         });
 
 
-        Schema::create('check_lists_autos', function (Blueprint $table) {
+        Schema::create('autos_check_list', function (Blueprint $table) {
             $table->id();
             
-
+       
           
             $table->unsignedBigInteger('check_lists_id');
            
@@ -43,6 +43,7 @@ class CreateAutosTable extends Migration
             $table->unsignedBigInteger('autos_id');
            
             $table->foreign('autos_id')->references('id')->on('autos')->onDelete('cascade');
+          
             $table->timestamps();
         });
 

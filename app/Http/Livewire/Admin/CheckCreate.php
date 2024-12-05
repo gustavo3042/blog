@@ -106,8 +106,8 @@ class CheckCreate extends Component
             
 
               
-              $most = CheckList::join('check_lists_clientes','check_lists_clientes.check_lists_id','=','check_lists.id')
-              ->join('clientes','clientes.id','=','check_lists_clientes.clientes_id')
+              $most = CheckList::join('clientes_check_list','clientes_check_list.check_lists_id','=','check_lists.id')
+              ->join('clientes','clientes.id','=','clientes_check_list.clientes_id')
               ->join('autos','autos.check_lists_id','=','check_lists.id')
               ->join('kilometrajes','kilometrajes.autos_id','=','autos.id')
               ->where('check_lists.patente',$this->patente)

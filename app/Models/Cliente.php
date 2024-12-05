@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Cliente extends Model
 {
@@ -13,10 +14,10 @@ class Cliente extends Model
 
 
 
-    public function check_lists(){
+    public function check_lists():BelongsToMany{
 
 
-return $this->hasMany(CheckList::class);
+    return $this->belongsToMany(CheckList::class,'clientes_check_list','clientes_id','check_lists_id');
 
 
     }

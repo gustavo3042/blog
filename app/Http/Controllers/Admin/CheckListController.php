@@ -140,11 +140,13 @@ class CheckListController extends Controller
       ->join('users','users.id','=','check_lists.user_id')
       ->where('check_lists.id',$id)->first();
 
+
+      $cliente = Cliente::where('check_lists_id',$check->id)->first();
      // dd($correo);
 
     //dd($presupuestDetails);
 
-      $pdf = PDF::loadView('admin.check.documentoPdf',compact('check','presupuesto','presupuestDetails','correo','totalRepuestos'));
+      $pdf = PDF::loadView('admin.check.documentoPdf',compact('check','presupuesto','presupuestDetails','correo','totalRepuestos','cliente'));
       return $pdf->setPaper('Doc')->stream('Boleta servicio');
 
     }
@@ -323,6 +325,24 @@ class CheckListController extends Controller
             );
             
 
+          }else{
+
+
+            $dataKillometros = array(
+
+              'trabajo' => $request->product_name[$key],
+              'descripcion' => $request->brand[$key],
+              'cantidadRepuestos' => $request->cantidadRepuestos[$key],
+              'precioRepuestos' => $request->precioRepuestos[$key],
+              'totalRepuestos' => $request->precioRepuestos[$key] * $request->cantidadRepuestos[$key] ,
+  
+              'cantidad' => $request->quantity[$key],
+              'precio'=> $request->budget[$key],
+              'amount' => $request->amount[$key],
+              'presupuestos_id' => $dt->id
+  
+            );
+
           }
 
           PresupuestoDetails::insert($dataKillometros);
@@ -332,13 +352,13 @@ class CheckListController extends Controller
 
       }
 
-
+      //veo si ya existe la patente anteriormente
       $checkClient = CheckList::where('patente',$request->patente)->first();
 
-
+      //veo en la tabla cliente si esta algun check_list_id relacionado "revisa si ya estaba el cliente registrado"
       $clientNew = Cliente::where('check_lists_id',$checkClient->id)->first();
 
-    if (empty($clientNew->check_lists_id)) {
+    if (empty($clientNew->check_lists_id)) {//en caso no estar me crea el cliente nuevo
 
     $client =  Cliente::create([
 
@@ -506,7 +526,7 @@ class CheckListController extends Controller
               $kmCar = Kilometraje::where('autos_id',$autoNew->id)->latest('id')->first();
       
         
-              $kmNuevo = $request->kilometraje - $kmCar->kilometraje;
+              $kmNuevo = $request->kilometraje - $kmCar->kilometraje; //el nuevo kilometraje siempre es mayor al antiguo
         
               $mtskm = ($request->kilometraje - $kmCar->kilometraje) + $kmCar->newKilometraje;
                 
@@ -1829,7 +1849,7 @@ return redirect()->route('check.index',$check);
 if ($check->reparaciones) {
 
 
-$check->reparaciones()->sync($request->reparaciones);
+$check->reparaciones()->sync($request->reparaciones); //esto me me crea
 
 }
 

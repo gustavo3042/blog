@@ -41,26 +41,6 @@
   
           <div class="card-body">
 
-          {{--   <div class="container">
-              <div class="row">
-                  @foreach($insumos as $product)
-                      <div class="col-md-4">
-                          <div class="card mb-4">
-                              <img src="{{asset('storage').'/'.$product->imageInsumo->url}}" class="card-img-top" alt="{{ $product->name }}">
-                              <div class="card-body">
-                                  <h5 class="card-title">{{ $product->name }}</h5>
-                                  <p class="card-text">{{ $product->descripcion }}</p>
-                                  <p class="card-text">Stock Actual :{{ $product->stock }}</p>
-                                  <p class="card-text">Status :{{ $product->status }}</p>
-                                  <p class="card-text"><strong>${{ $product->precio }}</strong></p>
-                                 
-                                  <a href="#" class="btn btn-primary">Comprar</a>
-                              </div>
-                          </div>
-                      </div>
-                  @endforeach
-              </div>
-          </div> --}}
 
           
           <div class="container">

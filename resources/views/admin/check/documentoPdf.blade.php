@@ -3,7 +3,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Reporte de venta</title>
+<title>PRESUPUESTO</title>
 <style>
     body {
         /*position: relative;*/
@@ -112,17 +112,22 @@
             <table id="datos">
                 <thead>
                     <tr>
-                        <th id="">DATOS DEL MECANICO</th>
+                        <th id="">DATOS</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th>
-                            <p id="proveedor">Nombre:{{$check->encargado}}<br>
+                            <p id="proveedor">NOMBRE O RAZON SOCIAL:{{$check->encargado}}<br>
                                 {{--  {{$purchase->provider->document_type}}-COMPRA: {{$purchase->provider->document_number}}<br>  --}}
                                 {{-- Dirección: {{$purchase->provider->address}}<br>
                                 Teléfono: {{$purchase->provider->phone}}<br> --}}
-                                Email:{{$correo->email}}</p>
+                                Correo:{{$correo->email}}<br>
+                                 RUT:8069821-6<br>
+                                 DIRECCIÓN:CARLOS LOZIER #444 COMUNA CHILLAN CIUDAD CHILLAN<br>
+                                 CUENTA CORRIENTE:52100107121 Banco Estado<br>
+                                </p>
+                                
                         </th>
                     </tr>
                 </tbody>
@@ -131,7 +136,7 @@
         <div id="fact">
             {{--  <p>{{$purchase->provider->document_type}} COMPRA<br />
                 {{$purchase->provider->document_number}}</p>  --}}
-                <p style="text-align: center; margin-top: 1px;">NUMERO DE BOLETA<br />{{$check->id}}
+                <p style="text-align: center; margin-top: 1px;">PRESUPUESTO<br />
                     </p>
         </div>
     </header>
@@ -158,6 +163,30 @@
         </div>
     </section>
     <br>
+
+    <br>
+    <section>
+        <div>
+            <table id="faccomprador">
+                <thead>
+                    <tr id="fv">
+                        <th>NOMBRE O RAZON SOCIAL</th>
+                        <th>DIRECCIÓN PRINCIPAL (CASA MATRIZ)</th>
+                        <th>RUT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;">{{$cliente->nombre}}</td>
+                        <td style="text-align: center;">{{$cliente->direccion}}</td>
+                        <td style="text-align: center;">76530518-7</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <br>
     <section>
         <div>
             <table id="facproducto">
@@ -166,9 +195,9 @@
                         <th>CANTIDAD</th>
                         <th>SERVICIO</th>
                         <th>PRECIO REPARACIÓN (CHL)</th>
-                        <th>REPUESTOS</th>
+                      {{--   <th>REPUESTOS</th>
                         <th>CANTIDAD REPUESTOS</th>
-                        <th>TOTAL REPUESTOS</th>
+                        <th>TOTAL REPUESTOS</th> --}}
                         <th>IVA REPARACIÓN</th>
                         <th>SUBTOTAL (CHL)</th>
                     </tr>
@@ -181,12 +210,12 @@
 
                         <td style="text-align: center;">{{$item->cantidad}}</td>
                         <td style="text-align: center;">{{$item->trabajo}}</td>
-                        <td style="text-align: center;">{{$item->precio}}</td>
-                        <td style="text-align: center;">{{$item->descripcion}}</td>
+                        <td style="text-align: center;">${{$item->precio}}</td>
+                   {{--      <td style="text-align: center;">{{$item->descripcion}}</td>
                         <td style="text-align: center;">{{$item->cantidadRepuestos}}</td>
-                        <td style="text-align: center;">{{$item->precioRepuestos}}</td>
-                        <td style="text-align: center;">{{number_format($item->precio * 0.19)}}</td>
-                        <td style="text-align: center;">{{number_format(($item->precio * $item->cantidad) + ($item->precio * 0.19))}}</td>
+                        <td style="text-align: center;">{{$item->precioRepuestos}}</td> --}}
+                        <td style="text-align: center;">${{number_format($item->precio * 0.19)}}</td>
+                        <td style="text-align: center;">${{number_format(($item->precio * $item->cantidad) + ($item->precio * 0.19))}}</td>
 
 
                     </tr>
@@ -199,10 +228,10 @@
 
                     <tr>
                         <th colspan="3">
-                            <p align="right">SUBTOTAL:</p>
+                            <p align="right">TOTAL A PAGAR:</p>
                         </th>
                         <td>
-                            <p align="right">$/{{$presupuesto->subtotal}} <p>
+                            <p align="right">${{$presupuesto->subtotal}} <p>
                         </td>
                     </tr>
 
@@ -211,19 +240,19 @@
                             <p align="right">TOTAL IMPUESTO:</p>
                         </th>
                         <td>
-                            <p align="right">$/{{$presupuesto->iva}} </p>
+                            <p align="right">${{$presupuesto->iva}} </p>
                         </td>
                     </tr>
                     <tr>
                         <th colspan="3">
-                            <p align="right">TOTAL REPARACIONES:</p>
+                            <p align="right">TOTAL SIN IVA:</p>
                         </th>
                         <td>
-                            <p align="right">$/{{$presupuesto->total}} <p>
+                            <p align="right">${{$presupuesto->total}} <p>
                         </td>
                     </tr>
 
-                    <tr>
+                   {{--  <tr>
                         <th colspan="3">
                             <p align="right">TOTAL MAS REPUESTOS:</p>
                         </th>
@@ -231,7 +260,7 @@
                             <p align="right">$/{{number_format($presupuesto->total+$totalRepuestos)}} <p>
                         </td>
                     </tr>
-
+ --}}
                 </tfoot>
             </table>
         </div>

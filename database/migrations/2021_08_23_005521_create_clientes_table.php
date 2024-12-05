@@ -27,7 +27,7 @@ class CreateClientesTable extends Migration
         });
 
 
-        Schema::create('check_lists_clientes', function (Blueprint $table) {
+        Schema::create('clientes_check_list', function (Blueprint $table) {
             $table->id();
          
 
