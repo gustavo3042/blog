@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    public const HOME = '/'; //se cambia de dashboard a / para mandar al usuario a la parte principal
 
     /**
      * The controller namespace for the application.
@@ -46,6 +46,13 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+
+//se copia y se crea la ruta para integrar el archivo admin como archivo de ruta
+                Route::middleware('web','auth') //se agrega el middleware auth para q acepte usuarios logeados
+                    ->prefix('admin')  //se pone prefijo admin para todas las rutas, por lo tanto en el admin.php se quita el 'admin'
+                    ->namespace($this->namespace)
+                    ->group(base_path('routes/admin.php'));
         });
     }
 

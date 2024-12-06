@@ -6,6 +6,7 @@
 
         <x-jet-validation-errors class="mb-4" />
 
+      
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
@@ -28,6 +29,8 @@
                 <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
                 <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
+
+         
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
