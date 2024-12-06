@@ -146,8 +146,8 @@ class CheckListController extends Controller
 
     //dd($presupuestDetails);
 
-      $pdf = PDF::loadView('admin.check.documentoPdf',compact('check','presupuesto','presupuestDetails','correo','totalRepuestos','cliente'));
-      return $pdf->setPaper('Doc')->stream('Boleta servicio');
+   /*    $pdf = PDF::loadView('admin.check.documentoPdf',compact('check','presupuesto','presupuestDetails','correo','totalRepuestos','cliente'));
+      return $pdf->setPaper('Doc')->stream('Boleta servicio'); */
 
     }
 
