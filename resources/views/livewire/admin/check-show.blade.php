@@ -96,7 +96,11 @@
 
     <div class="form-group">
         <strong>Cliente:</strong>
-        {{$clientes->nombre }}
+
+        @foreach ($clientes->clientes as $item)
+            {{$item->nombre}}
+        @endforeach
+       
        
     </div>
 

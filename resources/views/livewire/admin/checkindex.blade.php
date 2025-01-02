@@ -12,13 +12,13 @@
 
     <div class="card-title">
 
-      <h2 style="padding: 15px;">Ficha Tecnica</h2> 
+      <h2 style="padding: 15px;">Orden de Trabajo</h2> 
 
    </div>
 
 
     <input wire:model="search" class="form-control" placeholder="Ingrese patente de un vehículo">
-    <a class="btn btn-info btn-sm mt-3 mb-5"href="{{route('check.create')}}"> <i class="fas fa-check"></i>FichaTecnica</a>
+    <a class="btn btn-info btn-sm mt-3 mb-5"href="{{route('check.create')}}"> <i class="fas fa-check"></i>Crear Orden</a>
 
   </div>
 

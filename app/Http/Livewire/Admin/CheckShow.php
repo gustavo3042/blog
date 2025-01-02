@@ -56,6 +56,7 @@ class CheckShow extends Component
     public $allJobs;
     public $allGanancias;
     public $detailsRepuestos;
+   
 
    // public $precio;
    // public $porcent;
@@ -65,6 +66,7 @@ class CheckShow extends Component
 
     public function mount($check){
 
+      //  dd('holis');
     
         $this->check = $check;
   
@@ -135,12 +137,17 @@ class CheckShow extends Component
         ->get();
   
   
-        $clientes = DB::table('check_lists')
-        ->join('check_lists_clientes','check_lists_clientes.check_lists_id','=','check_lists.id')
-        ->join('clientes','clientes.id','=','check_lists_clientes.clientes_id')
+       /*  $clientes = DB::table('check_lists')
+        ->join('clientes_check_list','clientes_check_list.check_lists_id','=','check_lists.id')
+        ->join('clientes','clientes.id','=','clientes_check_list.clientes_id')
         
-        ->where('check_lists_clientes.check_lists_id',$this->check)
-        ->first();
+        ->where('clientes_check_list.check_lists_id',$this->check)
+        ->first(); */
+
+      $clientes = CheckList::with('clientes')->find($this->check);
+
+     
+        //dd($clientes);
   
   
       /*   $autos = DB::table('check_lists')

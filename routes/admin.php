@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\ComprasController;
 use App\Http\Controllers\Admin\VentasController;
 use App\Http\Livewire\Admin\Ventas\VentasCreate;
 use App\Http\Livewire\Admin\Ventas\DynamicForm;
+use App\Http\Livewire\Navigation2;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
@@ -184,3 +185,5 @@ Route::put('assistences/update/{id}', [AsistenciaController::class, 'update'])->
 Route::resource('production','App\Http\Controllers\Admin\ProductionsController');
 Route::get('production/edit/{id}', [ProductionsController::class, 'produccion'])->name('productions.produccion');
 Route::put('production/update/{id}', [ProductionsController::class, 'update'])->name('productions.update');
+
+

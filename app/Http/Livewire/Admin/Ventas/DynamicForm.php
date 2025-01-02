@@ -16,6 +16,7 @@ use App\Models\Kilometraje;
 use App\Models\Presupuesto;
 use App\Models\PresupuestoDetails;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 
@@ -92,7 +93,7 @@ class DynamicForm extends Component
        $this->reparar = Reparaciones::all();
        $this->aceites = Insumo::where('tipoProducto',1)->get();
 
-       $this->fields[] = ['id' => uniqid(),'trabajo'=> '','cantidad'=>1,'precio'=> 0,'repuestos'=>'','checkbox1'=>false,'checkbox2'=>false,'tipoAceite'=> 4,'cantidadRepuestos'=>1,'precioRepuestos'=>0,'amount'=>0];
+       $this->fields[] = ['id' => uniqid(),'trabajo'=> '','cantidad'=>1,'precio'=> 0,'repuestos'=>'','checkbox1'=>false,'checkbox2'=>false,'tipoAceite'=> 4,'cantidadRepuestos'=>1,'precioRepuestos'=>0,'amount'=>0,'imagen'=> null];
 
        $this->proveedores[] = ['nameRazonSocial'=>'','direccionProveedor'=>'','rutProveedor'=>''];
 
@@ -112,7 +113,7 @@ class DynamicForm extends Component
 
     public function addField(){
 
-        $this->fields[] = ['id' => uniqid(),'trabajo'=>'','cantidad'=>1,'precio'=>0,'repuestos'=>'','checkbox1'=>false,'checkbox2'=>false,'tipoAceite'=> 4,'cantidadRepuestos'=>1,'precioRepuestos'=>0,'amount'=>0];
+        $this->fields[] = ['id' => uniqid(),'trabajo'=>'','cantidad'=>1,'precio'=>0,'repuestos'=>'','checkbox1'=>false,'checkbox2'=>false,'tipoAceite'=> 4,'cantidadRepuestos'=>1,'precioRepuestos'=>0,'amount'=>0,'imagen'=> null];
         $this->calcularTotal();
 
        
@@ -130,18 +131,6 @@ class DynamicForm extends Component
         //field es el checkbox1 o checkbox2
 
       //  dd($value,$name);
-/* 
-        list($rowIndex, $field) = explode('.', $name);
-   
-
-
-
-        if ($field == 'checkbox1') {
-            $this->fields[$rowIndex]['checkbox2'] = false;
-
-        } elseif ($field == 'checkbox2') {
-            $this->fields[$rowIndex]['checkbox1'] = false;
-        } */
 
 
         list($rowIndex, $field) = explode('.', $name);
@@ -164,18 +153,7 @@ class DynamicForm extends Component
             $this->fields[$rowIndex]['checkbox3'] = false;
 
         }
-    /*     if ($field === 'checkbox2' && $value) {
-            foreach ($this->fields as $i => $field) {
-                if ($i != $rowIndex) {
-                    $this->fields[$i]['checkbox2'] = false;
-                    $this->dispatchBrowserEvent('disable-checkbox', ['id' => $this->fields[$i]['id'], 'checkbox' => 'checkbox2']);
-                }
-            }
-
-        } */
-
-
-
+   
         $this->calcularTotal();
     }
 
@@ -324,7 +302,8 @@ class DynamicForm extends Component
 
     public function store(){
 
-     //   dd($this->reparaciones,$this->fields,$this->image,$this->total,$this->cambio,$this->cambiosDeAceite);
+     
+    //  dd($this->reparaciones,$this->fields,$this->image,$this->total,$this->cambio,$this->cambiosDeAceite);
 
 
 
@@ -370,6 +349,32 @@ class DynamicForm extends Component
 
                  ]);
             PresupuestoDetails::insert($ar);
+        }
+
+
+        foreach ($this->fields as $k => $v) {
+
+      /*     $url = $v->store('imageFiles','public'); */
+
+          $url = Storage::put('imageFiles',$v['imagen']);
+      
+          $check_list->image_files()->create([
+      
+            'url'=> $url
+      
+          ]);
+      
+        }
+      
+        if ($this->image) {
+          
+          $url2 = Storage::put('check_lists',$this->image);
+          $check_list->image()->create([
+      
+            'url'=> $url2
+      
+          ]);
+      
         }
 
 
@@ -733,11 +738,43 @@ if (empty($autoNew->patente)) {
     }
 }
 }
-$this->emit('registroCreado');
 }
+
+  $this->emit('registroCreado');
+  $this->resetInput();
+
     }
 
 
+
+    public function resetInput()
+    {
+
+     // $this->fields = '';
+      $this->patente = '';
+      $this->nombre = '';
+      $this->direccion = '';
+      $this->telefono = '';
+      $this->correo = '';
+      $this->fecha = '';
+      $this->tipoDireccion = '';
+      $this->tipoTraccion = '';
+      $this->tipoCombustion = '';
+      $this->cilindrada = '';
+      $this->marca = '';
+      $this->modelo = '';
+      $this->ano = '';
+      $this->color = '';
+      $this->kilometraje = '';
+      $this->problema = '';
+      $this->solucion = '';
+      $this->status = '';
+      $this->image = '';
+
+      $this->fields = [];
+
+     
+    }
 
 
 }

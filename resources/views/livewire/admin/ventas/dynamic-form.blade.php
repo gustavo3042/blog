@@ -33,6 +33,9 @@ label {
 
 </style> --}}
 
+
+
+
 <div>
 
 
@@ -325,6 +328,10 @@ label {
                               @enderror
                     
                          </div>    
+                        
+                  
+
+                        
 
             </div>
 
@@ -373,6 +380,7 @@ label {
                 <th>Cantidad Repuestos</th>
                 <th>Precio Repuestos</th>
                 <th>Total</th>
+                <th>Archivo</th>
                 <th>  
                     <button type="button"  wire:click="addField" class="btn btn-primary btn-sm">+</button>
                     
@@ -514,6 +522,21 @@ label {
            
                </div>
                   </td>
+
+
+                  <td>
+
+                    <div>
+                    
+
+                        <input type="file" wire:model="fields.{{ $index }}.imagen" class="form-control" id="file-input">
+                        @error('fields.' . $index . '.imagen') <span class="text-red-500">{{ $message }}</span> @enderror 
+
+                     
+
+                    </div>
+
+                  </td>
               
        </div>
 
@@ -522,6 +545,8 @@ label {
                 <button type="button" wire:click="removeField({{ $index }})" class="btn btn-danger text-red-500"><i class="fas fa-trash"></i></button>
 
             </td>
+
+            
         
 
             
@@ -534,6 +559,7 @@ label {
 
     <tfoot>
       <tr>
+        <td style="border: none"></td>
         <td style="border: none"></td>
         <td style="border: none"></td>
         <td style="border: none"></td>

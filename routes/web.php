@@ -6,7 +6,9 @@ use App\Http\Controllers\testController;
 
 use App\Http\Controllers\Admin\PostsController;
 
-use App\Http\Controllers\Livewire\Navigation2;
+
+use App\Http\Livewire\Navigation2;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,8 @@ Route::get('/', function()
 {
   return view('welcome');
 });
+
+Route::post('navigation2/create',[Navigation2::class,'store'])->name('nav2.create');
 
 //Route::get('app',[Navigation2::Class,'render'])->name('navigation2');
 

@@ -89,10 +89,12 @@
 
   <div class="container mx-auto py-8">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
           <div class="bg-white shadow-md rounded-lg p-6">
               <h3 class="text-2xl font-bold mb-4">Ubicación del Taller</h3>
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d967.2835836475276!2d-72.10535166325568!3d-36.621683601440644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x966928307773671f%3A0xe43f8759cf5e3e56!2sCarlos%20Ambrosio%20Lozzier%20444%2C%20Chillan%2C%20Chill%C3%A1n%2C%20B%C3%ADo%20B%C3%ADo!5e0!3m2!1ses-419!2scl!4v1671140372553!5m2!1ses-419!2scl" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
+          
           <div class="bg-white shadow-md rounded-lg p-6">
               <h3 class="text-2xl font-bold mb-4">Información de Contacto</h3>
               <p>Whatsapp: +56935450163</p>
@@ -102,17 +104,50 @@
               <p>Lunes a Viernes: 9:00 a 19:00</p>
               <p>Sábados: 9:00 a 13:00</p>
           </div>
-          <div class="bg-white shadow-md rounded-lg p-6">
-            <h3 class="text-2xl font-bold mb-4">Información de Contacto</h3>
-            <p>Whatsapp: +56935450163</p>
-            <p>Email: mecanicarioschillan@gmail.com</p>
-            <p>Facebook: Mecanica Rios</p>
-            <p>Horario de Atención:</p>
-            <p>Lunes a Viernes: 9:00 a 19:00</p>
-            <p>Sábados: 9:00 a 13:00</p>
+         
+
+            <div  class="bg-white shadow-md rounded-lg p-6">
+                <h3 class="text-2xl font-bold mb-4">Formulario de Contacto</h3>
+              {{--  <form action="{{route('nav2.create')}}" method="POST">  --}}
+                <form id="contactForm">
+                    @csrf
+
+                
+                    <div class="mb-4">
+                        <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+                        <input type="text" id="nombre" name="nombre"   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        @error('nombre') <span class="text-red-500">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-4">
+                        <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        @error('telefono') <span class="text-red-500">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+                        <input type="email" id="email" name="email"   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        @error('email') <span class="text-red-500">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-4">
+                        <label for="message" class="block text-sm font-medium text-gray-700">Mensaje</label>
+                        <textarea id="comentario" name="comentario"  rows="4"  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                        @error('comentario') <span class="text-red-500">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-4">
+                        <button type="submit"  class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700">Enviar</button>
+                    </div>
+                </form> 
+
+           {{--      @if (Session::has('success'))
+                <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                    <span class="font-medium">{{Session::get('success')}}</span> 
+                  </div>
+               @endif --}}
+
+            </div>
+    </div>         
         </div>
-      </div>
-  </div>
+   
 
   <div class="container mx-auto p-5">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -144,6 +179,8 @@
           </ul>
       </div>
   </footer>
+
+
 
   <script>
       document.addEventListener('DOMContentLoaded', () => {
@@ -187,5 +224,54 @@
 
           setInterval(nextSlide, 3000); // Cambia de imagen cada 3 segundos
       });
+
+  
   </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const contactForm = document.getElementById('contactForm');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(contactForm);
+            const response = await fetch('{{ route('nav2.create') }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                    'Accept': 'application/json',
+                },
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // Mostrar mensaje de éxito
+                sessionStorage.setItem('successMessage', result.success);
+                window.location.reload();
+            } else {
+                // Manejar errores de validación
+                console.error(result);
+            }
+        });
+
+    const successMessage = sessionStorage.getItem('successMessage');
+
+    if (successMessage) {
+        const successAlert = document.createElement('div');
+        successAlert.className = 'p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400';
+        successAlert.setAttribute('role', 'alert');
+        successAlert.innerHTML = `<span class="font-medium">${successMessage}</span>`;
+        contactForm.insertAdjacentElement('beforebegin', successAlert);
+        sessionStorage.removeItem('successMessage');
+    }
+
+    });
+
+</script>
+
+
+
 </x-app-layout>

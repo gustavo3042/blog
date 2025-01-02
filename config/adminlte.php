@@ -303,7 +303,7 @@ return [
 
 
         [
-            'text' => 'Reparaciones',
+            'text' => 'Reparaciones Categoria',
             'url'  => 'admin/reparaciones',
             'icon' => 'fas fa-fw fa-wrench',
             'can'  => 'admin.reparar.index'
@@ -311,7 +311,7 @@ return [
         ],
 
         [
-            'text' => 'FichaTecnica',
+            'text' => 'Orden de Trabajo',
             'url'  => 'admin/check',
             'icon' => 'fas fa-fw fa-clipboard',
             'can'  => 'admin.check.index'

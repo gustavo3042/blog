@@ -42,6 +42,22 @@ class UserSeeder extends Seeder
                       ])->assignRole('Mecanico'); //se le asigna un rol a este usuario           
 
 
+                      User::create([
+                        'name'=> 'Luis Oriol Rios Cabeza',
+                        'email' =>'luis@gmail.com',
+                        'password' =>bcrypt('12345678')
+                        
+                              ])->assignRole('Admin'); //se le asigna un rol a este usuario     
+
+
+                              User::create([
+                                'name'=> 'Benjamin',
+                                'email' =>'gonzalez1372006@gmail.com',
+                                'password' =>bcrypt('12345678')
+                                
+                                      ])->assignRole('Admin'); //se le asigna un rol a este usuario     
+
+
 User::factory(1)->create();
 
 $this->insertAfp();

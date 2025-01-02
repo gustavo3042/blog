@@ -60,6 +60,11 @@ class CheckList extends Model
       return $this->belongsToMany(Cliente::class,'clientes_check_list','check_lists_id','clientes_id');
     }
 
+    public function image_files()
+    {
+        return $this->morphMany(ImageFiles::class, 'imageable');
+    }
+
   /*    public function autos(): BelongsToMany
     {
         return $this->belongsToMany(Autos::class,'check_lists_id');

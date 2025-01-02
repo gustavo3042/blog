@@ -130,7 +130,9 @@ class CheckListController extends Controller
     //funcion para documento pdf boleta
     public function documentoPdf($id){
 
-      $check = CheckList::find($id);
+      $check = CheckList::with('clientes','autos','presupuestos')->find($id);
+
+      
 
       $presupuesto = Presupuesto::where('check_lists_id',$check->id)->first();
       $presupuestDetails = DB::table('presupuesto_details')->where('presupuestos_id',$presupuesto->id)->get();
@@ -142,12 +144,24 @@ class CheckListController extends Controller
 
 
       $cliente = Cliente::where('check_lists_id',$check->id)->first();
+      $pre =  collect($presupuestDetails)
+      ->groupBy('presupuestos_id')
+      ->map(function($grupo){
+        return[
+
+          'precio' => $grupo->sum('precioRepuestos')
+ 
+        ];
+      })
+      ->values()
+      ->toArray();
+    //dd($pre);
      // dd($correo);
 
     //dd($presupuestDetails);
 
-   /*    $pdf = PDF::loadView('admin.check.documentoPdf',compact('check','presupuesto','presupuestDetails','correo','totalRepuestos','cliente'));
-      return $pdf->setPaper('Doc')->stream('Boleta servicio'); */
+      $pdf = PDF::loadView('admin.check.documentoPdf',compact('check','presupuesto','presupuestDetails','correo','totalRepuestos','cliente'));
+      return $pdf->setPaper('Doc')->stream('Boleta servicio'); 
 
     }
 
