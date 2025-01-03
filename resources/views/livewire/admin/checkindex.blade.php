@@ -33,8 +33,12 @@
   <thead>
     <tr>
       <th>ID</th>
+    
       <th>Encargado</th>
       <th>Patente</th>
+      <th>Fecha de ingreso</th>
+      <th>Fecha de termino</th>
+      <th>Imagen</th>
      
       
     </tr>
@@ -49,6 +53,14 @@
    
 
     <td>{{$check->patente}}</td>
+    <td>{{$check->fecha}}</td>
+    <td>{{$check->fechaTermino}}</td>
+
+    <td>
+      <div  style="width: 200px; height: 200px; overflow: hidden;">
+        <img src="{{ asset('storage/' . $check->image->url) }}" alt="Imagen del checklist" class="img-fluid rounded">
+      </div>
+    </td>
     <td>
     <div class="btn-group"  role="group">
      

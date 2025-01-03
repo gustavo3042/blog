@@ -20,24 +20,24 @@
                   <div class="min-w-full flex-shrink-0 h-full">
                       <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Kia-logo.png" class="w-full h-full object-cover">
                   </div>
-                  <div class="min-w-full flex-shrink-0 h-full">
+              {{--     <div class="min-w-full flex-shrink-0 h-full">
                     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihQ3gkPJXmlCwbDRF2jQEHERtoLVCCL9t8UqlUu7g7teLGQ3Yc2IZUZL9ryNEwqu8-7hD2DyMS5rMqeM5J6n232fchkh-Z4E_Eef6TuiUqVSYvIY-Dv7RhFWUQkiDYPvp2-OxXndzSUOw/s1600/m7.jpg" class="w-full h-full object-cover">
-                </div>
-                <div class="min-w-full flex-shrink-0 h-full">
+                </div> --}}
+              {{--   <div class="min-w-full flex-shrink-0 h-full">
                   <img src="https://graffica.info/wp-content/uploads/2017/09/hyundai_logo.jpg" class="w-full h-full object-cover">
-              </div>
+              </div> --}}
 
-              <div class="min-w-full flex-shrink-0 h-full">
+          {{--     <div class="min-w-full flex-shrink-0 h-full">
                 <img src="https://www.chevrolet.cl/content/dam/chevrolet/south-america/chile/espanol/index/index-subcontent/2023/drp-home/catwalks/catwalk-solicita-una-cotizacion.jpg?imwidth=960" class="w-full h-full object-cover">
-            </div>
+            </div> --}}
 
-            <div class="min-w-full flex-shrink-0 h-full">
+          {{--   <div class="min-w-full flex-shrink-0 h-full">
               <img src="https://cdn.freelogovectors.net/wp-content/uploads/2023/05/peugeot-logo-03-freelogovectors.net_.png" class="w-full h-full object-cover">
-          </div>
+          </div> --}}
 
-          <div class="min-w-full flex-shrink-0 h-full">
+       {{--    <div class="min-w-full flex-shrink-0 h-full">
             <img src="https://static.vecteezy.com/system/resources/previews/020/499/800/non_2x/citroen-brand-new-logo-car-symbol-name-black-design-french-automobile-illustration-free-vector.jpg" class="w-full h-full object-cover">
-        </div>
+        </div> --}}
               
                   <!-- Agrega más imágenes según sea necesario -->
               </div>
@@ -54,11 +54,11 @@
               <button data-slide="0" class="w-3 h-3 rounded-full bg-gray-400"></button>
               <button data-slide="1" class="w-3 h-3 rounded-full bg-gray-400"></button>
               <button data-slide="2" class="w-3 h-3 rounded-full bg-gray-400"></button>
-              <button data-slide="3" class="w-3 h-3 rounded-full bg-gray-400"></button>
+         {{--      <button data-slide="3" class="w-3 h-3 rounded-full bg-gray-400"></button>
               <button data-slide="4" class="w-3 h-3 rounded-full bg-gray-400"></button>
               <button data-slide="5" class="w-3 h-3 rounded-full bg-gray-400"></button> 
               <button data-slide="6" class="w-3 h-3 rounded-full bg-gray-400"></button> 
-              <button data-slide="7" class="w-3 h-3 rounded-full bg-gray-400"></button> 
+              <button data-slide="7" class="w-3 h-3 rounded-full bg-gray-400"></button>  --}}
               <!-- Agrega más botones según sea necesario -->
           </div>
       </div>
