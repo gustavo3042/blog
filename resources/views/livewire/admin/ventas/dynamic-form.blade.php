@@ -41,6 +41,10 @@ label {
 
     <div class="card mt-5">
 
+      <h2  class="font-weight-bold text-center mb-5">Orden de Trabajo</h2>
+      <br>
+
+
          <form wire:submit.prevent="submit"> 
 
   <!-- resources/views/livewire/tabs.blade.php -->
@@ -585,7 +589,7 @@ label {
 
 <div class="form-group">
     
-  <p class="font-weight-bold">Estado
+  <p class="font-weight-bold">Estado 
 
 </p>
   <label for="">
@@ -620,6 +624,11 @@ label {
 </div>
 
 
+@if (empty($this->imagenCar))
+    
+
+      
+  
 <div class="container">
 
   <div class="image-wrapper"> 
@@ -643,6 +652,17 @@ label {
 </div>
 
 </div>
+
+@else
+
+
+<div class="container">
+ <div  style="width: 500px; height: 500px; overflow: hidden;">
+  <img src="{{ asset('storage/' . $this->imagenCar) }}" alt="Imagen del checklist" class="img-fluid rounded">
+</div>
+</div>
+
+@endif
 
 <br>
 

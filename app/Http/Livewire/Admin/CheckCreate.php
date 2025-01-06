@@ -69,6 +69,9 @@ class CheckCreate extends Component
    public $cambio;
 
    public $autos1;
+   public $imagenCar;
+
+  
 
    public function updatingSearch(){
   
@@ -168,6 +171,9 @@ public function updatedImage()
     // Guardar la nueva imagen en el almacenamiento público
     $path = $this->image->store('images_check', 'public');
     $this->currentImage = $path;
+    
+
+   
 }
 
 
@@ -220,7 +226,7 @@ public function updatedImage()
 
 //      $this->autos1 = Autos::where('patente',$this->patente)->with('check_lists')->get();
 
-      //dd($this->autos1);
+     
 
         $most = CheckList::join('clientes_check_list','clientes_check_list.check_lists_id','=','check_lists.id')
         ->join('clientes','clientes.id','=','clientes_check_list.clientes_id')
@@ -237,7 +243,9 @@ public function updatedImage()
         'autos.patente')
         ->orderBy('kilometrajes.id','desc')
         ->first();
-
+       
+        //dd($this->imagenCar);
+ 
         if ($most) {
 
             $this->nombre = $most->nombre;
@@ -253,6 +261,19 @@ public function updatedImage()
             $this->ano = $most->ano;
             $this->color = $most->color;
             $this->kilometraje = $most->kilometraje;
+
+            $checkList = CheckList::find($most->id);
+            $imagen = $checkList->image;
+
+            
+           
+            if ($imagen) {
+              // Si existe una imagen, manejarla
+              $this->imagenCar = $imagen->url; // O lo que necesites hacer con la URL
+          } else {
+              // Si no existe imagen
+              $this->imagenCar = null;
+          }
             
 
         }else{
@@ -270,6 +291,7 @@ public function updatedImage()
             $this->ano = '';
             $this->color = '';
             $this->kilometraje = '';
+            $this->imagenCar = null;
         }
 
 
@@ -280,9 +302,6 @@ public function updatedImage()
 
      
     //  dd($this->reparaciones,$this->fields,$this->image,$this->total,$this->cambio,$this->cambiosDeAceite);
-
-
-    //dd($this->reparaciones);
 
 
         $check_list = CheckList::create([
@@ -330,20 +349,26 @@ public function updatedImage()
         }
 
 
-        foreach ($this->fields as $k => $v) {
+    
+          
+           foreach ($this->fields as $k => $v) {
 
-      /*     $url = $v->store('imageFiles','public'); */
+            if (empty($v['imagen'])) {
 
-          $url = Storage::put('imageFiles',$v['imagen']);
-      
-          $check_list->image_files()->create([
-      
-            'url'=> $url
-      
-          ]);
-      
-        }
-      
+                continue;
+              
+                $url = Storage::put('imageFiles',$v['imagen']);
+            
+                $check_list->image_files()->create([
+            
+                  'url'=> $url
+            
+                ]);
+            
+              } 
+
+            }
+
         if ($this->image) {
           
           $url2 = Storage::put('check_lists',$this->image);
@@ -755,6 +780,8 @@ if (empty($autoNew->patente)) {
       $this->status = '';
       $this->image = '';
       $this->reparaciones = '';
+      $this->imagenCar = null;
+      $this->total = 0;
 
       $this->fields = [];
 
