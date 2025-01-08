@@ -31,14 +31,11 @@ class Checkindex extends Component
     public function render()
     {
 
-        $checkl = CheckList::where('user_id','=', auth()->user()->id)
+        $checkl = CheckList::with('images')
+        ->where('user_id','=', auth()->user()->id)
         ->where('patente','LIKE','%'.$this->search.'%')
         ->latest('id')
-        ->paginate(5);
-
-
-
-
+        ->paginate(5); 
 
         return view('livewire.admin.checkindex',compact('checkl'));
     }

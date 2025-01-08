@@ -36,6 +36,15 @@ class CheckList extends Model
 
       return $this->morphOne(Image::class, 'imageable');
     }
+ 
+
+ public function images()
+ {
+     return $this->belongsToMany(Image::class, 'check_list_image', 'check_list_id', 'image_id')
+                 ->withTimestamps();
+ }
+ 
+
 
     public function presupuestos(){
 

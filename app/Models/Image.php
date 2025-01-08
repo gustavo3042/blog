@@ -14,13 +14,18 @@ class Image extends Model
 
     //relacion polimorfica
 
-    public function imageable(){
+     public function imageable(){
 
       return $this->morphTo();
     }
+ 
 
-
-
+ public function checkLists()
+ {
+     return $this->belongsToMany(CheckList::class, 'check_list_image', 'image_id', 'check_list_id')
+                 ->withTimestamps();
+ }
+ 
 
 
 

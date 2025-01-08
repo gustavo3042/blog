@@ -631,7 +631,7 @@ label {
   
 <div class="container">
 
-  <div class="image-wrapper"> 
+  <div class="image-wrapper" > 
 
   @if ($currentImage)
       <div class="mb-4">

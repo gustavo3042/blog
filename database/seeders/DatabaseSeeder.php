@@ -157,7 +157,7 @@ $etiquetas2 = Tag::create([
                 
                 ]);
 
-/* 
+
         $post = Post::create([
 
             'name' => 'Reparación de culata',
@@ -234,7 +234,54 @@ $etiquetas2 = Tag::create([
             'category_id' => $categoria2->id
         ]);
 
-        $postTag5 = DB::table('post_tag')->insert(['post_id'=>$post5->id,'tag_id'=>$etiquetas5->id]); */
+        $postTag5 = DB::table('post_tag')->insert(['post_id'=>$post5->id,'tag_id'=>$etiquetas5->id]); 
+
+
+        $post6 = Post::create([
+
+            'name' => 'Limpieza y Prueba de Inyectores',
+            'slug' => 'Limpieza-y-Prueba-de-Inyectores',
+            'extract' => '<p>Limpieza y prueba de inyectores por ultrasonido</p><p><strong>$70000</strong></p>',
+            'body' => '<p>¿Qué es la limpieza por ultrasonido?
+Es un método que utiliza ondas ultrasónicas generadas por un dispositivo especializado. Los inyectores se sumergen en una solución limpiadora dentro de un tanque que emite estas ondas. Las vibraciones ultrasónicas generan pequeñas burbujas que colapsan rápidamente (cavitación), lo que ayuda a eliminar depósitos de carbonilla, barniz, residuos de combustible y otros contaminantes adheridos a las partes internas y externas de los inyectores.
+
+¿Qué incluye el proceso?
+Desmontaje: Los inyectores se retiran del motor para un acceso completo.
+Pruebas iniciales: Se evalúa el caudal, el patrón de pulverización y el rendimiento de cada inyector en una máquina de pruebas.
+Limpieza ultrasónica: Los inyectores se colocan en un tanque de ultrasonidos con una solución especial que elimina los depósitos de suciedad.
+Pruebas finales: Después de la limpieza, se vuelven a probar para verificar que la pulverización y el caudal sean uniformes y que los inyectores estén funcionando correctamente.
+Reinstalación: Una vez que los inyectores están limpios y comprobados, se vuelven a instalar en el motor.
+¿Para qué sirve?
+Mejorar el rendimiento del motor: Los inyectores limpios aseguran una pulverización uniforme y eficiente del combustible, lo que optimiza la combustión.
+Reducir el consumo de combustible: La correcta dosificación y distribución del combustible disminuye el desperdicio.
+Reducir emisiones contaminantes: Mejora la calidad de la combustión, reduciendo la emisión de gases nocivos.
+Prolongar la vida útil del motor: Evita problemas como detonaciones, acumulación de carbonilla y desgaste prematuro de componentes.
+Prevenir fallos: Detecta y corrige problemas antes de que causen daños graves.
+¿Cuándo se debe realizar?
+Cada 40,000 a 60,000 kilómetros, dependiendo del tipo de combustible y condiciones de uso.
+Cuando se detectan síntomas como pérdida de potencia, incremento en el consumo de combustible, arranques difíciles, emisiones excesivas o funcionamiento irregular del motor.</p>',
+            'status' => 2,
+            'user_id' => 1,
+            'category_id' => $categoria->id
+        ]);
+
+        $postTag6 = DB::table('post_tag')->insert(['post_id'=>$post6->id,'tag_id'=>$etiquetas->id]); 
+        
+        
+          $post7 = Post::create([
+
+            'name' => 'Cambio de Aceite y Filtro',
+            'slug' => 'Cambio-de-Aceite-y-Filtro',
+            'extract' => '<p>Cambio de Aceite y Filtro</p><p><strong>$70000</strong></p>',
+            'body' => '',
+            'status' => 2,
+            'user_id' => 1,
+            'category_id' => $categoria2->id
+        ]);
+
+        $postTag7 = DB::table('post_tag')->insert(['post_id'=>$post7->id,'tag_id'=>$etiquetas->id]); 
+        
+        
  
      $insumo = Insumo::create([
 

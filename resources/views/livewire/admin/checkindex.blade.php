@@ -57,9 +57,19 @@
     <td>{{$check->fechaTermino}}</td>
 
     <td>
-      <div  style="width: 200px; height: 200px; overflow: hidden;">
+      <div style="width: 200px; height: 200px; overflow: hidden;">
+      @if ($check->images->isNotEmpty())
+      @foreach ($check->images as $image)
+          <img src="{{ asset('storage/' . $image->url) }}" alt="Imagen asociada" class="img-fluid rounded" >
+      @endforeach
+      @else
+      <span>Sin imágenes</span>
+      @endif
+      </div> 
+
+     {{--  <div  style="width: 200px; height: 200px; overflow: hidden;">
         <img src="{{ asset('storage/' . $check->image->url) }}" alt="Imagen del checklist" class="img-fluid rounded">
-      </div>
+      </div> --}}
     </td>
     <td>
     <div class="btn-group"  role="group">

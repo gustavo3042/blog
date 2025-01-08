@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Reparaciones;
 use App\Models\User;
 use App\Models\Cliente;
+use App\Models\Image;
 use App\Models\Insumo;
 use Livewire\WithPagination;
 use Illuminate\Http\Request;
@@ -244,7 +245,7 @@ public function updatedImage()
         ->orderBy('kilometrajes.id','desc')
         ->first();
        
-        //dd($this->imagenCar);
+      
  
         if ($most) {
 
@@ -369,16 +370,33 @@ public function updatedImage()
 
             }
 
-        if ($this->image) {
-          
+
+        
+
+    if ($this->imagenCar == null) {
+
+         if ($this->image) {
+
           $url2 = Storage::put('check_lists',$this->image);
           $check_list->image()->create([
-      
             'url'=> $url2
-      
           ]);
-      
-        }
+          $imagenId = Image::where('imageable_id',$check_list->id)->first();
+          $check_list->images()->attach($imagenId->id); 
+        } 
+      }
+
+
+      if($this->imagenCar){
+
+       
+        $checkSearch = CheckList::where('patente',$this->patente)->first();
+       // dd($check_list->id,$checkSearch);
+        $imagenId = Image::where('imageable_id',$checkSearch->id)->first();
+       
+        $check_list->images()->attach($imagenId->id); 
+
+      }
 
 
         if ($this->reparaciones) {
