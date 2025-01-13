@@ -44,6 +44,10 @@
 
         @livewireScripts
 
+     
+        <script src="https://cdn.jsdelivr.net/npm/@livewire/livewire"></script>
+
+
         @stack('js')
 
       
