@@ -1,3 +1,6 @@
+  
+  @include('livewire.admin.modals.imageModal')
+  
   <div class="card mt-4">
 
     @if (Session::has('Mensaje'))
@@ -60,7 +63,7 @@
       <div style="width: 200px; height: 200px; overflow: hidden;">
       @if ($check->images->isNotEmpty())
       @foreach ($check->images as $image)
-          <img src="{{ asset('storage/' . $image->url) }}" alt="Imagen asociada" class="img-fluid rounded" >
+          <img src="{{ asset('storage/' . $image->url) }}" alt="Imagen asociada" class="img-fluid rounded img-thumbnail" data-toggle="modal" data-target="#imageModal" data-image="{{ asset('storage/' . $image->url) }}" >
       @endforeach
       @else
       <span>Sin imágenes</span>
@@ -159,3 +162,14 @@
   @endif
 
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      $('#imageModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Botón que disparó el modal
+        var imageUrl = button.data('image'); // Obtén la URL de la imagen
+        var modalImage = document.getElementById('modalImage');
+        modalImage.src = imageUrl; // Asigna la URL de la imagen al src del modal
+      });
+    });
+  </script>

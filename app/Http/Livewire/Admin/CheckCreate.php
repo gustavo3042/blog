@@ -308,7 +308,7 @@ public function updatedImage()
         $check_list = CheckList::create([
 
             'encargado' => auth()->user()->name,
-            'fecha' => Carbon::now(),
+            'fecha' => $this->fecha,
             'status'=> $this->status,
             'problema'=> $this->problema,
             'solucion'=> $this->solucion,
