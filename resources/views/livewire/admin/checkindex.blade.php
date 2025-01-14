@@ -1,5 +1,5 @@
   
-  @include('livewire.admin.modals.imageModal')
+{{-- @include('livewire.admin.modals.imageModal') --}}
   
   <div class="card mt-4">
 
@@ -63,12 +63,23 @@
       <div style="width: 200px; height: 200px; overflow: hidden;">
       @if ($check->images->isNotEmpty())
       @foreach ($check->images as $image)
-          <img src="{{ asset('storage/' . $image->url) }}" alt="Imagen asociada" class="img-fluid rounded img-thumbnail" data-toggle="modal" data-target="#imageModal" data-image="{{ asset('storage/' . $image->url) }}" >
+          <img src="{{ asset('storage/' . $image->url) }}" alt="Imagen asociada" class="img-fluid rounded img-thumbnail" data-toggle="modal" data-target="#imageModal"data-image="{{ asset('storage/' . $image->url) }}"  >
       @endforeach
       @else
       <span>Sin imágenes</span>
       @endif
       </div> 
+
+    {{--   <button type="button" data-bs-toggle="modal"
+      data-bs-target="#updateEthnyModal"
+      wire:click.prevent="mostEthny('{{ $item->id }}')"
+      class="btn btn-info btn-sm">
+      Editar
+      </button> 
+      
+
+      wire:click.prevent="most('{{$check->id}}')"
+      --}}
 
      {{--  <div  style="width: 200px; height: 200px; overflow: hidden;">
         <img src="{{ asset('storage/' . $check->image->url) }}" alt="Imagen del checklist" class="img-fluid rounded">
@@ -100,6 +111,23 @@
     </div>
 
   </td>
+
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLabel">Vista ampliada</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="" alt="Imagen ampliada" id="modalImage" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+  
  
 
   
@@ -163,6 +191,13 @@
 
   </div>
 
+
+{{--   <script>
+    window.addEventListener('close-modal', event => {
+        $('#imageModal').modal('hide');
+    })
+  </script> --}}
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       $('#imageModal').on('show.bs.modal', function (event) {
@@ -172,4 +207,4 @@
         modalImage.src = imageUrl; // Asigna la URL de la imagen al src del modal
       });
     });
-  </script>
+  </script> 
