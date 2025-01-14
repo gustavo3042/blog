@@ -35,7 +35,7 @@ class Checkindex extends Component
         ->where('user_id','=', auth()->user()->id)
         ->where('patente','LIKE','%'.$this->search.'%')
         ->latest('id')
-        ->paginate(1); 
+        ->paginate(5); 
 
         return view('livewire.admin.checkindex',compact('checkl'));
     }
