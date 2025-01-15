@@ -16,20 +16,30 @@
 
 @stop
 
-{{-- @section('js')
+ @section('js')
    
-<script>
+{{--  <script>
     document.addEventListener('DOMContentLoaded', function () {
-      $('#imageModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); // Botón que disparó el modal
-        var imageUrl = button.data('image'); // Obtén la URL de la imagen
-        var modalImage = document.getElementById('modalImage');
-        modalImage.src = imageUrl; // Asigna la URL de la imagen al src del modal
-      });
+        function initializeModal() {
+            $('#imageModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); // Botón que disparó el modal
+                var imageUrl = button.data('image'); // Obtén la URL de la imagen
+                var modalImage = document.getElementById('modalImage');
+                modalImage.src = imageUrl; // Asigna la URL de la imagen al src del modal
+            });
+        }
+  
+        // Inicializa el modal al cargar la página
+        initializeModal();
+  
+        // Re-inicializa el modal cada vez que Livewire actualice el DOM
+        Livewire.hook('message.processed', (message, component) => {
+            initializeModal();
+        });
     });
-  </script> 
+  </script> --}}
    
 
 @stop
- --}}
+ 
 

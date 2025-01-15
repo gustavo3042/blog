@@ -60,30 +60,20 @@
     <td>{{$check->fechaTermino}}</td>
 
     <td>
-      <div style="width: 200px; height: 200px; overflow: hidden;">
+      <div style="cursor: pointer; width: 200px; height: 200px; overflow: hidden;">
       @if ($check->images->isNotEmpty())
       @foreach ($check->images as $image)
-          <img src="{{ asset('storage/' . $image->url) }}" alt="Imagen asociada" class="img-fluid rounded img-thumbnail" data-toggle="modal" data-target="#imageModal"data-image="{{ asset('storage/' . $image->url) }}"  >
+      {{-- Tambien se puede enviar una ruta con wire:click utilizando una etiqueta img como boton --}}
+      <img src="{{ asset('storage/' . $image->url) }}" alt="Imagen asociada" class="img-fluid rounded img-thumbnail"  wire:click="showImage('{{ asset('storage/' . $image->url) }}')">
       @endforeach
       @else
       <span>Sin imágenes</span>
       @endif
       </div> 
 
-    {{--   <button type="button" data-bs-toggle="modal"
-      data-bs-target="#updateEthnyModal"
-      wire:click.prevent="mostEthny('{{ $item->id }}')"
-      class="btn btn-info btn-sm">
-      Editar
-      </button> 
-      
+    
 
-      wire:click.prevent="most('{{$check->id}}')"
-      --}}
-
-     {{--  <div  style="width: 200px; height: 200px; overflow: hidden;">
-        <img src="{{ asset('storage/' . $check->image->url) }}" alt="Imagen del checklist" class="img-fluid rounded">
-      </div> --}}
+   
     </td>
     <td>
     <div class="btn-group"  role="group">
@@ -112,21 +102,25 @@
 
   </td>
 
+
   <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="imageModalLabel">Vista ampliada</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Vista ampliada</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                @if ($selectedImage)
+                    <img src="{{ $selectedImage }}" alt="Imagen ampliada" class="img-fluid">
+                @endif
+            </div>
         </div>
-        <div class="modal-body text-center">
-          <img src="" alt="Imagen ampliada" id="modalImage" class="img-fluid">
-        </div>
-      </div>
     </div>
-  </div>
+</div>
+</div>
   
  
 
@@ -192,11 +186,23 @@
   </div>
 
 
-{{--   <script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        window.addEventListener('show-image-modal', event => {
+            $('#imageModal').modal('show');
+        });
+    });
+</script>
+
+  
+
+  {{--
+
+   <script>
     window.addEventListener('close-modal', event => {
         $('#imageModal').modal('hide');
     })
-  </script> --}}
+  </script> 
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -208,3 +214,6 @@
       });
     });
   </script> 
+--}}
+
+
