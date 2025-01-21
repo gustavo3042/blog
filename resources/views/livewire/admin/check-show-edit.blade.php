@@ -31,9 +31,9 @@
       
 
  
-             <input type="text" name="idWorker"  wire:model="workers_id">
+             <input type="hidden" name="idWorker"  wire:model="workers_id">
        
-             <input type="text" name="check" value="{{$check}}">
+             <input type="hidden" name="check" value="{{$check}}">
 
              <table class="table">
                  <thead>
@@ -51,7 +51,7 @@
                      <tr>
                          <input type="hidden" name="jobsId[]" value="{{$item->jobs_id}}" class="form-control">
                          <td><input style="font-size: 15px;" type="text" name="trabajo[]" class="form-control" value="{{$item->trabajo}}" readonly></td>
-                         <td><input style="font-size: 15px;"  type="number" class="form-control" name="precio[]" value="{{$item->precio}}" readonly></td>
+                         <td><input style="font-size: 15px;"  type="number" class="form-control" name="amount[]" value="{{$item->amount}}" readonly></td>
 
                      <td>
 

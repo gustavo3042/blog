@@ -18,6 +18,9 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
+
+
+
 @if (session('error'))
     <script>
         Swal.fire({
@@ -29,6 +32,7 @@
     </script>
 @endif
 
+{{-- //funcion para alert para registrar trabajadores --}}
  @if(session('alert'))
 <script>
     Swal.fire({
@@ -39,17 +43,16 @@
 </script>
 @endif 
 
+
+
 <script>
+
+   
     $(document).ready(function() {
         
         $('#workers').select2({
             width: '100%'
         });
-
-
-     
-
-
     });
 
     function submitForm(btn) {

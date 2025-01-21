@@ -16,6 +16,10 @@ class CheckList extends Model
 
 
 
+    public function productions()
+    {
+        return $this->belongsTo(Production::class);
+    }
 
     public function user(){
 

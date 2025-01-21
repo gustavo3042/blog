@@ -41,12 +41,6 @@ class CheckShowEdit extends Component
        $this->worker_id = $most->workers_id;
        $this->check   = $most->check_lists_id;
 
-
-
-       
-
-       // $worker = DB::table('check_lists_workers')->where('id',$this->worker_id)->first();
-       // dd($worker,$this->worker_id);
         $workerDate = Worker::find($this->worker_id);
       
 
@@ -65,39 +59,21 @@ class CheckShowEdit extends Component
                     DB::raw("
         
                     Select
-             
-         
-        
-                
                     presupuesto_details.trabajo,
                     presupuesto_details.precio,
                     presupuesto_details.id as idFaenas,
+                    presupuesto_details.amount as amount,
                     jobs.porcentaje as totalPorcentaje,
                     jobs.pagoporcentaje as amountPorcentaje,
                     jobs.id as jobs_id
-               
-                  
-                 
-                  
-        
                     from jobs
-                
                     left join presupuesto_details on presupuesto_details.id = jobs.presupuesto_details_id
-                
-        
                     WHERE jobs.check_lists_id = '".$this->check."' AND jobs.workers_id = '". $id ."'
-                
-                 
-                    
                     ")
             );
         
             $this->mostFinal = Job::where('workers_id',$this->worker_id)->sum('pagoporcentaje');
     
-          // dd($this->faenasWorkers2);
-           // $this->faenasWorkers  = $faenas;
-          // dd($most);
-           
     }
 
     public function render()
@@ -109,66 +85,33 @@ class CheckShowEdit extends Component
 
     public function editPorcentaje(Request $request){
 
-       // dd($request->all());
-    
-      //  dd($this->trabajo);
-    
-      
-    
       $jobsNew = Job::where(['check_lists_id'=> $request->check, 'workers_id'=> $request->idWorker])->get();
       
-    //  dd($jobsNew,$request->all());
-      //dd();
-    
-    
-        
         $totales  = 0;
-        $amount = 0;
+        $amounts = 0;
         $tot = 0;
     
-    
-     
-        
-    
-            
-    
-        
-        
+  
         foreach ($request->jobsId as $key => $items) {
     
             
             
             $totales = $totales + 1;
     
-            $amount += $request->porcent[$key];    
-            $tot +=  $request->porcent[$key]/100 * $request->precio[$key];  
+            $amounts += $request->porcent[$key];    
+            $tot +=  $request->porcent[$key]/100 * $request->amount[$key];  
     
          
             $jobsId['id'] = $request->jobsId[$key];
             $jobsId['porcentaje'] = $request->porcent[$key];
-            $jobsId['pagoporcentaje'] = $request->porcent[$key]/100 * $request->precio[$key];  
-    
-     
-    
-            Job::where('id',$request->jobsId[$key])->update($jobsId);
+            $jobsId['pagoporcentaje'] = $request->porcent[$key]/100 * $request->amount[$key];  
+      
+          Job::where('id',$request->jobsId[$key])->update($jobsId);
                 
-            
-    
-    
-    
         }
     
-    
-    
-    
-      $ar = Production::where(['check_lists_id'=> $request->check, 'workers_id' => $request->idWorker])->update(['cantidad'=>$totales,'porcentaje'=>$amount,'pagoporcentaje'=> $tot]);
-    
-      //dd($tot,$amount,$totales);
-    
-    
-    
-    
-    
+      $ar = Production::where(['check_lists_id'=> $request->check, 'workers_id' => $request->idWorker])->update(['cantidad'=>$totales,'porcentaje'=>$amounts,'pagoporcentaje'=> $tot]);
+        
       return redirect()->route('check.show',$request->check);
     
     }

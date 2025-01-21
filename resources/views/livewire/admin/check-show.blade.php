@@ -484,8 +484,8 @@
                     <a class="btn btn-primary" href="{{route('assistance.pasar',$checks->id)}}"> <i
                         class="fas fa-user-check"></i>Asistencia</a>
 
-                    <a class="btn btn-primary" href="{{route('productions.produccion',$checks->id)}}">
-                        <i class="fas fa-calculator"></i>Producción</a>
+                  {{--   <a class="btn btn-primary" href="{{route('productions.produccion',$checks->id)}}">
+                        <i class="fas fa-calculator"></i>Producción</a> --}}
 
                 </div>
 
@@ -582,9 +582,11 @@
                                     <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
 
-
+{{-- 
                                         <button style="font-size: 10px;" data-toggle="modal" data-target="#porcentajeModalDelete" wire:click="deletesPorcentajes({{ $workers->workersCheck_id }})" class="btn btn-danger">
-                                            <i class="fas fa-trash"></i></button>
+                                            <i class="fas fa-trash"></i></button> --}}
+
+                                            <a wire:click="$emit('deletesPorcentajes',{{$workers->workersCheck_id}})" class="btn btn-danger btn-lg"><i class="fas fa-trash"></i></a>
 
                                       
 
@@ -593,7 +595,38 @@
 
                                 </tr>
                             @endforeach
-                            <script type="text/javascript">
+
+                            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+                            <script>
+                             document.addEventListener('DOMContentLoaded', function () {
+                            Livewire.on('deletesPorcentajes', productionId => {
+                                Swal.fire({
+                                    title: '¿Estás seguro?',
+                                    text: "¡No podrás revertir esto!",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Sí, bórralo!'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        Livewire.emit('confirmDeletePorcentajes', productionId);
+                                        Swal.fire({
+                                            title: "Producción eliminada!",
+                                            text: "Producción del trabajador borrada con éxito.",
+                                            icon: "success"
+                                        });
+                                    }
+                                });
+                            });
+                        });
+                                                    
+                            </script>
+
+
+                         {{--    <script type="text/javascript">
                                 window.livewire.on('userStore', () => {
                                   //  $('#exampleModal').modal('hide');
                                     $('#porcentajeModal').modal('hide');
@@ -601,7 +634,9 @@
                                     $('#porcentajeModalDelete').modal('hide');
                                     
                                 });
-                            </script> 
+                            </script>  --}}
+
+
                         </tbody>
                     </table>
                 </div>

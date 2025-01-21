@@ -81,12 +81,12 @@
 
               
 
-                <input type="text" name="idWorker"  value="{{$workers_id}}">
+                <input type="hidden" name="idWorker"  value="{{$workers_id}}">
 
               
                     
              
-                <input type="text" name="check" value="{{$check_id}}">
+                <input type="hidden" name="check" value="{{$check_id}}">
 
             
                 <table class="table">
@@ -105,7 +105,7 @@
                         <tr>
                        
                             <td><input type="text" name="trabajo[]" class="form-control" value="{{$item->trabajo }}" readonly></td>
-                            <td><input type="number" class="form-control" name="precio[]" value="{{$item->precio}}" readonly></td>
+                            <td><input type="number" class="form-control" name="amount[]" value="{{$item->amount}}" readonly></td>
 
                         <td>
 

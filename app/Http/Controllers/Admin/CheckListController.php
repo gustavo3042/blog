@@ -1612,17 +1612,7 @@ return redirect()->route('check.index',$check);
         //dd($request->all());
 
         if (empty($request->workers)) {
-            //Toastr::warning('Favor de Agregar Trabajadores', 'Sin Trabajadores', );
-
-          
-
-       /*      return redirect()->back()->with('alert', [
-              'title' => 'Éxito!',
-              'text' => 'Operación realizada correctamente.',
-              'icon' => 'success'
-          ]); */
-
-
+       
           return redirect()->back()->with('error', 'Debes seleccionar uno o mas trabajadores para registrarlos en la faena.');
 
         }
@@ -1664,14 +1654,6 @@ return redirect()->route('check.index',$check);
                 ]
             );
         }
-
-    
-
-
-        //Toastr::success('Agregado', 'Trabajadores agregados a la faena con éxito', );
-    
-       
-      /*   return redirect()->route('check.show', $activeChore->id)->with('Mensaje', 'Trabajador agregado con éxito.'); */
 
       return redirect()->route('check.show', $activeChore->id)->with('alert', [
         'title' => 'Éxito!',

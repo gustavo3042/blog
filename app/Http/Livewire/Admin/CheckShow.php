@@ -21,6 +21,7 @@ use Carbon\Carbon;
 class CheckShow extends Component
 {
 
+protected $listeners = ['confirmDeletePorcentajes' => 'deletesPorcentajes'];
    
     public $email;
     
@@ -58,15 +59,9 @@ class CheckShow extends Component
     public $detailsRepuestos;
    
 
-   // public $precio;
-   // public $porcent;
-
-
- 
-
     public function mount($check){
 
-      //  dd('holis');
+  
     
         $this->check = $check;
   
@@ -106,28 +101,17 @@ class CheckShow extends Component
         $this->allJobs = Job::where('check_lists_id',$check)->sum('pagoporcentaje');
 
         $this->allGanancias = $this->allPrecioTotal->total - $this->allJobs;
-      //  dd($this->allJobs);
-        //$this->allPrecioTotal =  count($allPrecioTotal);
-
-        //dd($this->allAsistencias);
-      
-      //  $this->jobs = Job::all();
-
-
-    
-
+   
     }
 
 
     public function render()
     {
 
-     //  dd($this->check);
+  
 
         $a = CheckList::find($this->check);
-      //  $a = Autos::where('check_lists_id',$this->check)->with('check_lists')->get();
-
-       // dd($a);
+   
 
         $reparaciones = DB::table('check_lists')
         ->join('check_list_reparaciones','check_list_reparaciones.check_list_id','=','check_lists.id')
@@ -137,24 +121,9 @@ class CheckShow extends Component
         ->get();
   
   
-       /*  $clientes = DB::table('check_lists')
-        ->join('clientes_check_list','clientes_check_list.check_lists_id','=','check_lists.id')
-        ->join('clientes','clientes.id','=','clientes_check_list.clientes_id')
-        
-        ->where('clientes_check_list.check_lists_id',$this->check)
-        ->first(); */
-
       $clientes = CheckList::with('clientes')->find($this->check);
 
-     
-        //dd($clientes);
   
-  
-      /*   $autos = DB::table('check_lists')
-        ->join('check_lists_autos','check_lists_autos.check_lists_id','=','check_lists.id')
-        ->join('autos','autos.id','=','check_lists_autos.autos_id')
-        ->where('check_lists_autos.check_lists_id',$this->check)
-        ->first(); */
 
         $autos = Autos::where('patente',$a->patente)->first();
 
@@ -162,29 +131,6 @@ class CheckShow extends Component
         $id = $this->check;
         $checks = CheckList::where('id',$this->check)->first();
 
-       
-        
-        
-         //dd($checks);
-  
-         /*
-        $workers = DB::table('workers')
-  
-        ->where('status',1)
-        ->whereNotIn('id', function ($g) use ($id) {
-            $g->select('workers_id')
-                ->from('check_lists_workers')
-              
-  
-                    ->whereIn('check_lists_id', function ($p) use ($id) {
-                        $p->select('id')
-                            ->from('check_lists')
-                            ->where('id', $id)
-                            ->get();
-                    });
-        })->get();
-
-        */
 
         $workers = $this->workers;
 
@@ -309,12 +255,7 @@ public function porcentajes($id){
             ")
     );
 
-    //dd($this->faenasWorkers);
-   // $this->faenasWorkers  = $faenas;
    
-
-
-
 
 }
 
@@ -381,40 +322,20 @@ public function porcentajesMost($id){
     
         $this->mostFinal = Job::where(['check_lists_id' => $this->check,'workers_id'=>$this->idWorker])->sum('pagoporcentaje');
 
-      //  dd($this->faenasWorkers2);
-       // $this->faenasWorkers  = $faenas;
-      // dd($most);
-       
+ 
     }
 
 
 public function editPorcentaje(Request $request){
 
-    //dd($request->all());
-
-  //  dd($this->trabajo);
-
-  
 
   $jobsNew = Job::where(['check_lists_id'=> $request->check, 'workers_id'=> $request->idWorker])->get();
   
-//  dd($jobsNew,$request->all());
-  //dd();
 
-
-    
     $totales  = 0;
     $amount = 0;
     $tot = 0;
 
-
- 
-    
-
-        
-
-    
-    
     foreach ($request->jobsId as $key => $items) {
 
         
@@ -433,22 +354,9 @@ public function editPorcentaje(Request $request){
 
         Job::where('id',$request->jobsId[$key])->update($jobsId);
             
-        
-
-
-
     }
 
-
-
-
   $ar = Production::where(['check_lists_id'=> $request->check, 'workers_id' => $request->idWorker])->update(['cantidad'=>$totales,'porcentaje'=>$amount,'pagoporcentaje'=> $tot]);
-
-  //dd($tot,$amount,$totales);
-
-
-
-
 
     return redirect()->back();
 
@@ -495,27 +403,48 @@ public function statusFaenas(Request $request,$check){
 
 }
 
-public function deletesPorcentajes($id){
+public function deletesPorcentajes($productionId){
 
-   // dd($id);
+   // dd($productionId);
+    $production = Production::where('workers_id',$productionId)->first();
 
-   $mostNew = DB::table('check_lists_workers')->where('id',$id)->first();
+  
+    $delete_production = DB::table('check_lists_workers')->where('id',$productionId)->delete();
+   
+  
 
-   $this->idWorker = $mostNew->id;
+    if ($production) {
+        $production->delete();        
+    }
 
-  // dd($mostNew);
+    $this->emit('mensajeExito', 'Eliminado correctamente');
 
- //  $delete = DB::table('check_lists_workers')->where('id',$id)->delete();
+    $id = $this->check;
+  
+    $this->workers = DB::table('workers')
 
-   //return redirect()->back();
+    ->where('status',1)
+    ->whereNotIn('id', function ($g) use ($id) {
+        $g->select('workers_id')
+            ->from('check_lists_workers')
+          
+
+                ->whereIn('check_lists_id', function ($p) use ($id) {
+                    $p->select('id')
+                        ->from('check_lists')
+                        ->where('id', $id)
+                        ->get();
+                });
+    })->get();
+
     
     }
 
     public function destroyProduction(){
 
-       // $mostCheck = DB::table('check_lists_workers')->where('workers_id',$this->idWorker)->first();
+
         $delete = DB::table('check_lists_workers')->where('id',$this->idWorker)->delete();
-      //  return redirect()->back()->with('Mensaje','Producción eliminada con éxito');
+     
 
         return redirect()->route('check.show',$this->check)->with('Mensaje','Producción eliminada con éxito');
     }
@@ -531,151 +460,6 @@ public function refresh(){
 }
 
 
-
-
-
-/*
-
-Funciones 
-
-public function edit ($worker_id){
-
-    
-       
-
-      $most = Worker::find($worker_id);
-
-      $worker = DB::table('check_lists_workers')->where(['check_lists_id'=>$this->check,'workers_id' => $most->id])->first();
-    //  dd($worker);
-
-     // $this->jobNew = Job::where('workers_id',$worker_id)->get();
-
-     // dd($this->jobNew);
-
-      $this->rut = $most->rut;
-      $this->name = $most->name;
-      $this->surname = $most->surname;
-      $this->email = $most->email;
-      $this->idWorker = $most->id;
-  
-
-    
-  
-  }
-
-
-  public function changeEdit($worker_id){
-
-  //dd($worker_id);
-
-    $most = Worker::find($worker_id);
-
-    $worker = DB::table('check_lists_workers')->where(['check_lists_id'=>$this->check,'workers_id' => $most->id])->first();
-  //  dd($worker);
-
-     $this->jobNew = Job::where('workers_id',$worker_id)->get();
-
-   // dd($this->jobNew);
-
-    $this->rut = $most->rut;
-    $this->name = $most->name;
-    $this->surname = $most->surname;
-    $this->email = $most->email;
-    $this->idWorker = $most->id;
-
-  }
-
-
-  public function change(Request $request){
-
-  //  dd($request->all());
-
-
-    $faena = $request->check;
-
-    $mostFaena = CheckList::find($faena);
-
-   // dd($mostFaena);
-
-    $sum = count($request->job);
-
-    $editCantidad =  Production::where(['check_lists_id'=> $request->check, 'workers_id'=> $request->idWorker])->update(['cantidad' => $sum]);
-     
-  
-      if (count($request->idWorker) > 0) {
-          # code...
-      
-        
-      foreach ($request->idWorker as $index => $value) {
-  
-          $most = array(
-  
-              'check_lists_id' => $request->check,
-              'workers_id' => $request->idWorker[$index],
-              'presupuesto_details_id' => $request->job[$index],
-              'trabajos' => $request->trabajos[$index],
-  
-          );
-    
-  
-          $productionUpdate = Job::where(['check_lists_id'=> $mostFaena->id, 'workers_id' =>$request->idWorker[$index]])->update($most);
-  
-      }
-  
-      }
-  
-     // dd($sum);
-  
-      return redirect()->route('check.show',$request->check);
-
-  }
-
-  public function update(Request $request){
-
-  // dd($request->all(),count($request->job));
-
-    //dd($request->check);
-
-
-
-   // dd(count($request->job));
-
-   $sum = count($request->job);
-
-  $editCantidad =  Production::where(['check_lists_id'=> $request->check, 'workers_id'=> $request->idWorker])->update(['cantidad' => $sum]);
-   
-
-    if (count($request->job) > 0) {
-        # code...
-    
-      
-    foreach ($request->job as $index => $value) {
-
-        $most = array(
-
-            'check_lists_id' => $request->check,
-            'workers_id' => $request->idWorker,
-            'presupuesto_details_id' => $request->job[$index],
-            'trabajos' => $request->trabajos[$index],
-
-        );
-  
-
-        Job::insert($most);
-        
-
-    }
-
-    }
-
-   // dd($sum);
-
-    return redirect()->route('check.show',$request->check);
-
-  }
-
-
-*/
 
 private function resetInputFields(){
     $this->rut = '';
