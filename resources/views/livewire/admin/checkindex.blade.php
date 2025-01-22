@@ -41,6 +41,9 @@
       <th>Patente</th>
       <th>Fecha de ingreso</th>
       <th>Fecha de termino</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Año</th>
       <th>Imagen</th>
      
       
@@ -58,6 +61,13 @@
     <td>{{$check->patente}}</td>
     <td>{{$check->fecha}}</td>
     <td>{{$check->fechaTermino}}</td>
+
+    @foreach ($check->autos as $i)
+    <td>{{$i->marca}}</td>
+    <td>{{$i->modelo}}</td>
+    <td>{{$i->ano}}</td> 
+    @endforeach
+    
 
     <td>
       <div style="cursor: pointer; width: 200px; height: 200px; overflow: hidden;">

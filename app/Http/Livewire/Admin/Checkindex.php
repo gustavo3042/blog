@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin;
 use Livewire\Component;
 use App\Models\CheckList;
 use App\Models\Image;
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 
 
@@ -37,11 +38,25 @@ class Checkindex extends Component
     public function render()
     {
 
-        $checkl = CheckList::with('images')
+      //  dd(Auth::user()->id);
+
+      if (Auth::user()->hasRole('Admin')) {
+
+        $checkl = CheckList::with('images','autos')
+        ->where('patente','LIKE','%'.$this->search.'%')
+        ->latest('id')
+        ->paginate(5); 
+        
+      }elseif(Auth::user()->hasRole('Mecanico')){
+
+        $checkl = CheckList::with('images','autos')
         ->where('user_id','=', auth()->user()->id)
         ->where('patente','LIKE','%'.$this->search.'%')
         ->latest('id')
         ->paginate(5); 
+      }
+
+     
 
         return view('livewire.admin.checkindex',compact('checkl'));
     }
