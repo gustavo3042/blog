@@ -13,52 +13,17 @@ use Carbon\Carbon;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
-     // dd('holis');
-
-   // $totales = Presupuesto::all();
-   // $productosvendidos = PresupuestoDetails::all();
 
      $startOfMonth = Carbon::now()->startOfMonth();
     $endOfMonth = Carbon::now()->endOfMonth();
-
-    //$totalVentas = Presupuesto::whereBetween('created_at', [$startOfMonth, $endOfMonth])->sum('total');
 
       $totalVentas = CheckList::join('presupuestos','presupuestos.check_lists_id','=','check_lists.id')
       
       ->whereBetween('check_lists.fecha',[$startOfMonth, $endOfMonth])->sum('presupuestos.total');
 
 
-   //   dd($totalVentas);
-   // $totalVentas->load('presupuestos'); 
-
-      /* $ar = array();
-      $sumAr = 0;
-    foreach ($totalVentas as $dt) {
-
-      $ar[] = $dt->presupuestos;
-
-      foreach ($dt as  $value) {
-
-        $sumAr += $value->total;
-       
-      
-      } 
-        }  
-      */
-
-      
-
-
-  
-
-  
- 
-  
-/* 
-    $totalCompras = Presupuesto::join('presupuesto_details','presupuesto_details.presupuestos_id','=','presupuestos.id')
-    ->whereBetween('created_at', [$startOfMonth, $endOfMonth])->sum('totalRepuestos'); */
 
     $totalCompras = CheckList::join('presupuestos','presupuestos.check_lists_id','=','check_lists.id')
     ->join('presupuesto_details','presupuesto_details.presupuestos_id','=','presupuestos.id')
@@ -66,14 +31,9 @@ class HomeController extends Controller
     ->whereBetween('check_lists.fecha', [$startOfMonth, $endOfMonth])
     ->sum('presupuesto_details.totalRepuestos');
  
+   $obInsumos = Insumo::whereBetween('created_at',[$startOfMonth, $endOfMonth])->get();
 
-  
-   // $totalInsumos = Insumo::whereBetween('created_at',[$startOfMonth, $endOfMonth])->sum('stock');
-    //$compraInsumos = Insumo::whereBetween('created_at',[$startOfMonth, $endOfMonth])->sum('precioCompra');
-
-    $obInsumos = Insumo::whereBetween('created_at',[$startOfMonth, $endOfMonth])->get();
-
-   // $totalFinal = ($totalInsumos*$compraInsumos) + $totalCompras;
+   
 
     
       $a = array();
@@ -85,16 +45,6 @@ class HomeController extends Controller
         $totalFinal +=$item->precioCompra * $item->stock;
       } 
 
-   // dd($obInsumos,$totalFinal);
- 
-    //dd($startOfMonth,$endOfMonth,$totalCompras);
-/* 
-    $chartData = [
-      'labels' => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
-      'data' => [65, 59, 80, 81, 56]
-  ]; */
-
-
             $allMonths1 = array_fill(1, 12, 0);
 
 
@@ -104,8 +54,6 @@ class HomeController extends Controller
             ->select(
             DB::raw('SUM(presupuestos.total) as total'),
             DB::raw('MONTH(check_lists.fecha) as month'))
-           // ->whereBetween('check_lists.fecha', [$startOfMonth, $endOfMonth]) 
-           // ->where('check_lists.statusNow',2)
             ->groupBy('month')
             ->get()
             ->keyBy('month','statusNow')
@@ -117,24 +65,21 @@ class HomeController extends Controller
 
             $totals = array_replace($allMonths1, $totals1);
 
-          /*   $this->coursesAll = Course::where('teachingType_id', $dt)->with('grade')->get(); */
 
-          //$id = 1; 
-         // $m = CheckList::where('statusNow','!=',1)->with('presupuestos')->get();
-          //  $m = CheckList::where('statusNow',0)->get();
-         /*  */
+
 
          $inicioDeMes = Carbon::now()->startOfMonth();
          $finDeMes = Carbon::now()->endOfMonth();
       
          $registros = CheckList::whereBetween('created_at', [$inicioDeMes, $finDeMes])->get();
 
+         if ($request->fecha_inicio && $request->fecha_fin) {
+          $registros = CheckList::whereBetween('fecha', [$request->fecha_inicio, $request->fecha_fin])->get();
+         }
+
          // Cargar la relación uno a muchos de los registros
          $registros->load('presupuestos');
-           
-       //  dd($registros);
-
-      
+             
 
             $allMonths = array_fill(1, 12, 0);
        

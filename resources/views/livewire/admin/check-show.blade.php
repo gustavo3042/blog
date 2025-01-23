@@ -30,40 +30,6 @@
 
  <div class="container pt-3" >
 
-
-   {{--  <div class="card-body">
-        <div class="container">
-
-            <table class="table table-bordered">
-
-                <thead>
-
-                    <tr>
-
-                        <th>Hola</th>
-                        <th>Perra</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    <tr>
-
-                        <td>Pruebas1</td>
-                        <td>Pruebas2</td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-    </div> --}}
-
     <div class="row">
 
         <div class="col-sm-4">
@@ -75,7 +41,7 @@
         {{ $checks->id }}
     </div>
     <div class="form-group">
-        <strong>Jefe de Faena:</strong>
+        <strong>Registrado por:</strong>
         {{ $checks->user->name }}
     </div>
     <div class="form-group">
@@ -142,6 +108,13 @@
     @foreach ($details as $repuestos)
      {{$repuestos->descripcion}}<br/>   
     @endforeach
+
+</div>
+
+<div class="form-group">
+
+    <strong>Patente:</strong>
+    {{$checks->patente}}
 
 </div>
 

@@ -5,8 +5,13 @@ namespace App\Http\Livewire\Admin;
 use Livewire\Component;
 use App\Models\CheckList;
 use App\Models\Image;
+use App\Models\Presupuesto;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
+
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Illuminate\Support\Facades\Storage;
+use PDF;
 
 
 
@@ -33,6 +38,37 @@ class Checkindex extends Component
         $this->selectedImage = $imageUrl;
         $this->dispatchBrowserEvent('show-image-modal');
     }
+
+    public function pdfPresupuesto($id){
+
+
+    /* 
+      
+    Esta version nos lleva a una vista primero y despues se puede imprimir o guardar como pdf
+      $id = $id;
+    $pdf = PDF::loadView('admin.check.pdfPresupuesto',compact('id'));
+      return $pdf->setPaper('Doc')->stream('Presupuesto');  */
+
+      //esta la version correcta para descargar un pdf inmediatamente
+
+
+      $check = CheckList::with('presupuestos','clientes','autos')->where('id',$id)->get();
+
+      $jobs = Presupuesto::with('presupuestosDetails')->where('check_lists_id',$id)->get();
+
+      //dd($jobs);
+
+      $pdf = FacadePdf::loadView('admin.check.pdfPresupuesto',['jobs'=>$jobs]);
+
+
+      // Descargar el PDF
+      return response()->streamDownload(
+        fn () => print($pdf->output()), 
+        "presupuesto_$id.pdf"
+    ); 
+     
+
+    }
   
 
     public function render()
@@ -44,6 +80,8 @@ class Checkindex extends Component
 
         $checkl = CheckList::with('images','autos')
         ->where('patente','LIKE','%'.$this->search.'%')
+        ->where('fecha','LIKE','%'.$this->search.'%')
+       
         ->latest('id')
         ->paginate(5); 
         
@@ -52,6 +90,7 @@ class Checkindex extends Component
         $checkl = CheckList::with('images','autos')
         ->where('user_id','=', auth()->user()->id)
         ->where('patente','LIKE','%'.$this->search.'%')
+        ->where('fecha','LIKE','%'.$this->search.'%')
         ->latest('id')
         ->paginate(5); 
       }
@@ -63,13 +102,7 @@ class Checkindex extends Component
 
 
 
-    public function most($id){
-
-     
-       
-     
-
-    }
+   
 
   /*   public function closeModal(){
 

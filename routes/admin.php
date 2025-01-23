@@ -31,6 +31,7 @@ use App\Http\Livewire\Admin\Insumos\InsumosCreate;
 use App\Http\Livewire\Admin\Insumos\InsumosEdit;
 use App\Http\Controllers\Admin\ComprasController;
 use App\Http\Controllers\Admin\VentasController;
+use App\Http\Livewire\Admin\Checkindex;
 use App\Http\Livewire\Admin\Ventas\VentasCreate;
 use App\Http\Livewire\Admin\Ventas\DynamicForm;
 use App\Http\Livewire\Navigation2;
@@ -80,6 +81,7 @@ Route::resource('check','App\Http\Controllers\Admin\CheckListController');
 Route::get('admin/check/{check}/presupuesto',[CheckListController::class,'presupuesto'])->name('check.presupuesto');
 Route::get('admin/check/cliente',[CheckListController::class, 'clientes'])->name('check.cliente');
 Route::get('admin/check/pdf/{id}',[CheckListController::class, 'documentoPdf'])->name('check.pdf');
+Route::get('admin/checkindex/pdfPresupuesto/{id}',[Checkindex::class, 'pdfPresupuesto'])->name('check.pdfPresupuesto');
 Route::post('addWorkers', [CheckListController::class, 'addWorkers'])->name('addWorkers');
 
 Route::post('admin/checkshow/change/',[CheckShow::class, 'change'])->name('change.jobs');

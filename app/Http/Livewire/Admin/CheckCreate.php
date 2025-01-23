@@ -354,11 +354,18 @@ public function updatedImage()
           
            foreach ($this->fields as $k => $v) {
 
-            if (empty($v['imagen'])) {
+           
+           // dd($v['imagen']);
 
-                continue;
+            if (!empty($v['imagen'])) {
+
+             // dd($v['imagen']); 
+
+                 continue;  
               
                 $url = Storage::put('imageFiles',$v['imagen']);
+
+                dd($url);
             
                 $check_list->image_files()->create([
             
@@ -366,7 +373,7 @@ public function updatedImage()
             
                 ]);
             
-              } 
+              }
 
             }
 

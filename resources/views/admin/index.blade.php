@@ -120,9 +120,28 @@
 
 
               
-                <div class="card-title">
+                <div class="card-title mb-4 mr-4">
                     <h3>Reparaciones del Mes</h3>
+
+                    <form action="{{-- {{ route('tu_ruta_de_filtro') }} --}}" method="GET" class="mb-4">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label for="fecha_inicio">Fecha de Inicio:</label>
+                                <input type="date" class="form-control" name="fecha_inicio" id="fecha_inicio" value="{{ request('fecha_inicio') }}">
+                            </div>
+                            <div class="col-md-5">
+                                <label for="fecha_fin">Fecha de Término:</label>
+                                <input type="date" class="form-control" name="fecha_fin" id="fecha_fin" value="{{ request('fecha_fin') }}">
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary">Filtrar</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
+
+              
 
                 <div class="table-responsive">
                         <table class="table">
@@ -176,7 +195,7 @@
  
                                         <div class="btn-group">
                       
-                                           <a class="btn btn-info btn-sm" href="{{route('check.show',$item->id)}}">Reparación</a>
+                                           <a class="btn btn-success btn-sm" href="{{route('check.show',$item->id)}}">show</a>
                       
                                         </div>
                       

@@ -407,12 +407,8 @@ public function deletesPorcentajes($productionId){
 
    // dd($productionId);
     $production = Production::where('workers_id',$productionId)->first();
-
-  
     $delete_production = DB::table('check_lists_workers')->where('id',$productionId)->delete();
    
-  
-
     if ($production) {
         $production->delete();        
     }

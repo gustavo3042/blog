@@ -35,7 +35,7 @@
   <table class="table table-striped">
   <thead>
     <tr>
-      <th>ID</th>
+   
     
       <th>Encargado</th>
       <th>Patente</th>
@@ -54,7 +54,7 @@
   @foreach ($checkl as $check )
 
   <tr>
-    <td>{{$check->id}}</td>
+  {{--   <td>{{$check->id}}</td> --}}
     <td>{{$check->encargado}}</td>
    
 
@@ -104,7 +104,8 @@
   <button  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal" >Eliminar</button>
 
 
-      <a  class="btn btn-primary btn-sm " href="{{route('check.pdf',$check->id)}}" >PDF</a>
+      <a  class="btn btn-info btn-sm " href="{{route('check.pdfPresupuesto',$check->id)}}" >Presupuesto</a>
+      <a  class="btn btn-primary btn-sm " href="{{route('check.pdf',$check->id)}}" >Boleta</a>
     
     
   
