@@ -361,11 +361,12 @@ public function updatedImage()
 
              // dd($v['imagen']); 
 
-                 continue;  
+
+             //continue;  
               
                 $url = Storage::put('imageFiles',$v['imagen']);
 
-                dd($url);
+              //  dd($url);
             
                 $check_list->image_files()->create([
             
