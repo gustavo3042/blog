@@ -364,7 +364,7 @@ public function updatedImage()
 
              //continue;  
               
-                $url = Storage::put('imageFiles',$v['imagen']);
+                $url = Storage::put('documentos',$v['imagen']);
 
               //  dd($url);
             
