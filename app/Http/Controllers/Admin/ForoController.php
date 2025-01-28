@@ -253,6 +253,15 @@ class ForoController extends Controller
     }
 
 
+    public function documentos($id){
+
+   //   dd($id);
+
+      return view('admin.foro.documentos',compact('id'));
+
+    }
+
+
 
     
 

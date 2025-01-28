@@ -32,6 +32,7 @@ use App\Http\Livewire\Admin\Insumos\InsumosEdit;
 use App\Http\Controllers\Admin\ComprasController;
 use App\Http\Controllers\Admin\VentasController;
 use App\Http\Livewire\Admin\Checkindex;
+use App\Http\Livewire\Admin\ForoDocument;
 use App\Http\Livewire\Admin\Ventas\VentasCreate;
 use App\Http\Livewire\Admin\Ventas\DynamicForm;
 use App\Http\Livewire\Navigation2;
@@ -123,6 +124,7 @@ Route::post('admin/foro/comentCrear',[ForoController::class, 'comentCrear'])->na
 Route::put('admin/foro/{id}/cometarEdit',[ForoController::class,'comentarEdit'])->name('foro.comentarEdit');
 Route::delete('admin/foro/{id}/comentarDelete',[ForoController::class, 'comentarDelete'])->name('foro.comentarDelete');
 Route::get('admin/foro/{id}',[ForoController::class, 'documentoPdf'])->name('foro.pdf');
+Route::get('admin/foroDocumento/{id}',[ForoController::class, 'documentos'])->name('foro.foroDocumento');
 
 
 Route::resource('foroCategory','App\Http\Controllers\Admin\CategoryForoController');

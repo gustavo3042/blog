@@ -21,6 +21,7 @@
             background-color: #007bff;
             color: white;
             text-align: center;
+            font-size: 12px;
         }
         .table td {
             text-align: center;
@@ -40,7 +41,7 @@
 
     <div class="row mt-3">
         <div class="col-md-6">
-            <h6>Datos del Mecánico</h6>
+            <h6>Encargado Registro</h6>
             <p><strong>Nombre:</strong> {{ $check->encargado }}</p>
             <p><strong>Email:</strong> {{ $correo->email }}</p>
         </div>

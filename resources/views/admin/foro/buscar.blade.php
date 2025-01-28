@@ -91,8 +91,13 @@
      
  
    
-    <td width="10px"><a class="btn btn-danger btn-sm" href="{{route('foro.pdf',$check->id)}}"><i class="fa fa-file-pdf">PDF</i></a></td>
-    <td width="10px"><a class="btn btn-primary btn-sm" href=""><i class="fa fa-eye">Ver</i></a></td>
+    <td width="10px">
+      <div class="btn-group" role="group" aria-label="Basic example">
+      <a class="btn btn-danger btn-sm" href="{{route('foro.pdf',$check->id)}}"><i class="fa fa-file-pdf"></i></a>
+    <a class="btn btn-primary btn-sm" href=""><i class="fa fa-eye"></i></a>
+    <a class="btn btn-success btn-sm" href="{{route('foro.foroDocumento',$check->id)}}"><i class="fa fa-file"></i></a>
+  </div>
+  </td>
  
    
     

@@ -80,7 +80,7 @@ class Checkindex extends Component
 
         $checkl = CheckList::with('images','autos')
         ->where('patente','LIKE','%'.$this->search.'%')
-        ->where('fecha','LIKE','%'.$this->search.'%')
+       // ->where('fecha','LIKE','%'.$this->search.'%')
        
         ->latest('id')
         ->paginate(5); 
@@ -90,7 +90,7 @@ class Checkindex extends Component
         $checkl = CheckList::with('images','autos')
         ->where('user_id','=', auth()->user()->id)
         ->where('patente','LIKE','%'.$this->search.'%')
-        ->where('fecha','LIKE','%'.$this->search.'%')
+        //->where('fecha','LIKE','%'.$this->search.'%')
         ->latest('id')
         ->paginate(5); 
       }
