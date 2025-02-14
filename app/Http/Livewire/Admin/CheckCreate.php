@@ -301,6 +301,10 @@ public function updatedImage()
 
     public function store(){
 
+
+
+      /* $ar2 = count($this->fields);
+      dd($this->fields,$ar2,$this->fields[0]); */
      
     //  dd($this->reparaciones,$this->fields,$this->image,$this->total,$this->cambio,$this->cambiosDeAceite);
 
@@ -354,19 +358,10 @@ public function updatedImage()
           
            foreach ($this->fields as $k => $v) {
 
-           
-           // dd($v['imagen']);
 
             if (!empty($v['imagen'])) {
 
-             // dd($v['imagen']); 
-
-
-             //continue;  
-              
                 $url = Storage::put('documentos',$v['imagen']);
-
-              //  dd($url);
             
                 $check_list->image_files()->create([
             
@@ -475,8 +470,6 @@ public function updatedImage()
 
       if (count($userNew) > 0) {
 
-        
-        
       }else{
 
       
@@ -536,12 +529,17 @@ if (empty($autoNew->patente)) {
 
 
   $check_list->autos()->attach($autoCreate->id); 
+
+  //aqui empieza algoritmo de kilometrajes
   $searchKlm = Kilometraje::where('autos_id',$autoCreate->id)->get()->toArray(); 
 
   $ar =  count($this->fields);
 
+  //comienza con un solo array
 
-  if ($ar == 1) {
+  if ($ar == 1) { //aqui si no marco niun checkbox de aceite me crea el kilometraje igual
+
+   // dd('holis del principio');
 
     $firstField = $this->fields[0];
 
@@ -563,7 +561,7 @@ if (empty($autoNew->patente)) {
   }
 
 
-  if (count($searchKlm) <= 0 && $ar == 1) {
+  if (count($searchKlm) <= 0 && $ar == 1) {//aqui es cuando no existe un kilometraje creado aun
     
 
     foreach($this->fields as $x => $y){
@@ -626,6 +624,8 @@ if (empty($autoNew->patente)) {
 //Si el auto no existe o no esta creado crea el nuevo kilometraje
   if (count($searchKlm) <= 0 && $ar > 1){
 
+  /*   dd('holis3'); */
+
     $kilometraje = Kilometraje::create([
       'tipoAceite' => 0,
        'kilometraje' => $this->kilometraje,
@@ -686,10 +686,15 @@ if (empty($autoNew->patente)) {
   }
 }
 
+//aqui termina el algoritmo para un fields que sea solo  == 1 y que el auto no existe o no esta creado 
 
 
 
-}elseif(!empty($autoNew->patente)){
+//aca empieza el algoritmo para los autos q ya estan creados y q su array sea igual a 1 o mas de uno en fields
+
+}elseif(!empty($autoNew->patente)){//si la patente existo osea si el auto existe 
+
+  //dd('hoslis4');
 
   $check_list->autos()->attach($autoNew->id); 
   $ultimoKilometraje = Kilometraje::where('autos_id',$autoNew->id)->latest('id')->first();
@@ -701,7 +706,9 @@ if (empty($autoNew->patente)) {
   $newKilometraje  = $this->kilometraje - $ultimoKilometraje->kilometraje;
   $ar =  count($this->fields);
 
-  if ($ar == 1) {
+
+
+  if ($ar == 1) {//si tiene un solo trabajo en filds hace esto
 
     $firstField = $this->fields[0];
 
@@ -710,7 +717,7 @@ if (empty($autoNew->patente)) {
       $kilometraje = Kilometraje::create([
         'tipoAceite' => 0,
          'kilometraje' => $this->kilometraje,
-         'newKilometraje' => 0,
+         'newKilometraje' => $newKilometraje,
          'mostKilometraje' =>0,
          'check_lists_id' =>$check_list->id,
          'autos_id' => $autoNew->id
@@ -718,10 +725,10 @@ if (empty($autoNew->patente)) {
       ]);
     }
     
-    foreach($this->fields as $x => $y){
+    foreach($this->fields as $x => $y){ //si tiene mas de un trabajo en el fields hace esto
 
-      if ($y['checkbox1'] || $y['checkbox2']) {
-          
+      if ($y['checkbox1']) {
+
           $insumos = Insumo::find($y['tipoAceite']);
 
            if (in_array($insumos->id,[1,2,3])) {
@@ -729,8 +736,8 @@ if (empty($autoNew->patente)) {
             $kilometraje = Kilometraje::create([
               'tipoAceite' => $y['tipoAceite'],
                'kilometraje' => $this->kilometraje,
-               'newKilometraje' => $newKilometraje,
-               'mostKilometraje' =>0,
+               'newKilometraje' =>0,
+               'mostKilometraje' =>$newKilometraje,
                'check_lists_id' =>$check_list->id,
                'autos_id' => $autoNew->id
           
@@ -742,23 +749,65 @@ if (empty($autoNew->patente)) {
 
           } 
 
+      }elseif($y['checkbox2']){
+
+        $insumos = Insumo::find($y['tipoAceite']);
+
+        if (in_array($insumos->id,[1,2,3])) {
+       
+       /*   $kilometraje = Kilometraje::create([
+           'tipoAceite' => $y['tipoAceite'],
+            'kilometraje' => $this->kilometraje,
+            'newKilometraje' =>0,
+            'mostKilometraje' =>$newKilometraje,
+            'check_lists_id' =>$check_list->id,
+            'autos_id' => $autoNew->id
+       
+         ]); */
+
+         $insumos->update([
+           'stock' => $insumos->stock - $y['cantidadRepuestos'],
+       ]);
+
+       } 
+
+
       }
     }
+
   }
-//Si el auto no existe o no esta creado crea el nuevo kilometraje
+
+//Si el auto  existe y el field es mayor a 1 pasa esto
   if ($ar > 1){
 
-    $kilometraje = Kilometraje::create([
-      'tipoAceite' => 0,
-      'kilometraje' => $this->kilometraje,
-      'newKilometraje' => $newKilometraje,
-      'mostKilometraje' => 0,
-      'check_lists_id' => $check_list->id,
-      'autos_id' => $autoNew->id
-  ]);
 
+         $kilometraje = Kilometraje::create([
+        'tipoAceite' => 0,
+         'kilometraje' => $this->kilometraje,
+         'newKilometraje' => $newKilometraje,
+         'mostKilometraje' =>0,
+         'check_lists_id' =>$check_list->id,
+         'autos_id' => $autoNew->id
+    
+      ]); 
+
+  $contar = 0;
   foreach ($this->fields as $x => $y) {
-    if ($y['checkbox1'] || $y['checkbox2']) {
+
+    if (!$y['checkbox1'] || !$y['checkbox2']) {
+    
+     /*  continue; */
+    
+    }
+
+    if ($y['checkbox1']) {
+
+
+      $kilometros = Kilometraje::where('check_lists_id',$check_list->id)->update([
+        'newKilometraje' => 0,
+        'mostKilometraje' =>$newKilometraje,
+      ]);
+
         $insumos = Insumo::find($y['tipoAceite']);
 
         if (in_array($insumos->id, [1, 2, 3])) {
@@ -770,9 +819,33 @@ if (empty($autoNew->patente)) {
                 'stock' => $insumos->stock - $y['cantidadRepuestos'],
             ]);
         }
+
+    }elseif($y['checkbox2']){
+
+
+      $insumos = Insumo::find($y['tipoAceite']);
+
+      if (in_array($insumos->id, [1, 2, 3])) {
+          $kilometraje->update([
+              'tipoAceite' => $insumos->id
+          ]);
+
+          $insumos->update([
+              'stock' => $insumos->stock - $y['cantidadRepuestos'],
+          ]);
+      }
+
+
     }
-}
-}
+ }
+ 
+ }
+
+
+
+
+
+
 }
 
   $this->emit('registroCreado');

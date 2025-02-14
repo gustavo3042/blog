@@ -1,5 +1,18 @@
 
+<style>
+  .preview-container {
+      margin-top: 10px;
+  }
 
+  .preview-image {
+      max-width: 500px;
+      max-height: 500px;
+      object-fit: contain; /* Ajusta la imagen sin deformarla */
+      border: 1px solid #ccc;
+      padding: 5px;
+      border-radius: 5px;
+  }
+</style>
 
 
 <div>
@@ -593,11 +606,6 @@
 
 <div class="container">
 
- 
-
-
-
-
 
 <div class="image-wrapper"> 
 
@@ -616,6 +624,22 @@
 @enderror
 
 <div wire:loading wire:target="image">Cargando...</div>
+
+@if ($image)
+    <div class="preview-container">
+        <img src="{{ $image->temporaryUrl() }}" class="preview-image">
+    </div>
+@endif
+
+{{-- 
+<input type="file" wire:model="image" >
+
+
+@error('image')
+    <span class="error">{{ $message }}</span>
+@enderror
+
+<div wire:loading wire:target="image">Cargando...</div> --}}
 
 </div>
 

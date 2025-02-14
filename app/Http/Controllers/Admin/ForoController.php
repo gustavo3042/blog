@@ -15,6 +15,7 @@ use App\Models\PostForoComent;
 use PDF;
 use App\Models\Presupuesto;
 use App\Models\PresupuestoDetails;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -45,24 +46,23 @@ class ForoController extends Controller
 
     public function buscar(Request $request){
 
-        $buscar = $request->buscar;  
+      $user = Auth::user();
 
-      
-      //  dd($buscar);
-        /*
-        $check = DB::table('check_lists')
-        ->join('clientes','clientes.check_lists_id','=','check_lists.id')
-        ->join('users','users.name','=','clientes.nombre')        
-        ->get();
+      $buscar = $request->buscar;  
 
-        */
+      $userCart = CheckList::join('autos','autos.check_lists_id','=','check_lists.id')
+      ->join('clientes','clientes.check_lists_id','=','check_lists.id')
+      ->where('check_lists.patente',$buscar)
+      ->first();
 
+      //dd($userCart,$user->email);
+
+      if ($user->email == $userCart->correo) {
+        
         $check1 = CheckList::where('patente','LIKE','%'.$buscar.'%')
-       // ->where('users.id',auth()->user()->id)
         ->latest('id')
-    // ->orderBy('check_lists.id','desc')
         ->get();
-      // ->paginate(5);
+    
 
             
         $most = CheckList::join('autos','autos.check_lists_id','=','check_lists.id')
@@ -74,21 +74,16 @@ class ForoController extends Controller
         ->orderBy('kilometrajes.id','desc')
         ->first();
 
-       // dd($most);
-
-        /*
-
-        $autos = Autos::where('check_lists_id',$check1->id)->get();
-
-        dd($autos);
-
-        $km = Kilometraje::where('autos_id',$autos[0]->id)->get();
-
-      //  dd($autos);
-
-            */
 
           return view('admin.foro.buscar',compact('check1','most'));
+
+
+           }else{
+
+
+            return view('admin.foro.index');
+
+           }  
 
     }
 
