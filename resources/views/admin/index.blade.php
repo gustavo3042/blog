@@ -6,11 +6,25 @@
    
 @stop
 
+
+@section('css')
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.css" rel="stylesheet">
+@stop
+
+
 @section('content')
- 
+
+
+
+
+
 
     @if (auth()->user()->hasRole('Admin'))
-        
+
+   
+    <div class="container-sm">
+        <div id="calendar"></div>
+    
   
 
     <div class="content-wrapper">
@@ -102,7 +116,9 @@
             </div>
 
             <div class="tab-pane fade" id="datos" role="tabpanel" aria-labelledby="profile-tab">
-                <p>Holis</p>
+               
+
+               
             </div>
 
          </div>
@@ -222,6 +238,8 @@
             
  </div>
 
+</div>
+
 
  @elseif(auth()->user()->hasRole('Cliente'))
 
@@ -278,6 +296,7 @@
 
     <div class="card-body">
 
+      
 
     </div>
 
@@ -315,31 +334,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-   {{--  <script>
-        document.addEventListener('livewire:load', function () {
-            const ctx = document.getElementById('myChart').getContext('2d');
-            const chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre'],
-                    datasets: [{
-                        label: 'Ganancias al Mes',
-                        data: @json(array_values($totals)),
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        });
-    </script> --}}
+  
 
 
 
@@ -371,123 +366,6 @@
 
 
 
-{{-- <script>
-    document.addEventListener('livewire:load', function () {
-        const ctx = document.getElementById('myChartCompras').getContext('2d');
-
-        // Definir los nombres de los meses
-        const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
-        // Obtener los datos desde PHP
-        const totals = @json($totalComprasMes);
-
-        // Crear los labels y datos para el gráfico
-        const labels = [];
-        const data = [];
-        for (const [month, total] of Object.entries(totals)) {
-            labels.push(monthNames[month - 1]);
-            data.push(total);
-        }
-
-        const chart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Compras Mes',
-                    data: data,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    });
-</script> --}}
-
-
-
-{{-- <script>
-    document.addEventListener('livewire:load', function () {
-        const ctx = document.getElementById('myChartCompras').getContext('2d');
-        const chart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Deciembre'],
-                datasets: [{
-                    label: 'Compras Repuestos Mes',
-                    data: @json(array_values($totalComprasMes)),
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    });
-</script> --}}
-
-
- 
-
-
-{{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-    document.addEventListener('livewire:load', function () {
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chartData = @json($chartData);
-        
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: chartData.labels,
-                datasets: [{
-                    label: '# of Sales',
-                    data: chartData.data,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    });
-</script> --}}
-
-
-
 <script>
     document.addEventListener('livewire:load', function () {
         const ctx = document.getElementById('myChartCompras').getContext('2d');
@@ -515,4 +393,27 @@
 </script>
 
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            events: [
+                // Puedes agregar eventos aquí, o cargar desde tu base de datos usando AJAX.
+                {
+                    title  : 'Evento 1',
+                    start  : '2025-02-18'
+                },
+                {
+                    title  : 'Evento 2',
+                    start  : '2025-02-20'
+                }
+            ],
+            // Configura cualquier otra opción que necesites.
+        });
+    });
+</script>
 @stop

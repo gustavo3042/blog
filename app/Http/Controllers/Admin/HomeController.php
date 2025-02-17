@@ -34,8 +34,6 @@ class HomeController extends Controller
    $obInsumos = Insumo::whereBetween('created_at',[$startOfMonth, $endOfMonth])->get();
 
    
-
-    
       $a = array();
       $totalFinal = 0;
 
