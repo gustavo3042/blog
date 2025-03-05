@@ -31,6 +31,7 @@ use App\Http\Livewire\Admin\Insumos\InsumosCreate;
 use App\Http\Livewire\Admin\Insumos\InsumosEdit;
 use App\Http\Controllers\Admin\ComprasController;
 use App\Http\Controllers\Admin\VentasController;
+use App\Http\Livewire\Admin\CalendarShow;
 use App\Http\Livewire\Admin\Checkindex;
 use App\Http\Livewire\Admin\ForoDocument;
 use App\Http\Livewire\Admin\Ventas\VentasCreate;
@@ -38,6 +39,8 @@ use App\Http\Livewire\Admin\Ventas\DynamicForm;
 use App\Http\Livewire\Navigation2;
 
 Route::get('',[HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
+
+Route::get('/show/{id}',[HomeController::class, 'show'])->name('admin.show');
 
 Route::resource('users','App\Http\Controllers\Admin\UserController')->only(['index','edit','update']);
 Route::get('users',[UserController::class,'index'])->name('users.index');

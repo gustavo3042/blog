@@ -10,19 +10,16 @@
 @section('css')
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.css" rel="stylesheet">
 @stop
-
-
 @section('content')
-
-
-
-
-
 
     @if (auth()->user()->hasRole('Admin'))
 
    
     <div class="container-sm">
+
+
+        
+
         <div id="calendar"></div>
     
   
@@ -126,10 +123,7 @@
 
         </div>
 
-
-
-
-        <div class="card-body mt-5 mb-5">
+      {{--   <div class="card-body mt-5 mb-5">
 
 
             <div class="container">
@@ -139,7 +133,7 @@
                 <div class="card-title mb-4 mr-4">
                     <h3>Reparaciones del Mes</h3>
 
-                    <form action="{{-- {{ route('tu_ruta_de_filtro') }} --}}" method="GET" class="mb-4">
+                    <form action="" method="GET" class="mb-4">
                         <div class="row">
                             <div class="col-md-5">
                                 <label for="fecha_inicio">Fecha de Inicio:</label>
@@ -234,7 +228,10 @@
 
         </div>
     
-    </div>
+    </div> --}}
+
+
+
             
  </div>
 
@@ -316,14 +313,21 @@
 @stop
 
 
-@php
-    
 
-@endphp
 
 @section('js')
-    <script> console.log('Hi!');</script>
+    <script>
 
+
+        var dato = @json($totalComprasMes);
+
+       
+
+
+    </script>
+
+
+    
    
 
      <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -400,20 +404,30 @@
 
 <script>
     $(document).ready(function() {
+
+        var events = @json($checkList ?? []); // Convierte el array de eventos de PHP a JavaScript
+
+        var calendarEvents = events.map(function(event) {
+            return {
+                title: event.patente, // Ajusta según el campo de título en tu DB
+                start: event.fecha, // Ajusta según el campo de fecha de inicio
+                url: "{{ url('admin/show') }}/" + event.id// El enlace al detalle del evento
+            };
+        }); 
+
+
+
+       console.log(calendarEvents); 
+
         $('#calendar').fullCalendar({
-            events: [
-                // Puedes agregar eventos aquí, o cargar desde tu base de datos usando AJAX.
-                {
-                    title  : 'Evento 1',
-                    start  : '2025-02-18'
-                },
-                {
-                    title  : 'Evento 2',
-                    start  : '2025-02-20'
-                }
-            ],
-            // Configura cualquier otra opción que necesites.
+            events: calendarEvents,
+            eventClick: function(event) {
+                console.log("Evento clickeado:", event);
+                console.log("Redirigiendo a:", event.url);
+                window.location.href = event.url; 
+            }
         });
+
     });
 </script>
 @stop

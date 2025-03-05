@@ -36,6 +36,7 @@ class CreateCheckListsTable extends Migration
 
 
             $table->timestamps();
+            $table->date('fecha_intermedia')->nullable();
         });
     }
 
@@ -46,6 +47,10 @@ class CreateCheckListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('check_lists');
+        /* Schema::dropIfExists('check_lists');
+        $table->dropColumn('fecha_intermedia'); */
+        Schema::table('check_lists', function (Blueprint $table) {
+            $table->dropColumn('fecha_intermedia');
+        });
     }
 }

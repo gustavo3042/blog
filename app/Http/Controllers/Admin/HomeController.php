@@ -10,6 +10,7 @@ use App\Models\PresupuestoDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Psy\VersionUpdater\Checker;
 
 class HomeController extends Controller
 {
@@ -17,7 +18,7 @@ class HomeController extends Controller
 
 
      $startOfMonth = Carbon::now()->startOfMonth();
-    $endOfMonth = Carbon::now()->endOfMonth();
+     $endOfMonth = Carbon::now()->endOfMonth();
 
       $totalVentas = CheckList::join('presupuestos','presupuestos.check_lists_id','=','check_lists.id')
       
@@ -114,8 +115,22 @@ class HomeController extends Controller
       'data' => $sales->pluck('subtotal')
   ];
 
-      return view('admin.index',compact('totals','totalComprasMes','totalVentas','totalCompras','registros','totalFinal'));
+  $checkList = CheckList::all();
 
+
+
+      return view('admin.index',compact('checkList','totals','totalComprasMes','totalVentas','totalCompras','registros','totalFinal'));
+
+
+    }
+
+
+    public function show($id){
+
+
+       //dd('holis');
+       
+      return view('admin.show',compact('id'));
 
     }
 }

@@ -71,6 +71,7 @@ class CheckCreate extends Component
 
    public $autos1;
    public $imagenCar;
+   public $fecha_intermedia;
 
   
 
@@ -301,7 +302,7 @@ public function updatedImage()
 
     public function store(){
 
-
+  //dd($this->fecha_intermedia);
 
       /* $ar2 = count($this->fields);
       dd($this->fields,$ar2,$this->fields[0]); */
