@@ -78,27 +78,11 @@ class CheckList extends Model
         return $this->morphMany(ImageFiles::class, 'imageable');
     }
 
-  /*    public function autos(): BelongsToMany
-    {
-        return $this->belongsToMany(Autos::class,'check_lists_id');
-    } 
-  */
- /*     public function autos()
-    {
-        return $this->belongsTo(Autos::class);
-    }  */
 
-  /*   public function autos()
-    {
-        return $this->belongsTo(Autos::class);
-    } */
-
-
-   /*  public function insumosVenta(){
-
-      return $this->belongsToMany(Insumo::class)->withPivot('venta', 'precioVenta','stockInicial','stockPostVenta');
-
-    } */
+    public function repuestos()
+{
+    return $this->hasMany(Repuesto::class);
+}
 
 
 }

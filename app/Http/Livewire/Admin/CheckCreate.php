@@ -16,9 +16,11 @@ use Illuminate\Http\Request;
 use App\Models\Kilometraje;
 use App\Models\Presupuesto;
 use App\Models\PresupuestoDetails;
+use App\Models\Repuesto;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
+use PhpParser\Node\Stmt\Foreach_;
 use Spatie\Permission\Models\Role;
 
 class CheckCreate extends Component
@@ -58,6 +60,8 @@ class CheckCreate extends Component
    public $precio = [];
    public $precioRepuestos = [];
    public $total = 0;
+  /*  public $totalRepuestos = 0; */
+  public $totalRepuestos = [];
 
    public $image;
    public $currentImage;
@@ -73,6 +77,12 @@ class CheckCreate extends Component
    public $imagenCar;
    public $fecha_intermedia;
 
+  public $repuestos = [];
+
+   public $selectedField;  //dato para el modal de repuestos
+
+   public $totalCalcular = 0;
+
   
 
    public function updatingSearch(){
@@ -87,18 +97,91 @@ class CheckCreate extends Component
       $this->reparar = Reparaciones::all();
       $this->aceites = Insumo::where('tipoProducto',1)->get();
 
-      $this->fields[] = ['id' => uniqid(),'trabajo'=> '','cantidad'=>1,'precio'=> 0,'repuestos'=>'','checkbox1'=>false,'checkbox2'=>false,'tipoAceite'=> 4,'cantidadRepuestos'=>1,'precioRepuestos'=>0,'amount'=>0,'imagen'=> null];
+      $this->fields[] = ['id' => uniqid(),'trabajo'=> '','cantidad'=>1,'precio'=> 0,'checkbox1'=>false,'checkbox2'=>false,'tipoAceite'=> 4,'amount'=>0,'imagen'=> null,'repuestos'=>[]];
 
-/*       $this->proveedores[] = ['nameRazonSocial'=>'','direccionProveedor'=>'','rutProveedor'=>'']; */
+
+     /* Array anterior con repuestos
+     
+     $this->fields[] = ['id' => uniqid(),'trabajo'=> '','cantidad'=>1,'precio'=> 0,'repuestos'=>'','checkbox1'=>false,'checkbox2'=>false,'tipoAceite'=> 4,'cantidadRepuestos'=>1,'precioRepuestos'=>0,'amount'=>0,'imagen'=> null,'repuestos'=>[]];
+      */
+
+
 
       $this->currentImage = $initialImage;
    }
 
    public function addField(){
 
-    $this->fields[] = ['id' => uniqid(),'trabajo'=>'','cantidad'=>1,'precio'=>0,'repuestos'=>'','checkbox1'=>false,'checkbox2'=>false,'tipoAceite'=> 4,'cantidadRepuestos'=>1,'precioRepuestos'=>0,'amount'=>0,'imagen'=> null];
+
+      /* Array anterior con repuestos
+     
+     $this->fields[] = ['id' => uniqid(),'trabajo'=> '','cantidad'=>1,'precio'=> 0,'repuestos'=>'','checkbox1'=>false,'checkbox2'=>false,'tipoAceite'=> 4,'cantidadRepuestos'=>1,'precioRepuestos'=>0,'amount'=>0,'imagen'=> null,'repuestos'=>[]];
+      */
+
+    $this->fields[] = ['id' => uniqid(),'trabajo'=>'','cantidad'=>1,'precio'=>0,'checkbox1'=>false,'checkbox2'=>false,'tipoAceite'=> 4,'amount'=>0,'imagen'=> null,'repuestos'=>[]];
     $this->calcularTotal();
 
+ 
+
+}
+
+public function addRepuesto($fieldId)
+{
+    $this->repuestos[$fieldId][] = ['id' => uniqid(),'nombreRepuestos' => '','precioRepuestos' => 0,'cantidadRepuestos' => 1,'amountRepuestos'=>0,'principalIdTable'=>$fieldId];
+
+   /*  
+   Se puede poner cada id del fields en este array 
+   $this->repuestos[$fieldId][] = ['nombre' => '','precio' => 0,'cantidad' => 1,'check_list_id'=>$fieldId];
+   
+   */
+}
+
+
+public function calcularAmountRepuestos($fieldId, $repIndex)
+{
+
+  //el $fieldIf es el id que queda como objeto que manda todo el array de inputs del modal
+    //dd($fieldId,$repIndex,$this->repuestos[$fieldId][$repIndex]);
+    $precio = intval($this->repuestos[$fieldId][$repIndex]['precioRepuestos'] ?? 0);
+    $cantidad = intval($this->repuestos[$fieldId][$repIndex]['cantidadRepuestos'] ?? 0);
+
+    $this->repuestos[$fieldId][$repIndex]['amountRepuestos'] = $precio * $cantidad;
+
+    $this->calcularRepuestosTotal($fieldId);
+}
+
+public function calcularRepuestosTotal($fieldId)
+{//aqui estoy sumando todos los amountRepuestos del array repuestos que le corresponden al determinado modal
+    $total = 0;
+
+    foreach ($this->repuestos[$fieldId] ?? [] as $repuesto) {
+        $total += intval($repuesto['amountRepuestos'] ?? 0);
+    }
+
+    $this->totalRepuestos[$fieldId] = $total;
+
+     // Buscar el índice del field que tiene este ID
+     foreach ($this->fields as $index => $field) {
+      if ($field['id'] === $fieldId) {
+          $this->calcularAmount($index);
+          $this->calcularTotal();
+          break;
+      }
+  }
+
+/*   dd($fieldId); */
+} 
+
+public function removeRepuesto($idFilaPrincipal,$repIndex){ //aqui esta resiviendo el id del array principal de la fila del array de inputs field y la ubicacion  o index del array repuestos, aqui se debe usar el index del array repuestos para borrar no el id de la fila fields
+
+
+  if (isset($this->repuestos[$idFilaPrincipal][$repIndex])) {
+
+    unset($this->repuestos[$idFilaPrincipal][$repIndex]);
+    $this->repuestos[$idFilaPrincipal] = array_values($this->repuestos[$idFilaPrincipal]);
+ /*    $this->calcularRepuestosTotal($idFilaPrincipal); */
+  
+  }
 }
   
 public function updatedFields($value, $name)
@@ -138,7 +221,19 @@ public function updatedFields($value, $name)
 
 public function calcularAmount($index){
 
-  $this->fields[$index]['amount'] = ($this->fields[$index]['cantidad'] * $this->fields[$index]['precio']) - $this->fields[$index]['cantidadRepuestos'] * $this->fields[$index]['precioRepuestos'] ; // matriz filas columnas ($index,amount)
+ /*  $this->fields[$index]['amount'] = ($this->fields[$index]['cantidad'] * $this->fields[$index]['precio']) - $this->fields[$index]['cantidadRepuestos'] * $this->fields[$index]['precioRepuestos']; */ // matriz filas columnas ($index,amount)
+
+ $field = $this->fields[$index];
+ $cantidad = intval($field['cantidad'] ?? 0);
+ $precio = intval($field['precio'] ?? 0);
+ $fieldId = $field['id'] ?? null;
+
+ // dd($fieldId);
+ $totalRepuestos = intval($this->totalRepuestos[$fieldId] ?? 0);
+ $this->fields[$index]['amount'] = ($cantidad * $precio) - $totalRepuestos;
+ //dd($totalRepuestos);
+ 
+ 
 }
 
 
@@ -146,22 +241,45 @@ public function calcularTotal()
 {
     $this->total = 0;
 
-    foreach ($this->fields as $index => $trabajo) {
+   /*Codigo anterior con repuestos */
 
-        $this->fields[$index]['total'] = (intval($trabajo['cantidad']) * intval($trabajo['precio'])) - intval($this->fields[$index]['cantidadRepuestos']) * intval($this->fields[$index]['precioRepuestos']);
+  $ay = array_sum($this->totalRepuestos);
+
+   foreach ($this->fields as $index => $trabajo) {
+
+        $this->fields[$index]['total'] = (intval($trabajo['cantidad']) * intval($trabajo['precio']));
+      
         $this->total += $this->fields[$index]['total'];
-    }
+
+       
+    } 
+
+    $this->totalCalcular = $this->total - $ay;
+
+/* 
+     if (count($this->fields) > 2) {
+        dd($this->totalCalcular);
+       //dd($this->total,$this->repuestos,$ay,$ax);
+    } */
+  
+}
+
+public function submit(){
+  
 }
 
 
 public function removeField($index){
 
   //  dd($this->fields[$index]);
-    unset($this->fields[$index]);
+    unset($this->fields[$index]); //el unset resive el id de la fila del array q queremos eliminar
     $this->fields = array_values($this->fields);
     $this->calcularTotal();
 
 }
+
+
+
 
 
 public function updatedImage()
@@ -302,6 +420,13 @@ public function updatedImage()
 
     public function store(){
 
+
+      $totRep  = array_sum($this->totalRepuestos);
+
+      
+
+    // dd($this->repuestos,$this->selectedField,$this->totalRepuestos,$this->totalCalcular,$totRep,$this->fields);
+
   //dd($this->fecha_intermedia);
 
       /* $ar2 = count($this->fields);
@@ -329,31 +454,96 @@ public function updatedImage()
 
         $presupuesto = Presupuesto::create([
 
-            'total' => $this->total,
-            'iva' => $this->total * 0.19,
-            'subtotal' => (($this->total * 0.19) + $this->total),
+            'total' => $this->totalCalcular,
+            'iva' => $this->totalCalcular * 0.19,
+            'subtotal' => (($this->totalCalcular * 0.19) + $this->totalCalcular),
             'check_lists_id' => $check_list->id
 
         ]);
 
 
-         foreach ($this->fields as $indexP => $presupuestos) {
-            $ar = array([
+        
+        /*  foreach ($this->fields as $indexP => $presupuestos) {
+
+
+              $ar = array([
                 
                 'trabajo' => $this->fields[$indexP]['trabajo'],
-                'descripcion' => $this->fields[$indexP]['repuestos'],
-                'cantidadRepuestos'=> $this->fields[$indexP]['cantidadRepuestos'],
-                'precioRepuestos' => $this->fields[$indexP]['precioRepuestos'],
-                'totalRepuestos' => $this->fields[$indexP]['precioRepuestos'] * $this->fields[$indexP]['cantidadRepuestos'],
+                'descripcion' => 'no',//$this->fields[$indexP]['repuestos']
+                'cantidadRepuestos'=> $rep, //$this->fields[$indexP]['cantidadRepuestos'],
+                'precioRepuestos' => 0, //$this->fields[$indexP]['precioRepuestos'],
+                'totalRepuestos' => $repTotal,//$this->fields[$indexP]['precioRepuestos'] * $this->fields[$indexP]['cantidadRepuestos'],
                 'cantidad' => $this->fields[$indexP]['cantidad'],
                 'precio' => $this->fields[$indexP]['precio'],
                 'amount'=> $this->fields[$indexP]['amount'],    
                 'presupuestos_id' => $presupuesto->id
 
                  ]);
-            PresupuestoDetails::insert($ar);
-        }
+                 PresupuestoDetails::insert($ar);
+        } */
 
+
+
+        //foreach para guardar la cantidad de repuestos por array y el total de repuestos por array
+
+        foreach ($this->repuestos as $principalId => $items) {
+          $totalCantidad = 0;
+          $totalAmount = 0;
+
+      
+          foreach ($items as $item) {
+              $totalCantidad +=  (int) $item['precioRepuestos'];//(int) $item['cantidadRepuestos'];
+              $totalAmount += (int) $item['amountRepuestos'];
+          }
+
+          // Aquí puedes guardar en la tabla el resumen por $principalId
+          foreach ($this->fields as $indexP => $presupuestos) {
+          
+
+            if ($this->fields[$indexP]['id'] == $item['principalIdTable'] ) {
+
+              $ar = array([
+                
+                'trabajo' => $this->fields[$indexP]['trabajo'],
+                'descripcion' => 'no',//$this->fields[$indexP]['repuestos']
+                'cantidadRepuestos'=> $totalCantidad, //$this->fields[$indexP]['cantidadRepuestos'],
+                'precioRepuestos' => 0, //$this->fields[$indexP]['precioRepuestos'],
+                'totalRepuestos' => $totalAmount,//$this->fields[$indexP]['precioRepuestos'] * $this->fields[$indexP]['cantidadRepuestos'],
+                'cantidad' => $this->fields[$indexP]['cantidad'],
+                'precio' => $this->fields[$indexP]['precio'],
+                'amount'=> $this->fields[$indexP]['amount'],    
+                'presupuestos_id' => $presupuesto->id
+                 ]);
+                 PresupuestoDetails::insert($ar);
+
+              
+            }
+
+          
+
+          }
+
+     
+      }
+
+
+
+
+        //Para guardar repuestos en repuestos
+        foreach ($this->repuestos as $grupo) {
+
+         
+          foreach ($grupo as $item) {
+
+           // dd($grupo,$item);
+              Repuesto::create([
+                  'nombre' => $item['nombreRepuestos'],
+                  'precio' => $item['cantidadRepuestos'],
+                  'cantidad' => $item['precioRepuestos'],
+                  'check_list_id' => $check_list->id
+              ]);
+          }
+      }
 
     
           

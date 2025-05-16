@@ -36,8 +36,10 @@ label {
 
 
 
+
 <div>
 
+  {{-- @livewire('admin.repuestos-modal') --}}
 
     <div class="card mt-5">
 
@@ -379,10 +381,12 @@ label {
                 <th>Trabajo</th>  
                 <th>Cantidad</th>  
                 <th>Precio</th>
-                <th>Repuestos</th>
+               {{--  <th>Repuestos</th> --}}
                 <th>Aceite</th>
-                <th>Cantidad Repuestos</th>
-                <th>Precio Repuestos</th>
+               {{--  <th>Cantidad Repuestos</th> --}}
+                {{-- <th>Precio Repuestos</th> --}}
+                
+                <th>Repuestos</th>
                 <th>Total</th>
                 <th>Archivo</th>
                 <th>  
@@ -424,13 +428,13 @@ label {
             </td>
 
 
-            <td>
+          {{--   <td>
               <div>
                  
                   <input type="text" id="repuestos_{{ $index }}" wire:model="fields.{{ $index }}.repuestos" class="form-control">
                   @error('fields.' . $index . '.repuestos') <span class="text-red-500">{{ $message }}</span> @enderror
               </div>
-           </td>
+           </td> --}}
 
            <td>
 
@@ -499,49 +503,135 @@ label {
 
            </td>
 
-           <td>
+         {{--   <td>
             <div>
                
                 <input type="number" min="0" id="cantidadRepuestos_{{ $index }}" wire:model.lazy="fields.{{ $index }}.cantidadRepuestos" wire:change="calcularAmount({{ $index }})" class="form-control">
                 @error('fields.' . $index . '.cantidadRepuestos') <span class="text-red-500">{{ $message }}</span> @enderror
             </div>
-             </td>
+             </td> --}}
 
 
-              <td>
+             {{--  <td>
               <div>
              
               <input type="number" min="0" id="precioRepuestos_{{ $index }}" wire:model.lazy="fields.{{ $index }}.precioRepuestos" wire:change="calcularAmount({{ $index }})" class="form-control">
               @error('fields.' . $index . '.precioRepuestos') <span class="text-red-500">{{ $message }}</span> @enderror
               </div>
-             </td>
+             </td> --}}
 
 
-               <td>
-               <div>
-           
-             <input type="number" id="amount_{{ $index }}" wire:model="fields.{{ $index }}.amount" class="form-control" readonly>
-            @error('fields.' . $index . '.amount') <span class="text-red-500">{{ $message }}</span> @enderror 
+             
 
-           
-               </div>
-                  </td>
-
-
+                  
                   <td>
 
                     <div>
+                      {{-- Boton del modal para repuestos --}}
+                      <button wire:click="$set('selectedField', '{{ $field['id'] }}')" data-bs-toggle="modal" data-bs-target="#modalRepuestos-{{ $field['id'] }}" class="btn-info btn-sm">+</button>
+                  
+                 {{--    <button type="button" wire:click="$emit('openModal')">Agregar Repuestos</button> --}}
                     
+                    </div>
+                    {{-- Modal para repuestos --}}
+                    <div wire:ignore.self class="modal fade" id="modalRepuestos-{{ $field['id'] }}" tabindex="-1" aria-labelledby="modalLabel-{{ $field['id'] }}" aria-hidden="true"> 
+                      <div class="modal-dialog modal-lg"> <!-- Puedes usar modal-lg para mayor espacio -->
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="modalLabel-{{ $field['id'] }}">Repuestos</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                              </div>
+                              <div class="modal-body">
+                                  <table class="table table-bordered align-middle text-center">
+                                      <thead class="table-light">
+                                          <tr>
+                                              <th>Nombre</th>
+                                              <th>Cantidad</th>
+                                              <th>Precio</th>
+                                              <th>Total</th>
+                                              <th>
+                                                  <button wire:click="addRepuesto('{{ $field['id'] }}')" class="btn btn-primary btn-sm">
+                                                      Agregar Repuesto +
+                                                  </button>
+                                              </th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          @foreach ($repuestos[$field['id']] ?? [] as $repIndex => $repuesto)
+                                              <tr>
+                                                <div wire:key="repuesto-{{ $repuesto['id'] }}" class="flex space-x-2 mb-4">
+                                                  <td>
+                                                      <input type="text" id="nombreRepuestos_{{ $repIndex }}" wire:model="repuestos.{{ $field['id'] }}.{{ $repIndex }}.nombreRepuestos" placeholder="Nombre" class="form-control">
+                                                  </td>
+                                                 
+                                                  <td>
+                                                      <input type="number" id="precioRepuestos_{{ $repIndex }}" wire:model.lazy="repuestos.{{ $field['id'] }}.{{ $repIndex }}.precioRepuestos" wire:change="calcularAmountRepuestos('{{ $field['id'] }}', {{ $repIndex }})" placeholder="Precio" class="form-control">
+                                                  </td>
 
+                                                  <td>
+                                                    <input type="number" id="cantidadRepuestos_{{ $repIndex }}" wire:model.lazy="repuestos.{{ $field['id'] }}.{{ $repIndex }}.cantidadRepuestos" wire:change="calcularAmountRepuestos('{{ $field['id'] }}', {{ $repIndex }})" min="1" class="form-control">
+                                                  </td>
+
+                                                  <td>                                                                            
+                                                    <input type="number" 
+                                                    id="amountRepuestos_{{ $repIndex }}" 
+                                                    wire:model="repuestos.{{ $field['id'] }}.{{ $repIndex }}.amountRepuestos" 
+                                                    class="form-control" 
+                                                    readonly>
+                                                
+                                                  </td>
+
+                                                  <td>
+
+                                                    <button class="btn btn-danger btn-sm" wire:click="removeRepuesto('{{ $field['id'] }}', {{ $repIndex }})">
+                                                      Eliminar
+                                                  </button> 
+                                                   
+                                                  </td>
+                                                </div>
+                                              </tr>
+                                          @endforeach
+                                      </tbody>
+
+                                      <tfoot>
+                                        <tr>
+                                          <td style="border: none"></td>
+                                           <td style="border: none"></td>
+                                           <td style="border: none"></td>  
+                                          
+                                       
+                                          <td ><b class="text-lg font-bold">Total:</b></td>
+                                          <td><b class="total"> ${{ number_format($totalRepuestos[$field['id']] ?? 0, 2) }}</b> </td>
+                                        </tr>
+                                  
+                                      </tfoot>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                
+                  </td>
+
+
+
+                  <td>
+                    <div>
+                
+                  <input type="number" id="amount_{{ $index }}" wire:model="fields.{{ $index }}.amount" class="form-control" readonly>
+                 @error('fields.' . $index . '.amount') <span class="text-red-500">{{ $message }}</span> @enderror 
+     
+                
+                    </div>
+                       </td>
+
+                  <td>
+                    <div>
                         <input type="file" wire:model="fields.{{ $index }}.imagen" class="form-control" id="file-input">
                         @error('fields.' . $index . '.imagen') <span class="text-red-500">{{ $message }}</span> @enderror 
-
-                     
-
                     </div>
 
                   </td>
-              
        </div>
 
             <td>
@@ -566,12 +656,13 @@ label {
         <td style="border: none"></td>
         <td style="border: none"></td>
         <td style="border: none"></td>
+        {{-- <td style="border: none"></td> --}}
         <td style="border: none"></td>
-        <td style="border: none"></td>
-        <td style="border: none"></td>
+      {{--   <td style="border: none"></td> --}}
+       {{--  <td style="border: none"></td> --}}
         <td style="border: none"></td>
         <td ><b class="text-lg font-bold">Total:</b></td>
-        <td><b class="total"> ${{ number_format($total, 2) }}</b> </td>
+        <td><b class="total"> ${{ number_format($totalCalcular, 2) }}</b> </td>
       </tr>
 
     </tfoot>
